@@ -1,0 +1,40 @@
+img.event-pic {
+    max-width: 100%;
+    height: auto;
+}
+
+.ls-1 {
+    letter-spacing: 1px;
+}
+
+.fw-1 {
+    font-weight: 100;
+}
+
+form.auth {
+    display: none;
+}
+
+form.auth.active {
+    display: block;
+}
+
+.bg-transparent {
+    background: transparent;
+}
+
+/* Landing Page styles */
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.landing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../../app/media/img/bg/bg-5.jpg');
+}
