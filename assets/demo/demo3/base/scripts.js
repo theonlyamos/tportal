@@ -1,9 +1,9 @@
 $(() => {
-  $('.section').load('/tportal/header/user/profile.html')
+  $('.section').load('../header/user/home.html')
 
   $(".pages a.m-nav__link").on('click', (e) => {
     e.preventDefault()
-    $('.section').load('/tportal/header/user/'+$(e.target).data("target"))
+    $('.section').load('../header/user/'+$(e.target).data("target"))
   })
 
   $('select.profession').on('change', (e) => {
