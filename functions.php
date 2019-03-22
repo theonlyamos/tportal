@@ -6,10 +6,10 @@
  * @version 1.0.0
  */
 
-$dbhost = 'localhost';
-$dbuser = 'dev';
-$dbpass = 'developer';
-$dbname = 'tportal';
+$dbhost = '	sql304.epizy.com';
+$dbuser = 'epiz_23637101';
+$dbpass = '0fBCiC73v';
+$dbname = 'epiz_23637101_tportal';
 
 $connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 if ($connection->connect_error) die($connection->connect_error);

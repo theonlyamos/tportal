@@ -1,3 +1,4 @@
+
 var SnippetLogin = function () {
   var e = $("#m_login"),
     i = function (e, i, a) {
@@ -37,19 +38,19 @@ var SnippetLogin = function () {
         }), l.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), l.ajaxSubmit({
           url: "login.php",
           success: function (e, t, r, s) {
-            console.log(e, t, r, s);
+            console.log(e, t, r);
             setTimeout(function () {
               a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "danger", "Incorrect username or password. Please try again.")
             }, 2e3)
           },
           error: function(r){
-            console.log(r, 'Error: Something is Wrong')
+            console.log(r.responseText)
           }
         }))
-      }), $("#m_login_signup_submit").click(function (l) {
+      }), $(".form-section").on('click', "#m_login_signup_submit", function (l) {
         l.preventDefault();
         var t = $(this),
-          r = $(this).closest("form");
+          r = $("form.auth");
         r.validate({
           rules: {
             fullname: {
@@ -61,22 +62,22 @@ var SnippetLogin = function () {
             },
             password: {
               required: !0
-            },
-            rpassword: {
-              required: !0
-            },
-            agree: {
-              required: !0
             }
           }
         }), r.valid() && (t.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), r.ajaxSubmit({
-          url: "",
-          success: function (l, s, n, o) {
+          url: "register.php",
+          method: "post",
+          success: function (g, s, n, o) {
             setTimeout(function () {
-              t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm(), a();
-              var l = e.find(".m-login__signin form");
-              l.clearForm(), l.validate().resetForm(), i(l, "success", "Thank you. To complete your registration please check your email.")
+              t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm()
+              //a();
+              var l = e.find(".m-login__signup form");
+              l.clearForm(), l.validate().resetForm(), i(l, "success", g)
             }, 2e3)
+            window.location = '/home'
+          },
+          error: function(e) {
+            console.log(e, Error)
           }
         }))
       }), $("#m_login_forget_password_submit").click(function (l) {
@@ -104,6 +105,9 @@ var SnippetLogin = function () {
     }
   }
 }();
+
+
 jQuery(document).ready(function () {
   SnippetLogin.init()
+
 });

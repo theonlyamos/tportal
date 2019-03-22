@@ -6,21 +6,21 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   $pass = sanitizeString($_POST['password']);
 
   if ($email == "" || $pass == ""){
-    $result["json"] = "Not all fields were entered!";
-    echo $result;
+    http_response_code(402);
+    echo "Not all fields are entered;";
   }
   else {
     $pass = createHash($pass, $email);
     $result = queryDB("SELECT * FROM users WHERE email='$email' AND  password='$pass'");
     
     if ($result->num_rows == 0) {
-      $result["json"] = "Invalid Login!";
-      echo $result;
+      http_response_code(402);
+      echo "User does not exists";
     }
     else {
       $row = $result->fetch_array(MYSQLI_ASSOC);
       session_start();
-      echo $row;
+      echo json_encode($row);
     }
   }
   

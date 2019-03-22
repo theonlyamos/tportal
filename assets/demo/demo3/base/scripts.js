@@ -7,8 +7,6 @@ $(() => {
   })
 
   $('select.profession').on('change', (e) => {
-    var t = $(e.target).val()
-    $('form.auth').removeClass('active')
-    $('form.'+t).addClass('active')
+    $('.form-section').load('./header/registration/'+e.target.value+'.html')
   })
 })
