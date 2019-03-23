@@ -24,7 +24,7 @@ var SnippetLogin = function () {
       l(), $("#m_login_signin_submit").click(function (e) {
         e.preventDefault();
         var a = $(this),
-          l = $(this).closest("form");
+          l = $("form.login");
         l.validate({
           rules: {
             email: {
