@@ -15,7 +15,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     
     if ($result->num_rows == 0) {
       http_response_code(402);
-      echo "User with $email does not exists";
+      echo "User with email: $email does not exists";
     }
     else {
       $row = $result->fetch_array(MYSQLI_ASSOC);
