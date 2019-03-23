@@ -7,9 +7,9 @@
  */
 
 $dbhost = "sql304.epizy.com";
-$dbuser = 'epiz_23637101';
-$dbpass = '0fBCiC73v';
-$dbname = 'epiz_23637101_tportal';
+$dbuser = "epiz_23637101";
+$dbpass = "30fBCiC73v";
+$dbname = "epiz_23637101_tportal";
 
 $connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 if ($connection->connect_error) die($connection->connect_error);

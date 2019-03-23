@@ -20,10 +20,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     else {
       $row = $result->fetch_array(MYSQLI_ASSOC);
       session_start();
-      echo json_encode($row);
+      echo "Hello";
     }
   }
   
+}
+else {
+  http_response_code(401);
+  echo "Not authorized";
 }
 
 ?>
