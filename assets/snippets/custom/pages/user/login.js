@@ -39,13 +39,10 @@ var SnippetLogin = function () {
           url: "login.php",
           method: "post",
           success: function (e, t, r, s) {
-            console.log(e, t, r);
-            setTimeout(function () {
-              a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "danger", "Incorrect username or password. Please try again.")
-            }, 2e3)
+            window.location = '/home'
           },
           error: function(r){
-            console.log(r.status, r.responseText)
+            a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "danger", r.responseText)
           }
         }))
       }), $(".form-section").on('click', "#m_login_signup_submit", function (l) {
@@ -69,16 +66,13 @@ var SnippetLogin = function () {
           url: "register.php",
           method: "post",
           success: function (g, s, n, o) {
-            console.log(g, s)
-            setTimeout(function () {
-              t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm()
-              //a();
-              var l = e.find(".m-login__signup form");
-              l.clearForm(), l.validate().resetForm(), i(l, "success", g)
-            }, 2e3)
+            window.location = '/home'
           },
           error: function(e) {
-            console.log(e, Error)
+            t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm()
+            //a();
+            var l = e.find(".m-login__signup form");
+            l.clearForm(), l.validate().resetForm(), i(l, "danger", e.responseText);
           }
         }))
       }), $("#m_login_forget_password_submit").click(function (l) {

@@ -1,3 +1,10 @@
+<?php
+if (!$_SESSION["loggedIn"]){
+	header("Location: /");
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -411,7 +418,10 @@
 											</div>
 											<div class="m-card-profile__details">
 												<span class="m-card-profile__name">Amos Amissah</span>
-												<a href="" class="m-card-profile__email m-link">amosamissah@outlook.com</a>
+												<a href="" class="m-card-profile__email m-link">
+														<?php
+														echo $_SESSION["user_email"];
+														?></a>
 												<div>
 													<a href="" class="m-card-profile__icon m-link">
 														<i class="m-nav__link-icon flaticon-facebook-logo-button text-info"></i>
