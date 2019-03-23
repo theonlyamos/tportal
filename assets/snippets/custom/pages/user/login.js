@@ -37,6 +37,7 @@ var SnippetLogin = function () {
           }
         }), l.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), l.ajaxSubmit({
           url: "login.php",
+          method: "post",
           success: function (e, t, r, s) {
             console.log(e, t, r);
             setTimeout(function () {
@@ -44,7 +45,7 @@ var SnippetLogin = function () {
             }, 2e3)
           },
           error: function(r){
-            console.log(r.responseText)
+            console.log(r.status, r.responseText)
           }
         }))
       }), $(".form-section").on('click', "#m_login_signup_submit", function (l) {

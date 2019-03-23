@@ -27,7 +27,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 }
 else {
   http_response_code(401);
-  echo "Not authorized";
+  echo json_encode($_POST);
 }
 
 ?>
