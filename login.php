@@ -20,7 +20,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     else {
       $row = $result->fetch_array(MYSQLI_ASSOC);
       session_start();
-      echo "Hello";
+      $_SESSION["loggedIn"] = "true";
+      $_SESSION["user_email"] = $row['email'];
+      echo json_encode($row);
     }
   }
   
