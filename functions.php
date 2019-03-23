@@ -37,7 +37,7 @@ function createTable($name, $query) {
 
 function createHash($pass, $email) {
   $salt = 'tportal';
-  return hash("sha256", $salt.$email);
+  return hash("sha256", $salt.$email.$pass);
 }
 
 ?>
