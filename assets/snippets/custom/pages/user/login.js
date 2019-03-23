@@ -68,13 +68,13 @@ var SnippetLogin = function () {
           url: "register.php",
           method: "post",
           success: function (g, s, n, o) {
+            console.log(g, s)
             setTimeout(function () {
               t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm()
               //a();
               var l = e.find(".m-login__signup form");
               l.clearForm(), l.validate().resetForm(), i(l, "success", g)
             }, 2e3)
-            window.location = '/home'
           },
           error: function(e) {
             console.log(e, Error)

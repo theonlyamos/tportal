@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-$dbhost = '	sql304.epizy.com';
+$dbhost = "sql304.epizy.com";
 $dbuser = 'epiz_23637101';
 $dbpass = '0fBCiC73v';
 $dbname = 'epiz_23637101_tportal';
@@ -37,7 +37,7 @@ function createTable($name, $query) {
 
 function createHash($pass, $email) {
   $salt = 'tportal';
-  return hash($pass, $salt.$email);
+  return hash("sha256", $salt.$email);
 }
 
 ?>

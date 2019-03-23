@@ -15,7 +15,7 @@ if (isset($_POST["profession"])){
     $fullname = sanitizeString($_POST["fullname"]);
     $username = sanitizeString($_POST["username"]);
     $password = sanitizeString($_POST["password"]);
-    $password = hash($password, "tportal".$email.$password);
+    $password = createHash($password, $email);
     $dob = $_POST["dob"];
     $gender = sanitizeString($_POST["gender"]);
     $cell = sanitizeString($_POST["cell"]);
