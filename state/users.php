@@ -418,6 +418,16 @@ License: You must have a valid license purchased only from themeforest(the above
 
             <!--Begin::Section-->
 						<div class="row">
+<?php
+require_once '/functions.php';
+
+$result = queryDB("SELECT fullname, email, profession FROM users");
+
+for ($j = 0; $j < $result->num_rows; ++$j){
+	$result->data_seek($j);
+	$user = $result->fetch_array(MYSQLI_NUM);
+
+	echo <<< _END
               <div class="col-xl-2">
                 <div class="m-portlet" style="border-radius: 5px;">
                   <div class="m-portlet__head p-0 justify-content-center" style="height: auto !important;">
@@ -429,14 +439,14 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="m-widget19__header">
                           <div class="m-widget19__info">
                             <span class="m-widget19__username">
-                              Prisha Bancock
+                              $user[0]
                             </span><br>
                             <span class="m-widget19__time">
-                              prishbank@gmail.com
+                              $user[1]
                             </span>
                             <span class="m-widget19__time pt-3">
                               Profession:
-                              <button type="button" class="btn btn-sm m-btn--pill btn-danger btn-brand"><i class="fa fa-football-ball fa-fw"></i>Player</button>
+                              <button type="button" class="btn btn-sm m-btn--pill btn-danger btn-brand"><i class="fa fa-football-ball fa-fw"></i>$user[2]</button>
                             </span>
                           </div>
                         </div>
@@ -447,7 +457,11 @@ License: You must have a valid license purchased only from themeforest(the above
                     <a href="" target="_blank" class="btn m-btn--square btn-outline-dark border-0 w-100">View Profile</a>
                   </div>
                 </div>
-              </div>
+							</div>
+_END;
+}
+?>
+<!--
               <div class="col-xl-2">
                 <div class="m-portlet" style="border-radius: 5px;">
                   <div class="m-portlet__head p-0 justify-content-center" style="height: auto !important;">
@@ -507,7 +521,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     <a href="" target="_blank" class="btn m-btn--square btn-outline-dark border-0 w-100">View Profile</a>
                   </div>
                 </div>
-              </div>
+							</div>
+-->
             </div>
             </div>
           </div>
