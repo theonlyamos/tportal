@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
+	header("Location: login.html");
+}
+
+?>
+
 <!DOCTYPE html>
 
 <!-- 

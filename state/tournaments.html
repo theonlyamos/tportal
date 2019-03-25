@@ -58,40 +58,164 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- begin::Body -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 		<!--begin::Modal-->
-    <div class="modal fade" id="m_modal_tournament" tabindex="-1" role="dialog" aria-labelledby="tournamentModalTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="tournamentModalTitle">Ticket #455452</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="alert m-alert--default text-center" role="alert">
-              <strong>Login Failure!</strong> 
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="form-control-label">Recipient</label>
-              <input type="text" class="form-control" id="recipient-name" readonly placeholder="Amos Amissah&lt;amosamissah@outlook.com&gt;">
-            </div>
-            <div class="form-group">
-              <label for="recipient-message" class="form-control-label">Content</label>
-              <p style="padding: 20px; margin: 10px 0 30px 0; border: 4px solid #efefef" id="m_blockui_1_content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Inceptos imperdiet magna! Sed fusce fames tempus litora venenatis ad: Ac aliquet leo hendrerit taciti viverra?
-              </p>
-            </div>
-            <form>
-                <div class="form-group">
-                  <label for="message-text" class="form-control-label">Reply</label>
-                  <textarea class="form-control md-input" id="message-text"></textarea>
-                </div>
-              </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+    <div class="modal fade modal-light" id="m_modal_tournament" tabindex="-1" role="dialog" aria-labelledby="tournamentModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
+        <div class="modal-content bg-dark">
+					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form" novalidate="novalidate" enctype="multipart/form-data">
+						<div class="modal-header">
+							<h5 class="modal-title text-white" id="tournamentModalTitle">Create Tournament</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="m-scrollable m-scroller ps ps--active-y" data-scrollbar-shown="true" data-scrollable="true" data-height="200" style="min-height: 70vh; overflow: hidden;">
+								<div class="m-portlet">
+									<div class="m-portlet__body">
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Title:</label>
+												<input type="text" name="title" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the title of the Tournament</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Description:</label>
+												<div class="md-editor" id="1553185306142">
+													<textarea name="description" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
+													<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
+													<span class="m-form__help">Please enter the description of the Tournament</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Address:</label>
+												<input type="text" name="address" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the address of the venue</span>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">City:</label>
+												<input type="text" name="city" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the city of the venue</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Venue Description:</label>
+												<div class="md-editor" id="1553185306142">
+													<textarea name="venue" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
+													<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
+													<span class="m-form__help">Please enter the description of the tournament venue</span>
+												</div>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">Tentative Dates</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-md-6 m-form__group-sub">
+												<div class="input-group">
+													<div class="input-group-prepend"><span class="input-group-text">Start</span></div>
+													<input type="date" name="startDate[]" class="form-control m-input" placeholder="" value="">
+												</div>
+											</div>
+											<div class="col-md-6 m-form__group-sub">
+												<div class="input-group">
+													<div class="input-group-prepend"><span class="input-group-text">End</span></div>
+													<input type="date" name="stopDate[]" class="form-control m-input" placeholder="" value="">
+												</div>
+											</div>
+											<div class="col-md-6 m-form__group-sub">
+												<div class="input-group">
+													<div class="input-group-prepend"><span class="input-group-text">Start</span></div>
+													<input type="date" name="startDate[]" class="form-control m-input" placeholder="" value="">
+												</div>
+											</div>
+											<div class="col-md-6 m-form__group-sub">
+												<div class="input-group">
+													<div class="input-group-prepend"><span class="input-group-text">End</span></div>
+													<input type="date" name="stopDate[]" class="form-control m-input" placeholder="" value="">
+												</div>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-md-12 m-form__group-sub">
+												<label class="form-control-label">Price Money:</label>
+												<div class="input-group">
+													<div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-dollar-sign"></i></span></div>
+													<input type="number" step="0.01" name="price" class="form-control m-input" placeholder="" value="">
+												</div>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">Contact Details</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Contact Person's Name</label>
+												<input type="text" name="contactName" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the name of the contact person</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Contact Number</label>
+												<input type="phone" name="contactPhone" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the phone number of the contact person</span>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Contact Email</label>
+												<input type="email" name="contactEmail" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the email of the contact person</span>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">Organizer Details</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Organizer Name</label>
+												<input type="text" name="organizerName" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the name of the organizer</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Organizer Number</label>
+												<input type="phone" name="organizerPhone" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the phone number of the organizer</span>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Organizer Email</label>
+												<input type="email" name="organizerEmail" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the email of the organizer</span>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Tournament Picture:</label>
+												<div class="custom-file">
+													<input type="file" name="image" class="custom-file-input" id="customFile" accept="image/*">
+													<label class="custom-file-label" for="customFile">Choose file</label>
+												</div>
+												<span class="m-form__help">Select a picture to be used as the tournament picture</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-warning"><i class="fa fa-save fa-fw"></i>Save</button>
+						</div>
+					</form>
         </div>
       </div>
     </div>
