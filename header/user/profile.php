@@ -1,4 +1,10 @@
+<?php
 
+$name = explode(" ",$_SESSION['user']['fullname']);
+$dob = $_SESSION['user']['dob'];
+$profession = $_SESSION['user']['profession'];
+
+echo <<< _END
 <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
   <div class="m-portlet__head">
       <div class="m-portlet__head-tools">
@@ -24,19 +30,19 @@
                   <div class="form-group m-form__group row">
                       <label for="example-text-input" class="col-2 col-form-label">Firstname</label>
                       <div class="col-7">
-                          <input class="form-control m-input" type="text" value="Amos" name="firstname" required>
+                          <input class="form-control m-input" type="text" value="$name[0]" name="firstname" required>
                       </div>
                   </div>
                   <div class="form-group m-form__group row">
                       <label for="example-text-input" class="col-2 col-form-label">Firstname</label>
                       <div class="col-7">
-                          <input class="form-control m-input" type="text" name="lastname" value="Amissah" required>
+                          <input class="form-control m-input" type="text" name="lastname" value="$name[1]" required>
                       </div>,
                   </div>
                   <div class="form-group m-form__group row">
                       <label for="example-text-input" class="col-2 col-form-label">Date of Birth</label>
                       <div class="col-7">
-                          <input class="form-control m-input" type="date" value="1900-08-19" name="dob", required>
+                          <input class="form-control m-input" type="date" value="$dob" name="dob", required>
                       </div>
                   </div>
                   <div class="form-group m-form__group row">
@@ -89,7 +95,7 @@
                   <div class="form-group m-form__group row">
                       <label for="example-text-input" class="col-2 col-form-label">Profession Type</label>
                       <div class="col-7">
-                          <input class="form-control m-input" name="profession" type="text" value="Player">
+                          <input class="form-control m-input" name="profession" type="text" value="$profession">
                       </div>
                   </div>
               </div>
@@ -113,4 +119,5 @@
       </div>
   </div>
 </div>
-            
+_END;
+?>
