@@ -27,10 +27,11 @@ if (isset($_POST["profession"])){
     $adhar = sanitizeString($_POST["adhar"]);
     $pan = sanitizeString($_POST["pan"]);
     $communication = sanitizeString($_POST["communication"]);
+    $communication = serialize($communication);
 
     $filename = $_FILES['pic']['name'];
     $picture = "$email_$filename";
-    move_uploaded_file($_FILES['pic']['tmp_name'], "/assets/data/profiles/$picture");
+    move_uploaded_file($_FILES['pic']['tmp_name'], "assets/data/profiles/$picture");
     
     if ($profession == "player"){
       //$blindness = sanitizeString($_POST["blindness"]);
@@ -51,10 +52,11 @@ if (isset($_POST["profession"])){
           echo "Wrong email/password. Try again!";
         }else{
           $row = $user->fetch_array(MYSQLI_ASSOC);
-          header("Location: /home");
+          //header("Location: /home");
           session_start();
           $_SESSION["loggedIn"] = "true";
           $_SESSION["user"] = $row;
+          echo json_encode($row);
         }
       }
       else {
@@ -106,10 +108,11 @@ if (isset($_POST["profession"])){
           echo "Wrong email/password. Try again!";
         }else{
           $row = $user->fetch_array(MYSQLI_ASSOC);
-          header("Location: /home");
+          //header("Location: /home");
           session_start();
           $_SESSION["loggedIn"] = "true";
           $_SESSION["user"] = $row;
+          echo json_encode($row);
         }
       }
       else {
