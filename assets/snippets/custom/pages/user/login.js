@@ -69,10 +69,11 @@ var SnippetLogin = function () {
             window.location = '/home'
           },
           error: function(e) {
+            console.log(e)
             t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm()
             //a();
             var l = e.find(".m-login__signup form");
-            l.clearForm(), l.validate().resetForm(), i(l, "danger", e.responseText);
+            l.clearForm(), l.validate().resetForm(), i(l, "error", e.responseText);
           }
         }))
       }), $("#m_login_forget_password_submit").click(function (l) {
