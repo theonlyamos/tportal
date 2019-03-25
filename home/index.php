@@ -544,7 +544,6 @@ if (!$_SESSION["loggedIn"]){
 												<div class="m-widget19__content">
 													<div class="m-widget19__header">
 														<div class="m-widget19__user-img">
-															<img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt="">
 															<?php
 																if ($_SESSION['user']['picture']){
 																	echo '<img class="m-widget19__img" src="../assets/data/profiles/'.$_SESSION['user']['picture'].'" alt="">';
