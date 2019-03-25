@@ -81,17 +81,17 @@ var WizardDemo = function () {
           url: "register.php",
           method: "post",
           success: function (r,s) {
-            console.log(r,s)
             mApp.unprogress(n), swal({
               title: "Registration Complete!",
               text: "The application has been successfully submitted!",
               type: "success",
               confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
             })
-
+            setTimeout(()=>{
+              window.location = '/home'
+            }, 1000);
           },
           error: function(e) {
-            console.log(e)
             mApp.unprogress(n), swal({
               title: "Error",
               text: e.responseText,

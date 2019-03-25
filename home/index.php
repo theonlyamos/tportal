@@ -311,7 +311,12 @@ if (!$_SESSION["loggedIn"]){
 										<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
-													<img src="../assets/app/media/img/users/neutral.png" alt="">
+<?php
+if ($_SESSION['user']['picture']){
+	echo '<img src="../assets/app/media/img/users/'.$_SESSION['user']['picture'].'" alt="">';
+}
+else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
+?>
 												</span>
 											</a>
 											<div class="m-dropdown__wrapper">
