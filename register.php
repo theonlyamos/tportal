@@ -79,10 +79,11 @@ if (isset($_POST["profession"])){
           echo "Wrong email/password. Try again!";
         }else{
           $row = $user->fetch_array(MYSQLI_ASSOC);
-          header("Location: /home");
+          //header("Location: /home");
           session_start();
           $_SESSION["loggedIn"] = "true";
           $_SESSION["user"] = $row;
+          echo json_encode($row);
         }
       }
       else {

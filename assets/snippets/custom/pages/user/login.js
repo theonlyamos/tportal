@@ -42,7 +42,7 @@ var SnippetLogin = function () {
             window.location = '/home'
           },
           error: function(r){
-            a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "danger", r.responseText)
+            a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "error", r.responseText)
           }
         }))
       }), $(".form-section").on('click', "#m_login_signup_submit", function (l) {
@@ -66,7 +66,7 @@ var SnippetLogin = function () {
           url: "register.php",
           method: "post",
           success: function (g, s, n, o) {
-            window.location = '/home'
+            console.log(g)
           },
           error: function(e) {
             console.log(e)
