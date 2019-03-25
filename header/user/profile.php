@@ -50,7 +50,14 @@ echo <<< _END
                       <div class="col-7">
                           <div class="m-radio-inline">
                               <label class="m-radio">
-                                  <input type="radio" value="male" name="gender" checked="$_SESSION[user][gender] == 'male' ? 'checked' : false"> Male
+_END;
+if ($_SESSION['user']['gender'] == 'male'){
+    echo '<input type="radio" value="male" name="gender" checked="checked"> Male';
+}
+else echo '<input type="radio" value="male" name="gender"> Male';
+
+echo <<< _END
+                                  
                                   <span></span>
                               </label>
                               <label class="m-radio">
