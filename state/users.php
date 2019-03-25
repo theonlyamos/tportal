@@ -428,7 +428,7 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 	$user = $result->fetch_array(MYSQLI_NUM);
 
 	echo <<< _END
-              <div class="col-xl-2">
+              <div class="col-md-4 col-lg-3 col-xl-2">
                 <div class="m-portlet" style="border-radius: 5px;">
                   <div class="m-portlet__head p-0 justify-content-center" style="height: auto !important;">
                     <img class="my-4" src="../assets/app/media/img/users/neutral.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
