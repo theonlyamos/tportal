@@ -419,7 +419,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <!--Begin::Section-->
 						<div class="row">
 <?php
-require_once '/functions.php';
+require_once '../functions.php';
 
 $result = queryDB("SELECT fullname, email, profession FROM users");
 
@@ -431,7 +431,7 @@ for ($j = 0; $j < $result->num_rows; ++$j){
               <div class="col-xl-2">
                 <div class="m-portlet" style="border-radius: 5px;">
                   <div class="m-portlet__head p-0 justify-content-center" style="height: auto !important;">
-                    <img class="my-4" src="../assets/app/media/img//users/user_2.jpg" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                    <img class="my-4" src="../assets/app/media/img/users/neutral.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
                   </div>
                   <div class="m-portlet__body p-0">
                     <div class="m-widget19">

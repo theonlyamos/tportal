@@ -415,14 +415,18 @@ if (!$_SESSION["loggedIn"]){
 										<div class="m-card-profile">
 											<div class="m-card-profile__pic">
 												<div class="m-card-profile__pic-wrapper">
-													<img src="../assets/app/media/img/users/profile_pic.jpg" alt="" />
+													<img src="../assets/app/media/img/users/neutral.png" alt="" />
 												</div>
 											</div>
 											<div class="m-card-profile__details">
-												<span class="m-card-profile__name">Amos Amissah</span>
+												<span class="m-card-profile__name">
+												<?php
+														echo $_SESSION["user"]["fullname"];
+												?></a>
+												</span>
 												<a href="" class="m-card-profile__email m-link">
 														<?php
-														echo $_SESSION["user_email"];
+														echo $_SESSION["user"]["email"];
 														?></a>
 												<div>
 													<a href="" class="m-card-profile__icon m-link">
@@ -517,14 +521,18 @@ if (!$_SESSION["loggedIn"]){
 												<div class="m-widget19__content">
 													<div class="m-widget19__header">
 														<div class="m-widget19__user-img">
-															<img class="m-widget19__img" src="../assets/app/media/img//users/profile_pic.jpg" alt="">
+															<img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt="">
 														</div>
 														<div class="m-widget19__info">
 															<span class="m-widget19__username">
-																Amos Amissah
+<?php
+																echo $_SESSION["user"]["fullname"]
+?>
 															</span><br>
 															<span class="m-widget19__time">
-																@amosamissah
+<?php
+																echo $_SESSION["user"]["email"]
+?>
 															</span>
 														</div>
 														<div class="m-widget19__stats">
@@ -532,7 +540,9 @@ if (!$_SESSION["loggedIn"]){
 																<i class="fa fa-football-ball"></i>
 															</span>
 															<span class="m-widget19__comment">
-																Player
+<?php
+																echo $_SESSION["user"]["profession"]
+?>
 															</span>
 														</div>
 													</div>
