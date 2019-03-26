@@ -61,7 +61,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <div class="modal fade modal-light" id="m_modal_tournament" tabindex="-1" role="dialog" aria-labelledby="tournamentModalTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
         <div class="modal-content bg-dark">
-					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form" novalidate="novalidate" enctype="multipart/form-data">
+					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_tournament" novalidate="novalidate" enctype="multipart/form-data">
+						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="tournament">
 						<div class="modal-header">
 							<h5 class="modal-title text-white" id="tournamentModalTitle">Create Tournament</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -75,7 +76,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										<div class="form-group m-form__group row">
 											<div class="col-lg-12 m-form__group-sub">
 												<label class="form-control-label">Title:</label>
-												<input type="text" name="title" class="form-control m-input" placeholder="" value="">
+												<input type="text" name="title" class="form-control m-input" placeholder="" value="Chess Tournament">
 												<span class="m-form__help">Please enter the title of the Tournament</span>
 											</div>
 										</div>
@@ -83,7 +84,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="col-lg-12 m-form__group-sub">
 												<label class="form-control-label">Description:</label>
 												<div class="md-editor" id="1553185306142">
-													<textarea name="description" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
+													<textarea name="description" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;">I don't Know</textarea>
 													<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
 													<span class="m-form__help">Please enter the description of the Tournament</span>
 												</div>
@@ -92,12 +93,12 @@ License: You must have a valid license purchased only from themeforest(the above
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Address:</label>
-												<input type="text" name="address" class="form-control m-input" placeholder="" value="">
+												<input type="text" name="address" class="form-control m-input" placeholder="" value="Prison's Road">
 												<span class="m-form__help">Please enter the address of the venue</span>
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">City:</label>
-												<input type="text" name="city" class="form-control m-input" placeholder="" value="">
+												<input type="text" name="city" class="form-control m-input" placeholder="" value="Takoradi">
 												<span class="m-form__help">Please enter the city of the venue</span>
 											</div>
 										</div>
@@ -119,25 +120,25 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="col-md-6 m-form__group-sub">
 												<div class="input-group">
 													<div class="input-group-prepend"><span class="input-group-text">Start</span></div>
-													<input type="date" name="startDate[]" class="form-control m-input" placeholder="" value="">
+													<input type="date" name="startDates[]" class="form-control m-input" placeholder="" value="">
 												</div>
 											</div>
 											<div class="col-md-6 m-form__group-sub">
 												<div class="input-group">
 													<div class="input-group-prepend"><span class="input-group-text">End</span></div>
-													<input type="date" name="stopDate[]" class="form-control m-input" placeholder="" value="">
+													<input type="date" name="endDates[]" class="form-control m-input" placeholder="" value="">
 												</div>
 											</div>
 											<div class="col-md-6 m-form__group-sub">
 												<div class="input-group">
 													<div class="input-group-prepend"><span class="input-group-text">Start</span></div>
-													<input type="date" name="startDate[]" class="form-control m-input" placeholder="" value="">
+													<input type="date" name="startDates[]" class="form-control m-input" placeholder="" value="">
 												</div>
 											</div>
 											<div class="col-md-6 m-form__group-sub">
 												<div class="input-group">
 													<div class="input-group-prepend"><span class="input-group-text">End</span></div>
-													<input type="date" name="stopDate[]" class="form-control m-input" placeholder="" value="">
+													<input type="date" name="endDates[]" class="form-control m-input" placeholder="" value="">
 												</div>
 											</div>
 										</div>
@@ -169,7 +170,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Contact Email</label>
-												<input type="email" name="contactEmail" class="form-control m-input" placeholder="" value="">
+												<input type="email" name="contactEmail" class="form-control m-input" placeholder="" value="jamesstefens18@gmail.com">
 												<span class="m-form__help">Please enter the email of the contact person</span>
 											</div>
 										</div>
@@ -192,7 +193,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Organizer Email</label>
-												<input type="email" name="organizerEmail" class="form-control m-input" placeholder="" value="">
+												<input type="email" name="organizerEmail" class="form-control m-input" placeholder="" value="theonlyamos@gmail.com">
 												<span class="m-form__help">Please enter the email of the organizer</span>
 											</div>
 										</div>
@@ -213,7 +214,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-warning"><i class="fa fa-save fa-fw"></i>Save</button>
+							<button type="submit" class="btn btn-warning" id="m_tournament_submit"><i class="fa fa-save fa-fw"></i>Save</button>
 						</div>
 					</form>
         </div>
@@ -551,7 +552,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					<div class="m-content">
 
             <!--Begin::Section-->
-						<div class="row">
+						<div class="row tournaments-section">
               <div class="col-xl-4">
                 <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
                   <div class="m-portlet__head m-portlet__head--fit">
@@ -1150,7 +1151,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--begin::Page Scripts -->
 		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
-
+		<script src="../assets/app/js/my-script.js" type="text/javascript"></script>
 		<!--end::Page Scripts -->
 	</body>
 

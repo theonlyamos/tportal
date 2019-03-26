@@ -1,3 +1,9 @@
+<?php
+if (!$_SESSION['loggedIn'] && !$_SESSION['user']['role'] == 'admin'){
+	header("Location: /");
+}
+?>
+
 <!DOCTYPE html>
 
 <!-- 
@@ -421,17 +427,22 @@ License: You must have a valid license purchased only from themeforest(the above
 <?php
 require_once '../functions.php';
 
-$result = queryDB("SELECT fullname, email, profession FROM users");
+$result = queryDB("SELECT username, city, profession, picture FROM users");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
-	$user = $result->fetch_array(MYSQLI_NUM);
+	$user = $result->fetch_array(MYSQLI_ASSOC);
 
 	echo <<< _END
               <div class="col-md-4 col-lg-3 col-xl-2">
                 <div class="m-portlet" style="border-radius: 5px;">
-                  <div class="m-portlet__head p-0 justify-content-center" style="height: auto !important;">
-                    <img class="my-4" src="../assets/app/media/img/users/neutral.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+									<div class="m-portlet__head p-0 justify-content-center" style="height: auto !important;">
+_END;
+if ($user['picture']) {
+	echo '<img class="my-4" src="../assets/data/profiles/'.$user[picture].'" alt="" style="width: 100px; height: 100px; border-radius: 50%;">';
+}
+else echo '<img class="my-4" src="../assets/app/media/img/users/neutral.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">';
+echo <<< _END
                   </div>
                   <div class="m-portlet__body p-0">
                     <div class="m-widget19">
@@ -439,14 +450,20 @@ for ($j = 0; $j < $result->num_rows; ++$j){
                         <div class="m-widget19__header">
                           <div class="m-widget19__info">
                             <span class="m-widget19__username">
-                              $user[0]
+                              @$user[username]
                             </span><br>
                             <span class="m-widget19__time">
-                              $user[1]
-                            </span>
+                              $user[city]
+														</span>
+														<br>
                             <span class="m-widget19__time pt-3">
-                              Profession:
-                              <button type="button" class="btn btn-sm m-btn--pill btn-danger btn-brand"><i class="fa fa-football-ball fa-fw"></i>$user[2]</button>
+															Profession:
+_END;
+if ($user['profession'] == 'player') echo '<button type="button" class="btn btn-sm m-btn--pill btn-danger btn-brand"><i class="fa fa-football-ball fa-fw"></i>'.$user[profession].'</button>';
+else if ($user['profession'] == 'arbiter') echo '<button type="button" class="btn btn-sm m-btn--pill btn-primary btn-brand"><i class="fa fa-flag fa-fw"></i>'.$user[profession].'</button>';
+else if ($user['profession'] == 'coach') echo '<button type="button" class="btn btn-sm m-btn--pill btn-warning btn-brand"><i class="fa fa-user-check fa-fw"></i>'.$user[profession].'</button>';
+
+echo <<< _END
                             </span>
                           </div>
                         </div>
@@ -460,69 +477,10 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 							</div>
 _END;
 }
+
+$result->close()
 ?>
-<!--
-              <div class="col-xl-2">
-                <div class="m-portlet" style="border-radius: 5px;">
-                  <div class="m-portlet__head p-0 justify-content-center" style="height: auto !important;">
-                    <img class="my-4" src="../assets/app/media/img//users/user_1.jpg" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
-                  </div>
-                  <div class="m-portlet__body p-0">
-                    <div class="m-widget19">
-                      <div class="m-widget19__content">
-                        <div class="m-widget19__header">
-                          <div class="m-widget19__info">
-                            <span class="m-widget19__username">
-                              Kofi Adams
-                            </span><br>
-                            <span class="m-widget19__time">
-                              kofiadams85@yahoo.com
-                            </span>
-                            <span class="m-widget19__time pt-3">
-                              Profession:
-                              <button type="button" class="btn btn-sm m-btn--pill btn-accent btn-brand"><i class="fa fa-flag fa-fw"></i>Arbiter</button>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="m-portlet__foot p-0">
-                    <a href="" target="_blank" class="btn m-btn--square btn-outline-dark border-0 w-100">View Profile</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-2">
-                <div class="m-portlet" style="border-radius: 5px;">
-                  <div class="m-portlet__head p-0 justify-content-center" style="height: auto !important;">
-                    <img class="my-4" src="../assets/app/media/img//users/profile_pic.jpg" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
-                  </div>
-                  <div class="m-portlet__body p-0">
-                    <div class="m-widget19">
-                      <div class="m-widget19__content">
-                        <div class="m-widget19__header">
-                          <div class="m-widget19__info">
-                            <span class="m-widget19__username">
-                              Amos Amissah
-                            </span><br>
-                            <span class="m-widget19__time">
-                              amosamissah@outlook.com
-                            </span>
-                            <span class="m-widget19__time pt-3">
-                              Profession:
-                              <button type="button" class="btn btn-sm m-btn--pill btn-primary btn-brand"><i class="fa fa-user-check fa-fw"></i>Coach</button>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="m-portlet__foot p-0">
-                    <a href="" target="_blank" class="btn m-btn--square btn-outline-dark border-0 w-100">View Profile</a>
-                  </div>
-                </div>
-							</div>
--->
+
             </div>
             </div>
           </div>

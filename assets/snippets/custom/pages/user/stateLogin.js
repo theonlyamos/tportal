@@ -36,13 +36,16 @@ var SnippetLogin = function () {
             }
           }
         }), l.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), l.ajaxSubmit({
-          url: "login.php",
+          url: "../login.php",
           method: "post",
           success: function (e, t, r, s) {
             window.location = '/home'
           },
           error: function(r){
-            a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "error", r.responseText)
+            if (r.status === 500)
+              a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "error", "Internal Server Error")
+            else
+              a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "error", r.responseText)
           }
         }))
       }), $("#m_login_signup_submit").click(function (l) {
@@ -63,7 +66,7 @@ var SnippetLogin = function () {
             }
           }
         }), r.valid() && (t.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), r.ajaxSubmit({
-          url: "register.php",
+          url: "../register.php",
           method: "post",
           success: function (g, s, n, o) {
             console.log(g)
@@ -72,8 +75,6 @@ var SnippetLogin = function () {
             console.log(e)
             t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm()
             //a();
-            var l = e.find(".m-login__signup form");
-            l.clearForm(), l.validate().resetForm(), i(l, "error", e.responseText);
           }
         }))
       }), $("#m_login_forget_password_submit").click(function (l) {

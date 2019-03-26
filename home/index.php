@@ -338,9 +338,9 @@ if (!$_SESSION["loggedIn"]){
 																echo $_SESSION['user']['fullname'];
 																?>
 																</span>
-																<a href="" class="m-card-user__email m--font-weight-300 m-link">
+																<a href="" class="m-card-user__email m--font-weight-300 m-link">@
 																<?php
-																	echo $_SESSION['user']['email'];
+																	echo $_SESSION['user']['username'];
 																?>
 																</a>
 															</div>
@@ -537,6 +537,17 @@ if (!$_SESSION["loggedIn"]){
 
 							<!--Right Aside-->
 							<div class="col-xl-3 col-lg-4 d-none d-xl-block">
+							<?php
+require_once '../functions.php';
+
+$result = queryDB("SELECT email, city, fullname, picture, profession FROM users WHERE email != '".$_SESSION[user][email]."'
+ORDER BY createdAt DESC LIMIT 3");
+
+for ($j = 0; $j < $result->num_rows; ++$j){
+	$result->data_seek($j);
+	$user = $result->fetch_array(MYSQLI_ASSOC);
+
+echo <<< _END
 								<div class="m-portlet m-portlet--bordered-semi m-portlet--rounded-force">
 									<a href="">
 										<div class="m-portlet__body p-1 px-2">
@@ -544,33 +555,27 @@ if (!$_SESSION["loggedIn"]){
 												<div class="m-widget19__content">
 													<div class="m-widget19__header">
 														<div class="m-widget19__user-img">
-															<?php
-																if ($_SESSION['user']['picture']){
-																	echo '<img class="m-widget19__img" src="../assets/data/profiles/'.$_SESSION['user']['picture'].'" alt="">';
-																}
-																else echo '<img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt="">';
-															?>
+_END;
+	if ($user['picture']){
+		echo '<img class="m-widget19__img" src="../assets/data/profiles/'.$user['picture'].'" alt="">';
+	}
+	else echo '<img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt="">';
+	echo <<< _END
 														</div>
 														<div class="m-widget19__info">
 															<span class="m-widget19__username">
-<?php
-																echo $_SESSION["user"]["fullname"]
-?>
+																$user[fullname]
 															</span><br>
 															<span class="m-widget19__time">
-<?php
-																echo $_SESSION["user"]["email"]
-?>
+																$user[city]
 															</span>
 														</div>
 														<div class="m-widget19__stats">
 															<span class="m-widget19__number m--font-brand">
-																<i class="fa fa-football-ball"></i>
+																<i class="flaticon-user-ok"></i>
 															</span>
 															<span class="m-widget19__comment">
-<?php
-																echo $_SESSION["user"]["profession"]
-?>
+																$user[profession]
 															</span>
 														</div>
 													</div>
@@ -579,6 +584,10 @@ if (!$_SESSION["loggedIn"]){
 										</div>
 									</a>
 								</div>
+_END;
+}
+$result->close();
+?>
 								<div class="m-portlet">
 									<div class="m-portlet__body">
 										<ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">

@@ -1,3 +1,16 @@
+<?php
+
+if ($_SESSION['loggedIn']){
+	if ($_SESSION['user']['role'] == 'user'){
+		header("Location: /home");
+	}
+	else if ($_SESSION['user']['role'] == 'admin'){
+		header("Location: /state");
+	}
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en-UK">
     <head>
