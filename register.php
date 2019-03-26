@@ -33,8 +33,8 @@ if (isset($_POST["profession"])){
 
       $query = "INSERT INTO states (email, password, name, organization, contact, phone,
       website, organizer, regNo, pan, objectives, contactPerson, contactNo, contactUrl, image) VALUES (
-      '$email', '$password', '$name', $organization', '$contact', '$phone',
-      '$website', '$organizer', '$regNo', '$npan', '$objectives', '$contactPerson', '$contactNo', '$contactUrl', '$image')";
+      '$email', '$password', '$name', $organization', '$contact', '$phone', '$website', '$organizer', '$regNo', 
+      '$pan', '$objectives', '$contactPerson', '$contactNo', '$contactUrl', '$image')";
 
       if (queryDB($query)) {
         $user = queryDB("SELECT * FROM states WHERE email='$email' AND  password='$password'");

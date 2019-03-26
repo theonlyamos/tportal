@@ -1,6 +1,6 @@
 <?php
 if (!$_SESSION['loggedIn'] && !$_SESSION['user']['role'] == 'admin'){
-	header("Location: /");
+	header("Location: /state");
 }
 ?>
 

@@ -70,10 +70,11 @@ var SnippetLogin = function () {
           method: "post",
           success: function (g, s, n, o) {
             console.log(g)
+            t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate()
           },
           error: function(e) {
             console.log(e)
-            t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm()
+            t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate()
             //a();
           }
         }))
