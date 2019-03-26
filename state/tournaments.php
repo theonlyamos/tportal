@@ -1,3 +1,9 @@
+<?php
+if (!$_SESSION['loggedIn'] && !$_SESSION['user']['role'] == 'admin'){
+	header("Location: login.html");
+}
+?>
+
 <!DOCTYPE html>
 
 <!-- 
@@ -402,7 +408,12 @@ License: You must have a valid license purchased only from themeforest(the above
 										 m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
-													<img src="../assets/app/media/img/users/profile_pic.jpg" alt="" />
+												<?php
+													if ($_SESSION['user']['image']){
+														echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
+													}
+													else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
+												?>
 												</span>
 											</a>
 											<div class="m-dropdown__wrapper">
@@ -411,11 +422,22 @@ License: You must have a valid license purchased only from themeforest(the above
 													<div class="m-dropdown__header m--align-center" style="background: url(../assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
-																<img src="../assets/app/media/img/users/profile_pic.jpg" alt="" />
+															<?php
+																if ($_SESSION['user']['image']){
+																	echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
+																}
+																else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
+															?>
 															</div>
 															<div class="m-card-user__details">
-																<span class="m-card-user__name m--font-weight-500">Lisa Strong</span>
-																<a href="" class="m-card-user__email m--font-weight-300 m-link">lisa.strong@gmail.com</a>
+																<?php
+																	echo $_SESSION['user']['name'];
+																	?>
+																	</span>
+																	<a href="" class="m-card-user__email m--font-weight-300 m-link">@
+																	<?php
+																		echo $_SESSION['user']['organization'];
+																?>
 															</div>
 														</div>
 													</div>

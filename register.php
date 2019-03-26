@@ -86,16 +86,16 @@ if (isset($_POST["profession"])){
       move_uploaded_file($_FILES['pic']['tmp_name'], "assets/data/profiles/$picture");
       
       if ($profession == "player"){
-        //$blindness = sanitizeString($_POST["blindness"]);
+        $blindness = sanitizeString($_POST["blindness"]);
         $national = sanitizeString($_POST["national"]);
         $fideid = sanitizeString($_POST["fideid"]);
         $fiderating = sanitizeString($_POST["fiderating"]);
         $aicfbid = sanitizeString($_POST["aicfbid"]);
 
         $query = "INSERT INTO users (email, password, username, fullname, profession, address, dob, picture, 
-        gender, city, phone, state, district, adhar, pan, communication, country, postal, fideid, fiderating, aicfbid, national) 
+        gender, city, phone, state, district, adhar, pan, communication, country, postal, fideid, fiderating, aicfbid, national, blindness) 
         VALUES('$email', '$password', '$username', '$fullname', '$profession', '$address', '$dob', '$picture', '$gender', '$city', '$phone', 
-        '$state', '$district', '$adhar', '$pan', '$communication', '$country', '$postal', '$fideid', '$fiderating', '$aicfbid', '$national')";
+        '$state', '$district', '$adhar', '$pan', '$communication', '$country', '$postal', '$fideid', '$fiderating', '$aicfbid', '$national', '$blindness')";
 
         if (queryDB($query)) {
           $user = queryDB("SELECT * FROM users WHERE email='$email' AND  password='$password'");

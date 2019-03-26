@@ -69,8 +69,7 @@ var SnippetLogin = function () {
           url: "../register.php",
           method: "post",
           success: function (g, s, n, o) {
-            console.log(g)
-            t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate()
+            window.location = '/state'
           },
           error: function(e) {
             console.log(e)
