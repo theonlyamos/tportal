@@ -32,9 +32,9 @@ if (isset($_POST["profession"])){
       move_uploaded_file($_FILES['image']['tmp_name'], 'assets/data/profiles/'.$image);
 
       $query = "INSERT INTO states (email, password, name, organization, contact, phone,
-      website, organizer, regNo, pan, objectives, contactPerson, contactNo, contactUrl, image) VALUES (
+      website, organizer, regNo, pan, objectives, contactPerson, contactPhone, contactUrl, image) VALUES (
       '$email', '$password', '$name', '$organization', '$contact', '$phone', '$website', '$organizer', '$regNo', 
-      '$pan', '$objectives', '$contactPerson', '$contactNo', '$contactUrl', '$image')";
+      '$pan', '$objectives', '$contactPerson', '$contactPhone', '$contactUrl', '$image')";
 
       if (queryDB($query)) {
         $user = queryDB("SELECT * FROM states WHERE email='$email' AND  password='$password'");
