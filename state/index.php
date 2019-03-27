@@ -640,7 +640,7 @@ $arbiters = 0;
 $coaches = 0;
 $players = 0;
 
-$results = queryDB("SELECT email FROM users");
+$results = queryDB("SELECT profession FROM users");
 for ($j = 0; $j < $result->num_rows; ++$j ){
 	$result->data_seek($j);
 	$rows = $result->fetch_array(MYSQLI_ASSOC);
