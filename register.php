@@ -17,6 +17,7 @@ if (isset($_POST["profession"])){
       $contact = sanitizeString($_POST["contact"]);
       $phone = sanitizeString($_POST["phone"]);
       $password = sanitizeString($_POST["password"]);
+      $password = createHash($pass, $email);
       $website = sanitizeString($_POST["website"]);
       $organizer = sanitizeString($_POST["organizer"]);
       $regNo = sanitizeString($_POST["regNo"]);
