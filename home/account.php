@@ -551,7 +551,9 @@ if (!$_SESSION["loggedIn"]){
                           <div class="form-group m-form__group row">
                               <label for="example-text-input" class="col-2 col-form-label">Email</label>
                               <div class="col-7">
-                                  <input class="form-control m-input" type="text" value="" name="email" required>
+<?php
+                                echo '<input class="form-control m-input" type="text" value="'.$_SESSION['user']['email'].'" name="email" required>';
+?>
                               </div>
                           </div>
                           <div class="form-group m-form__group row">
