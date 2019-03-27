@@ -13,7 +13,7 @@ if (!$_SESSION["loggedIn"]){
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>My Profile | Tournament</title>
+		<title>Home | Tournament Portal</title>
 		<meta name="description" content="User profile view and edit">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -464,13 +464,13 @@ if (!$_SESSION["loggedIn"]){
 												</div>
 											</div>
 										</div>
-										<ul class="m-nav m-nav--hover-bg m-portlet-fit--sides pages">
+										<ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
 											<li class="m-nav__separator m-nav__separator--fit"></li>
 											<li class="m-nav__section m--hide">
 												<span class="m-nav__section-text">Section</span>
 											</li>
 											<li class="m-nav__item">
-												<a href="header/profile&amp;demo=default.html" class="m-nav__link">
+												<a href="/home" class="m-nav__link">
 													<i class="m-nav__link-icon flaticon-home"></i>
 													<span class="m-nav__link-title">
 														<span class="m-nav__link-wrap">
@@ -480,7 +480,7 @@ if (!$_SESSION["loggedIn"]){
 												</a>
 											</li>
 											<li class="m-nav__item">
-												<a href="header/profile&amp;demo=default.html" class="m-nav__link">
+												<a href="profile.php" class="m-nav__link">
 													<i class="m-nav__link-icon flaticon-profile-1"></i>
 													<span class="m-nav__link-title">
 														<span class="m-nav__link-wrap">
@@ -490,37 +490,31 @@ if (!$_SESSION["loggedIn"]){
 												</a>
 											</li>
 											<li class="m-nav__item">
-												<a href="header/profile&amp;demo=default.html" class="m-nav__link" data-target="acount.html">
+												<a href="account.php" class="m-nav__link" data-target="acount.html">
 													<i class="m-nav__link-icon flaticon-user-settings"></i>
 													<span class="m-nav__link-text" data-target="account.html">Account Settings</span>
 												</a>
 											</li>
 											<li class="m-nav__item">
-												<a href="header/profile&amp;demo=default.html" class="m-nav__link">
+												<a href="tournaments.php" class="m-nav__link">
 													<i class="m-nav__link-icon flaticon-trophy"></i>
-													<span class="m-nav__link-text" data-target="my-tournaments.html">My Tournaments</span>
+													<span class="m-nav__link-text" data-target="my-tournaments.html">Tournaments</span>
 												</a>
 											</li>
 											<li class="m-nav__item">
-												<a href="header/profile&amp;demo=default.html" class="m-nav__link">
-													<i class="m-nav__link-icon flaticon-coins"></i>
-													<span class="m-nav__link-text" data-target="past-tournaments.html">Past Tournaments</span>
-												</a>
-											</li>
-											<li class="m-nav__item">
-												<a href="header/profile&amp;demo=default.html" class="m-nav__link">
+												<a href="contact.php" class="m-nav__link">
 													<i class="m-nav__link-icon flaticon-support"></i>
 													<span class="m-nav__link-text" data-target="contact-us.html">Contact Us</span>
 												</a>
 											</li>
 											<li class="m-nav__item">
-												<a href="header/profile&amp;demo=default.html" class="m-nav__link">
+												<a href="support.html" class="m-nav__link">
 													<i class="m-nav__link-icon flaticon-questions-circular-button"></i>
 													<span class="m-nav__link-text" data-target="support.html">Support</span>
 												</a>
 											</li>
 											<li class="m-nav__item">
-												<a href="header/profile&amp;demo=default.html" class="m-nav__link">
+												<a href="feedback.html" class="m-nav__link">
 													<i class="m-nav__link-icon flaticon-feed"></i>
 													<span class="m-nav__link-text" data-target="feedback.html">Feedback</span>
 												</a>
@@ -531,8 +525,95 @@ if (!$_SESSION["loggedIn"]){
 							</div>
 							
 							<!--Pages Section-->
-							<div class="col-xl-6 col-lg-8 section">
-								
+							<div class="col-xl-6 col-lg-8">
+								<div class="row">
+									<div class="col-sm-12 col-md-10 col-lg-11 col-xl-10 mx-auto">
+										<div class="m-portlet">
+											<!--begin::Form Post Form-->
+											<form class="m-form m-form--fit m-form--label-align-right">
+												<input type="hidden" name="action" value="post">
+												<div class="m-portlet__body">
+													<div class="form-group m-form__group row">
+														<div class="col-xl-12">
+															<div class="md-editor" id="1553185306142">
+																<textarea name="content" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea><div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div></div>
+														</div>
+													</div>
+													<div class="m-form__actions m-form__actions py-0">
+														<div class="row p-0">
+															<div class="col-lg-12 text-right">
+																<button type="submit" class="btn btn-brand">
+																	<i class="flaticon-comment"></i> Post</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</form>
+
+											<!--end::Form-->
+										</div>
+									</div>
+									<div class="col-xl-10 col-lg-11 col-md-10 mx-auto col-sm-12">
+										<div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
+											<div class="m-portlet__head m-portlet__head--fit">
+												<div class="m-portlet__head-caption">
+													<div class="m-portlet__head-action">
+														<button type="button" class="btn btn-sm m-btn--pill  btn-brand"><i class="flaticon-placeholder-2"></i>Accra</button>
+													</div>
+												</div>
+											</div>
+											<div class="m-portlet__body">
+												<div class="m-widget19">
+													<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides">
+														<img src="../assets/app/media/img//blog/blog1.jpg" alt="">
+														<h3 class="m-widget19__title m--font-light">
+															<i class="fa fa-trophy fa-fw fa-2x"></i>Chess Championship
+														</h3>
+														<div class="m-widget19__shadow"></div>
+													</div>
+													<div class="m-widget19__content">
+														<div class="m-widget19__header">
+															<div class="m-widget19__user-img">
+																<img class="m-widget19__img" src="../assets/app/media/img//users/profile_pic.jpg" alt="">
+															</div>
+															<div class="m-widget19__info">
+																<span class="m-widget19__username">
+																	Anna Krox
+																</span><br>
+																<span class="m-widget19__time">
+																	UX/UI Designer, Google
+																</span>
+															</div>
+															<div class="m-widget19__stats">
+																<span class="m-widget19__number m--font-brand">
+																	0
+																</span>
+																<span class="m-widget19__comment">
+																	Registered
+																</span>
+															</div>
+														</div>
+														<div class="m-widget19__header">
+																<div class="m-widget19__info">
+																	<span class="m-widget19__username">
+																		<i class="flaticon-calendar-with-a-clock-time-tools"></i>
+																		Sun, 17 Mar 2019 11:45:13 GMT
+																	</span>
+																</div>
+															</div>
+													</div>
+													<div class="m-widget19__action">
+														<button type="button" class="btn m-btn--pill m-btn btn-outline-info">
+																<i class="fa fa-check"></i>
+																Register
+															</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							
 							</div>
 
 							<!--Right Aside-->

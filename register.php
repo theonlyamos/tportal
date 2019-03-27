@@ -37,7 +37,7 @@ if (isset($_POST["profession"])){
       '$pan', '$objectives', '$contactPerson', '$contactPhone', '$document')";
 
       if (queryDB($query)) {
-        $user = queryDB("SELECT * FROM states WHERE email='$email' AND  password='$password'");
+        $user = queryDB("SELECT * FROM states WHERE organization='$organization' AND  password='$password'");
         if ($user->num_rows == 0) {
           http_response_code(402);
           echo "Wrong email/password. Try again!";
