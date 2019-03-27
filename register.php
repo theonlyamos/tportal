@@ -12,7 +12,7 @@ if (isset($_POST["profession"])){
       echo $email."already exists!";
     }
     else {
-      $name = sanitizeString($_POST["name"]);
+      $country = sanitizeString($_POST["country"]);
       $organization = sanitizeString($_POST["organization"]);
       $contact = sanitizeString($_POST["contact"]);
       $phone = sanitizeString($_POST["phone"]);
@@ -25,17 +25,16 @@ if (isset($_POST["profession"])){
       $objectives = sanitizeString($_POST["objectives"]);
       $contactPerson = sanitizeString($_POST["contactPerson"]);
       $contactPhone = sanitizeString($_POST["contactPhone"]);
-      $contactUrl = sanitizeString($_POST["contactUrl"]);
 
       $filename = $_FILES['image']['name'];
-      $image = $email.$filename;
+      $document = $email.$filename;
 
-      move_uploaded_file($_FILES['image']['tmp_name'], 'assets/data/profiles/'.$image);
+      move_uploaded_file($_FILES['image']['tmp_name'], 'assets/data/documents/'.$document);
 
-      $query = "INSERT INTO states (email, password, name, organization, contact, phone,
-      website, organizer, regNo, pan, objectives, contactPerson, contactPhone, contactUrl, image) VALUES (
-      '$email', '$password', '$name', '$organization', '$contact', '$phone', '$website', '$organizer', '$regNo', 
-      '$pan', '$objectives', '$contactPerson', '$contactPhone', '$contactUrl', '$image')";
+      $query = "INSERT INTO states (email, password, country, organization, contact, phone,
+      website, organizer, regNo, pan, objectives, contactPerson, contactPhone, contactUrl, document) VALUES (
+      '$email', '$password', '$country', '$organization', '$contact', '$phone', '$website', '$organizer', '$regNo', 
+      '$pan', '$objectives', '$contactPerson', '$contactPhone', '$document')";
 
       if (queryDB($query)) {
         $user = queryDB("SELECT * FROM states WHERE email='$email' AND  password='$password'");

@@ -55,12 +55,8 @@ var SnippetLogin = function () {
           r = $("form.auth");
         r.validate({
           rules: {
-            name: {
+            country: {
               required: !0
-            },
-            email: {
-              required: !0,
-              email: !0
             },
             password: {
               required: !0

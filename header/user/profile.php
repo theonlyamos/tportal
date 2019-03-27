@@ -1,9 +1,10 @@
 <?php
+session_start();
 
 $name = explode(" ",$_SESSION['user']['fullname']);
 $dob = $_SESSION['user']['dob'];
 $profession = $_SESSION['user']['profession'];
-
+echo '<h2>'.$name[0].'</h2>';
 echo <<< _END
 <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
   <div class="m-portlet__head">
@@ -34,7 +35,7 @@ echo <<< _END
                       </div>
                   </div>
                   <div class="form-group m-form__group row">
-                      <label for="example-text-input" class="col-2 col-form-label">Firstname</label>
+                      <label for="example-text-input" class="col-2 col-form-label">Lastname</label>
                       <div class="col-7">
                           <input class="form-control m-input" type="text" name="lastname" value="$name[1]" required>
                       </div>,
