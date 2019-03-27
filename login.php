@@ -41,7 +41,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         echo "User with email: $email does not exists";
       }
       else {
-        $user = queryDB("SELECT * FROM users WHERE email='$email' AND  password='$pass'");
+        $user = queryDB("SELECT * FROM states WHERE email='$email' AND  password='$pass'");
         if ($user->num_rows == 0) {
           http_response_code(402);
           echo "Wrong email/password. Try again!";
