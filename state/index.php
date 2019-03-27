@@ -632,23 +632,24 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="row">
 							<div class="col-xl-6">
 							<!--begin:: Widgets/Quick Stats-->
-<?php
-
+							<?php
 require_once '../functions.php';
 
-$arbiters = 0;
-$coaches = 0;
+$result = queryDB("SELECT username, profession FROM users");
+
 $players = 0;
+$coaches = 0;
+$arbiters = 0;
 
-$results = queryDB("SELECT profession FROM users");
-for ($j = 0; $j < $result->num_rows; ++$j ){
+for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
-	$rows = $result->fetch_array(MYSQLI_ASSOC);
+	$user = $result->fetch_array(MYSQLI_ASSOC);
 
-	if ($rows['profession'] == 'player') $players += 1;
-	else if($rows['profession'] == 'arbiter') $arbiters += 1;
-	else if($rows['profession'] == 'coach') $coaches += 1;
+	if ($user['profession'] == 'player') $players += 1;
+	else if ($user['profession'] == 'arbiter') $arbiters += 1;
+	else if ($user['profession'] == 'coach') $coaches += 1;
 }
+
 echo <<< _END
 								<div class="row m-row--full-height">
 									<div class="col-sm-12 col-md-12 col-lg-6">
