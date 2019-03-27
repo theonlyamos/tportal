@@ -34,7 +34,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       }
     }
     else {
-      $result = queryDB("SELECT email FROM users WHERE email='$email'");
+      $result = queryDB("SELECT email FROM states WHERE email='$email'");
       
       if ($result->num_rows == 0) {
         http_response_code(402);

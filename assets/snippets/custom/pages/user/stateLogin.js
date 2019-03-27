@@ -45,6 +45,7 @@ var SnippetLogin = function () {
             if (r.status === 500)
               a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "error", "Internal Server Error")
             else
+              console.log(r)
               a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "error", r.responseText)
           }
         }))
