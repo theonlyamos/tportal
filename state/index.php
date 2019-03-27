@@ -631,8 +631,25 @@ License: You must have a valid license purchased only from themeforest(the above
 						<!--Begin::Section-->
 						<div class="row">
 							<div class="col-xl-6">
+							<!--begin:: Widgets/Quick Stats-->
+<?php
 
-								<!--begin:: Widgets/Quick Stats-->
+require_once '../functions.php';
+
+$arbiters = 0;
+$coaches = 0;
+$players = 0;
+
+$results = queryDB("SELECT email FROM users");
+for ($j = 0; $j < $result->num_rows; ++$j ){
+	$result->data_seek($j);
+	$rows = $result->fetch_array(MYSQLI_ASSOC);
+
+	if ($rows['profession'] == 'player') $players += 1;
+	else if($rows['profession'] == 'arbiter') $arbiters += 1;
+	else if($rows['profession'] == 'coach') $coaches += 1;
+}
+echo <<< _END
 								<div class="row m-row--full-height">
 									<div class="col-sm-12 col-md-12 col-lg-6">
 										<div class="m-portlet m-portlet--half-height m-portlet--border-bottom-brand ">
@@ -653,7 +670,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="m-portlet__body">
 												<div class="m-widget26">
 													<div class="m-widget26__number">
-														0
+														$players
 														<small>All Players</small>
 													</div>
 													<div class="m-widget26__chart" style="height:90px; width: 220px;">
@@ -668,7 +685,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="m-portlet__body">
 												<div class="m-widget26">
 													<div class="m-widget26__number">
-														0
+														$arbiters
 														<small>All Arbiters</small>
 													</div>
 													<div class="m-widget26__chart" style="height:90px; width: 220px;">
@@ -682,7 +699,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="m-portlet__body">
 												<div class="m-widget26">
 													<div class="m-widget26__number">
-														0
+														$coaches
 														<small>All Coaches</small>
 													</div>
 													<div class="m-widget26__chart" style="height:90px; width: 220px;">
@@ -693,7 +710,8 @@ License: You must have a valid license purchased only from themeforest(the above
 										</div>
 									</div>
 								</div>
-
+_END;
+?>
 								<!--end:: Widgets/Quick Stats-->
 							</div>
 							<div class="col-xl-6">
