@@ -463,7 +463,12 @@ License: You must have a valid license purchased only from themeforest(the above
 										 m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
-													<img src="../assets/app/media/img/users/profile_pic.jpg" alt="" />
+												<?php
+													if ($_SESSION['user']['image']){
+														echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
+													}
+													else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
+												?>
 												</span>
 											</a>
 											<div class="m-dropdown__wrapper">
@@ -472,11 +477,22 @@ License: You must have a valid license purchased only from themeforest(the above
 													<div class="m-dropdown__header m--align-center" style="background: url(../assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
-																<img src="../assets/app/media/img/users/profile_pic.jpg" alt="" />
+															<?php
+																if ($_SESSION['user']['image']){
+																	echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
+																}
+																else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
+															?>
 															</div>
 															<div class="m-card-user__details">
-																<span class="m-card-user__name m--font-weight-500">Lisa Strong</span>
-																<a href="" class="m-card-user__email m--font-weight-300 m-link">lisa.strong@gmail.com</a>
+																<?php
+																	echo $_SESSION['user']['name'];
+																	?>
+																	</span>
+																	<a href="" class="m-card-user__email m--font-weight-300 m-link">@
+																	<?php
+																		echo $_SESSION['user']['organization'];
+																?>
 															</div>
 														</div>
 													</div>
@@ -500,33 +516,13 @@ License: You must have a valid license purchased only from themeforest(the above
 																<li class="m-nav__item">
 																	<a href="profile.html" class="m-nav__link">
 																		<i class="m-nav__link-icon flaticon-share"></i>
-																		<span class="m-nav__link-text">Activity</span>
-																	</a>
-																</li>
-																<li class="m-nav__item">
-																	<a href="profile.html" class="m-nav__link">
-																		<i class="m-nav__link-icon flaticon-chat-1"></i>
-																		<span class="m-nav__link-text">Messages</span>
+																		<span class="m-nav__link-text">Account Settings</span>
 																	</a>
 																</li>
 																<li class="m-nav__separator m-nav__separator--fit">
 																</li>
 																<li class="m-nav__item">
-																	<a href="profile.html" class="m-nav__link">
-																		<i class="m-nav__link-icon flaticon-info"></i>
-																		<span class="m-nav__link-text">FAQ</span>
-																	</a>
-																</li>
-																<li class="m-nav__item">
-																	<a href="profile.html" class="m-nav__link">
-																		<i class="m-nav__link-icon flaticon-lifebuoy"></i>
-																		<span class="m-nav__link-text">Support</span>
-																	</a>
-																</li>
-																<li class="m-nav__separator m-nav__separator--fit">
-																</li>
-																<li class="m-nav__item">
-																	<a href="snippets/pages/user/login-1.html" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
+																	<a href="snippets/pages/user/login-1.html" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
 																</li>
 															</ul>
 														</div>

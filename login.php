@@ -24,10 +24,19 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         echo "Wrong email/password. Try again!";
       }else{
         $row = $user->fetch_array(MYSQLI_ASSOC);
-        header("Location: /home");
-        session_start();
-        $_SESSION["loggedIn"] = "true";
-        $_SESSION["user"] = $row;
+        if ($row['role'] == 'admin'){
+          header("Location: /state");
+          session_start();
+          $_SESSION["loggedIn"] = "true";
+          $_SESSION["user"] = $row;
+        }
+        else {
+          header("Location: /home");
+          session_start();
+          $_SESSION["loggedIn"] = "true";
+          $_SESSION["user"] = $row;
+        }
+        
       }
     }
   }

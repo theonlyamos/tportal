@@ -39,7 +39,7 @@ var SnippetLogin = function () {
           url: "../login.php",
           method: "post",
           success: function (e, t, r, s) {
-            window.location = '/home'
+            window.location = '/state'
           },
           error: function(r){
             if (r.status === 500)
