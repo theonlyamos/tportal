@@ -31,9 +31,6 @@ var WizardDemo = function () {
           city: {
             required: !0
           },
-          state: {
-            required: !0
-          },
           country: {
             required: !0
           },
@@ -53,6 +50,7 @@ var WizardDemo = function () {
           }
         },
         invalidHandler: function (e, r) {
+          console.log(e, r);
           mUtil.scrollTop(), swal({
             title: "",
             text: "There are some errors in your submission. Please correct them.",
@@ -66,6 +64,7 @@ var WizardDemo = function () {
           url: "register.php",
           method: "post",
           success: function (r,s) {
+            console.log(r, s);
             mApp.unprogress(n), swal({
               title: "Registration Successful!",
               text: "You can log in when your application has been approved. Try later!",
