@@ -28,10 +28,13 @@ var WizardDemo = function () {
           phone: {
             required: !0
           },
-          district: {
+          city: {
             required: !0
           },
           state: {
+            required: !0
+          },
+          country: {
             required: !0
           },
           username: {

@@ -335,20 +335,20 @@ License: You must have a valid license purchased only from themeforest(the above
 																		</h3>
 																	</div>
 																	<div class="form-group m-form__group row">
-																		<div class="col-lg-6 m-form__group-sub option-input coach arbiter">
+																		<div class="col-lg-12 m-form__group-sub option-input coach arbiter">
 																			<label class="form-control-label">* Correspondence Address:</label>
 																			<input type="text" name="address" class="form-control m-input" placeholder="" value="">
 																			<span class="m-form__help">Street address, P.O. box, company name, c/o</span>
 																		</div>
-																		<div class="col-lg-6 m-form__group-sub">
-																			<label class="form-control-label">* District:</label>
-																			<input type="text" name="district" class="form-control m-input" placeholder="" value="">
-																		</div>
 																	</div>
-																	<div class="form-group m-form__group row ">
-																		<div class="col-lg-6 m-form__group-sub option-input player">
+																	<div class="form-group m-form__group row">
+																		<div class="col-lg-6 m-form__group-sub">
 																			<label class="form-control-label">* City:</label>
 																			<input type="text" name="city" class="form-control m-input" placeholder="" value="">
+																		</div>
+																		<div class="col-lg-6 m-form__group-sub">
+																			<label class="form-control-label">* State:</label>
+																			<input type="text" name="state" class="form-control m-input" placeholder="" value="">
 																		</div>
 																	</div>
 																	<div class="form-group m-form__group row">
@@ -357,9 +357,9 @@ License: You must have a valid license purchased only from themeforest(the above
 																			<input type="text" name="postal" class="form-control m-input" placeholder="" value="">
 																		</div>
 																		<div class="col-lg-6 m-form__group-sub">
-																			<label class="form-control-label">* State:</label>
+																			<label class="form-control-label">* Country:</label>
 																			<div>
-																				<select name="state" class="form-control m-input">
+																				<select name="country" class="form-control m-input">
 																					<option value="" selected>Select State</option>
 																					<option value="AF">Afghanistan</option>
 																					<option value="AX">Åland Islands</option>
@@ -615,8 +615,15 @@ License: You must have a valid license purchased only from themeforest(the above
 																		</div>
 																	</div>
 																	<div class="form-group m-form__group row">
-																		<div class="col-lg-12 m-form__group-sub option-input player">
-																			<label class="form-control-label">Medical Certificate</label>
+																		<div class="col-lg-6 m-form__group-sub option-input player">
+																			<label class="form-control-label">Profile Image</label>
+																			<div class="custom-file">
+																				<input type="file" name="picture" class="custom-file-input" id="customFile" accept="image/*">
+																				<label class="custom-file-label" for="customFile">Choose file</label>
+																			</div>
+																		</div>
+																		<div class="col-lg-6 m-form__group-sub option-input player">
+																			<label class="form-control-label">* Medical Certificate</label>
 																			<div class="custom-file">
 																				<input type="file" name="medcert" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,application/pdf">
 																				<label class="custom-file-label" for="customFile">Choose file (JPG,PNG,PDF)</label>
@@ -664,9 +671,9 @@ License: You must have a valid license purchased only from themeforest(the above
 																				<span class="m-form__help">Your trainer title</span>
 																			</div>
 																			<div class="col-lg-6 m-form__group-sub option-input player">
-																				<label class="form-control-label">National Level:</label>
-																				<input type="text" name="national" class="form-control m-input" placeholder="" value="">
-																				<span class="m-form__help">Your national level</span>
+																				<label class="form-control-label">National Rating:</label>
+																				<input type="text" name="rating" class="form-control m-input" placeholder="" value="">
+																				<span class="m-form__help">Your national rating</span>
 																			</div>
 																		</div>
 																		<div class="form-group m-form__group row option-input player arbiter">
@@ -682,17 +689,12 @@ License: You must have a valid license purchased only from themeforest(the above
 																			</div>
 																		</div>
 																		<div class="form-group m-form__group row">
-																			<div class="col-lg-6 m-form__group-sub option-input player">
-																				<label class="form-control-label">AICFBID:</label>
-																				<input type="text" name="aicfbid" class="form-control m-input" placeholder="" value="">
-																				<span class="m-form__help">Your AICFB ID</span>
-																			</div>
 																			<div class="col-lg-6 m-form__group-sub option-input coach arbiter">
-																				<label class="form-control-label">Experience:</label>
+																				<label class="form-control-label">Total Experience:</label>
 																				<input type="number" name="experience" class="form-control m-input" placeholder="" value="">
 																				<span class="m-form__help">Years of experience</span>
 																			</div>
-																			<div class="col-lg-6 m-form__group-sub option-input coach arbiter">
+																			<div class="col-lg-6 m-form__group-sub option-input arbiter">
 																				<label class="form-control-label">Type of Arbiter:</label>
 																				<input type="text" name="type" class="form-control m-input" placeholder="" value="">
 																				<span class="m-form__help">What type of arbiter?</span>
