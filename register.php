@@ -72,18 +72,18 @@ if (isset($_POST["profession"])){
       $dob = $_POST["dob"];
       $gender = sanitizeString($_POST["gender"]);
       $phone = sanitizeString($_POST["phone"]);
-      $address = sanitizeString($_POST["address"]);
       $district = sanitizeString($_POST["district"]);
-      $city = sanitizeString($_POST["city"]);
       $state = sanitizeString($_POST["state"]);
-      $country = sanitizeString($_POST["country"]);
       $adhar = sanitizeString($_POST["adhar"]);
       $pan = sanitizeString($_POST["pan"]);
-      $communication = serialize($_POST["communication"]);
 
-      $filename = $_FILES['pic']['name'];
-      $picture = $email.$filename;
-      move_uploaded_file($_FILES['pic']['tmp_name'], "assets/data/profiles/$picture");
+      $medcert = "";
+
+      if ($_FILES){
+        $filename = $_FILES['medcert']['name'];
+        $medcert = $email.$filename;
+        move_uploaded_file($_FILES['medcert']['tmp_name'], "assets/data/medical/$medcert");
+      }
       
       if ($profession == "player"){
         $blindness = sanitizeString($_POST["blindness"]);
@@ -91,11 +91,13 @@ if (isset($_POST["profession"])){
         $fideid = sanitizeString($_POST["fideid"]);
         $fiderating = sanitizeString($_POST["fiderating"]);
         $aicfbid = sanitizeString($_POST["aicfbid"]);
+        $city = sanitizeString($_POST["city"]);
+        $communication = serialize($_POST["communication"]);
 
-        $query = "INSERT INTO users (email, password, username, fullname, profession, address, dob, picture, 
-        gender, city, phone, state, district, adhar, pan, communication, country, postal, fideid, fiderating, aicfbid, national, blindness) 
-        VALUES('$email', '$password', '$username', '$fullname', '$profession', '$address', '$dob', '$picture', '$gender', '$city', '$phone', 
-        '$state', '$district', '$adhar', '$pan', '$communication', '$country', '$postal', '$fideid', '$fiderating', '$aicfbid', '$national', '$blindness')";
+        $query = "INSERT INTO users (email, password, username, fullname, profession, address, dob, medcert,
+        gender, city, phone, state, district, adhar, pan, communication, postal, fideid, fiderating, aicfbid, national, blindness) 
+        VALUES('$email', '$password', '$username', '$fullname', '$profession', '$address', '$dob', '$medcert', '$gender', '$city', '$phone', 
+        '$state', '$district', '$adhar', '$pan', '$communication', '$postal', '$fideid', '$fiderating', '$aicfbid', '$national', '$blindness')";
 
         if (queryDB($query)) {
           $user = queryDB("SELECT * FROM users WHERE email='$email' AND  password='$password'");
@@ -116,14 +118,15 @@ if (isset($_POST["profession"])){
         }
       }
       else if ($profession == "arbiter"){
+        $address = sanitizeString($_POST["address"]);
         $trainertitle = sanitizeString($_POST["trainertitle"]);
         $experience = sanitizeString($_POST["experience"]);
-        $address = sanitizeString($_POST["address"]);
+        $type = sanitizeString($_POST["type"]);
 
-        $query = "INSERT INTO users (email, password, username, fullname, profession, trainertitle, dob, picture,
-        gender, city, phone, state, district, adhar, pan, experience, address, postal, communication, country) 
-        VALUES('$email', '$password', '$username', '$fullname', '$profession', '$trainertitle', '$dob', '$picture', '$gender', '$city', 
-        '$phone', '$state', '$district', '$adhar', '$pan', '$experience', '$address', '$postal', '$communication', '$country')";
+        $query = "INSERT INTO users (email, password, username, fullname, profession, trainertitle, dob, 
+        gender, phone, state, district, adhar, pan, experience, state, address, type) 
+        VALUES('$email', '$password', '$username', '$fullname', '$profession', '$trainertitle', '$dob', '$gender', 
+        '$phone', '$state', '$district', '$adhar', '$pan', '$experience', '$state', '$address', '$type')";
 
         if (queryDB($query)) {
           $user = queryDB("SELECT * FROM users WHERE email='$email' AND  password='$password'");
@@ -145,11 +148,12 @@ if (isset($_POST["profession"])){
       }
       else if ($profession == "coach"){
         $experience = sanitizeString($_POST["experience"]);
+        $address = sanitizeString($_POST["address"]);
 
         $query = "INSERT INTO users (email, password, username, fullname, profession, dob, picture,
-        gender, city, phone, state, district, adhar, pan, experience, address, postal, communication, country) 
+        gender, city, phone, state, district, adhar, pan, experience, address, postal, communication, country, address) 
         VALUES('$email', '$password', '$username', '$fullname', '$profession', '$dob', '$picture', '$gender', '$city', '$phone', 
-        '$state', '$district', '$adhar', '$pan', '$experience', '$address', '$postal', '$communication', '$country')";
+        '$state', '$district', '$adhar', '$pan', '$experience', '$address', '$postal', '$communication', '$country', '$address')";
 
         if (queryDB($query)) {
           $user = queryDB("SELECT * FROM users WHERE email='$email' AND  password='$password'");

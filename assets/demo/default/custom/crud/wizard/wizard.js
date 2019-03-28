@@ -28,22 +28,10 @@ var WizardDemo = function () {
           phone: {
             required: !0
           },
-          address: {
-            required: !0
-          },
           district: {
             required: !0
           },
-          city: {
-            required: !0
-          },
           state: {
-            required: !0
-          },
-          country: {
-            required: !0
-          },
-          postal: {
             required: !0
           },
           username: {
@@ -53,12 +41,6 @@ var WizardDemo = function () {
           password: {
             required: !0,
             minlength: 6
-          },
-          pic: {
-            required: !0
-          },
-          "communication[]": {
-            required: !0
           },
           adhar: {
             required: !0,

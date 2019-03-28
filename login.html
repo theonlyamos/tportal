@@ -210,7 +210,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																				<label class="m-option">
 																					<span class="m-option__control">
 																						<span class="m-radio m-radio--state-brand">
-																							<input type="radio" name="profession" value="player">
+																							<input class="protype" type="radio" name="profession" value="player">
 																							<span></span>
 																						</span>
 																					</span>
@@ -233,7 +233,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																				<label class="m-option">
 																					<span class="m-option__control">
 																						<span class="m-radio m-radio--state-brand">
-																							<input type="radio" name="profession" value="arbiter">
+																							<input class="protype" type="radio" name="profession" value="arbiter">
 																							<span></span>
 																						</span>
 																					</span>
@@ -256,7 +256,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																				<label class="m-option">
 																					<span class="m-option__control">
 																						<span class="m-radio m-radio--state-brand">
-																							<input type="radio" name="profession" value="coach">
+																							<input class="protype" type="radio" name="profession" value="coach">
 																							<span></span>
 																						</span>
 																					</span>
@@ -319,13 +319,10 @@ License: You must have a valid license purchased only from themeforest(the above
 																			<span class="m-form__help">Enter your valid phone in US phone format. E.g: 1-541-754-3010</span>
 																		</div>
 																	</div>
-																	<div class="form-group m-form__group row">
+																	<div class="form-group m-form__group row option-input player">
 																		<div class="col-lg-6 m-form__group-sub">
 																			<label class="form-control-label">Blindness:</label>
-																			<div class="input-group">
-																				<div class="input-group-prepend"><span class="input-group-text"><i class="la la-envelope"></i></span></div>
-																				<input type="email" name="blindness" class="form-control m-input" placeholder="" value="">
-																			</div>
+																			<input type="text" name="blindness" class="form-control m-input" placeholder="" value="">
 																			<span class="m-form__help">Please enter your type of blindness if any</span>
 																		</div>
 																</div>
@@ -338,8 +335,8 @@ License: You must have a valid license purchased only from themeforest(the above
 																		</h3>
 																	</div>
 																	<div class="form-group m-form__group row">
-																		<div class="col-lg-6 m-form__group-sub">
-																			<label class="form-control-label">* Address:</label>
+																		<div class="col-lg-6 m-form__group-sub option-input coach arbiter">
+																			<label class="form-control-label">* Correspondence Address:</label>
 																			<input type="text" name="address" class="form-control m-input" placeholder="" value="">
 																			<span class="m-form__help">Street address, P.O. box, company name, c/o</span>
 																		</div>
@@ -348,26 +345,22 @@ License: You must have a valid license purchased only from themeforest(the above
 																			<input type="text" name="district" class="form-control m-input" placeholder="" value="">
 																		</div>
 																	</div>
-																	<div class="form-group m-form__group row">
-																		<div class="col-lg-6 m-form__group-sub">
+																	<div class="form-group m-form__group row ">
+																		<div class="col-lg-6 m-form__group-sub option-input player">
 																			<label class="form-control-label">* City:</label>
 																			<input type="text" name="city" class="form-control m-input" placeholder="" value="">
 																		</div>
-																		<div class="col-lg-6 m-form__group-sub">
-																			<label class="form-control-label">* State:</label>
-																			<input type="text" name="state" class="form-control m-input" placeholder="" value="">
-																		</div>
 																	</div>
 																	<div class="form-group m-form__group row">
-																		<div class="col-lg-6 m-form__group-sub">
+																		<div class="col-lg-6 m-form__group-sub option-input player">
 																			<label class="form-control-label">* Postal Code:</label>
 																			<input type="text" name="postal" class="form-control m-input" placeholder="" value="">
 																		</div>
 																		<div class="col-lg-6 m-form__group-sub">
-																			<label class="form-control-label">* Country:</label>
+																			<label class="form-control-label">* State:</label>
 																			<div>
-																				<select name="country" class="form-control m-input">
-																					<option value="">Select</option>
+																				<select name="state" class="form-control m-input">
+																					<option value="" selected>Select State</option>
 																					<option value="AF">Afghanistan</option>
 																					<option value="AX">Åland Islands</option>
 																					<option value="AL">Albania</option>
@@ -470,7 +463,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																					<option value="HK">Hong Kong</option>
 																					<option value="HU">Hungary</option>
 																					<option value="IS">Iceland</option>
-																					<option value="IN" selected>India</option>
+																					<option value="IN">India</option>
 																					<option value="ID">Indonesia</option>
 																					<option value="IR">Iran, Islamic Republic of</option>
 																					<option value="IQ">Iraq</option>
@@ -621,24 +614,20 @@ License: You must have a valid license purchased only from themeforest(the above
 																			</div>
 																		</div>
 																	</div>
-																</div>
-																<div class="m-separator m-separator--dashed m-separator--lg"></div>
-																<div class="m-form__section">
 																	<div class="form-group m-form__group row">
-																		<div class="col-lg-12 m-form__group-sub">
-																			<label class="form-control-label">* Profile Picture:</label>
+																		<div class="col-lg-12 m-form__group-sub option-input player">
+																			<label class="form-control-label">Medical Certificate</label>
 																			<div class="custom-file">
-																				<input type="file" name="pic" class="custom-file-input" id="customFile" accept="image/*">
-																				<label class="custom-file-label" for="customFile">Choose file</label>
+																				<input type="file" name="medcert" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,application/pdf">
+																				<label class="custom-file-label" for="customFile">Choose file (JPG,PNG,PDF)</label>
 																			</div>
-																			<span class="m-form__help">Select a picture to be used as your profice picture</span>
 																		</div>
 																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
-								
+													</div>
 													<!--end: Form Wizard Step 2-->
 								
 													<!--begin: Form Wizard Step 3-->
@@ -669,18 +658,18 @@ License: You must have a valid license purchased only from themeforest(the above
 																	</div>
 																	<div class="form-group m-form__group">
 																		<div class="form-group m-form__group row">
-																			<div class="col-lg-6 m-form__group-sub">
+																			<div class="col-lg-6 m-form__group-sub option-input coach">
 																				<label class="form-control-label">Trainer Title:</label>
 																				<input type="text" name="trainertitle" class="form-control m-input" placeholder="" value="">
 																				<span class="m-form__help">Your trainer title</span>
 																			</div>
-																			<div class="col-lg-6 m-form__group-sub">
+																			<div class="col-lg-6 m-form__group-sub option-input player">
 																				<label class="form-control-label">National Level:</label>
 																				<input type="text" name="national" class="form-control m-input" placeholder="" value="">
 																				<span class="m-form__help">Your national level</span>
 																			</div>
 																		</div>
-																		<div class="form-group m-form__group row">
+																		<div class="form-group m-form__group row option-input player arbiter">
 																			<div class="col-lg-6 m-form__group-sub">
 																				<label class="form-control-label">FideID:</label>
 																				<input type="text" name="fideid" class="form-control m-input" placeholder="" value="">
@@ -693,15 +682,20 @@ License: You must have a valid license purchased only from themeforest(the above
 																			</div>
 																		</div>
 																		<div class="form-group m-form__group row">
-																			<div class="col-lg-6 m-form__group-sub">
+																			<div class="col-lg-6 m-form__group-sub option-input player">
 																				<label class="form-control-label">AICFBID:</label>
 																				<input type="text" name="aicfbid" class="form-control m-input" placeholder="" value="">
 																				<span class="m-form__help">Your AICFB ID</span>
 																			</div>
-																			<div class="col-lg-6 m-form__group-sub">
+																			<div class="col-lg-6 m-form__group-sub option-input coach arbiter">
 																				<label class="form-control-label">Experience:</label>
 																				<input type="number" name="experience" class="form-control m-input" placeholder="" value="">
 																				<span class="m-form__help">Years of experience</span>
+																			</div>
+																			<div class="col-lg-6 m-form__group-sub option-input coach arbiter">
+																				<label class="form-control-label">Type of Arbiter:</label>
+																				<input type="text" name="type" class="form-control m-input" placeholder="" value="">
+																				<span class="m-form__help">What type of arbiter?</span>
 																			</div>
 																		</div>
 																		<div class="m-form__help">
@@ -733,7 +727,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																</div>
 																<div class="m-separator m-separator--dashed m-separator--lg"></div>
 																<div class="m-form__section">
-																	<div class="form-group m-form__group row">
+																	<div class="form-group m-form__group row option-input player">
 																		<div class="col-lg-12 m-form__group-sub">
 																			<label class="form-control-label">* Communications:</label>
 																			<div class="m-checkbox-inline">
@@ -769,7 +763,6 @@ License: You must have a valid license purchased only from themeforest(the above
 														</div>
 													</div>
 													<!--end: Form Wizard Step 3-->
-												</div>
 								
 												<!--end: Form Body -->
 								
@@ -804,7 +797,7 @@ License: You must have a valid license purchased only from themeforest(the above
 														</div>
 													</div>
 												</div>
-								
+												</div>
 												<!--end: Form Actions -->
 											</form>
 										</div>

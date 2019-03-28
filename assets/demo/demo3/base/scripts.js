@@ -1,13 +1,9 @@
 $(() => {
-  $('.section').load('../header/user/home.html')
 
-  $(".pages a.m-nav__link").on('click', (e) => {
-    e.preventDefault()
-    $('.section').load('../header/user/'+$(e.target).data("target"))
+
+  $(".protype[name='profession']").on('change', (e) => {
+    $(".option-input").hide();
+    $(".option-input."+e.target.value).show();
   })
-/*
-  $('select.profession').on('change', (e) => {
-    $('.form-section').load('./header/registration/'+e.target.value+'.html')
-  })
-*/
+
 })
