@@ -11,17 +11,17 @@ require 'PHPMailer/src/Exception.php';
 $mail = new PHPMailer(TRUE);
 
 try {
-  $mail->setFrom("naveenwebint@gmail.com", "Tportal.com");
+  $mail->setFrom("dummy@mysticmedia.in", "Tportal");
   $mail->addAddress("theonlyamos@gmail.com", "Amos Amissah");
   $mail->Subject ="Email Verification";
   $mail->isHTML(TRUE);
   $mail->Body = "<div>Click on the link below to complete your registration.<br><a href='google.com'>https://google.com</a></div>";
 
   $mail->isSMTP();
-  $mail->Host = "smtp-relay.sendinblue.com";
+  $mail->Host = "smtp.zoho.com";
   $mail->SMTPAuth = TRUE;
-  $mail->Username = "naveenwebint@gmail.com";
-  $mail->Password = "vWRD7OCcPqhZS1n4";
+  $mail->Username = "dummy@mysticmedia.in";
+  $mail->Password = "Dummymystic04#";
   $mail->Port = 587;
 
   $mail->send();

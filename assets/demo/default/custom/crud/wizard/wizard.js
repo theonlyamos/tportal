@@ -67,7 +67,7 @@ var WizardDemo = function () {
             console.log(r, s);
             mApp.unprogress(n), swal({
               title: "Registration Successful!",
-              text: "You can log in when your application has been approved. Try later!",
+              text: "Click on the link in the email we sent you to very your account!",
               type: "success",
               confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
             })

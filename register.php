@@ -1,5 +1,13 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
+
 require_once 'functions.php';
 
 if (isset($_POST["profession"])){
@@ -106,18 +114,26 @@ if (isset($_POST["profession"])){
         '$phone', '$state', '$country', '$adhar', '$pan', '$communication', '$postal', '$fideid', '$fiderating', '$rating', '$blindness')";
 
         if (queryDB($query)) {
-          $user = queryDB("SELECT * FROM users WHERE email='$email' AND  password='$password'");
-          if ($user->num_rows == 0) {
-            http_response_code(402);
-            echo "Wrong email/password. Try again!";
-          }else{
-            $row = $user->fetch_array(MYSQLI_ASSOC);
-            session_start();
-            $_SESSION["loggedIn"] = "true";
-            $_SESSION["user"] = $row;
-            http_response_code(201);
-            echo 'Registration Successful.';
-          }
+          $result = queryDB("SELECT id FROM users WHERE email = '$email'");
+          $user = $result->fetch_array(MYSQLI_ASSOC);
+
+          $mail = new PHPMailer(TRUE);
+          $mail->setFrom("dummy@mysticmedia.in", "Tportal");
+          $mail->addAddress($email, $fullname);
+          $mail->Subject ="Account Verification";
+          $mail->isHTML(TRUE);
+          $mail->Body = "<div>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify?token=".$user["id"]."'>http://tportal.epizy.com/account/verify?token=".$user["id"]."</a></div>";
+          $mail->isSMTP();
+          $mail->Host = "smtp.zoho.com";
+          $mail->SMTPAuth = TRUE;
+          $mail->Username = "dummy@mysticmedia.in";
+          $mail->Password = "Dummymystic04#";
+          $mail->Port = 587;
+          $mail->send();
+
+          $row = $user->fetch_array(MYSQLI_ASSOC);
+          http_response_code(201);
+          echo 'Registration Successful.';
         }
         else {
           http_response_code(500);
@@ -135,18 +151,26 @@ if (isset($_POST["profession"])){
         '$phone', '$city', '$state', '$country', '$adhar', '$pan', '$experience', '$address', '$type')";
 
         if (queryDB($query)) {
-          $user = queryDB("SELECT * FROM users WHERE email='$email' AND  password='$password'");
-          if ($user->num_rows == 0) {
-            http_response_code(402);
-            echo "Wrong email/password. Try again!";
-          }else{
-            $row = $user->fetch_array(MYSQLI_ASSOC);
-            session_start();
-            $_SESSION["loggedIn"] = "true";
-            $_SESSION["user"] = $row;
-            http_response_code(201);
-            echo 'Registration Successful.';
-          }
+          $result = queryDB("SELECT id FROM users WHERE email = '$email'");
+          $user = $result->fetch_array(MYSQLI_ASSOC);
+
+          $mail = new PHPMailer(TRUE);
+          $mail->setFrom("dummy@mysticmedia.in", "Tportal");
+          $mail->addAddress($email, $fullname);
+          $mail->Subject ="Account Verification";
+          $mail->isHTML(TRUE);
+          $mail->Body = "<div>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify?token=".$user["id"]."'>http://tportal.epizy.com/account/verify?token=".$user["id"]."</a></div>";
+          $mail->isSMTP();
+          $mail->Host = "smtp.zoho.com";
+          $mail->SMTPAuth = TRUE;
+          $mail->Username = "dummy@mysticmedia.in";
+          $mail->Password = "Dummymystic04#";
+          $mail->Port = 587;
+          $mail->send();
+
+          $row = $user->fetch_array(MYSQLI_ASSOC);
+          http_response_code(201);
+          echo 'Registration Successful.';
         }
         else {
           http_response_code(500);
@@ -160,23 +184,31 @@ if (isset($_POST["profession"])){
 
 
         $query = "INSERT INTO users (id, email, password, username, fullname, profession, dob, picture,
-        gender, city, phone, state, district, adhar, pan, experience, postal, communication, country, address) 
+        gender, city, phone, state, adhar, pan, experience, postal, communication, country, address) 
         VALUES(UUID(), '$email', '$password', '$username', '$fullname', '$profession', '$dob', '$picture', '$gender', '$city', 
-        '$phone', '$state', '$district', '$adhar', '$pan', '$experience', '$postal', '$communication', '$country', '$address')";
+        '$phone', '$state', '$adhar', '$pan', '$experience', '$postal', '$communication', '$country', '$address')";
 
         if (queryDB($query)) {
-          $user = queryDB("SELECT * FROM users WHERE email='$email' AND  password='$password'");
-          if ($user->num_rows == 0) {
-            http_response_code(402);
-            echo "Wrong email/password. Try again!";
-          }else{
-            $row = $user->fetch_array(MYSQLI_ASSOC);
-            session_start();
-            $_SESSION["loggedIn"] = "true";
-            $_SESSION["user"] = $row;
-            http_response_code(201);
-            echo 'Registration Successful.';
-          }
+          $result = queryDB("SELECT id FROM users WHERE email = '$email'");
+          $user = $result->fetch_array(MYSQLI_ASSOC);
+
+          $mail = new PHPMailer(TRUE);
+          $mail->setFrom("dummy@mysticmedia.in", "Tportal");
+          $mail->addAddress($email, $fullname);
+          $mail->Subject ="Account Verification";
+          $mail->isHTML(TRUE);
+          $mail->Body = "<div>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify?token=".$user["id"]."'>http://tportal.epizy.com/account/verify?token=".$user["id"]."</a></div>";
+          $mail->isSMTP();
+          $mail->Host = "smtp.zoho.com";
+          $mail->SMTPAuth = TRUE;
+          $mail->Username = "dummy@mysticmedia.in";
+          $mail->Password = "Dummymystic04#";
+          $mail->Port = 587;
+          $mail->send();
+
+          $row = $user->fetch_array(MYSQLI_ASSOC);
+          http_response_code(201);
+          echo 'Registration Successful.';
         }
         else {
           http_response_code(500);
