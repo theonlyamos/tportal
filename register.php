@@ -106,10 +106,11 @@ if (isset($_POST["profession"])){
             echo "Wrong email/password. Try again!";
           }else{
             $row = $user->fetch_array(MYSQLI_ASSOC);
-            header("Location: /home");
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $row;
+            http_response_code(201);
+            echo 'Registration Successful.';
           }
         }
         else {
@@ -135,10 +136,11 @@ if (isset($_POST["profession"])){
             echo "Wrong email/password. Try again!";
           }else{
             $row = $user->fetch_array(MYSQLI_ASSOC);
-            header("Location: /home");
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $row;
+            http_response_code(201);
+            echo 'Registration Successful.';
           }
         }
         else {
@@ -162,10 +164,11 @@ if (isset($_POST["profession"])){
             echo "Wrong email/password. Try again!";
           }else{
             $row = $user->fetch_array(MYSQLI_ASSOC);
-            header("Location: /home");
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $row;
+            http_response_code(201);
+            echo 'Registration Successful.';
           }
         }
         else {

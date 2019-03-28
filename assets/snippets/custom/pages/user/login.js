@@ -38,11 +38,16 @@ var SnippetLogin = function () {
         }), l.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), l.ajaxSubmit({
           url: "login.php",
           method: "post",
-          success: function (e, t, r, s) {
-            window.location = '/home'
+          success: function (e, t, q, s) {
+            if (e.status == 201){
+              t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), l.clearForm(), l.validate().resetForm(), a();
+              var r = e.find(".m-login__signup form");
+              r.clearForm(), r.validate().resetForm(), i(r, "success", "Your application has not been approved yet. Try again later!")
+            }
+            else window.location = '/home';
           },
           error: function(r){
-            a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "error", r.responseText)
+            a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(r, "error", q.responseText)
           }
         }))
       }), $("#m_login_signup_submit").click(function (l) {
@@ -66,7 +71,9 @@ var SnippetLogin = function () {
           url: "register.php",
           method: "post",
           success: function (g, s, n, o) {
-            console.log(g)
+            t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm(), a();
+            var l = e.find(".m-login__signup form");
+            l.clearForm(), l.validate().resetForm(), i(l, "success", "Your Application has been submitted. You will be notified when it has been approved.")
           },
           error: function(e) {
             console.log(e)

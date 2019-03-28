@@ -64,14 +64,11 @@ var WizardDemo = function () {
           method: "post",
           success: function (r,s) {
             mApp.unprogress(n), swal({
-              title: "Registration Complete!",
-              text: "The application has been successfully submitted!",
+              title: "Registration Successful!",
+              text: "You can log in when your application has been approved. Try later!",
               type: "success",
               confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
             })
-            setTimeout(()=>{
-              window.location = '/home'
-            }, 1000);
           },
           error: function(e) {
             mApp.unprogress(n), swal({
