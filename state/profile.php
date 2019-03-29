@@ -391,8 +391,8 @@ if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
 <															<?php
-																if ($_SESSION['user']['picture']){
-																	echo '<img src="../assets/data/profiles/'.$_SESSION['user']['picture'].'" alt="">';
+																if ($_SESSION['user']['image']){
+																	echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
 																}
 																else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
 															?>
@@ -521,8 +521,8 @@ if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
 															</div>
 															<div class="m-widget19__user-img" style="z-index: 1;">
 																<?php
-																	if ($_SESSION['user']['picture']){
-																		echo '<img class="m-widget19__img editable" src="../assets/data/profiles/'.$_SESSION['user']['picture'].'" alt="" style="width: 3.2em; margin-left: -3.2em; border-radius: 50%;">';
+																	if ($_SESSION['user']['image']){
+																		echo '<img class="m-widget19__img editable" src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="" style="width: 3.2em; margin-left: -3.2em; border-radius: 50%;">';
 																	}
 																	else echo '<img class="m-widget19__img editable" src="../assets/app/media/img/users/neutral.png" alt=""  style="width: 3.2em; margin-left: -3.2em; border-radius: 50%;">';
 																?>
@@ -593,11 +593,11 @@ if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
 																				<i class="edit-email editor flaticon-edit ml-2" style="cursor: pointer; display: none;" data-toggle="modal" data-target="#name_modal"></i></td>
 																		</tr>
 																		<tr>
-																			<td>Website</td>
+																			<td class="editable" data-field="website">Website</td>
 																				<?php
 																					echo $_SESSION['user']['website'];
 																				?>
-																			<td class="editable" data-field="website">https://facebook.com030<i class="edit-website editor flaticon-edit ml-2" style="cursor: pointer; display: none;" data-toggle="modal" data-target="#name_modal"></i></td>
+																			<i class="edit-website editor flaticon-edit ml-2" style="cursor: pointer; display: none;" data-toggle="modal" data-target="#name_modal"></i></td>
 																		</tr>
 																	</tbody>
 																</table>

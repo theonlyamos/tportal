@@ -503,7 +503,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																	<span class="m-nav__section-text">Section</span>
 																</li>
 																<li class="m-nav__item">
-																	<a href="profile.html" class="m-nav__link">
+																	<a href="profile.php" class="m-nav__link">
 																		<i class="m-nav__link-icon flaticon-profile-1"></i>
 																		<span class="m-nav__link-title">
 																			<span class="m-nav__link-wrap">
@@ -514,9 +514,9 @@ License: You must have a valid license purchased only from themeforest(the above
 																	</a>
 																</li>
 																<li class="m-nav__item">
-																	<a href="profile.html" class="m-nav__link">
+																	<a href="/state" class="m-nav__link">
 																		<i class="m-nav__link-icon flaticon-share"></i>
-																		<span class="m-nav__link-text">Account Settings</span>
+																		<span class="m-nav__link-text">Dashboard</span>
 																	</a>
 																</li>
 																<li class="m-nav__separator m-nav__separator--fit">
