@@ -21,7 +21,7 @@ if (isset($_POST["profession"])){
     }
     else {
       $country = sanitizeString($_POST["country"]);
-      $organization = sanitizeString($_POST["organization"]);
+      $name = sanitizeString($_POST["name"]);
       $contact = sanitizeString($_POST["contact"]);
       $phone = sanitizeString($_POST["phone"]);
       $password = sanitizeString($_POST["password"]);
@@ -39,7 +39,7 @@ if (isset($_POST["profession"])){
 
       move_uploaded_file($_FILES['image']['tmp_name'], 'assets/data/documents/'.$document);
 
-      $query = "INSERT INTO states (id, email, password, country, organization, contact, phone,
+      $query = "INSERT INTO states (id, email, password, country, name, contact, phone,
       website, organizer, regNo, pan, objectives, contactPerson, contactPhone, contactUrl, document) VALUES (UUID(),
       '$email', '$password', '$country', '$organization', '$contact', '$phone', '$website', '$organizer', '$regNo', 
       '$pan', '$objectives', '$contactPerson', '$contactPhone', '$document')";
@@ -87,7 +87,7 @@ if (isset($_POST["profession"])){
       $pan = sanitizeString($_POST["pan"]);
       
       $picture = NULL;
-      if ($_FILES){
+      if ($_FILES['picture']){
         $filename = $_FILES['picture']['name'];
         $picture = $email.$filename;
         move_uploaded_file($_FILES['medcert']['tmp_name'], "assets/data/medical/$picture");
@@ -102,7 +102,7 @@ if (isset($_POST["profession"])){
         $communication = serialize($_POST["communication"]);
 
         $medcert = NULL;
-        if ($_FILES){
+        if ($_FILES['medcert']){
           $filename = $_FILES['medcert']['name'];
           $medcert = $email.$filename;
           move_uploaded_file($_FILES['medcert']['tmp_name'], "assets/data/medical/$medcert");
@@ -122,7 +122,7 @@ if (isset($_POST["profession"])){
           $mail->addAddress($email, $fullname);
           $mail->Subject ="Account Verification";
           $mail->isHTML(TRUE);
-          $mail->Body = "<div>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify?token=".$user["id"]."'>http://tportal.epizy.com/account/verify?token=".$user["id"]."</a></div>";
+          $mail->Body = "<div>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify.php?token=".$user["id"]."'>http://tportal.epizy.com/account/verify.php?token=".$user["id"]."</a></div>";
           $mail->isSMTP();
           $mail->Host = "smtp.zoho.com";
           $mail->SMTPAuth = TRUE;
@@ -131,7 +131,6 @@ if (isset($_POST["profession"])){
           $mail->Port = 587;
           $mail->send();
 
-          $row = $user->fetch_array(MYSQLI_ASSOC);
           http_response_code(201);
           echo 'Registration Successful.';
         }
@@ -159,7 +158,7 @@ if (isset($_POST["profession"])){
           $mail->addAddress($email, $fullname);
           $mail->Subject ="Account Verification";
           $mail->isHTML(TRUE);
-          $mail->Body = "<div>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify?token=".$user["id"]."'>http://tportal.epizy.com/account/verify?token=".$user["id"]."</a></div>";
+          $mail->Body = "<div>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify.php?token=".$user["id"]."'>http://tportal.epizy.com/account/verify.php?token=".$user["id"]."</a></div>";
           $mail->isSMTP();
           $mail->Host = "smtp.zoho.com";
           $mail->SMTPAuth = TRUE;
@@ -168,7 +167,6 @@ if (isset($_POST["profession"])){
           $mail->Port = 587;
           $mail->send();
 
-          $row = $user->fetch_array(MYSQLI_ASSOC);
           http_response_code(201);
           echo 'Registration Successful.';
         }
@@ -197,7 +195,7 @@ if (isset($_POST["profession"])){
           $mail->addAddress($email, $fullname);
           $mail->Subject ="Account Verification";
           $mail->isHTML(TRUE);
-          $mail->Body = "<div>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify?token=".$user["id"]."'>http://tportal.epizy.com/account/verify?token=".$user["id"]."</a></div>";
+          $mail->Body = "<div>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify.php?token=".$user["id"]."'>http://tportal.epizy.com/account/verify.php?token=".$user["id"]."</a></div>";
           $mail->isSMTP();
           $mail->Host = "smtp.zoho.com";
           $mail->SMTPAuth = TRUE;
@@ -206,7 +204,6 @@ if (isset($_POST["profession"])){
           $mail->Port = 587;
           $mail->send();
 
-          $row = $user->fetch_array(MYSQLI_ASSOC);
           http_response_code(201);
           echo 'Registration Successful.';
         }

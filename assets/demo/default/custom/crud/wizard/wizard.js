@@ -67,10 +67,11 @@ var WizardDemo = function () {
             console.log(r, s);
             mApp.unprogress(n), swal({
               title: "Registration Successful!",
-              text: "Click on the link in the email we sent you to very your account!",
+              text: "Click on the link in the email we sent you to verify your account!",
               type: "success",
               confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
             })
+            window.location = '/';
           },
           error: function(e) {
             mApp.unprogress(n), swal({

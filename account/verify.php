@@ -17,5 +17,9 @@ if (queryDB($query)){
   $user = $result->fetch_array(MYSQLI_ASSOC);
   header("Location: /home");
   session_start();
+  $_SESSION["loggedIn"] = "true";
   $_SESSION['user'] = $user;
 }
+echo 'Token has expired.';
+
+?>

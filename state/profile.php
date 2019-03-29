@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
+	header("Location: login.html");
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,13 +45,83 @@
 
 		<script src="../assets/demo/demo3/base/jquery.min.js"></script>
 		<script src="../assets/demo/demo3/base/scripts.js"></script>
+		<script src="../assets/demo/demo3/base/state.js"></script>
 	</head>
 
 	<!-- end::Head -->
 
 	<!-- begin::Body -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+		<!--begin::Modals-->
+			<form id="edit_picture" method="post" enctype="multipart/form-data" novalidate="novalidate">
+				<input type="hidden" name="action" value="edit">
+				<input type="hidden" name="field" value="picture">
+				<input id="input-picture" type="file" name="value" accept="image/*" required>
+			</form>
+			<!--begin::Change Name Modal-->
+			<div class="modal fade" id="name_modal" tabindex="-1" role="dialog" aria-labelledby="nameModalCenterTitle" style="display: none;" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header bg-success">
+							<h5 class="modal-title text-white" id="nameModalLongTitle">Organization <span class="field"></span></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form id="editing_form" method="post" novalidate="novalidate">
+								<input type="hidden" name="action" value="edit">
+								<input type="hidden" name="field" value="name">
+								<div class="form-group m-form__group row">
+									<div class="col-lg-12 m-form__group-sub">
+										<input type="text" name="value" class="form-control m-input" placeholder="" value="" required>
+									</div>
+								</div>
+								<div class="m-form__help">
 
+									<!--must use this helper element to display error message for the options-->
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button id="edit_name" type="submit" class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--end::Change Name Modal-->
+			<!--begin::Change Description Modal-->
+			<div class="modal fade" id="description_modal" tabindex="-1" role="dialog" aria-labelledby="descriptionModalCenterTitle" style="display: none;" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 35%;">
+					<div class="modal-content">
+						<div class="modal-header bg-success">
+							<h5 class="modal-title text-white" id="descriptionModalLongTitle">Change Description</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body p-2">
+							<form id="description_form" class="col-lg-12">
+								<input type="hidden" name="action" value="edit">
+								<input type="hidden" name="field" value="description">
+								<div class="form-group m-form__group">
+									<div class="m-form__group-sub">
+										<div class="md-editor" id="1553185306142" style="border: 0 !important;">
+											<textarea name="description" class="form-control md-input" data-provide="markdown" rows="6" style="resize: none;"></textarea><div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button id="edit_description" type="submit" class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--end::Change Description Modal-->
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 
@@ -312,29 +390,25 @@
 													<div class="m-dropdown__header m--align-center" style="background: url(../assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
-<!--															<?php
+<															<?php
 																if ($_SESSION['user']['picture']){
 																	echo '<img src="../assets/data/profiles/'.$_SESSION['user']['picture'].'" alt="">';
 																}
 																else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
 															?>
-															-->
+															
 															<img src="../assets/app/media/img/users/neutral.png" alt="">
 															</div>
 															<div class="m-card-user__details">
 																<span class="m-card-user__name m--font-weight-500">
-<!--																<?php
-																echo $_SESSION['user']['fullname'];
+																<?php
+																echo $_SESSION['user']['name'];
 																?>
--->																Organization Name
 																</span>
 																<a href="" class="m-card-user__email m--font-weight-300 m-link">
-<!--
 																<?php
-																	echo "@".$_SESSION['user']['username'];
+																	echo $_SESSION['user']['country'];
 																?>
-																-->
-																State Name
 																</a>
 															</div>
 														</div>
@@ -346,7 +420,7 @@
 																	<span class="m-nav__section-text">Section</span>
 																</li>
 																<li class="m-nav__item">
-																	<a href="profile.html" class="m-nav__link">
+																	<a href="profile.php" class="m-nav__link">
 																		<i class="m-nav__link-icon flaticon-profile-1"></i>
 																		<span class="m-nav__link-title">
 																			<span class="m-nav__link-wrap">
@@ -357,9 +431,9 @@
 																	</a>
 																</li>
 																<li class="m-nav__item">
-																	<a href="profile.html" class="m-nav__link">
+																	<a href="/state" class="m-nav__link">
 																		<i class="m-nav__link-icon flaticon-share"></i>
-																		<span class="m-nav__link-text">Activity</span>
+																		<span class="m-nav__link-text">Dashboard</span>
 																	</a>
 																</li>
 																<li class="m-nav__item">
@@ -418,92 +492,181 @@
 
 				<!-- END: Left Aside -->
 				<div class="m-grid__item m-grid__item--fluid m-wrapper">
-					<div class="m-content">
+					<div class="m-content pt-0">
 						<div class="row">
-							
-							<!--Pages Section-->
-							<div class="col-xl-6 col-lg-8">
-								<div class="row">
-									<div class="col-sm-12 col-md-10 col-lg-11 col-xl-10 mx-auto">
-										<div class="m-portlet">
-											<!--begin::Form Post Form-->
-											<form class="m-form m-form--fit m-form--label-align-right">
-												<input type="hidden" name="action" value="post">
-												<div class="m-portlet__body">
-													<div class="form-group m-form__group row">
-														<div class="col-xl-12">
-															<div class="md-editor" id="1553185306142">
-																<textarea name="content" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea><div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div></div>
-														</div>
-													</div>
-													<div class="m-form__actions m-form__actions py-0">
-														<div class="row p-0">
-															<div class="col-lg-12 text-right">
-																<button type="submit" class="btn btn-brand">
-																	<i class="flaticon-comment"></i> Post</button>
-															</div>
-														</div>
-													</div>
-												</div>
-											</form>
 
-											<!--end::Form-->
-										</div>
-									</div>
+							<!--Pages Section-->
+							<div class="col-xl-10 mx-auto">
+								<div class="row justify-content-center align-items-center">
 									<div class="col-xl-10 col-lg-11 col-md-10 mx-auto col-sm-12">
 										<div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
 											<div class="m-portlet__head m-portlet__head--fit">
 												<div class="m-portlet__head-caption">
 													<div class="m-portlet__head-action">
-														<button type="button" class="btn btn-sm m-btn--pill  btn-brand"><i class="flaticon-placeholder-2"></i>Accra</button>
+														<button type="button" class="btn btn-sm m-btn--pill btn-success"><i class="flaticon-placeholder-2"></i>
+														<?php
+															echo $_SESSION['user']['country']
+														?>
+														</button>
 													</div>
 												</div>
 											</div>
 											<div class="m-portlet__body">
 												<div class="m-widget19">
-													<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides">
-														<img src="../assets/app/media/img//blog/blog1.jpg" alt="">
-														<h3 class="m-widget19__title m--font-light">
-															<i class="fa fa-trophy fa-fw fa-2x"></i>Chess Championship
+													<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides" style="max-height: 50vh; overflow: hidden;">
+														<img src="../assets/app/media/img/bg/bg-1.jpg" alt="">
+														<h3 class="m-widget19__title m--font-light d-flex justify-content-center align-items-center">
+															<div class="edit edit-picture d-flex align-items-center justify-content-center" style="opacity: 0; width: 3.2em; height: 3.2em; border-radius: 50%; background-color: rgba(10, 10, 10, 0.5); z-index: 2; cursor: pointer;" title="Change picture">
+																<i class="fa fa-edit"></i>
+															</div>
+															<div class="m-widget19__user-img" style="z-index: 1;">
+																<?php
+																	if ($_SESSION['user']['picture']){
+																		echo '<img class="m-widget19__img editable" src="../assets/data/profiles/'.$_SESSION['user']['picture'].'" alt="" style="width: 3.2em; margin-left: -3.2em; border-radius: 50%;">';
+																	}
+																	else echo '<img class="m-widget19__img editable" src="../assets/app/media/img/users/neutral.png" alt=""  style="width: 3.2em; margin-left: -3.2em; border-radius: 50%;">';
+																?>
+																
+															</div>
+									
+															<span class="editable editable-name" data-field="name" style="margin-left: 5px;">
+																<?php
+																	echo $_SESSION['user']['name'];
+																?>
+																<i class="edit-name editor flaticon-edit" style="cursor: pointer; display: none;" data-toggle="modal" data-target="#name_modal"></i>
+															</span>
+															
 														</h3>
 														<div class="m-widget19__shadow"></div>
 													</div>
 													<div class="m-widget19__content">
-														<div class="m-widget19__header">
-															<div class="m-widget19__user-img">
-																<img class="m-widget19__img" src="../assets/app/media/img//users/profile_pic.jpg" alt="">
-															</div>
-															<div class="m-widget19__info">
-																<span class="m-widget19__username">
-																	Anna Krox
-																</span><br>
-																<span class="m-widget19__time">
-																	UX/UI Designer, Google
-																</span>
-															</div>
-															<div class="m-widget19__stats">
-																<span class="m-widget19__number m--font-brand">
-																	0
-																</span>
-																<span class="m-widget19__comment">
-																	Registered
-																</span>
-															</div>
-														</div>
-														<div class="m-widget19__header">
-																<div class="m-widget19__info">
-																	<span class="m-widget19__username">
-																		<i class="flaticon-calendar-with-a-clock-time-tools"></i>
-																		Sun, 17 Mar 2019 11:45:13 GMT
-																	</span>
+														<div class="row mt-5">
+															<div class="m-portlet m-portlet--responsive-tablet-and-mobile col-lg-7">
+																<div class="m-portlet__head">
+																	<div class="m-portlet__head-caption">
+																		<div class="m-portlet__head-title">
+																			<span class="m-portlet__head-icon">
+																				<i class="flaticon-list"></i>
+																			</span>
+																			<h3 class="m-portlet__head-text">
+																				Description
+																			</h3>
+																		</div>
+																	</div>
+																	<div class="m-portlet__head-tools">
+																		<button class="btn btn-outline-primary m-btn--air m-btn--pill" data-toggle="modal" data-target="#description_modal"><i class="flaticon-edit-1"></i>Edit</button>
+																	</div>
+																</div>
+																<div class="m-portlet__body">
+																	<?php
+																		echo $_SESSION['user']['objectives'];
+																	?>
 																</div>
 															</div>
-													</div>
-													<div class="m-widget19__action">
-														<button type="button" class="btn m-btn--pill m-btn btn-outline-info">
-																<i class="fa fa-check"></i>
-																Register
-															</button>
+													
+															<div class="col-lg-5">
+																<label class="form-control-label"><b>Contact Details</b></label>
+																<table class="table table-striped table-borderless">
+																	<tbody>
+																		<tr>
+																			<td>Phone</td>
+																			<td class="editable" data-field="phone">
+																				<?php
+																					echo $_SESSION['user']['phone'];
+																				?>
+																				<i class="edit-phone editor flaticon-edit ml-2" style="cursor: pointer; display: none;" data-toggle="modal" data-target="#name_modal"></i></td>
+																		</tr>
+																		<tr>
+																			<td>Landline</td>
+																			<td class="editable" data-field="contact">
+																				<?php
+																					echo $_SESSION['user']['contact'];
+																				?>
+																				<i class="edit-contact editor flaticon-edit ml-2" style="cursor: pointer; display: none;" data-toggle="modal" data-target="#name_modal"></i></td>
+																		</tr>
+																		<tr>
+																			<td>Email</td>
+																			<td class="editable" data-field="email">
+																				<?php
+																					echo $_SESSION['user']['email'];
+																				?>
+																				<i class="edit-email editor flaticon-edit ml-2" style="cursor: pointer; display: none;" data-toggle="modal" data-target="#name_modal"></i></td>
+																		</tr>
+																		<tr>
+																			<td>Website</td>
+																				<?php
+																					echo $_SESSION['user']['website'];
+																				?>
+																			<td class="editable" data-field="website">https://facebook.com030<i class="edit-website editor flaticon-edit ml-2" style="cursor: pointer; display: none;" data-toggle="modal" data-target="#name_modal"></i></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+														<div class="row mt-5">
+															<div class="col-lg-10">
+															<div class="m-portlet m-portlet--brand m-portlet--head-solid-bg m-portlet--bordered">
+																	<div class="m-portlet__head">
+																		<div class="m-portlet__head-caption">
+																			<div class="m-portlet__head-title">
+																				<span class="m-portlet__head-icon">
+																					<i class="flaticon-cogwheel-2"></i>
+																				</span>
+																				<h3 class="m-portlet__head-text">
+																					Board Members
+																				</h3>
+																			</div>
+																		</div>
+																		<div class="m-portlet__head-tools">
+																			<div class="m-btn-group m-btn-group--pill btn-group mr-2" role="group" aria-label="...">
+																				<button type="button" class="m-btn btn btn-outline-light" title="Add Board Member"><i class="fa fa-plus-circle"></i></button>
+																				<button type="button" class="m-btn btn btn-outline-light" title="Delete Board Member(s)"><i class="la la-trash"></i></button>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="m-portlet__body">
+																		<table id="m_table_1" class="table table-borderless table-responsive">
+																			<thead class="bg-secondary">
+																				<tr>
+																					<th class="d-flex justify-content-center pb-0">
+																						<label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand">
+																							<input type="checkbox" value="" class="m-group-checkable">
+																							<span></span>
+																						</label>
+																					</th>
+																					<th>Name</th>
+																					<th>Position</th>
+																					<th>Phone</th>
+																					<th>Email</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<tr>
+																					<td class="d-flex justify-content-center pb-0">
+																						<label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand">
+																							<input type="checkbox" value="" class="m-group-checkable">
+																							<span></span>
+																						</label>
+																					</td>
+																					<td>
+																						<?php
+																							echo $_SESSION['user']['contactPerson'];
+																						?>
+																					</td>
+																					<td>Information Technology Officer</td>
+																					<td>
+																						<?php
+																							echo $_SESSION['user']['contactNo'];
+																						?>
+																					</td>
+																					<td></td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -1036,7 +1199,12 @@
 		<script src="../assets/demo/demo3/base/scripts.bundle.js" type="text/javascript"></script>
 
 		<!--end::Global Theme Bundle -->
+		<!--begin::Page Vendors -->
 		<script src="../assets/demo/default/custom/crud/forms/widgets/bootstrap-markdown.js" type="text/javascript"></script>
+		<!--end::Page Venders -->
+		<!--begin::Page Scripts -->
+
+		<!--end::Page Scripts-->
 	</body>
 
 	<!-- end::Body -->
