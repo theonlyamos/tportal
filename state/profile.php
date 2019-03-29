@@ -381,7 +381,12 @@ if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
 										<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
-													<img src="../assets/app/media/img/users/neutral.png" alt="">
+													<?php
+														if ($_SESSION['user']['image']){
+															echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
+														}
+														else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
+													?>
 												</span>
 											</a>
 											<div class="m-dropdown__wrapper">
@@ -390,14 +395,12 @@ if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
 													<div class="m-dropdown__header m--align-center" style="background: url(../assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
-<															<?php
+															<?php
 																if ($_SESSION['user']['image']){
 																	echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
 																}
 																else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
 															?>
-															
-															<img src="../assets/app/media/img/users/neutral.png" alt="">
 															</div>
 															<div class="m-card-user__details">
 																<span class="m-card-user__name m--font-weight-500">
