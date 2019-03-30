@@ -442,70 +442,55 @@ License: You must have a valid license purchased only from themeforest(the above
 					<div class="m-content">
 
             <!--Begin::Section-->
-						<div class="row">
-<?php
 
-session_start();
+						<!--Datatable Insert-->
+						<div class="m-portlet m-portlet--mobile">
+							<div class="m-portlet__head">
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">
+											Users
+									</div>
+								</div>
+							</div>
+							<div class="m-portlet__body">
+
+								<!--begin: Datatable -->
+								<table class="table table-bordered table-hover table-checkable" id="m_table_1">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th>Profession</th>
+											<th>Country</th>
+											<th>Email</th>
+											<th>Phone</th>
+											<th>Reg. Date</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+<?php
 
 require_once '../functions.php';
 
-echo '<h2>'.$_SESSION['user']['country'].'</h2>';
+$country = $_SESSION['user']['country'];
 
-$result = queryDB("SELECT username, city, profession, picture, country FROM users WHERE country = '$_SESSION[user][country]'");
+$result = queryDB("SELECT fullname, profession, country, email, createdAt FROM users WHERE country = '$country' ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$user = $result->fetch_array(MYSQLI_ASSOC);
 
 	echo <<< _END
-              <div class="col-md-4 col-lg-3 col-xl-2">
-                <div class="m-portlet" style="border-radius: 5px;">
-									<div class="m-portlet__head p-0 justify-content-center" style="height: auto !important;">
-_END;
-if ($user['picture']) {
-	echo '<img class="my-4" src="../assets/data/profiles/'.$user[picture].'" alt="" style="width: 100px; height: 100px; border-radius: 50%;">';
-}
-else echo '<img class="my-4" src="../assets/app/media/img/users/neutral.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">';
-echo <<< _END
-                  </div>
-                  <div class="m-portlet__body p-0">
-                    <div class="m-widget19">
-                      <div class="m-widget19__content">
-                        <div class="m-widget19__header">
-                          <div class="m-widget19__info">
-                            <span class="m-widget19__username">
-                              @$user[username]
-                            </span><br>
-                            <span class="m-widget19__time">
-                              $user[city]
-														</span>
-														<br>
-                            <span class="m-widget19__time pt-3">
-															Profession:
-_END;
-if ($user['profession'] == 'player') echo '<button type="button" class="btn btn-sm m-btn--pill btn-danger btn-brand"><i class="fa fa-football-ball fa-fw"></i>'.$user[profession].'</button>';
-else if ($user['profession'] == 'arbiter') echo '<button type="button" class="btn btn-sm m-btn--pill btn-primary btn-brand"><i class="fa fa-flag fa-fw"></i>'.$user[profession].'</button>';
-else if ($user['profession'] == 'coach') echo '<button type="button" class="btn btn-sm m-btn--pill btn-warning btn-brand"><i class="fa fa-user-check fa-fw"></i>'.$user[profession].'</button>';
-
-echo <<< _END
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="m-portlet__foot p-0">
-                    <a href="" target="_blank" class="btn m-btn--square btn-outline-dark border-0 w-100">View Profile</a>
-                  </div>
-                </div>
-							</div>
+									<tr><td>$user[fullname]</td><td>$user[profession]</td><td>$user[country]</td><td>$user[email]</td><td>$user[phone]</td>
+											<td>$user[createdAt]</td><td><div class="m-badge m-badge--wide m-badge-primary">pending</div></td></tr>
 _END;
 }
-
-$result->close()
 ?>
-
-            </div>
+									</tbody>
+								</table>
+							</div>
+						</div>
             </div>
           </div>
 				</div>

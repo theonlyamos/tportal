@@ -577,87 +577,67 @@ License: You must have a valid license purchased only from themeforest(the above
 					<!-- END: Subheader -->
 					<div class="m-content">
 
-            <!--Begin::Section-->
-						<div class="row tournaments-section">
+						<!--Begin::Section-->
+						<!--Datatable Insert-->
+						<div class="m-portlet m-portlet--mobile">
+							<div class="m-portlet__head">
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">
+											Tournaments
+									</div>
+								</div>
+								<div class="m-portlet__head-tools">
+									<ul class="m-portlet__nav">
+										<li class="m-portlet__nav-item">
+											<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air" data-toggle="modal" data-target="#m_modal_tournament">
+												<span>
+													<i class="la la-cart-plus"></i>
+													<span>New Tournament</span>
+												</span>
+											</a>
+										</li>
+										<li class="m-portlet__nav-item"></li>
+									</ul>
+								</div>
+							</div>
+							<div class="m-portlet__body">
+
+								<!--begin: Datatable -->
+								<table class="table table-bordered table-hover table-checkable" id="m_table_1">
+									<thead>
+										<tr>
+											<th>Title</th>
+											<th>Organization</th>
+											<th>Country</th>
+											<th>Venue</th>
+											<th>Price</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
 <?php
 
 require_once '../functions.php';
 
-$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' ORDER BY createdAt");
+$country = $_SESSION['user']['country'];
+
+$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' AND country = '$country' ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$tournament = $result->fetch_array(MYSQLI_ASSOC);
 
 	echo <<< _END
-              <div class="col-xl-4 col-lg-3 col-md-6">
-                <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
-                  <div class="m-portlet__head m-portlet__head--fit">
-                    <div class="m-portlet__head-caption">
-                      <div class="m-portlet__head-action">
-                        <button type="button" class="btn btn-sm m-btn--pill  btn-primary"><i class="flaticon-placeholder-2"></i>$tournament[country]</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="m-portlet__body">
-                    <div class="m-widget19">
-                      <div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides">
-                        <img src="../assets/app/media/img/bg/chess.png" alt="">
-                        <h3 class="m-widget19__title m--font-light">
-													$tournament[title]
-                        </h3>
-                        <div class="m-widget19__shadow"></div>
-                      </div>
-                      <div class="m-widget19__content">
-                        <div class="m-widget19__header">
-                          <div class="m-widget19__user-img">
-                            <img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt="">
-                          </div>
-                          <div class="m-widget19__info">
-                            <span class="m-widget19__username">
-                              $tournament[author]
-                            </span><br>
-                            <span class="m-widget19__time">
-                              $tournament[city]
-                            </span>
-                          </div>
-                          <div class="m-widget19__stats">
-                            <span class="m-widget19__number m--font-brand">
-                              0
-                            </span>
-                            <span class="m-widget19__comment">
-                              Registered
-                            </span>
-                          </div>
-                        </div>
-                        <div class="m-widget19__header row w-100">
-													<table class="table table-striped table-borderless table-info col-12">
-														<thead>
-															<tr>
-																<th>Start Dates</th>
-																<th>End Dates</th>
-															</tr>
-														</thead>
-														<tbody>
-_END;
-$startDates = unserialize($tournament['startDates']);
-$endDates = unserialize($tournament['endDates']);
-for ($k = 0; $k < sizeof($startDates); ++$k){
-	echo "<tr><td>".$startDates[$k]."</td><td>".$endDates[$k]."</td></tr>";
-}
-echo <<< _END
-														</tbody>
-													</table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-							</div>
+									<tr><td>$tournament[title]</td><td>$tournament[author]</td><td>$tournament[country]</td><td>$tournament[venue]</td>
+											<td>$tournament[price]</td><td><div class="m-badge m-badge--wide m-badge-primary">pending</div></td></tr>
 _END;
 }
 ?>
-            </div>
+									</tbody>
+								</table>
+							</div>
+						</div>
           </div>
 				</div>
 			</div>
@@ -1191,12 +1171,13 @@ _END;
 
 		<!--begin::Page Vendors -->
 		<script src="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
-
+		<script src="../assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
 		<!--end::Page Vendors -->
 
 		<!--begin::Page Scripts -->
 		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
 		<script src="../assets/demo/demo3/base/state.js"></script>
+		<script src="../assets/demo/default/custom/crud/datatables/extensions/buttons.js" type="text/javascript"></script>
 		<!--end::Page Scripts -->
 	</body>
 

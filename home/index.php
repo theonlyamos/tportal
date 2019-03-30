@@ -526,62 +526,49 @@ if (!$_SESSION["loggedIn"]){
 							
 							<!--Pages Section-->
 							<div class="col-xl-6 col-lg-8">
-								<div class="row">
-									<div class="col-sm-12 col-md-10 col-lg-11 col-xl-10 mx-auto">
-										<div class="m-portlet">
-											<!--begin::Form Post Form-->
-											<form class="m-form m-form--fit m-form--label-align-right">
-												<input type="hidden" name="action" value="post">
-												<div class="m-portlet__body">
-													<div class="form-group m-form__group row">
-														<div class="col-xl-12">
-															<div class="md-editor" id="1553185306142">
-																<textarea name="content" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea><div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div></div>
-														</div>
-													</div>
-													<div class="m-form__actions m-form__actions py-0">
-														<div class="row p-0">
-															<div class="col-lg-12 text-right">
-																<button type="submit" class="btn btn-brand">
-																	<i class="flaticon-comment"></i> Post</button>
-															</div>
-														</div>
-													</div>
-												</div>
-											</form>
+								
+								<div class="row tournaments-section">
+<?php
 
-											<!--end::Form-->
-										</div>
-									</div>
-									<div class="col-xl-10 col-lg-11 col-md-10 mx-auto col-sm-12">
+require_once '../functions.php';
+
+$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' ORDER BY createdAt DESC");
+
+for ($j = 0; $j < $result->num_rows; ++$j){
+	$result->data_seek($j);
+	$tournament = $result->fetch_array(MYSQLI_ASSOC);
+
+	echo <<< _END
+									<div class="col-md-12">
 										<div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
 											<div class="m-portlet__head m-portlet__head--fit">
 												<div class="m-portlet__head-caption">
 													<div class="m-portlet__head-action">
-														<button type="button" class="btn btn-sm m-btn--pill  btn-brand"><i class="flaticon-placeholder-2"></i>Accra</button>
+														<button type="button" class="btn btn-sm m-btn--pill  btn-primary"><i class="flaticon-placeholder-2"></i>$tournament[country]</button>
 													</div>
 												</div>
 											</div>
 											<div class="m-portlet__body">
 												<div class="m-widget19">
-													<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides">
-														<img src="../assets/app/media/img//blog/blog1.jpg" alt="">
+													<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides" style="max-height: 50vh; overflow: hidden;">
+														<img src="../assets/app/media/img/bg/chess.png" alt="">
 														<h3 class="m-widget19__title m--font-light">
-															<i class="fa fa-trophy fa-fw fa-2x"></i>Chess Championship
+															<i class="fa fa-trophy fa-2x fa-fw text-warning"></i>
+															$tournament[title]
 														</h3>
 														<div class="m-widget19__shadow"></div>
 													</div>
 													<div class="m-widget19__content">
 														<div class="m-widget19__header">
 															<div class="m-widget19__user-img">
-																<img class="m-widget19__img" src="../assets/app/media/img//users/profile_pic.jpg" alt="">
+																<img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt="">
 															</div>
 															<div class="m-widget19__info">
 																<span class="m-widget19__username">
-																	Anna Krox
+																	$tournament[author]
 																</span><br>
 																<span class="m-widget19__time">
-																	UX/UI Designer, Google
+																	$tournament[city]
 																</span>
 															</div>
 															<div class="m-widget19__stats">
@@ -593,25 +580,40 @@ if (!$_SESSION["loggedIn"]){
 																</span>
 															</div>
 														</div>
-														<div class="m-widget19__header">
-																<div class="m-widget19__info">
-																	<span class="m-widget19__username">
-																		<i class="flaticon-calendar-with-a-clock-time-tools"></i>
-																		Sun, 17 Mar 2019 11:45:13 GMT
-																	</span>
-																</div>
-															</div>
-													</div>
-													<div class="m-widget19__action">
-														<button type="button" class="btn m-btn--pill m-btn btn-outline-info">
-																<i class="fa fa-check"></i>
-																Register
-															</button>
+														<div class="m-widget19__header row w-100">
+															<table class="table table-striped table-borderless table-info col-12">
+																<thead>
+																	<tr>
+																		<th>Start Dates</th>
+																		<th>End Dates</th>
+																	</tr>
+																</thead>
+																<tbody>
+_END;
+$startDates = unserialize($tournament['startDates']);
+$endDates = unserialize($tournament['endDates']);
+for ($k = 0; $k < sizeof($startDates); ++$k){
+	echo "<tr><td>".$startDates[$k]."</td><td>".$endDates[$k]."</td></tr>";
+}
+	echo <<< _END
+																<tr class="bg-primary text-white"><th>Price</th><td><b>&dollar;$tournament[price]</b></td></tr>
+																</tbody>
+															</table>
+														</div>
+														<div class="m-widget19__action d-flex justify-content-end">
+															<button type="button" class="btn m-btn--pill btn-info m-btn">
+																	<i class="fa fa-check"></i>
+																	Register
+																</button>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
+_END;
+}
+?>
 								</div>
 							
 							</div>

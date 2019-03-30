@@ -519,7 +519,7 @@ if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
 													<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides" style="max-height: 50vh; overflow: hidden;">
 														<img src="../assets/app/media/img/bg/bg-1.jpg" alt="">
 														<h3 class="m-widget19__title m--font-light d-flex justify-content-center align-items-center">
-															<div class="edit edit-picture d-flex align-items-center justify-content-center" style="opacity: 0; width: 3.2em; height: 3.2em; border-radius: 50%; background-color: rgba(10, 10, 10, 0.5); z-index: 2; cursor: pointer;" title="Change picture">
+															<div class="edit edit-picture d-flex align-items-center justify-content-center" style="opacity: 0; width: 3.2em; height: 3.2em; border-radius: 50%; background-color: rgba(10, 10, 10, 0.0); z-index: 2; cursor: pointer;" title="Change picture">
 																<i class="fa fa-edit"></i>
 															</div>
 															<div class="m-widget19__user-img" style="z-index: 1;">
