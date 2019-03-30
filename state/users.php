@@ -444,9 +444,14 @@ License: You must have a valid license purchased only from themeforest(the above
             <!--Begin::Section-->
 						<div class="row">
 <?php
+
+session_start();
+
 require_once '../functions.php';
 
-$result = queryDB("SELECT username, city, profession, picture FROM users WHERE country = '$_SESSION[user][country]'");
+echo '<h2>'.$_SESSION['user']['country'].'</h2>';
+
+$result = queryDB("SELECT username, city, profession, picture, country FROM users WHERE country = '$_SESSION[user][country]'");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
