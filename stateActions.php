@@ -48,11 +48,11 @@ if ($_POST){
     }
 
     $query = "INSERT INTO posts (id, type, title, description, address, city, venue, startDates, endDates, price, 
-    contactName, contactPhone, contactEmail, organizerName, organizerPhone, organizerEmail, userid, userpro, image, author) VALUES (
+    contactName, contactPhone, contactEmail, organizerName, organizerPhone, organizerEmail, userid, user_role, image, author) VALUES (
     UUID(), '$type', '$title', '$description', '$address', '$city', '$venue', '$startDates', '$endDates', '$price', '$contactName',
-    '$contactPhone', '$contactEmail', '$organizerName', '$organizerPhone', '$organizerEmail', '$userid', '$userpro', '$image', '$author')";
+    '$contactPhone', '$contactEmail', '$organizerName', '$organizerPhone', '$organizerEmail', '$userid', '$user_role', '$image', '$author')";
 
-    if (queryDB(query)){
+    if (queryDB($query)){
       $result = queryDB("SELECT * FROM posts ORDER BY createdAt DESC LIMIT 1");
       $tournament = $result->from_array(MYSQLI_ASSOC);
       http_response_code(202);
