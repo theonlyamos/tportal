@@ -38,6 +38,7 @@ if ($_POST){
     $userid = $_SESSION['user']['id'];
     $user_role = $_SESSION['user']['profession'];
     $author = $_SESSION['user']['name'];
+    $country = $_SESSION['user']['country'];
 
     $image = NULL;
     if ($_FILES){
@@ -47,14 +48,14 @@ if ($_POST){
       move_uploaded_file($_FILES['image']['tmp_name'], 'assets/data/tournaments/'.$image);
     }
 
-    $query = "INSERT INTO posts (id, type, title, description, address, city, venue, startDates, endDates, price, 
+    $query = "INSERT INTO posts (id, type, title, description, address, city, venue, startDates, endDates, price, country,
     contactName, contactPhone, contactEmail, organizerName, organizerPhone, organizerEmail, userid, user_role, image, author) VALUES (
-    UUID(), '$type', '$title', '$description', '$address', '$city', '$venue', '$startDates', '$endDates', '$price', '$contactName',
+    UUID(), '$type', '$title', '$description', '$address', '$city', '$venue', '$startDates', '$endDates', '$price', '$country', '$contactName',
     '$contactPhone', '$contactEmail', '$organizerName', '$organizerPhone', '$organizerEmail', '$userid', '$user_role', '$image', '$author')";
 
     if (queryDB($query)){
       $result = queryDB("SELECT * FROM posts ORDER BY createdAt DESC LIMIT 1");
-      $tournament = $result->from_array(MYSQLI_ASSOC);
+      $tournament = $result->fetch_array(MYSQLI_ASSOC);
       http_response_code(202);
       echo json_encode($tournament);
     }
