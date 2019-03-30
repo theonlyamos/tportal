@@ -58,6 +58,8 @@ if ($_POST){
     if (queryDB($query)){
       $result = queryDB("SELECT * FROM posts ORDER BY createdAt DESC LIMIT 1");
       $tournament = $result->fetch_array(MYSQLI_ASSOC);
+      $tournament['startDates'] = unserialize($tournament['startDates']);
+      $tournament['endDates'] = unserialize($tournament['endDates']);
       http_response_code(202);
       echo json_encode($tournament);
     }
