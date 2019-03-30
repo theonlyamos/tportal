@@ -128,7 +128,7 @@ $(() =>{
             method: "post",
             success: (w,s) => {
               console.log(w, s)
-              var tour = '<div class="col-xl-4"><div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">';
+              var tour = '<div class="col-xl-4 col-lg-3 col-md-2"><div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">';
               tour += '<div class="m-portlet__head m-portlet__head--fit"><div class="m-portlet__head-caption"><div class="m-portlet__head-action">';
               tour += '<button type="button" class="btn btn-sm m-btn--pill  btn-brand"><i class="flaticon-placeholder-2"></i>';
               tour += $("[name='city']").val()+'</button></div></div></div><div class="m-portlet__body"><div class="m-widget19">';

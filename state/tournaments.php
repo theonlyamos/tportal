@@ -579,7 +579,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
             <!--Begin::Section-->
 						<div class="row tournaments-section">
-              <div class="col-xl-4 col-l-3 col-md-6">
+              <div class="col-xl-4 col-lg-3 col-md-6">
                 <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
                   <div class="m-portlet__head m-portlet__head--fit">
                     <div class="m-portlet__head-caption">
