@@ -630,7 +630,7 @@ for ($j = 0; $j < $result->num_rows; ++$j){
                             </span>
                           </div>
                         </div>
-                        <div class="m-widget19__header row">
+                        <div class="m-widget19__header row w-100">
 													<table class="table table-striped table-borderless table-info col-12">
 														<thead>
 															<tr>

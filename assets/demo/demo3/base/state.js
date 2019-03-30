@@ -138,7 +138,7 @@ $(() =>{
               tour += '<span class="m-widget19__username">';
               tour += w['author']+'</span><br><span class="m-widget19__time">'+w['city']+'</span></div><div class="m-widget19__stats">';
               tour += '<span class="m-widget19__number m--font-brand">0</span><span class="m-widget19__comment">Registered</span></div></div>';
-              tour += '<div class="m-widget19__header" row><table class="table table-striped table-borderless table-info col-12">'
+              tour += '<div class="m-widget19__header" row w-100><table class="table table-striped table-borderless table-info col-12">'
 						  tour += '<thead><tr><th>Start Dates</th><th>End Dates</th></tr></thead><tbody>';
               
               for (var i = 0; i < w['startDates'].length; i++){
