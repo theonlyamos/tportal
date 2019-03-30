@@ -4,7 +4,7 @@ if ($_SESSION['loggedIn']){
 	if ($_SESSION['user']['role'] == 'user'){
 		header("Location: /home");
 	}
-	else if ($_SESSION['user']['role'] == 'admin'){
+	else if ($_SESSION['user']['profession'] == 'state'){
 		header("Location: /state");
 	}
 }

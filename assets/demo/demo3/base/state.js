@@ -102,8 +102,8 @@ $(() =>{
 
   $("#m_tournament_submit").click(function (e) {
         e.preventDefault();
-        var a = $(this),
-          l = $("#m_form_tournament");
+        e = $(e.target), e.attr("disabled", !0)
+        l = $("#m_form_tournament");
         l.validate({
           rules: {
             title: {
@@ -122,33 +122,44 @@ $(() =>{
               required: !0
             }
           }
-        }), l.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), 
+        }), l.valid() && (mApp.block("#m_modal_tournament .modal-content", {}), 
           l.ajaxSubmit({
             url: "../stateActions.php",
             method: "post",
             success: (w,s) => {
-              console.log(w, s)
               var tour = '<div class="col-xl-4 col-lg-3 col-md-2"><div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">';
               tour += '<div class="m-portlet__head m-portlet__head--fit"><div class="m-portlet__head-caption"><div class="m-portlet__head-action">';
-              tour += '<button type="button" class="btn btn-sm m-btn--pill  btn-brand"><i class="flaticon-placeholder-2"></i>';
-              tour += $("[name='city']").val()+'</button></div></div></div><div class="m-portlet__body"><div class="m-widget19">';
+              tour += '<button type="button" class="btn btn-sm m-btn--pill btn-primary"><i class="flaticon-placeholder-2"></i>';
+              tour += w['country']+'</button></div></div></div><div class="m-portlet__body"><div class="m-widget19">';
               tour += '<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides"><img src="../assets/app/media/img/bg/chess.png" alt="">';
-              tour += '<h3 class="m-widget19__title m--font-light">'+$("[name='title']").val()+'</h3><div class="m-widget19__shadow"></div></div>';
+              tour += '<h3 class="m-widget19__title m--font-light">'+w['title']+'</h3><div class="m-widget19__shadow"></div></div>';
               tour += '<div class="m-widget19__content"><div class="m-widget19__header"><div class="m-widget19__user-img">';
               tour += '<img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt=""></div><div class="m-widget19__info">';
               tour += '<span class="m-widget19__username">';
-              tour += 'Amos Amissah</span><br><span class="m-widget19__time">amosamissah@outlook.com</span></div><div class="m-widget19__stats">';
+              tour += w['author']+'</span><br><span class="m-widget19__time">'+w['city']+'</span></div><div class="m-widget19__stats">';
               tour += '<span class="m-widget19__number m--font-brand">0</span><span class="m-widget19__comment">Registered</span></div></div>';
-              tour += '<div class="m-widget19__header"><div class="m-widget19__info"><span class="m-widget19__username">'
-              tour += '<i class="flaticon-calendar-with-a-clock-time-tools"></i>Sun, 17 Mar 2019 11:45:13 GMT</span></div></div></div>';
-              tour += '</div></div></div></div></div>';
+              tour += '<div class="m-widget19__header" row><table class="table table-striped table-borderless table-info col-12">'
+						  tour += '<thead><tr><th>Start Dates</th><th>End Dates</th></tr></thead><tbody>';
+              
+              for (var i = 0; i < w['startDates'].length; i++){
+                tour += '<tr><td>'+w['startDates'][i]+'</td><td>'+w['endDates'][i]+'</td></tr>';
+              }
+
+							tour += '</tbody></table></div></div>';
+              tour += '</div></div></div></div>';
 
               $(tour).prependTo(".tournaments-section");
-              a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !0)
-              a.removeClass("btn-warning").addClass("btn-success").html("<i class='fa fa-check'>Saved");
+              e.attr("disabled", !1)
+              mApp.unblock("#m_modal_tournament .modal-content")
+              l.clearForm().resetForm()
+              $("#m_tournament_dismiss").click();
+              Notify("Success", "Tournament Created Successfully!", "success", "fa fa-check")
             },
             error: (e)=>{
               console.log(e)
+              e.attr("disabled", !1)
+              mApp.unblock("#m_modal_tournament .modal-content")
+              Notify("Error", "Tournament not created. Try again", "danger", "fa fa-check")
             }
           })
           

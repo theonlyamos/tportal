@@ -86,7 +86,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										<div class="form-group m-form__group row">
 											<div class="col-lg-12 m-form__group-sub">
 												<label class="form-control-label">Title:</label>
-												<input type="text" name="title" class="form-control m-input" placeholder="" value="Chess Tournament">
+												<input type="text" name="title" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">Please enter the title of the Tournament</span>
 											</div>
 										</div>
@@ -94,7 +94,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="col-lg-12 m-form__group-sub">
 												<label class="form-control-label">Description:</label>
 												<div class="md-editor" id="1553185306142">
-													<textarea name="description" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;">I don't Know</textarea>
+													<textarea name="description" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
 													<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
 													<span class="m-form__help">Please enter the description of the Tournament</span>
 												</div>
@@ -103,12 +103,12 @@ License: You must have a valid license purchased only from themeforest(the above
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Address:</label>
-												<input type="text" name="address" class="form-control m-input" placeholder="" value="Prison's Road">
+												<input type="text" name="address" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">Please enter the address of the venue</span>
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">City:</label>
-												<input type="text" name="city" class="form-control m-input" placeholder="" value="Takoradi">
+												<input type="text" name="city" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">Please enter the city of the venue</span>
 											</div>
 										</div>
@@ -180,7 +180,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Contact Email</label>
-												<input type="email" name="contactEmail" class="form-control m-input" placeholder="" value="jamesstefens18@gmail.com">
+												<input type="email" name="contactEmail" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">Please enter the email of the contact person</span>
 											</div>
 										</div>
@@ -203,7 +203,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Organizer Email</label>
-												<input type="email" name="organizerEmail" class="form-control m-input" placeholder="" value="theonlyamos@gmail.com">
+												<input type="email" name="organizerEmail" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">Please enter the email of the organizer</span>
 											</div>
 										</div>
@@ -223,7 +223,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-secondary" id="m_tournament_dismiss" data-dismiss="modal">Close</button>
 							<button type="submit" class="btn btn-warning" id="m_tournament_submit"><i class="fa fa-save fa-fw"></i>Save</button>
 						</div>
 					</form>
@@ -585,7 +585,7 @@ require_once '../functions.php';
 
 $result = queryDB("SELECT * FROM posts WHERE type = 'tournament' ORDER BY createdAt");
 
-for ($j; j<$result->num_rows; ++$j){
+for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$tournament = $result->fetch_array(MYSQLI_ASSOC);
 
@@ -595,7 +595,7 @@ for ($j; j<$result->num_rows; ++$j){
                   <div class="m-portlet__head m-portlet__head--fit">
                     <div class="m-portlet__head-caption">
                       <div class="m-portlet__head-action">
-                        <button type="button" class="btn btn-sm m-btn--pill  btn-brand"><i class="flaticon-placeholder-2"></i>$tournament[country]</button>
+                        <button type="button" class="btn btn-sm m-btn--pill  btn-primary"><i class="flaticon-placeholder-2"></i>$tournament[country]</button>
                       </div>
                     </div>
                   </div>
@@ -611,7 +611,7 @@ for ($j; j<$result->num_rows; ++$j){
                       <div class="m-widget19__content">
                         <div class="m-widget19__header">
                           <div class="m-widget19__user-img">
-                            <img class="m-widget19__img" src="../assets/app/media/img/users/profile_pic.jpg" alt="">
+                            <img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt="">
                           </div>
                           <div class="m-widget19__info">
                             <span class="m-widget19__username">
@@ -630,22 +630,25 @@ for ($j; j<$result->num_rows; ++$j){
                             </span>
                           </div>
                         </div>
-                        <div class="m-widget19__header">
-                            <div class="m-widget19__info">
-                              <span class="m-widget19__username">
-																<table class="table table-striped table-borderless table-info">
-																	<thead>
-																		<tr>
-																			<th>Start</th>
-																		</tr>
-																	</thead>
-																	<tbody>
+                        <div class="m-widget19__header row">
+													<table class="table table-striped table-borderless table-info col-12">
+														<thead>
+															<tr>
+																<th>Start Dates</th>
+																<th>End Dates</th>
+															</tr>
+														</thead>
+														<tbody>
 _END;
-
+$startDates = unserialize($tournament['startDates']);
+$endDates = unserialize($tournament['endDates']);
+for ($k = 0; $k < sizeof($startDates); ++$k){
+	echo "<tr><td>".$startDates[$k]."</td><td>".$endDates[$k]."</td></tr>";
+}
 echo <<< _END
-                              </span>
-                            </div>
-                          </div>
+														</tbody>
+													</table>
+                        </div>
                       </div>
                     </div>
                   </div>
