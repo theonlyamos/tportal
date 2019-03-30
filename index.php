@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 if ($_SESSION['loggedIn']){
 	if ($_SESSION['user']['role'] == 'user'){
 		header("Location: /home");
