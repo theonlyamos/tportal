@@ -71,8 +71,8 @@ License: You must have a valid license purchased only from themeforest(the above
       <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
         <div class="modal-content bg-primary">
 					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_tournament" novalidate="novalidate" enctype="multipart/form-data">
-						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="post">
-						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="tournament">
+						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="tournament">
+						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="post">
 						<div class="modal-header">
 							<h5 class="modal-title text-white" id="tournamentModalTitle">Create Tournament</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -579,7 +579,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
             <!--Begin::Section-->
 						<div class="row tournaments-section">
-              <div class="col-xl-4 col-md-2">
+              <div class="col-xl-4 col-l-3 col-md-6">
                 <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
                   <div class="m-portlet__head m-portlet__head--fit">
                     <div class="m-portlet__head-caption">
