@@ -597,6 +597,7 @@ if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
 																		</tr>
 																		<tr>
 																			<td class="editable" data-field="website">Website</td>
+																			<td>
 																				<?php
 																					echo $_SESSION['user']['website'];
 																				?>

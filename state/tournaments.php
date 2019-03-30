@@ -69,8 +69,9 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--begin::Modal-->
     <div class="modal fade modal-light" id="m_modal_tournament" tabindex="-1" role="dialog" aria-labelledby="tournamentModalTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
-        <div class="modal-content bg-dark">
+        <div class="modal-content bg-primary">
 					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_tournament" novalidate="novalidate" enctype="multipart/form-data">
+						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="post">
 						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="tournament">
 						<div class="modal-header">
 							<h5 class="modal-title text-white" id="tournamentModalTitle">Create Tournament</h5>
@@ -578,7 +579,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
             <!--Begin::Section-->
 						<div class="row tournaments-section">
-              <div class="col-xl-4">
+              <div class="col-xl-4 col-md-2">
                 <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
                   <div class="m-portlet__head m-portlet__head--fit">
                     <div class="m-portlet__head-caption">
@@ -590,7 +591,7 @@ License: You must have a valid license purchased only from themeforest(the above
                   <div class="m-portlet__body">
                     <div class="m-widget19">
                       <div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides">
-                        <img src="../assets/app/media/img//blog/blog1.jpg" alt="">
+                        <img src="../assets/app/media/img/bg/chess.png" alt="">
                         <h3 class="m-widget19__title m--font-light">
                           Chess Championship
                         </h3>
@@ -626,12 +627,6 @@ License: You must have a valid license purchased only from themeforest(the above
                               </span>
                             </div>
                           </div>
-                      </div>
-                      <div class="m-widget19__action">
-                        <button type="button" class="btn m-btn--pill btn-info m-btn">
-                            <i class="fa fa-check"></i>
-                            Approve
-                          </button>
                       </div>
                     </div>
                   </div>
@@ -1176,7 +1171,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--begin::Page Scripts -->
 		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
-		<script src="../assets/app/js/my-script.js" type="text/javascript"></script>
+		<script src="../assets/demo/demo3/base/state.js"></script>
 		<!--end::Page Scripts -->
 	</body>
 
