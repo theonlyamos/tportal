@@ -579,12 +579,23 @@ License: You must have a valid license purchased only from themeforest(the above
 
             <!--Begin::Section-->
 						<div class="row tournaments-section">
+<?php
+
+require_once '../functions.php';
+
+$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' ORDER BY createdAt");
+
+for ($j; j<$result->num_rows; ++$j){
+	$result->data_seek($j);
+	$tournament = $result->fetch_array(MYSQLI_ASSOC);
+
+	echo <<< _END
               <div class="col-xl-4 col-lg-3 col-md-6">
                 <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
                   <div class="m-portlet__head m-portlet__head--fit">
                     <div class="m-portlet__head-caption">
                       <div class="m-portlet__head-action">
-                        <button type="button" class="btn btn-sm m-btn--pill  btn-brand"><i class="flaticon-placeholder-2"></i>Accra</button>
+                        <button type="button" class="btn btn-sm m-btn--pill  btn-brand"><i class="flaticon-placeholder-2"></i>$tournament[country]</button>
                       </div>
                     </div>
                   </div>
@@ -593,21 +604,21 @@ License: You must have a valid license purchased only from themeforest(the above
                       <div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides">
                         <img src="../assets/app/media/img/bg/chess.png" alt="">
                         <h3 class="m-widget19__title m--font-light">
-                          Chess Championship
+													$tournament[title]
                         </h3>
                         <div class="m-widget19__shadow"></div>
                       </div>
                       <div class="m-widget19__content">
                         <div class="m-widget19__header">
                           <div class="m-widget19__user-img">
-                            <img class="m-widget19__img" src="../assets/app/media/img//users/profile_pic.jpg" alt="">
+                            <img class="m-widget19__img" src="../assets/app/media/img/users/profile_pic.jpg" alt="">
                           </div>
                           <div class="m-widget19__info">
                             <span class="m-widget19__username">
-                              Anna Krox
+                              $tournament[author]
                             </span><br>
                             <span class="m-widget19__time">
-                              UX/UI Designer, Google
+                              $tournament[city]
                             </span>
                           </div>
                           <div class="m-widget19__stats">
@@ -622,8 +633,18 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="m-widget19__header">
                             <div class="m-widget19__info">
                               <span class="m-widget19__username">
-                                <i class="flaticon-calendar-with-a-clock-time-tools"></i>
-                                Sun, 17 Mar 2019 11:45:13 GMT
+																<table class="table table-striped table-borderless table-info">
+																	<thead>
+																		<tr>
+																			<th>Start</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+_END;
+foreach($tournament['startDates'] as $startDate){
+	echo "<tr><td>$startDate</td></tr>";
+}
+echo <<< _END
                               </span>
                             </div>
                           </div>
@@ -631,7 +652,10 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                   </div>
                 </div>
-              </div>
+							</div>
+_END;
+}
+?>
             </div>
           </div>
 				</div>
