@@ -641,9 +641,7 @@ for ($j; j<$result->num_rows; ++$j){
 																	</thead>
 																	<tbody>
 _END;
-foreach($tournament['startDates'] as $startDate){
-	echo "<tr><td>$startDate</td></tr>";
-}
+
 echo <<< _END
                               </span>
                             </div>
