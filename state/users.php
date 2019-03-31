@@ -1038,6 +1038,7 @@ else echo '<td><button id="approve_user" data-target="'.$user['id'].'" class="bt
 
 		<!--begin::Page Scripts -->
 		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
+		<script src="../assets/demo/demo3/base/state.js" type="text/javascript"></script>
 
 		<!--end::Page Scripts -->
 	</body>
