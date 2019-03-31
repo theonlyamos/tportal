@@ -177,7 +177,7 @@ $(() =>{
        .done((d) => {
          t.attr("disabled", !0)
          mApp.unblock(".m-content")
-         t.closest(".approved").addClass("m-badge--success");
+         t.parent().parent().find(".approved").addClass("m-badge--success");
          Notify("Success", "User approved successfully!", "success", "fa fa-check")
        })
     })
