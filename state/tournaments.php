@@ -473,7 +473,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																<li class="m-nav__separator m-nav__separator--fit">
 																</li>
 																<li class="m-nav__item">
-																	<a href="/action.php?name=logout" class="btn m-btn--pill btn-danger m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
+																	<a href="/actions.php?name=logout" class="btn m-btn--pill btn-danger m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
 																</li>
 															</ul>
 														</div>
