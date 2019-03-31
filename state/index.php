@@ -661,7 +661,7 @@ echo <<< _END
 												<div class="m-widget26">
 													<div class="m-widget26__number">
 _END;
-$result = queryDB("SELECT name FROM posts WHERE type = 'tournament' AND country = '$country'");
+$result = queryDB("SELECT title FROM posts WHERE type = 'tournament' AND country = '$country'");
 echo $result->num_rows;
 echo <<< _END
 
