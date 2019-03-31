@@ -1178,13 +1178,11 @@ else echo '<td><button id="approve_tournament" data-target="'.$tournament['id'].
 
 		<!--begin::Page Vendors -->
 		<script src="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
-		<script src="../assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
 		<!--end::Page Vendors -->
 
 		<!--begin::Page Scripts -->
 		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
-		<script src="../assets/demo/demo3/base/state.js"></script>
-		<script src="../assets/demo/default/custom/crud/datatables/extensions/buttons.js" type="text/javascript"></script>
+		<script src="../assets/demo/demo3/base/state.js" type="text/javascript"></script>
 		<!--end::Page Scripts -->
 	</body>
 
