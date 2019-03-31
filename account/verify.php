@@ -9,16 +9,19 @@
 require_once '../functions.php';
 
 $uid = sanitizeString($_GET['token']);
+$table = sanitizeString($_GET['pro']);
 
-$query = "UPDATE users SET verified = TRUE WHERE id = '$uid'";
+$query = "UPDATE $table SET verified = TRUE WHERE id = '$uid'";
 
 if (queryDB($query)){
-  $result = queryDB("SELECT * FROM users WHERE id = '$uid'");
+  $result = queryDB("SELECT * FROM $table WHERE id = '$uid'");
   $user = $result->fetch_array(MYSQLI_ASSOC);
-  header("Location: /home");
   session_start();
   $_SESSION["loggedIn"] = "true";
   $_SESSION['user'] = $user;
+
+  if ($table == 'users') header("Location: /home");
+  else if ($table == 'states') header("Location: /state");
 }
 echo 'Token has expired.';
 
