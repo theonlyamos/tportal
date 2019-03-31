@@ -2,7 +2,7 @@
 session_start();
 
 if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
-	header("Location: login.html");
+	header("Location: /login.html");
 }
 
 ?>
@@ -270,14 +270,16 @@ License: You must have a valid license purchased only from themeforest(the above
 															?>
 															</div>
 															<div class="m-card-user__details">
+																<span>
 																<?php
 																	echo $_SESSION['user']['name'];
 																	?>
 																	</span>
-																	<a href="" class="m-card-user__email m--font-weight-300 m-link">@
+																	<a href="" class="m-card-user__email m--font-weight-300 m-link">
 																	<?php
 																		echo $_SESSION['user']['organization'];
-																?>
+																	?>
+																	</a>
 															</div>
 														</div>
 													</div>
