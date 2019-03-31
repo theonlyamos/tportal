@@ -104,6 +104,21 @@ else {
     $result = queryDB("SELECT fullname, email, profession, picture FROM users");
     echo json_encode($result->fetch_array(MYSQLI_ASSOC));
   }
+  else if ($action == 'approve'){
+    $uid = sanitizeString($_GET['target']);
+    $field = sanitizeString($_GET['field']);
+
+    if ($field == 'users'){
+      if (queryDB("UPDATE users SET approved = TRUE WHERE id = '$uid'")){
+        echo "ok";
+      }
+    }
+    else if ($field == 'tournaments'){
+      if (queryDB("UPDATE posts SET approved = TRUE WHERE type = 'tournament' AND id = '$uid'")){
+        echo "ok";
+      }
+    }
+  }
 }
 
 

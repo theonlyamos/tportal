@@ -173,5 +173,12 @@ $(() =>{
     $("#approve_user").on("click", (e) => {
       var t = $(e.target)
       mApp.block(".m-content", {})
+      $.get('/actions.php', {name: "approve", target: e.target.data("target"), field: "users"})
+       .done((d) => {
+         console.log(d)
+         e.attr("disabled", !0)
+         mApp.block(".m-content", {})
+         Notify("Success", "Tournament Created Successfully!", "success", "fa fa-check")
+       })
     })
 })
