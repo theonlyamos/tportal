@@ -86,7 +86,9 @@ var SnippetLogin = function () {
             })
           },
           error: (w) =>{
-            console.log(w)
+            setTimeout(function () {
+              t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "danger", w.responseText)
+            }, 2e3)
           }
         }))
       }), $("#m_login_forget_password_submit").click(function (l) {

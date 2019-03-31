@@ -30,10 +30,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             echo "Click on the link in the email we sent you to verify your account!";
           }
           else{
-            $row = $user->fetch_array(MYSQLI_ASSOC);
             session_start();
             $_SESSION["loggedIn"] = "true";
-            $_SESSION["user"] = $row;
+            $_SESSION["user"] = $user;
             echo "user";
           }
         }
@@ -57,10 +56,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             echo "Click on the link in the email we sent you to verify your account!";
           }
           else{
-            $row = $user->fetch_array(MYSQLI_ASSOC);
             session_start();
             $_SESSION["loggedIn"] = "true";
-            $_SESSION["user"] = $row;
+            $_SESSION["user"] = $user;
             echo "state";
           }
         }
