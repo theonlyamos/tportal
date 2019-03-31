@@ -25,10 +25,17 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
           http_response_code(402);
           echo "Wrong email/password. Try again!";
         }else{
+          if (!$user['verified']){
+            http_response_code(403);
+            echo "Click on the link in the email we sent you to verify your account!";
+          }
+          else{
+            $row = $user->fetch_array(MYSQLI_ASSOC);
             session_start();
             $_SESSION["loggedIn"] = "true";
-            $_SESSION["user"] = $user;
+            $_SESSION["user"] = $row;
             echo "user";
+          }
         }
       }
     }
@@ -45,11 +52,17 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
           http_response_code(402);
           echo "Wrong email/password. Try again!";
         }else{
-          $row = $user->fetch_array(MYSQLI_ASSOC);
+          if (!$user['verified']){
+            http_response_code(403);
+            echo "Click on the link in the email we sent you to verify your account!";
+          }
+          else{
+            $row = $user->fetch_array(MYSQLI_ASSOC);
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $row;
             echo "state";
+          }
         }
       }
     }
