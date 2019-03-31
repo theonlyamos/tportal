@@ -13,23 +13,22 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $pass = createHash($pass, $email);
 
     if ($_POST['profession'] == "user"){
-      $result = queryDB("SELECT email FROM users WHERE email='$email'");
+      $result = queryDB("SELECT * FROM users WHERE email='$email'");
       
       if ($result->num_rows == 0) {
         http_response_code(402);
         echo "User with email: $email does not exists";
       }
       else {
-        $user = queryDB("SELECT * FROM users WHERE email='$email' AND  password='$pass'");
-        if ($user->num_rows == 0) {
+        $user = $result->fetch_array(MYSQLI_ASSOC);
+        if ($pass != $user['password']) {
           http_response_code(402);
           echo "Wrong email/password. Try again!";
         }else{
-          $row = $user->fetch_array(MYSQLI_ASSOC);
-            header("Location: /home");
             session_start();
             $_SESSION["loggedIn"] = "true";
-            $_SESSION["user"] = $row;
+            $_SESSION["user"] = $user;
+            echo "user";
         }
       }
     }
@@ -47,10 +46,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
           echo "Wrong email/password. Try again!";
         }else{
           $row = $user->fetch_array(MYSQLI_ASSOC);
-            header("Location: /state");
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $row;
+            echo "state";
         }
       }
     }

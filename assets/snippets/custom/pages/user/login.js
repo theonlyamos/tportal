@@ -38,8 +38,12 @@ var SnippetLogin = function () {
           url: "login.php",
           method: "post",
           success: function (e, t, r, s) {
+            if (e === "user" ) window.location = '/home'
+            else window.location = '/state'
+          },
+          error: (w, m) => {
             setTimeout(function () {
-              a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "danger", "Incorrect username or password. Please try again.")
+              a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "danger", w.responseText)
             }, 2e3)
           }
         }))
@@ -67,7 +71,7 @@ var SnippetLogin = function () {
             }
           }
         }), r.valid() && (t.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0), r.ajaxSubmit({
-          url: "login.php",
+          url: "register.php",
           method: "post",
           success: function (l, s, n, o) {
             setTimeout(function () {
