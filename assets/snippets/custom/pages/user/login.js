@@ -38,9 +38,8 @@ var SnippetLogin = function () {
           url: "login.php",
           method: "post",
           success: function (e, t, r, s) {
-            console.log(w)
-            //if (e === "user" ) window.location = '/home'
-            //else window.location = '/state'
+            if (e === "user" ) window.location = '/home'
+            else window.location = '/state'
           },
           error: (w, m) => {
             setTimeout(function () {
