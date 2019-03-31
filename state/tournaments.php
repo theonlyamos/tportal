@@ -636,7 +636,7 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 											<td>&dollar;$tournament[price]</td>
 _END;
 if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
-else echo '<td><div class="m-badge m-badge--wide">pending</div></td>';
+else echo '<td><div class="m-badge m-badge--wide .approved">pending</div></td>';
 if ($tournament['approved']) echo '<td><button disabled id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
 else echo '<td><button id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
 }

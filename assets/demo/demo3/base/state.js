@@ -181,4 +181,16 @@ $(() =>{
          Notify("Success", "User approved successfully!", "success", "fa fa-check")
        })
     })
+
+    $("#approve_tournament").on("click", (e) => {
+      var t = $(e.target)
+      mApp.block(".m-content", {})
+      $.get('/actions.php', {name: "approve", target: t.data("target"), field: "tournaments"})
+       .done((d) => {
+         t.attr("disabled", !0)
+         mApp.unblock(".m-content")
+         t.parent().parent().find(".approved").addClass("m-badge--success");
+         Notify("Success", "User approved successfully!", "success", "fa fa-check")
+       })
+    })
 })
