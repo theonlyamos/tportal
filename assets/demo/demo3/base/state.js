@@ -178,7 +178,7 @@ $(() =>{
          console.log(d)
          e.attr("disabled", !0)
          mApp.block(".m-content", {})
-         Notify("Success", "Tournament Created Successfully!", "success", "fa fa-check")
+         Notify("Success", "User approved successfully!", "success", "fa fa-check")
        })
     })
 })
