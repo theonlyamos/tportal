@@ -166,7 +166,12 @@ $(() =>{
             }
           })
           
-          )
+        )
   
-      })
+    })
+
+    $("#approve_user").on("click", (e) => {
+      var t = $(e.target)
+      mApp.block(".m-content", {})
+    })
 })
