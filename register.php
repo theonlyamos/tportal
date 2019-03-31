@@ -32,7 +32,7 @@ if ($_POST){
         echo "User already exists!";
       }
       else {
-        if (queryDB("INSERT INTO users (id, email, password, fullname) VALUES (UUID(), '$email', '$password', '$name'")){
+        if (queryDB("INSERT INTO users (id, email, password, fullname) VALUES (UUID(), '$email', '$password', '$name')")){
           $result = queryDB("SELECT id FROM users WHERE email = '$email'");
           $user = $result->fetch_array(MYSQLI_ASSOC);
 
@@ -66,7 +66,7 @@ if ($_POST){
         echo "User already exists!";
       }
       else {
-        if (queryDB("INSERT INTO states (id, email, password, name) VALUES (UUID(), '$email', '$password', '$name'")){
+        if (queryDB("INSERT INTO states (id, email, password, name) VALUES (UUID(), '$email', '$password', '$name')")){
           $result = queryDB("SELECT id FROM states WHERE email = '$email'");
           $user = $result->fetch_array(MYSQLI_ASSOC);
 
