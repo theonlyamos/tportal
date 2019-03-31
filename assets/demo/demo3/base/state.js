@@ -175,9 +175,9 @@ $(() =>{
       mApp.block(".m-content", {})
       $.get('/actions.php', {name: "approve", target: t.data("target"), field: "users"})
        .done((d) => {
-         console.log(d)
-         e.attr("disabled", !0)
+         t.attr("disabled", !0)
          mApp.block(".m-content", {})
+         t.closest(".approved").addClass("m-badge--success");
          Notify("Success", "User approved successfully!", "success", "fa fa-check")
        })
     })
