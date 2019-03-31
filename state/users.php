@@ -466,8 +466,9 @@ License: You must have a valid license purchased only from themeforest(the above
 											<th>Country</th>
 											<th>Email</th>
 											<th>Phone</th>
-											<th>Reg. Date</th>
-											<th>Status</th>
+											<th>Verification</th>
+											<th>Approval</th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -477,7 +478,7 @@ require_once '../functions.php';
 
 $country = $_SESSION['user']['country'];
 
-$result = queryDB("SELECT fullname, profession, country, email, createdAt FROM users WHERE country = '$country' ORDER BY createdAt DESC");
+$result = queryDB("SELECT id, fullname, profession, country, email, verified, approved FROM users WHERE country = '$country' ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
@@ -485,8 +486,13 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 
 	echo <<< _END
 									<tr><td>$user[fullname]</td><td>$user[profession]</td><td>$user[country]</td><td>$user[email]</td><td>$user[phone]</td>
-											<td>$user[createdAt]</td><td><div class="m-badge m-badge--wide m-badge-primary">pending</div></td></tr>
 _END;
+if ($user['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
+else echo '<td><div class="m-badge m-badge--wide">pending</div></td>';
+if ($user['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--success">approved</div></td>';
+else echo '<td><div class="m-badge m-badge--wide">pending</div></td>';
+if ($user['approved']) echo '<td><button disabled id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+else echo '<td><button id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
 }
 ?>
 									</tbody>

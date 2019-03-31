@@ -637,6 +637,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							<?php
 require_once '../functions.php';
 
+$country = $_SESSION['user']['country'];
 $result = queryDB("SELECT username, profession FROM users");
 
 $players = 0;
@@ -659,7 +660,11 @@ echo <<< _END
 											<div class="m-portlet__body">
 												<div class="m-widget26">
 													<div class="m-widget26__number">
-														0
+_END;
+$result = queryDB("SELECT name FROM posts WHERE type = 'tournament' AND country = '$country'");
+echo $result->num_rows;
+echo <<< _END
+
 														<small>All Tournaments</small>
 													</div>
 													<div class="m-widget26__chart" style="height:90px; width: 220px;">

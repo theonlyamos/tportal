@@ -614,7 +614,8 @@ License: You must have a valid license purchased only from themeforest(the above
 											<th>Country</th>
 											<th>Venue</th>
 											<th>Price</th>
-											<th>Status</th>
+											<th>Approval</th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -632,8 +633,12 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 
 	echo <<< _END
 									<tr><td>$tournament[title]</td><td>$tournament[author]</td><td>$tournament[country]</td><td>$tournament[venue]</td>
-											<td>$tournament[price]</td><td><div class="m-badge m-badge--wide m-badge-primary">pending</div></td></tr>
+											<td>&dollar;$tournament[price]</td>
 _END;
+if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
+else echo '<td><div class="m-badge m-badge--wide">pending</div></td>';
+if ($tournament['approved']) echo '<td><button disabled id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+else echo '<td><button id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
 }
 ?>
 									</tbody>
