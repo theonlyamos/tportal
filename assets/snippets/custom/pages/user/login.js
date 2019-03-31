@@ -74,11 +74,15 @@ var SnippetLogin = function () {
           url: "register.php",
           method: "post",
           success: function (l, s, n, o) {
-            setTimeout(function () {
-              t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm(), a();
-              var l = e.find(".m-login__signin form");
-              l.clearForm(), l.validate().resetForm(), i(l, "success", "Thank you. To complete your registration please check your email.")
-            }, 2e3)
+            t.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm(), a();
+            var l = e.find(".m-login__signup form");
+            l.clearForm(), l.validate().resetForm()
+            swal({
+              title: "Registration Successful!",
+              text: "Click on the link in the email we sent you to verify your account!",
+              type: "success",
+              confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
+            })
           }
         }))
       }), $("#m_login_forget_password_submit").click(function (l) {
