@@ -16,6 +16,7 @@ if ($_POST){
   $email = sanitizeString($_POST["email"]);
   $password = sanitizeString($_POST["password"]);
   $rpassword = sanitizeString($_POST["rpassword"]);
+  $country = sanitizeString($_POST['country']);
 
   if ($rpassword != $password){
     http_response_code(403);
@@ -32,7 +33,7 @@ if ($_POST){
         echo "User already exists!";
       }
       else {
-        if (queryDB("INSERT INTO users (id, email, password, fullname) VALUES (UUID(), '$email', '$password', '$name')")){
+        if (queryDB("INSERT INTO users (id, email, password, fullname, country) VALUES (UUID(), '$email', '$password', '$name', '$country')")){
           $result = queryDB("SELECT id FROM users WHERE email = '$email'");
           $user = $result->fetch_array(MYSQLI_ASSOC);
 
@@ -66,7 +67,7 @@ if ($_POST){
         echo "User already exists!";
       }
       else {
-        if (queryDB("INSERT INTO states (id, email, password, name) VALUES (UUID(), '$email', '$password', '$name')")){
+        if (queryDB("INSERT INTO states (id, email, password, name, country) VALUES (UUID(), '$email', '$password', '$name', '$country')")){
           $result = queryDB("SELECT id FROM states WHERE email = '$email'");
           $user = $result->fetch_array(MYSQLI_ASSOC);
 
