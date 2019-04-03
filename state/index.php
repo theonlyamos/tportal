@@ -67,6 +67,45 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- begin::Body -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 
+<?php
+if (!SESSION['user']['complete']){
+	echo <<< _END
+	<!--begin::Change Description Modal-->
+	<div class="modal fade" id="description_modal" tabindex="-1" role="dialog" aria-labelledby="descriptionModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 35%;">
+			<div class="modal-content">
+				<div class="modal-header bg-success">
+					<h5 class="modal-title text-white" id="descriptionModalLongTitle">Change Description</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body p-2">
+					<form id="description_form" class="col-lg-12">
+						<input type="hidden" name="action" value="edit">
+						<input type="hidden" name="field" value="description">
+						<div class="form-group m-form__group">
+							<div class="m-form__group-sub">
+								<div class="md-editor" id="1553185306142" style="border: 0 !important;">
+									<textarea name="description" class="form-control md-input" data-provide="markdown" rows="6" style="resize: none;"></textarea><div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button id="edit_description" type="submit" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end::Change Description Modal-->
+_END;
+}
+
+?>
+
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 
