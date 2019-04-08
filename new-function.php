@@ -6,6 +6,16 @@
  * @version 1.0.0
  */
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
+
+require_once '.env.php';
+
 $dbhost = "sql304.epizy.com";
 $dbuser = "epiz_23637101";
 $dbpass = "30fBCiC73v";
@@ -62,6 +72,22 @@ function getLogs($lastLog){
   else {
     return false;
   }
+}
+
+function sendMail($from, $name, $to, $subject, $body, $fullname=""){
+  $mail = new PHPMailer(TRUE);
+  $mail->setFrom($from, $name);
+  $mail->addAddress($to, $fullname);
+  $mail->Subject = $subject;
+  $mail->isHTML(TRUE);
+  $mail->Body = $body;
+  $mail->isSMTP();
+  $mail->Host = $smtpCreds["host"];
+  $mail->SMTPAuth = TRUE;
+  $mail->Username = $smtpCreds["username"];
+  $mail->Password = $smtpCreds["password"];
+  $mail->Port = 587;
+  $mail->send();
 }
 
 ?>
