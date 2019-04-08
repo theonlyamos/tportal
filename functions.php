@@ -49,7 +49,7 @@ session_destroy();
 
 function setLog($role, $userid, $message,$country){
   $query = "INSERT INTO logs (id, role, userid, message, country) VALUES (
-    UUID(), $role, $userid, $message, $country
+    UUID(), '$role', '$userid', '$message', '$country'
   )";
   queryDB($query);
 }
