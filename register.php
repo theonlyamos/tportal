@@ -31,7 +31,7 @@ if ($_POST){
 
           $mailBody = "<div><h3>Hi, <b>".$name."</b></h3><br>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify.php?token=".$user["id"]."&pro=".$profession."s'>http://tportal.epizy.com/account/verify.php?token=".$user["id"]."&pro=".$profession."s</a></div>";
 
-          sendMail(array("dummy@mysticmedia.in", "Tportal"), $email, "Account Verification", $mailBody, $fullname);
+          sendMail("dummy@mysticmedia.in", "Tportal", $email, "Account Verification", $mailBody, $fullname);
 
           http_response_code(201);
           echo 'Registration Successful.';
@@ -55,7 +55,7 @@ if ($_POST){
 
           $mailBody = "<div>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify.php?token=".$user["id"]."&pro=".$profession."s'>http://tportal.epizy.com/account/verify.php?token=".$user["id"]."&pro=".$profession."s</a></div>";
 
-          sendMail(array("dummy@mysticmedia.in", "Tportal"), $email, "Account Verification", $mailBody, $fullname);
+          sendMail("dummy@mysticmedia.in", "Tportal", $email, "Account Verification", $mailBody, $fullname);
 
 
           http_response_code(201);

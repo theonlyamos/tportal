@@ -74,9 +74,9 @@ function getLogs($lastLog){
   }
 }
 
-function sendMail($from, $to, $subject, $body, $fullname=""){
+function sendMail($from, $name, $to, $subject, $body, $fullname=""){
   $mail = new PHPMailer(TRUE);
-  $mail->setFrom($from);
+  $mail->setFrom($from, $name);
   $mail->addAddress($to, $fullname);
   $mail->Subject = $subject;
   $mail->isHTML(TRUE);
