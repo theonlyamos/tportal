@@ -28,7 +28,7 @@ if ($_POST){
 	if ($_FILES['picture']){
 		$filename = $_FILES['picture']['name'];
 		$picture = $email.$filename;
-		move_uploaded_file($_FILES['medcert']['tmp_name'], "assets/data/profiles/$picture");
+		move_uploaded_file($_FILES['picture']['tmp_name'], "assets/data/profiles/$picture");
 	}
 
 	$blindness = sanitizeString($_POST["blindness"]);
@@ -288,7 +288,7 @@ _END;
 
 														  <label for=""  class="col-2 col-form-label text-left">Image:</label>
 														  <div class="col-11 custom-file" style="margin-left: 15px">
-															  <input type="file" name="picture" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,application/pdf" required="">
+															  <input type="file" name="picture" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,image/gif" required="">
 															  <label class="custom-file-label" for="customFile">Choose file (JPG,PNG,PDF)</label>
 														  </div>
 
