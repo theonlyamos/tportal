@@ -141,6 +141,24 @@ License: You must have a valid license purchased only from themeforest(the above
 												<div class="m-widget11">
 													<form class="m-form m-form--fit m-form--label-align-right auth arbiter" action="arbiter_register.php" method="post">
 														<div class="m-portlet__body p-0">
+<?php
+$fullname = $_SESSION['user']['fullname'];
+$email = $_SESSION['user']['email'];
+echo <<< _END
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-2 col-form-label text-left">Fullname</label>
+						<div class="col-10">
+							<input class="form-control m-input bg-secondary" type="text" value="$fullname" name="name" readonly>
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-2 col-form-label text-left">Email</label>
+						<div class="col-10">
+							<input class="form-control m-input bg-secondary" type="text" value="$email" name="email" readonly>
+						</div>
+					</div>
+_END;
+?>
 															<div class="form-group m-form__group p-0">
 																<input class="form-control m-input" type="hidden" value="arbiter" name="profession" required>
 															</div>
