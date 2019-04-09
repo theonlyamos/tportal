@@ -1,8 +1,48 @@
 <?php
+
 session_start();
 
-if (isset($_POST)){
+require_once '../functions.php';
+
+if ($_POST){
 	echo json_encode($_POST);
+
+	$fullname = sanitizeString($_POST["fullname"]);
+	$username = sanitizeString($_POST["username"]);
+	$dob = $_POST["dob"];
+	$gender = sanitizeString($_POST["gender"]);
+	$phone = sanitizeString($_POST["phone"]);
+	$city = sanitizeString($_POST["city"]);
+	$state = sanitizeString($_POST["state"]);
+	$country = sanitizeString($_POST["country"]);
+	$adhar = sanitizeString($_POST["adhar"]);
+	$pan = sanitizeString($_POST["pan"]);
+	$cell = sanitizeString($_POST['cell']);
+	$profession = sanitizeString($_POST['profession']);
+	$address = sanitizeString($_POST['address']);
+	$email = $_SESSION['user']['email'];
+
+	$experience = sanitizeString($_POST["experience"]);
+	$type = sanitizeString($_POST["type"]);
+	$fideid = sanitizeString($_POST["fideid"]);
+	$fiderating = sanitizeString($_POST["fiderating"]);
+	$id = $_SESSION['user']['id'];
+
+	$query = "UPDATE users SET profession='$profession',username='$username',dob='$dob',gender='$gender',type='$type',
+	address='$address',state='$state',city='$city',cell='$cell',phone='$phone',adhar='$adhar',pan='$pan',
+	fideid='$fideid',fiderating='$fiderating',experience='$experience', completed=TRUE WHERE id='$id'";
+
+	if (queryDB($query)){
+		setLog('user', $user['id'], "$fullname registered as $profession", $country);
+		$result = queryDB("SELECT * FROM users WHERE email = '$email'");
+		$user = $result->fetch_array(MYSQLI_ASSOC);
+		header("Location: /home");
+		$_SESSION['user'] = $user;
+	}
+	else {
+		$_SESSION['errMsg'] = "Error updating User. Try Again!";
+	}
+
 }
 ?>
 
@@ -132,7 +172,7 @@ License: You must have a valid license purchased only from themeforest(the above
 															<div class="m-form__group form-group row align-items-center">
 																<label for="" class="col-2 col-form-label text-left">Type of Arbiter</label>
 																<div class="col-10">
-																	<select name="arbiterType" id="" class="form-control" required>
+																	<select name="type" id="" class="form-control" required>
 																		<option selected></option>
 																		<option value="national">National Arbiter</option>
 																		<option value="international">International Arbiter</option>
@@ -173,10 +213,10 @@ License: You must have a valid license purchased only from themeforest(the above
 															</div>
 															<div class="form-row m-form__group">
 																<div class="col-6">
-																	<input class="form-control m-input" type="text" placeholder="Fide Id" name="fideId" required>
+																	<input class="form-control m-input" type="text" placeholder="Fide Id" name="fideid" required>
 																</div>
 																<div class="col-6">
-																	<input class="form-control m-input" type="text" placeholder="Fide Rating" name="fideRating" required>
+																	<input class="form-control m-input" type="text" placeholder="Fide Rating" name="fiderating" required>
 																</div>
 															</div>
 

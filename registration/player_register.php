@@ -28,7 +28,7 @@ if ($_POST){
 	if ($_FILES['picture']){
 		$filename = $_FILES['picture']['name'];
 		$picture = $email.$filename;
-		move_uploaded_file($_FILES['picture']['tmp_name'], "assets/data/profiles/$picture");
+		move_uploaded_file($_FILES['picture']['tmp_name'], "../assets/data/profiles/$picture");
 	}
 
 	$blindness = sanitizeString($_POST["blindness"]);
@@ -42,12 +42,12 @@ if ($_POST){
 	if ($_FILES['medcert']){
 		$filename = $_FILES['medcert']['name'];
 		$medcert = $email.$filename;
-		move_uploaded_file($_FILES['medcert']['tmp_name'], "assets/data/medical/$medcert");
+		move_uploaded_file($_FILES['medcert']['tmp_name'], "../assets/data/medical/$medcert");
 	}
 
 	$query = "UPDATE users SET profession='$profession',username='$username',dob='$dob',gender='$gender',blindness='$blindness',
 	address='$address',postal='$postal',state='$state',city='$city',cell='$cell',phone='$phone',adhar='$adhar',rating='$rating',
-	fideid='$fideid',fiderating='$fiderating',communication='$communication',picture='$picture',medcert='$medcert',
+	fideid='$fideid',fiderating='$fiderating',communication='$communication',picture='$picture',medcert='$medcert',pan='$pan',
 	completed=TRUE WHERE id='$id'";
 
 	if (queryDB($query)){
@@ -289,7 +289,7 @@ _END;
 														  <label for=""  class="col-2 col-form-label text-left">Image:</label>
 														  <div class="col-11 custom-file" style="margin-left: 15px">
 															  <input type="file" name="picture" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,image/gif" required="">
-															  <label class="custom-file-label" for="customFile">Choose file (JPG,PNG,PDF)</label>
+															  <label class="custom-file-label" for="customFile">Choose file (JPG,PNG,GIF)</label>
 														  </div>
 
 													  </div>
