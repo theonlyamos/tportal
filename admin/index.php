@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
-	header("Location: login.html");
-}
-
-?>
 
 <!DOCTYPE html>
 
@@ -463,12 +455,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										 m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
-												<?php
-													if ($_SESSION['user']['image']){
-														echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
-													}
-													else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
-												?>
+													<img src="../assets/data/profiles/admin.png" alt="admin pic">
 												</span>
 											</a>
 											<div class="m-dropdown__wrapper">
@@ -477,12 +464,7 @@ License: You must have a valid license purchased only from themeforest(the above
 													<div class="m-dropdown__header m--align-center" style="background: url(../assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
-															<?php
-																if ($_SESSION['user']['image']){
-																	echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
-																}
-																else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
-															?>
+																<img src="../assets/data/profiles/admin.png" alt="admin pic">
 															</div>
 															<div class="m-card-user__details">
 																<?php

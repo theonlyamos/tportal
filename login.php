@@ -62,11 +62,17 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             http_response_code(403);
             echo "Click on the link in the email we sent you to verify your account!";
           }
+          else if (!$user['completed']){
+            session_start();
+            $_SESSION["loggedIn"] = "true";
+            $_SESSION["user"] = $user;
+            echo json_encode(array('profession'=>'state','completed'=>false));
+          }
           else{
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $user;
-            echo "state";
+            echo json_encode(array('profession'=>'state','completed'=>true));
           }
         }
       }
