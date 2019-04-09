@@ -5,6 +5,7 @@ session_start();
 require_once '../functions.php';
 
 if ($_POST){
+	$username = sanitizeString($_POST["username"]);
 	$dob = $_POST["dob"];
 	$gender = sanitizeString($_POST["gender"]);
 	$phone = sanitizeString($_POST["phone"]);

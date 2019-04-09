@@ -8,8 +8,6 @@ if ($_POST){
 
 	$fullname = sanitizeString($_POST["fullname"]);
 	$username = sanitizeString($_POST["username"]);
-	$password = sanitizeString($_POST["password"]);
-	$password = createHash($password, $email);
 	$dob = $_POST["dob"];
 	$gender = sanitizeString($_POST["gender"]);
 	$phone = sanitizeString($_POST["phone"]);
