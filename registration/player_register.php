@@ -5,7 +5,6 @@ session_start();
 require_once '../functions.php';
 
 if ($_POST){
-	echo json_encode($_POST);
 
 	$fullname = sanitizeString($_POST["fullname"]);
 	$username = sanitizeString($_POST["username"]);

@@ -5,8 +5,6 @@ session_start();
 require_once '../functions.php';
 
 if ($_POST){
-	echo json_encode($_POST);
-
 	$fullname = sanitizeString($_POST["fullname"]);
 	$username = sanitizeString($_POST["username"]);
 	$dob = $_POST["dob"];
@@ -171,7 +169,7 @@ _END;
 															<div class="form-group m-form__group row">
 																<label for="example-tel-input" class="col-2 col-form-label text-left">Date of Birth</label>
 																<div class="col-10">
-																	<input class="form-control m-input" type="date" value="1990-07-23" name="dob" required>
+																	<input class="form-control m-input" type="date" value="" name="dob" required>
 																</div>
 															</div>
 															<div class="m-form__group form-group row align-items-center">

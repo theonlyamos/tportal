@@ -1,8 +1,44 @@
 <?php
+
 session_start();
 
-if (isset($_POST)){
-	echo json_encode($_POST);
+require_once '../functions.php';
+
+if ($_POST){
+	$dob = $_POST["dob"];
+	$gender = sanitizeString($_POST["gender"]);
+	$phone = sanitizeString($_POST["phone"]);
+	$city = sanitizeString($_POST["city"]);
+	$state = sanitizeString($_POST["state"]);
+	$country = sanitizeString($_POST["country"]);
+	$adhar = sanitizeString($_POST["adhar"]);
+	$pan = sanitizeString($_POST["pan"]);
+	$cell = sanitizeString($_POST['cell']);
+	$profession = sanitizeString($_POST['profession']);
+	$address = sanitizeString($_POST['address']);
+	$email = $_SESSION['user']['email'];
+
+	$experience = sanitizeString($_POST["experience"]);
+	$trainertitle = sanitizeString($_POST["trainertitle"]);
+	$fideid = sanitizeString($_POST["fideid"]);
+	$fiderating = sanitizeString($_POST["fiderating"]);
+	$id = $_SESSION['user']['id'];
+
+	$query = "UPDATE users SET profession='$profession',username='$username',dob='$dob',gender='$gender',trainertitle='$trainertitle',
+	address='$address',state='$state',city='$city',cell='$cell',phone='$phone',adhar='$adhar',pan='$pan',
+	fideid='$fideid',fiderating='$fiderating',experience='$experience', completed=TRUE WHERE id='$id'";
+
+	if (queryDB($query)){
+		setLog('user', $user['id'], "$fullname registered as $profession", $country);
+		$result = queryDB("SELECT * FROM users WHERE email = '$email'");
+		$user = $result->fetch_array(MYSQLI_ASSOC);
+		header("Location: /home");
+		$_SESSION['user'] = $user;
+	}
+	else {
+		$_SESSION['errMsg'] = "Error updating User. Try Again!";
+	}
+
 }
 ?>
 
@@ -109,6 +145,24 @@ License: You must have a valid license purchased only from themeforest(the above
 															<input class="form-control m-input" type="hidden" value="coach" name="profession" required>
 														</div>
 														<div class="m-portlet__body p-0">
+<?php
+$fullname = $_SESSION['user']['fullname'];
+$email = $_SESSION['user']['email'];
+echo <<< _END
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-2 col-form-label text-left">Fullname</label>
+						<div class="col-10">
+							<input class="form-control m-input bg-secondary" type="text" value="$fullname" name="name" readonly>
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-2 col-form-label text-left">Email</label>
+						<div class="col-10">
+							<input class="form-control m-input bg-secondary" type="text" value="$email" name="email" readonly>
+						</div>
+					</div>
+_END;
+?>
 															<div class="form-group m-form__group row">
 																<label for="example-text-input" class="col-2 col-form-label text-left">Username</label>
 																<div class="col-10">
