@@ -5,7 +5,6 @@ session_start();
 require_once '../functions.php';
 
 if ($_POST){
-	$fullname = sanitizeString($_POST["fullname"]);
 	$username = sanitizeString($_POST["username"]);
 	$dob = $_POST["dob"];
 	$gender = sanitizeString($_POST["gender"]);
@@ -31,6 +30,7 @@ if ($_POST){
 	fideid='$fideid',fiderating='$fiderating',experience='$experience', completed=TRUE WHERE id='$id'";
 
 	if (queryDB($query)){
+		$fullname = $_SESSION['user']['fullname'];
 		setLog('user', $user['id'], "$fullname registered as $profession", $country);
 		$result = queryDB("SELECT * FROM users WHERE email = '$email'");
 		$user = $result->fetch_array(MYSQLI_ASSOC);

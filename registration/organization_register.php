@@ -26,6 +26,8 @@ if ($_POST){
 	'$pan', '$objectives', '$contactPerson', '$contactPhone', '$document')";
 
 	if (queryDB($query)) {
+		$name = $_SESSION['user']['name'];
+		setLog('user', $user['id'], "$name completed registration", $country);
 		$result = queryDB("SELECT * FROM states WHERE organization='$organization' AND  password='$password'");
 		$user = $result->fetch_array(MYSQLI_ASSOC);
 		header("Location: /state");
@@ -187,12 +189,12 @@ _END;
 															</div>
 
 															<div class="form-group m-form__group row">
-																<label for=""  class="col-5 col-form-label text-left">Registration No (Public Trust or Society Reg No.):</label>
-																<div class="col-10 custom-file" style="margin-left: 15px">
+																<label for=""  class="col-lg-5 col-form-label text-left">Registration No (Public Trust or Society Reg No.):</label>
+																<div class="col-lg-9 custom-file" style="margin-left: 15px">
 																	<input type="file" name="document" class="custom-file-input" id="customFile2" accept="image/jpeg,image/png,application/pdf" required="">
 																	<label class="custom-file-label" for="customFile2">Choose file (JPG,PNG,PDF)</label>
 																</div>
-																<div class="col-2">
+																<div class="col-lg-2">
 																	<input class="form-control m-input" type="text" placeholder="PAN No" name="pan" required>
 																</div>
 															</div>
@@ -240,8 +242,8 @@ _END;
 															<div class="form-group m-form__group row">
 																<label for=""  class="col-5 col-form-label text-left">Logo:</label>
 																<div class="col-11 custom-file" style="margin-left: 15px">
-																	<input type="file" name="logo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,application/pdf" required="">
-																	<label class="custom-file-label" for="customFile">Choose file (JPG,PNG,PDF)</label>
+																	<input type="file" name="logo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,image/gif" required="">
+																	<label class="custom-file-label" for="customFile">Choose file (JPG,PNG,GIF)</label>
 																</div>
 															</div>
 

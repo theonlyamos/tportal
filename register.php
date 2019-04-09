@@ -73,7 +73,7 @@ if ($_POST){
       $result = queryDB("SELECT email FROM states WHERE email = '$email'");
       if ($result->num_rows){
         http_response_code(401);
-        echo "User already exists!";
+        echo "Organization already exists!";
       }
       else {
         if (queryDB("INSERT INTO states (id, email, password, name, country) VALUES (UUID(), '$email', '$password', '$name', '$country')")){
