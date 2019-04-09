@@ -154,23 +154,25 @@ License: You must have a valid license purchased only from themeforest(the above
 										</div>
 									  <div class="tab-content">
 										  <div class="tab-pane active" id="m_user_profile_tab_1">
-											  <form class="m-form m-form--fit m-form--label-align-right" action="player_register.php" method="post">
+											  <form class="m-form m-form--fit m-form--label-align-right" action="player_register.php" method="post" enctype="multipart/form-data">
 													<div class="form-group m-form__group p-0">
 															<input class="form-control m-input" type="hidden" value="player" name="profession" required>
 														</div>
 												  <div class="m-portlet__body">
 <?php
+$fullname = $_SESSION['user']['fullname'];
+$email = $_SESSION['user']['email'];
 echo <<< _END
 					<div class="form-group m-form__group row">
 						<label for="example-text-input" class="col-2 col-form-label text-left">Fullname</label>
 						<div class="col-10">
-							<input class="form-control m-input" type="text" value="$_SESSION[user][fullname]" name="name" readonly>
+							<input class="form-control m-input bg-secondary" type="text" value="$fullname" name="name" readonly>
 						</div>
 					</div>
 					<div class="form-group m-form__group row">
 						<label for="example-text-input" class="col-2 col-form-label text-left">Email</label>
 						<div class="col-10">
-							<input class="form-control m-input" type="text" value="$_SESSION[user][email]" name="email" readonly>
+							<input class="form-control m-input bg-secondary" type="text" value="$email" name="email" readonly>
 						</div>
 					</div>
 _END;
