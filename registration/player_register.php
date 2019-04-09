@@ -50,6 +50,7 @@ if ($_POST){
 	completed=TRUE WHERE id='$id'";
 
 	if (queryDB($query)){
+		$email = $_SESSION['user']['email'];
 		$result = queryDB("SELECT * FROM users WHERE email = '$email'");
 		$user = $result->fetch_array(MYSQLI_ASSOC);
 		header("Location: /home");
