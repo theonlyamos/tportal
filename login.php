@@ -29,6 +29,13 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             http_response_code(403);
             echo "Click on the link in the email we sent you to verify your account!";
           }
+          else if (!$user['completed']){
+            $profession = $user['profession'];
+            header("Location: /registration/".$profession."_register.php");
+            session_start();
+            $_SESSION["loggedIn"] = "true";
+            $_SESSION["user"] = $user;
+          }
           else{
             session_start();
             $_SESSION["loggedIn"] = "true";

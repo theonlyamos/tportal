@@ -37,8 +37,28 @@ if ($_POST){
           $result = queryDB("SELECT id FROM users WHERE email = '$email'");
           $user = $result->fetch_array(MYSQLI_ASSOC);
 
-
-          setLog('user', $user['id'], 'new organization registration', $country);
+          $mail = new PHPMailer(TRUE);
+          try {
+            $mail->setFrom('donotreply@barthwal.com', "Tportal");
+            $mail->addAddress($email, $name);
+            $mail->Subject ="Email Verification";
+            $mail->isHTML(TRUE);
+            $mail->Body = "<div><h3>Hi, <b>".$name."</b></h3><br>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify.php?token=".$user["id"]."&pro=".$profession."s'>http://tportal.epizy.com/account/verify.php?token=".$user["id"]."&pro=".$profession."s</a></div>";
+            $mail->isSMTP();
+            $mail->Host = "mail.barthwal.com";
+            $mail->SMTPAuth = TRUE;
+            $mail->Username = "donotreply@barthwal.com";
+            $mail->Password = 'gZV$PL(J$rxW';
+            $mail->Port = 465;
+            $mail->send();
+          }
+          catch (Exception $e) {
+            echo $e-> errorMessage();
+          }
+          catch (\Exception $e){
+             echo $e->getMessage();
+          }
+          setLog('user', $user['id'], 'new user registration', $country);
 
           http_response_code(201);
           echo 'Registration Successful.';
