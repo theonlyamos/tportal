@@ -20,8 +20,8 @@ if (queryDB($query)){
   $_SESSION["loggedIn"] = "true";
   $_SESSION['user'] = $user;
 
-  if ($table == 'users') header("Location: /home");
-  else if ($table == 'states') header("Location: /state");
+  if ($table == 'users') header("Location: /registration");
+  else if ($table == 'states') header("Location: /registration/organization_register.php");
 }
 echo 'Token has expired.';
 

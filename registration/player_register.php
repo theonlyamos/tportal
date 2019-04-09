@@ -22,6 +22,7 @@ if ($_POST){
 	$cell = sanitizeString($_POST['cell']);
 	$profession = sanitizeString($_POST['profession']);
 	$address = sanitizeString($_POST['address']);
+	$email = $_SESSION['user']['email'];
 	
 	$picture = NULL;
 	if ($_FILES['picture']){
@@ -50,7 +51,6 @@ if ($_POST){
 	completed=TRUE WHERE id='$id'";
 
 	if (queryDB($query)){
-		$email = $_SESSION['user']['email'];
 		$result = queryDB("SELECT * FROM users WHERE email = '$email'");
 		$user = $result->fetch_array(MYSQLI_ASSOC);
 		header("Location: /home");
