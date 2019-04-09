@@ -1,3 +1,43 @@
+<?php
+session_start();
+require_once '../functions.php';
+
+if ($_POST){
+	$contact = sanitizeString($_POST["contact"]);
+	$phone = sanitizeString($_POST["phone"]);
+	$password = sanitizeString($_POST["password"]);
+	$password = createHash($pass, $email);
+	$website = sanitizeString($_POST["website"]);
+	$organizer = sanitizeString($_POST["organizer"]);
+	$regNo = sanitizeString($_POST["regNo"]);
+	$pan = sanitizeString($_POST["pan"]);
+	$objectives = sanitizeString($_POST["objectives"]);
+	$contactPerson = sanitizeString($_POST["contactPerson"]);
+	$contactPhone = sanitizeString($_POST["contactPhone"]);
+
+	$filename = $_FILES['image']['name'];
+	$document = $email.$filename;
+
+	move_uploaded_file($_FILES['image']['tmp_name'], 'assets/data/documents/'.$document);
+
+	$query = "INSERT INTO states (id, email, password, country, name, contact, phone,
+	website, organizer, regNo, pan, objectives, contactPerson, contactPhone, contactUrl, document) VALUES (UUID(),
+	'$email', '$password', '$country', '$organization', '$contact', '$phone', '$website', '$organizer', '$regNo', 
+	'$pan', '$objectives', '$contactPerson', '$contactPhone', '$document')";
+
+	if (queryDB($query)) {
+		$result = queryDB("SELECT * FROM states WHERE organization='$organization' AND  password='$password'");
+		$user = $result->fetch_array(MYSQLI_ASSOC);
+		header("Location: /state");
+		$_SESSION["user"] = $user;
+	}
+	else {
+		$_SESSION['errMsg'] = "Error updating User. Try Again!";
+	}
+}
+
+?>
+
 <!DOCTYPE html>
 
 <!-- 
@@ -98,14 +138,32 @@ License: You must have a valid license purchased only from themeforest(the above
 
 												<!--begin::Widget 11-->
 												<div class="m-widget11">
-													<form class="m-form m-form--fit m-form--label-align-right auth coach">
+													<form class="m-form m-form--fit m-form--label-align-right auth coach" action="organizaation_register.php" method="post" enctype="multipart/form-data">
 														<div class="form-group m-form__group p-0">
 															<input class="form-control m-input" type="hidden" value="coach" name="profession" required>
 														</div>
 														<div class="m-portlet__body p-0">
+<?php
+$name = $_SESSION['user']['name'];
+$email = $_SESSION['user']['email'];
+echo <<< _END
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-2 col-form-label text-left">Organization name</label>
+						<div class="col-10">
+							<input class="form-control m-input bg-secondary" type="text" value="$name" name="name" readonly>
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-2 col-form-label text-left">Email</label>
+						<div class="col-10">
+							<input class="form-control m-input bg-secondary" type="text" value="$email" name="email" readonly>
+						</div>
+					</div>
+_END;
+?>
 															<div class="form-group m-form__group row">
 																<div class="col-12">
-																	<input class="form-control m-input" type="text" value="Contact No" name="contact" required>
+																	<input class="form-control m-input" type="text" value="" name="contact" placeholder="Contact No[Landline]" required>
 																</div>
 															</div>
 															<div class="form-row m-form__group">
@@ -113,23 +171,15 @@ License: You must have a valid license purchased only from themeforest(the above
 																	<input class="form-control m-input" type="email" placeholder="Secondary Email" name="secondEmail" required>
 																</div>
 																<div class="col-4">
-																	<input class="form-control m-input" type="text" placeholder="Mobile No" name="mobileNumber" required>
+																	<input class="form-control m-input" type="text" placeholder="Mobile No" name="phone" required>
 																</div>
 																<div class="col-4">
-																	<input class="form-control m-input" type="text" placeholder="Website URL" name="websiteUrl" required>
+																	<input class="form-control m-input" type="text" placeholder="Website URL" name="website" required>
 																</div>
 															</div>
 															<div class="form-row m-form__group">
 																<div class="col-6">
-																	<input class="form-control m-input" type="number" placeholder="Total Experience of Coaching" name="experience" required>
-																</div>
-																<div class="col-6">
-																	<input class="form-control m-input" type="text" placeholder="Correspondence Address" name="address" required>
-																</div>
-															</div>
-															<div class="form-row m-form__group">
-																<div class="col-6">
-																	<input class="form-control m-input" type="text" placeholder="Name of Organizer" name="organizerName" required>
+																	<input class="form-control m-input" type="text" placeholder="Name of Organizer" name="organizer" required>
 																</div>
 																<div class="col-6">
 																	<input class="form-control m-input" type="text" placeholder="Organizer Email" name="organizerEmail" required>
@@ -138,18 +188,18 @@ License: You must have a valid license purchased only from themeforest(the above
 
 															<div class="form-group m-form__group row">
 																<label for=""  class="col-5 col-form-label text-left">Registration No (Public Trust or Society Reg No.):</label>
-																<div class="col-11 custom-file" style="margin-left: 15px">
-																	<input type="file" name="registrationNumber" class="custom-file-input" id="customFile2" accept="image/jpeg,image/png,application/pdf" required="">
+																<div class="col-10 custom-file" style="margin-left: 15px">
+																	<input type="file" name="document" class="custom-file-input" id="customFile2" accept="image/jpeg,image/png,application/pdf" required="">
 																	<label class="custom-file-label" for="customFile2">Choose file (JPG,PNG,PDF)</label>
+																</div>
+																<div class="col-2">
+																	<input class="form-control m-input" type="text" placeholder="PAN No" name="pan" required>
 																</div>
 															</div>
 
 															<div class="form-row m-form__group">
-																<div class="col-6">
-																	<input class="form-control m-input" type="text" placeholder="PAN No" name="panNumber" required>
-																</div>
-																<div class="col-6">
-																	<input class="form-control m-input" type="text" placeholder="Aims & Objectives" name="aims" required>
+																<div class="col-12">
+																	<textarea class="form-control m-input" rows="5" type="text" placeholder="Aims & Objectives" name="obectives" required></textarea>
 																</div>
 															</div>
 															<div class="form-row m-form__group">
@@ -159,38 +209,38 @@ License: You must have a valid license purchased only from themeforest(the above
 															</div>
 															<div class="form-row m-form__group">
 																<div class="col-4">
-																	<input class="form-control m-input" type="text" placeholder="Bearers Name" name="bearersName[]" required>
+																	<input class="form-control m-input" type="text" placeholder="Bearers Name" name="bearerNames[]" required>
 																</div>
 																<div class="col-2">
-																	<input class="form-control m-input" type="text" placeholder="Contact No" name="bearersNumber[]" required>
+																	<input class="form-control m-input" type="text" placeholder="Contact No" name="bearerPhones[]" required>
 																</div>
 																<div class="col-2">
-																	<input class="form-control m-input" type="text" placeholder="Email Id" name="bearersEmail[]" required>
+																	<input class="form-control m-input" type="text" placeholder="Email Id" name="bearerEmails[]" required>
 																</div>
 																<div class="col-2">
-																	<input class="form-control m-input" type="text" placeholder="PAN No" name="bearersPanNumber[]" required>
+																	<input class="form-control m-input" type="text" placeholder="PAN No" name="bearerPans[]" required>
 																</div>
 																<div class="col-2">
-																	<input class="form-control m-input" type="text" placeholder="Designation" name="bearersDesignation[]" required>
+																	<input class="form-control m-input" type="text" placeholder="Designation" name="bearerDesignations[]" required>
 																</div>
 															</div>
 															<div class="form-row m-form__group">
 																<div class="col-12 text-right">
-																	<button class="btn btn-success btn-sm">Add More</button>
+																	<button type="button" class="btn btn-success btn-sm">Add More</button>
 																</div>
 															</div>
 															<div class="form-row m-form__group">
 																<div class="col-6">
-																	<input class="form-control m-input" type="text" placeholder="Key Contact Person" name="keyContact" required>
+																	<input class="form-control m-input" type="text" placeholder="Key Contact Person" name="contactPerson" required>
 																</div>
 																<div class="col-6">
-																	<input class="form-control m-input" type="text" placeholder="Contact No" name="keyContactNumber" required>
+																	<input class="form-control m-input" type="text" placeholder="Contact No" name="contactPhone" required>
 																</div>
 															</div>
 															<div class="form-group m-form__group row">
 																<label for=""  class="col-5 col-form-label text-left">Logo:</label>
 																<div class="col-11 custom-file" style="margin-left: 15px">
-																	<input type="file" name="organizationLogo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,application/pdf" required="">
+																	<input type="file" name="logo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,application/pdf" required="">
 																	<label class="custom-file-label" for="customFile">Choose file (JPG,PNG,PDF)</label>
 																</div>
 															</div>
