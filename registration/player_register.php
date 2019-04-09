@@ -28,7 +28,7 @@ if ($_POST){
 	if ($_FILES['picture']){
 		$filename = $_FILES['picture']['name'];
 		$picture = $email.$filename;
-		move_uploaded_file($_FILES['medcert']['tmp_name'], "assets/data/medical/$picture");
+		move_uploaded_file($_FILES['medcert']['tmp_name'], "assets/data/profiles/$picture");
 	}
 
 	$blindness = sanitizeString($_POST["blindness"]);
