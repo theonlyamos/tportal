@@ -26,11 +26,11 @@ if ($_POST){
 
 	$filename = $_FILES['logo']['name'];
 	$logo = $email.$filename;
-	move_uploaded_file($_FILES['logo']['tmp_name'], 'assets/data/logo/'.$document);
+	move_uploaded_file($_FILES['logo']['tmp_name'], '../assets/data/logo/'.$document);
 
 	$filename = $_FILES['document']['name'];
 	$document = $email.$filename;
-	move_uploaded_file($_FILES['document']['tmp_name'], 'assets/data/documents/'.$document);
+	move_uploaded_file($_FILES['document']['tmp_name'], '../assets/data/documents/'.$document);
 
 	$query = "UPDATE states SET profession='$profession',contact='$contact',secondEmail='$secondEmail',
 	phone='$phone',website='$website',organizer='$organizer',organizerEmail='$organizerEmail',pan='$pan',
@@ -41,7 +41,7 @@ if ($_POST){
 
 	if (queryDB($query)) {
 		setLog('organization', $id, "$name completed registration", $country);
-		$result = queryDB("SELECT * FROM states WHERE organization='$organization' AND  password='$password'");
+		$result = queryDB("SELECT * FROM states WHERE name='$name'");
 		$user = $result->fetch_array(MYSQLI_ASSOC);
 		header("Location: /state");
 		$_SESSION["user"] = $user;
