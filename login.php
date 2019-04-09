@@ -39,7 +39,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $user;
-            echo "user";
+            echo json_encode(array('profession'=>'user','completed'=>true));
           }
         }
       }

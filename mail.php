@@ -22,7 +22,7 @@ try {
   $mail->SMTPAuth = TRUE;
   $mail->Username = "donotreply@barthwal.com";
   $mail->Password = 'gZV$PL(J$rxW';
-  $mail->Port = 465;
+  $mail->Port = 587;
 
   $mail->send();
 }
