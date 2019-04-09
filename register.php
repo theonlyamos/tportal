@@ -94,7 +94,7 @@ if ($_POST){
           $mail->Port = 587;
           $mail->send();
 
-          #setLog('organization', $user['id'], 'new organization registration', $country);
+          setLog('organization', $user['id'], 'new organization registration', $country);
 
           http_response_code(201);
           echo 'Registration Successful.';
