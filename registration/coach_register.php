@@ -31,7 +31,7 @@ if ($_POST){
 
 	if (queryDB($query)){
 		$fullname = $_SESSION['user']['fullname'];
-		setLog('user', $user['id'], "$fullname registered as $profession", $country);
+		setLog('user', $id, "$fullname registered as $profession", $country);
 		$result = queryDB("SELECT * FROM users WHERE email = '$email'");
 		$user = $result->fetch_array(MYSQLI_ASSOC);
 		header("Location: /home");

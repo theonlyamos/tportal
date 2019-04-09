@@ -3,31 +3,44 @@ session_start();
 require_once '../functions.php';
 
 if ($_POST){
+	echo json_encode($_POST);
 	$contact = sanitizeString($_POST["contact"]);
+	$secondEmail = sanitizeString($_POST["secondEmail"]);
 	$phone = sanitizeString($_POST["phone"]);
-	$password = sanitizeString($_POST["password"]);
-	$password = createHash($pass, $email);
 	$website = sanitizeString($_POST["website"]);
 	$organizer = sanitizeString($_POST["organizer"]);
-	$regNo = sanitizeString($_POST["regNo"]);
+	$organizerEmail = sanitizeString($_POST["organizerEmail"]);
 	$pan = sanitizeString($_POST["pan"]);
 	$objectives = sanitizeString($_POST["objectives"]);
 	$contactPerson = sanitizeString($_POST["contactPerson"]);
 	$contactPhone = sanitizeString($_POST["contactPhone"]);
+	$bearerNames = serialize($_POST["bearerNames"]);
+	$bearerPhones = serialize($_POST["bearerPhones"]);
+	$bearerEmails = serialize($_POST["bearerEmails"]);
+	$bearerPans = serialize($_POST["bearerPans"]);
+	$bearerDesignations = serialize($_POST["bearerDesignations"]);
+	$profession = sanitizeString($_POST['profession']);
+	$email = $_SESSION['user']['email'];
+	$id = $_SESSION['user']['id'];
+	$name = $_SESSION['user']['name'];
 
-	$filename = $_FILES['image']['name'];
+	$filename = $_FILES['logo']['name'];
+	$logo = $email.$filename;
+	move_uploaded_file($_FILES['logo']['tmp_name'], 'assets/data/logo/'.$document);
+
+	$filename = $_FILES['document']['name'];
 	$document = $email.$filename;
+	move_uploaded_file($_FILES['document']['tmp_name'], 'assets/data/documents/'.$document);
 
-	move_uploaded_file($_FILES['image']['tmp_name'], 'assets/data/documents/'.$document);
-
-	$query = "INSERT INTO states (id, email, password, country, name, contact, phone,
-	website, organizer, regNo, pan, objectives, contactPerson, contactPhone, contactUrl, document) VALUES (UUID(),
-	'$email', '$password', '$country', '$organization', '$contact', '$phone', '$website', '$organizer', '$regNo', 
-	'$pan', '$objectives', '$contactPerson', '$contactPhone', '$document')";
+	$query = "UPDATE states SET profession='$profession',contact='$contact',secondEmail='$secondEmail',
+	phone='$phone',website='$website',organizer='$organizer',organizerEmail='$organizerEmail',pan='$pan',
+	objectives='$objectives',contactPerson='$contactPerson',contactPhone='$contactPhone',
+	bearerNames='$bearerNames',bearerPhones='$bearerPhones',bearerEmails='$bearerEmails',
+	bearerPans='$bearerPans',bearerDesignations='$bearerDesignations',logo='$logo',document='$document',
+	completed=TRUE WHERE id='$id'";
 
 	if (queryDB($query)) {
-		$name = $_SESSION['user']['name'];
-		setLog('user', $user['id'], "$name completed registration", $country);
+		setLog('organization', $id, "$name completed registration", $country);
 		$result = queryDB("SELECT * FROM states WHERE organization='$organization' AND  password='$password'");
 		$user = $result->fetch_array(MYSQLI_ASSOC);
 		header("Location: /state");
@@ -140,9 +153,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
 												<!--begin::Widget 11-->
 												<div class="m-widget11">
-													<form class="m-form m-form--fit m-form--label-align-right auth coach" action="organizaation_register.php" method="post" enctype="multipart/form-data">
+													<form class="m-form m-form--fit m-form--label-align-right auth state" action="organization_register.php" method="post" enctype="multipart/form-data">
 														<div class="form-group m-form__group p-0">
-															<input class="form-control m-input" type="hidden" value="coach" name="profession" required>
+															<input class="form-control m-input" type="hidden" value="state" name="profession" required>
 														</div>
 														<div class="m-portlet__body p-0">
 <?php
