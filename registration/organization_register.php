@@ -222,26 +222,28 @@ _END;
 																	List of Office Bearers
 																</div>
 															</div>
-															<div class="form-row m-form__group">
-																<div class="col-4">
-																	<input class="form-control m-input" type="text" placeholder="Bearers Name" name="bearerNames[]" required>
-																</div>
-																<div class="col-2">
-																	<input class="form-control m-input" type="text" placeholder="Contact No" name="bearerPhones[]" required>
-																</div>
-																<div class="col-2">
-																	<input class="form-control m-input" type="text" placeholder="Email Id" name="bearerEmails[]" required>
-																</div>
-																<div class="col-2">
-																	<input class="form-control m-input" type="text" placeholder="PAN No" name="bearerPans[]" required>
-																</div>
-																<div class="col-2">
-																	<input class="form-control m-input" type="text" placeholder="Designation" name="bearerDesignations[]" required>
+															<div id="bearers">
+																<div class="form-row m-form__group">
+																	<div class="col-4">
+																		<input class="form-control m-input" type="text" placeholder="Bearers Name" name="bearerNames[]" required>
+																	</div>
+																	<div class="col-2">
+																		<input class="form-control m-input" type="text" placeholder="Contact No" name="bearerPhones[]" required>
+																	</div>
+																	<div class="col-2">
+																		<input class="form-control m-input" type="text" placeholder="Email Id" name="bearerEmails[]" required>
+																	</div>
+																	<div class="col-2">
+																		<input class="form-control m-input" type="text" placeholder="PAN No" name="bearerPans[]" required>
+																	</div>
+																	<div class="col-2">
+																		<input class="form-control m-input" type="text" placeholder="Designation" name="bearerDesignations[]" required>
+																	</div>
 																</div>
 															</div>
 															<div class="form-row m-form__group">
 																<div class="col-12 text-right">
-																	<button type="button" class="btn btn-success btn-sm">Add More</button>
+																	<button type="button" id="add_bearer" class="btn btn-success btn-sm">Add More</button>
 																</div>
 															</div>
 															<div class="form-row m-form__group">
@@ -312,7 +314,26 @@ _END;
 
 		<!--begin::Page Scripts -->
 		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		 $(()=>{
+			 $("#add_bearer").on("click", ()=>{
+				 	var bearer = '	<div class="form-row m-form__group">'
+				 	bearer += '<div class="col-4">'
+					bearer += '<input class="form-control m-input" type="text" placeholder="Bearers Name" name="bearerNames[]" required>'
+					bearer += '</div><div class="col-2">'
+					bearer += '<input class="form-control m-input" type="text" placeholder="Contact No" name="bearerPhones[]" required>'
+					bearer += '</div><div class="col-2">'
+					bearer += '<input class="form-control m-input" type="text" placeholder="Email Id" name="bearerEmails[]" required>'
+					bearer += '</div><div class="col-2">'
+					bearer += '<input class="form-control m-input" type="text" placeholder="PAN No" name="bearerPans[]" required>'
+					bearer += '</div><div class="col-2">'
+					bearer += '<input class="form-control m-input" type="text" placeholder="Designation" name="bearerDesignations[]" required>'
+					bearer += '</div></div>'
 
+					$("#bearers").append($(bearer))
+			 })
+		 })
+		</script>
 		<!--end::Page Scripts -->
 	</body>
 
