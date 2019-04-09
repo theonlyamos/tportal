@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once 'functions.php';
+require_once '../functions.php';
 
 if ($_POST){
 	echo json_encode($_POST);
@@ -159,6 +159,22 @@ License: You must have a valid license purchased only from themeforest(the above
 															<input class="form-control m-input" type="hidden" value="player" name="profession" required>
 														</div>
 												  <div class="m-portlet__body">
+<?php
+echo <<< _END
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-2 col-form-label text-left">Fullname</label>
+						<div class="col-10">
+							<input class="form-control m-input" type="text" value="$_SESSION[user][fullname]" name="name" readonly>
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-2 col-form-label text-left">Email</label>
+						<div class="col-10">
+							<input class="form-control m-input" type="text" value="$_SESSION[user][email]" name="email" readonly>
+						</div>
+					</div>
+_END;
+?>
 														<div class="form-group m-form__group row">
 														  <label for="example-text-input" class="col-2 col-form-label text-left">Username</label>
 														  <div class="col-10">

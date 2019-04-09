@@ -38,8 +38,21 @@ var SnippetLogin = function () {
           url: "login.php",
           method: "post",
           success: function (e, t, r, s) {
-            if (e === "user" ) window.location = '/home'
-            else window.location = '/state'
+            var user = JSON.parse(e)
+            if (user.profession === 'user'){
+              if (user.completed){
+                window.location = '/home';
+              }else {
+                window.location = '/registration';
+              }
+            }
+            else {
+              if (user.completed){
+                window.location = '/state';
+              }else {
+                window.location = '/registration/organization_register.php';
+              }
+            }
           },
           error: (w, m) => {
             setTimeout(function () {

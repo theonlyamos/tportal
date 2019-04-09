@@ -30,11 +30,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             echo "Click on the link in the email we sent you to verify your account!";
           }
           else if (!$user['completed']){
-            $profession = $user['profession'];
-            header("Location: /registration/".$profession."_register.php");
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $user;
+            echo json_encode(array('profession'=>'user','completed'=>false));
           }
           else{
             session_start();
