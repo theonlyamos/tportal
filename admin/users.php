@@ -471,7 +471,7 @@ require_once '../functions.php';
 
 $country = $_SESSION['user']['country'];
 
-$result = queryDB("SELECT id, fullname, profession, country, email, verified, approved FROM users ORDER BY createdAt DESC");
+$result = queryDB("SELECT id, fullname, profession, country, email, phone, verified, approved FROM users ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
