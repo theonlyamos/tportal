@@ -614,7 +614,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="row">
 							<div class="col-xl-6">
 							<!--begin:: Widgets/Quick Stats-->
-							<?php
+<?php
 require_once '../functions.php';
 
 $result = queryDB("SELECT username, profession FROM users");
@@ -639,7 +639,10 @@ echo <<< _END
 											<div class="m-portlet__body">
 												<div class="m-widget26">
 													<div class="m-widget26__number">
-														0
+_END;
+$result = queryDB("SELECT title FROM posts WHERE type = 'tournament'");
+echo $result->num_rows;
+echo <<< _END
 														<small>All Tournaments</small>
 													</div>
 													<div class="m-widget26__chart" style="height:90px; width: 220px;">

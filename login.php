@@ -22,20 +22,24 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       else {
         $user = $result->fetch_array(MYSQLI_ASSOC);
         if ($pass != $user['password']) {
+          setLog('user', $user['id'], $user['email']." invalid authentication", $user['country']);
           http_response_code(402);
           echo "Wrong email/password. Try again!";
         }else{
           if (!$user['verified']){
+            setLog('user', $user['id'], $user['email']." logged in", $user['country']);
             http_response_code(403);
             echo "Click on the link in the email we sent you to verify your account!";
           }
           else if (!$user['completed']){
+            setLog('user', $user['id'], $user['email']." logged in", $user['country']);
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $user;
             echo json_encode(array('profession'=>'user','completed'=>false));
           }
           else{
+            setLog('user', $user['id'], $user['email']." logged in", $user['country']);
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $user;
@@ -54,21 +58,25 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       else {
         $user = queryDB("SELECT * FROM states WHERE email='$email' AND  password='$pass'");
         if ($user->num_rows == 0) {
+          setLog('organization', $user['id'], $user['email']." invalid authentication", $user['country']);
           http_response_code(402);
           echo "Wrong email/password. Try again!";
         }else{
           $user = $user->fetch_array(MYSQLI_ASSOC);
           if (!$user['verified']){
+            setLog('organization', $user['id'], $user['email']." logged in", $user['country']);
             http_response_code(403);
             echo "Click on the link in the email we sent you to verify your account!";
           }
           else if (!$user['completed']){
+            setLog('organization', $user['id'], $user['email']." logged in", $user['country']);
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $user;
             echo json_encode(array('profession'=>'state','completed'=>false));
           }
           else{
+            setLog('organization', $user['id'], $user['email']." logged in", $user['country']);
             session_start();
             $_SESSION["loggedIn"] = "true";
             $_SESSION["user"] = $user;
