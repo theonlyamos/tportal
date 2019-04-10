@@ -467,14 +467,16 @@ License: You must have a valid license purchased only from themeforest(the above
 																<img src="../assets/data/profiles/admin.png" alt="admin pic">
 															</div>
 															<div class="m-card-user__details">
-																<?php
+																<span>
+																	<?php
 																	echo $_SESSION['user']['name'];
 																	?>
-																	</span>
-																	<a href="" class="m-card-user__email m--font-weight-300 m-link">@
+																</span>
+																<a href="" class="m-card-user__email m--font-weight-300 m-link">@
 																	<?php
 																		echo $_SESSION['user']['organization'];
-																?>
+																	?>
+																</a>
 															</div>
 														</div>
 													</div>
@@ -752,20 +754,17 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 
 	echo '<div class="m-list-timeline__item">';
 	if ($role == 'user'){
-		echo <<< _END
-								<span class="m-list-timeline__badge m-list-timeline__badge--info"></span>
-								<span class="m-list-timeline__text">$message <span class="m-badge m-badge--danger m-badge--wide">$country</span></span>
-								<span class="m-list-timeline__time">$date</span>
-							</div>
-_END;
+		echo "<span class='m-list-timeline__badge m-list-timeline__badge--info'></span>";
+		echo "<span class='m-list-timeline__text'>$message ";
+		if ($country) echo "<span class='m-badge m-badge--danger m-badge--wide'>$country</span>";
+		echo "</span><span class='m-list-timeline__time'>$date</span></div>";
+
 	}
 	else if ($role == 'organization'){
-		echo <<< _END
-								<span class="m-list-timeline__badge m-list-timeline__badge--danger"></span>
-								<span class="m-list-timeline__text">$message <span class="m-badge m-badge--warning m-badge--wide">$country</span></span>
-								<span class="m-list-timeline__time">$date</span>
-							</div>
-_END;
+		echo "<span class='m-list-timeline__badge m-list-timeline__badge--danger'></span>";
+		echo "<span class='m-list-timeline__text'>$message ";
+		if ($country) echo "<span class='m-badge m-badge--info m-badge--wide'>$country</span>";
+		echo "</span><span class='m-list-timeline__time'>$date</span></div>";
 	}
 								
 }
