@@ -170,7 +170,7 @@ $(() =>{
   
     })
 
-    $("#approve_user").on("click", (e) => {
+    $(".approve_user").on("click", (e) => {
       var t = $(e.target)
       mApp.block(".m-content", {})
       $.get('/actions.php', {name: "approve", target: t.data("target"), field: "users"})
@@ -182,7 +182,7 @@ $(() =>{
        })
     })
 
-    $("#approve_tournament").on("click", (e) => {
+    $(".approve_tournament").on("click", (e) => {
       var t = $(e.target)
       mApp.block(".m-content", {})
       $.get('/actions.php', {name: "approve", target: t.data("target"), field: "tournaments"})
@@ -194,7 +194,7 @@ $(() =>{
        })
     })
 
-    $("#approve_organization").on("click", (e) => {
+    $(".approve_organization").on("click", (e) => {
       var t = $(e.target)
       mApp.block(".m-content", {})
       $.get('/actions.php', {name: "approve", target: t.data("target"), field: "organizations"})

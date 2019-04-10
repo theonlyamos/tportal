@@ -494,7 +494,7 @@ if ($user['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--succ
 else echo '<td><div class="m-badge m-badge--wide approved">pending</div></td>';
 if ($user['approved']) echo '<td><button disabled id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
 else {
-	if ($_SESSION['user']['approved']) echo '<td><button id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+	if ($_SESSION['user']['approved']) echo '<td><button data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air approve_user">Approve</td></tr>';
 	else echo '<td><button data-toggle="m-tooltip" data-original-title="You account has not been approved" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
 }
 }

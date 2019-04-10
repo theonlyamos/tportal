@@ -673,7 +673,7 @@ _END;
 else {
 	echo <<< _END
 														<li class="m-nav__item">
-															<button class="btn btn-link" id="approve_organization" data-target="$organizationid">
+															<button class="btn btn-link approve_organization" data-target="$organizationid">
 																<i class="m-nav__link-icon fa fa-check text-success"></i>
 																Approve
 															</button>

@@ -667,7 +667,7 @@ _END;
 else {
 	echo <<< _END
 														<li class="m-nav__item">
-															<button class="btn btn-link" id="approve_tournament" data-target="$tournamentid">
+															<button class="btn btn-link approve_tournament" data-target="$tournamentid">
 																<i class="m-nav__link-icon fa fa-check text-success"></i>
 																Approve
 															</button>
