@@ -483,6 +483,7 @@ $result = queryDB("SELECT id, fullname, profession, country, email, verified, ap
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$user = $result->fetch_array(MYSQLI_ASSOC);
+	$userid = $user['id'];
 
 	echo <<< _END
 									<tr><td>$user[fullname]</td><td>$user[profession]</td><td>$user[country]</td><td>$user[email]</td><td>$user[phone]</td>
@@ -492,7 +493,10 @@ else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
 if ($user['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--success">approved</div></td>';
 else echo '<td><div class="m-badge m-badge--wide approved">pending</div></td>';
 if ($user['approved']) echo '<td><button disabled id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
-else echo '<td><button id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+else {
+	if ($_SESSION['user']['approved']) echo '<td><button id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+	else echo '<td><button data-toggle="m-tooltip" data-original-title="You account has not been approved" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+}
 }
 ?>
 									</tbody>
