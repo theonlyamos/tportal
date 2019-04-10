@@ -553,7 +553,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					<div class="m-subheader ">
 						<div class="d-flex align-items-center">
 							<div class="mr-auto">
-								<h3 class="m-subheader__title ">Tournaments</h3>
+								<h3 class="m-subheader__title ">Organizations</h3>
 							</div>
 							<div>
 								<span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
@@ -579,16 +579,16 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
 										<h3 class="m-portlet__head-text">
-											Tournaments
+											Organizations
 									</div>
 								</div>
 								<div class="m-portlet__head-tools">
 									<ul class="m-portlet__nav">
 										<li class="m-portlet__nav-item">
-											<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air" data-toggle="modal" data-target="#m_modal_tournament">
+											<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air" data-toggle="modal" data-target="#m_modal_organization">
 												<span>
 													<i class="la la-cart-plus"></i>
-													<span>New Tournament</span>
+													<span>New Organization</span>
 												</span>
 											</a>
 										</li>
@@ -602,12 +602,14 @@ License: You must have a valid license purchased only from themeforest(the above
 								<table class="table table-bordered table-hover table-checkable" id="m_table_1">
 									<thead>
 										<tr>
-											<th>Title</th>
-											<th>Organization</th>
+											<th>Name</th>
 											<th>Country</th>
-											<th>Venue</th>
-											<th>Price</th>
-											<th>Approval</th>
+											<th>Email</th>
+											<th>Phone</th>
+                      <th>Website</th>
+                      <th>Reg. Cert</th>
+                      <th>Verified</th>
+                      <th>Approved</th>
 											<th>Actions</th>
 										</tr>
 									</thead>
@@ -618,17 +620,21 @@ require_once '../functions.php';
 
 $country = $_SESSION['user']['country'];
 
-$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' ORDER BY createdAt DESC");
+$result = queryDB("SELECT * FROM states ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
-	$tournament = $result->fetch_array(MYSQLI_ASSOC);
+	$organization = $result->fetch_array(MYSQLI_ASSOC);
 
 	echo <<< _END
-									<tr><td>$tournament[title]</td><td>$tournament[author]</td><td>$tournament[country]</td><td>$tournament[venue]</td>
-											<td>&dollar;$tournament[price]</td>
+									<tr><td>$organization[name]</td><td>$organization[country]</td><td>$organization[email]</td><td>$organization[contact]</td>
+											<td>$organization[website]</td>
 _END;
-if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
+if ($organization['document']) echo '<td><a href="../assets/data/documents/'.$organization['document'].'" class="nav-link" target="_blank">View</a></td>';
+else echo '<td></td>';
+if ($organization['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
+else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
+if ($organization['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
 else echo '<td><div class="m-badge m-badge--wide .approved">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
@@ -648,7 +654,7 @@ echo <<< _END
 															<span class="m-nav__section-text">Quick Actions</span>
 														</li>
 _END;
-if ($tournament['approved']) {
+if ($organization['approved']) {
 	echo <<< _END
 														<li class="m-nav__item">
 															<button class="btn btn-link" disabled>
@@ -665,10 +671,10 @@ if ($tournament['approved']) {
 _END;
 }
 else {
-	$tournamentid = $tournament['id'];
+	$organizationid = $organization['id'];
 	echo <<< _END
 														<li class="m-nav__item">
-															<button class="btn btn-link" id="approve_tournament" data-target="$tournamentid">
+															<button class="btn btn-link" id="approve_tournament" data-target="$organizationid">
 																<i class="m-nav__link-icon fa fa-check text-success"></i>
 																<span class="m-nav__link-text">Approve</span>
 															</button>
