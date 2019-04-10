@@ -118,6 +118,11 @@ else {
         echo "ok";
       }
     }
+    else if ($field == 'organizations'){
+      if (queryDB("UPDATE states SET approved = TRUE WHERE id = '$uid'")){
+        echo "ok";
+      }
+    }
   }
 }
 

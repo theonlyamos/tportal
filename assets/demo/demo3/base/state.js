@@ -190,7 +190,19 @@ $(() =>{
          t.attr("disabled", !0)
          mApp.unblock(".m-content")
          t.parent().parent().find(".approved").addClass("m-badge--success");
-         Notify("Success", "User approved successfully!", "success", "fa fa-check")
+         Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
+       })
+    })
+
+    $("#approve_organization").on("click", (e) => {
+      var t = $(e.target)
+      mApp.block(".m-content", {})
+      $.get('/actions.php', {name: "approve", target: t.data("target"), field: "organizations"})
+       .done((d) => {
+         t.attr("disabled", !0)
+         mApp.unblock(".m-content")
+         t.parent().parent().find(".approved").addClass("m-badge--success");
+         Notify("Success", "Organization approved successfully!", "success", "fa fa-check")
        })
     })
 })

@@ -653,13 +653,13 @@ if ($tournament['approved']) {
 														<li class="m-nav__item">
 															<button class="btn btn-link" disabled>
 																<i class="m-nav__link-icon fa fa-check text-success"></i>
-																<span class="m-nav__link-text">Approved</span>
+																Approved
 															</button>
 														</li>
 														<li class="m-nav__item py-2">
 															<button class="btn btn-link">
 																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																<span class="m-nav__link-text">Cancel</span>
+																Cancel
 															</button>
 														</li>
 _END;
@@ -670,13 +670,13 @@ else {
 														<li class="m-nav__item">
 															<button class="btn btn-link" id="approve_tournament" data-target="$tournamentid">
 																<i class="m-nav__link-icon fa fa-check text-success"></i>
-																<span class="m-nav__link-text">Approve</span>
+																Approve
 															</button>
 														</li>
 														<li class="m-nav__item py-2">
 															<button class="btn btn-link">
 																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																<span class="m-nav__link-text">Cancel</span>
+																Cancel
 															</button>
 														</li>
 _END;
@@ -685,13 +685,13 @@ echo <<< _END
 														<li class="m-nav__item">
 															<button class="btn btn-link">
 																<i class="m-nav__link-icon flaticon-edit"></i>
-																<span class="m-nav__link-text">Edit</span>
+																Edit
 															</button>
 														</li>
 														<li class="m-nav__item pt-2">
 															<button class="btn btn-link">
 																<i class="m-nav__link-icon fa fa-trash"></i>
-																<span class="m-nav__link-text">Delete</span>
+																Delete
 															</button>
 														</li>
 													</ul>
