@@ -1086,15 +1086,6 @@ _END;
 
 		<!-- end::Scroll Top -->
 
-		<!-- begin::Quick Nav -->
-		<ul class="m-nav-sticky" style="margin-top: 30px;">
-			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Create User" data-placement="left">
-				<a href=""><i class='flaticon-add-circular-button text-primary'></i></a>
-			</li>
-		</ul>
-
-		<!-- begin::Quick Nav -->
-
 		<!--begin::Global Theme Bundle -->
 		<script src="../assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
 		<script src="../assets/demo/demo3/base/scripts.bundle.js" type="text/javascript"></script>

@@ -1235,11 +1235,6 @@ _END;
 		<!-- end::Scroll Top -->
 
 		<!-- begin::Quick Nav -->
-		<ul class="m-nav-sticky" style="margin-top: 30px;">
-			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Create Tournament" data-placement="left">
-				<a href="" data-toggle="modal" data-target="#m_modal_tournament"><i class='flaticon-add-circular-button text-primary'></i></a>
-			</li>
-		</ul>
 
 		<!-- begin::Quick Nav -->
 
