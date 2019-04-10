@@ -651,7 +651,7 @@ _END;
 if ($tournament['approved']) {
 	echo <<< _END
 														<li class="m-nav__item">
-															<button class="btn btn-link">
+															<button class="btn btn-link" disabled>
 																<i class="m-nav__link-icon fa fa-check text-success"></i>
 																<span class="m-nav__link-text">Approved</span>
 															</button>

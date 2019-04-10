@@ -505,7 +505,7 @@ _END;
 if ($user['approved']) {
 	echo <<< _END
 														<li class="m-nav__item">
-															<button class="btn btn-link">
+															<button class="btn btn-link" disabled>
 																<i class="m-nav__link-icon fa fa-check text-success"></i>
 																<span class="m-nav__link-text">Approved</span>
 															</button>
@@ -513,7 +513,7 @@ if ($user['approved']) {
 														<li class="m-nav__item py-2">
 															<button class="btn btn-link">
 																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																<span class="m-nav__link-text">Cancel</span>
+																<span class="m-nav__link-text">Reject</span>
 															</button>
 														</li>
 _END;
@@ -530,7 +530,7 @@ else {
 														<li class="m-nav__item py-2">
 															<button class="btn btn-link">
 																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																<span class="m-nav__link-text">Cancel</span>
+																<span class="m-nav__link-text">Reject</span>
 															</button>
 														</li>
 _END;
