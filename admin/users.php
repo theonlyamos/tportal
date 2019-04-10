@@ -459,6 +459,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<th>Country</th>
 											<th>Email</th>
 											<th>Phone</th>
+											<th>Med. Cert</th>
 											<th>Verification</th>
 											<th>Approval</th>
 											<th>Actions</th>
@@ -471,7 +472,7 @@ require_once '../functions.php';
 
 $country = $_SESSION['user']['country'];
 
-$result = queryDB("SELECT id, fullname, profession, country, email, phone, verified, approved FROM users ORDER BY createdAt DESC");
+$result = queryDB("SELECT id, fullname, profession, country, email, phone, medcert, verified, approved FROM users ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
@@ -480,6 +481,8 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 	echo <<< _END
 									<tr><td>$user[fullname]</td><td>$user[profession]</td><td>$user[country]</td><td>$user[email]</td><td>$user[phone]</td>
 _END;
+if ($user['medcert']) echo '<td><a href="'.$user['medcert'].'" class="nav-link" target="_blank">View</a></td>';
+else echo '<td></td>';
 if ($user['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
 else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
 if ($user['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--success">approved</div></td>';
