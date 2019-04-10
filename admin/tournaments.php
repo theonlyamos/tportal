@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
-	header("Location: login.html");
+if (!$_SESSION['loggedIn'] || $_SESSION['user']['role'] != "admin") {
+	header("Location: login.php");
 }
 
 ?>
@@ -69,9 +69,10 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--begin::Modal-->
     <div class="modal fade modal-light" id="m_modal_tournament" tabindex="-1" role="dialog" aria-labelledby="tournamentModalTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
-        <div class="modal-content bg-dark">
+        <div class="modal-content bg-primary">
 					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_tournament" novalidate="novalidate" enctype="multipart/form-data">
-						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="tournament">
+						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="tournament">
+						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="post">
 						<div class="modal-header">
 							<h5 class="modal-title text-white" id="tournamentModalTitle">Create Tournament</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -85,7 +86,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										<div class="form-group m-form__group row">
 											<div class="col-lg-12 m-form__group-sub">
 												<label class="form-control-label">Title:</label>
-												<input type="text" name="title" class="form-control m-input" placeholder="" value="Chess Tournament">
+												<input type="text" name="title" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">Please enter the title of the Tournament</span>
 											</div>
 										</div>
@@ -93,7 +94,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="col-lg-12 m-form__group-sub">
 												<label class="form-control-label">Description:</label>
 												<div class="md-editor" id="1553185306142">
-													<textarea name="description" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;">I don't Know</textarea>
+													<textarea name="description" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
 													<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
 													<span class="m-form__help">Please enter the description of the Tournament</span>
 												</div>
@@ -102,12 +103,12 @@ License: You must have a valid license purchased only from themeforest(the above
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Address:</label>
-												<input type="text" name="address" class="form-control m-input" placeholder="" value="Prison's Road">
+												<input type="text" name="address" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">Please enter the address of the venue</span>
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">City:</label>
-												<input type="text" name="city" class="form-control m-input" placeholder="" value="Takoradi">
+												<input type="text" name="city" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">Please enter the city of the venue</span>
 											</div>
 										</div>
@@ -179,7 +180,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Contact Email</label>
-												<input type="email" name="contactEmail" class="form-control m-input" placeholder="" value="jamesstefens18@gmail.com">
+												<input type="email" name="contactEmail" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">Please enter the email of the contact person</span>
 											</div>
 										</div>
@@ -202,7 +203,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Organizer Email</label>
-												<input type="email" name="organizerEmail" class="form-control m-input" placeholder="" value="theonlyamos@gmail.com">
+												<input type="email" name="organizerEmail" class="form-control m-input" placeholder="" value="">
 												<span class="m-form__help">Please enter the email of the organizer</span>
 											</div>
 										</div>
@@ -222,7 +223,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-secondary" id="m_tournament_dismiss" data-dismiss="modal">Close</button>
 							<button type="submit" class="btn btn-warning" id="m_tournament_submit"><i class="fa fa-save fa-fw"></i>Save</button>
 						</div>
 					</form>
@@ -411,12 +412,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										 m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
-												<?php
-													if ($_SESSION['user']['image']){
-														echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
-													}
-													else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
-												?>
+													<img src="../assets/data/profiles/admin.png" alt="admin pic">
 												</span>
 											</a>
 											<div class="m-dropdown__wrapper">
@@ -425,22 +421,19 @@ License: You must have a valid license purchased only from themeforest(the above
 													<div class="m-dropdown__header m--align-center" style="background: url(../assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
-															<?php
-																if ($_SESSION['user']['image']){
-																	echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
-																}
-																else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
-															?>
+																<img src="../assets/data/profiles/admin.png" alt="admin pic">
 															</div>
 															<div class="m-card-user__details">
-																<?php
-																	echo $_SESSION['user']['name'];
-																	?>
-																	</span>
-																	<a href="" class="m-card-user__email m--font-weight-300 m-link">@
+																<span>
 																	<?php
-																		echo $_SESSION['user']['organization'];
-																?>
+																	echo $_SESSION['user']['fullname'];
+																	?>
+																</span>
+																<a href="" class="m-card-user__email m--font-weight-300 m-link">@
+																	<?php
+																		echo $_SESSION['user']['email'];
+																	?>
+																</a>
 															</div>
 														</div>
 													</div>
@@ -470,7 +463,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																<li class="m-nav__separator m-nav__separator--fit">
 																</li>
 																<li class="m-nav__item">
-																	<a href="/action.php?name=logout" class="btn m-btn--pill btn-danger m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
+																	<a href="/actions.php?name=logout" class="btn m-btn--pill btn-danger m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
 																</li>
 															</ul>
 														</div>
@@ -576,68 +569,72 @@ License: You must have a valid license purchased only from themeforest(the above
 					<!-- END: Subheader -->
 					<div class="m-content">
 
-            <!--Begin::Section-->
-						<div class="row tournaments-section">
-              <div class="col-xl-4">
-                <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
-                  <div class="m-portlet__head m-portlet__head--fit">
-                    <div class="m-portlet__head-caption">
-                      <div class="m-portlet__head-action">
-                        <button type="button" class="btn btn-sm m-btn--pill  btn-brand"><i class="flaticon-placeholder-2"></i>Accra</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="m-portlet__body">
-                    <div class="m-widget19">
-                      <div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides">
-                        <img src="../assets/app/media/img//blog/blog1.jpg" alt="">
-                        <h3 class="m-widget19__title m--font-light">
-                          Chess Championship
-                        </h3>
-                        <div class="m-widget19__shadow"></div>
-                      </div>
-                      <div class="m-widget19__content">
-                        <div class="m-widget19__header">
-                          <div class="m-widget19__user-img">
-                            <img class="m-widget19__img" src="../assets/app/media/img//users/profile_pic.jpg" alt="">
-                          </div>
-                          <div class="m-widget19__info">
-                            <span class="m-widget19__username">
-                              Anna Krox
-                            </span><br>
-                            <span class="m-widget19__time">
-                              UX/UI Designer, Google
-                            </span>
-                          </div>
-                          <div class="m-widget19__stats">
-                            <span class="m-widget19__number m--font-brand">
-                              0
-                            </span>
-                            <span class="m-widget19__comment">
-                              Registered
-                            </span>
-                          </div>
-                        </div>
-                        <div class="m-widget19__header">
-                            <div class="m-widget19__info">
-                              <span class="m-widget19__username">
-                                <i class="flaticon-calendar-with-a-clock-time-tools"></i>
-                                Sun, 17 Mar 2019 11:45:13 GMT
-                              </span>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="m-widget19__action">
-                        <button type="button" class="btn m-btn--pill btn-info m-btn">
-                            <i class="fa fa-check"></i>
-                            Approve
-                          </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+						<!--Begin::Section-->
+						<!--Datatable Insert-->
+						<div class="m-portlet m-portlet--mobile">
+							<div class="m-portlet__head">
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">
+											Tournaments
+									</div>
+								</div>
+								<div class="m-portlet__head-tools">
+									<ul class="m-portlet__nav">
+										<li class="m-portlet__nav-item">
+											<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air" data-toggle="modal" data-target="#m_modal_tournament">
+												<span>
+													<i class="la la-cart-plus"></i>
+													<span>New Tournament</span>
+												</span>
+											</a>
+										</li>
+										<li class="m-portlet__nav-item"></li>
+									</ul>
+								</div>
+							</div>
+							<div class="m-portlet__body">
+
+								<!--begin: Datatable -->
+								<table class="table table-bordered table-hover table-checkable" id="m_table_1">
+									<thead>
+										<tr>
+											<th>Title</th>
+											<th>Organization</th>
+											<th>Country</th>
+											<th>Venue</th>
+											<th>Price</th>
+											<th>Approval</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+<?php
+
+require_once '../functions.php';
+
+$country = $_SESSION['user']['country'];
+
+$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' ORDER BY createdAt DESC");
+
+for ($j = 0; $j < $result->num_rows; ++$j){
+	$result->data_seek($j);
+	$tournament = $result->fetch_array(MYSQLI_ASSOC);
+
+	echo <<< _END
+									<tr><td>$tournament[title]</td><td>$tournament[author]</td><td>$tournament[country]</td><td>$tournament[venue]</td>
+											<td>&dollar;$tournament[price]</td>
+_END;
+if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
+else echo '<td><div class="m-badge m-badge--wide .approved">pending</div></td>';
+if ($tournament['approved']) echo '<td><button disabled id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+else echo '<td><button id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+}
+?>
+									</tbody>
+								</table>
+							</div>
+						</div>
           </div>
 				</div>
 			</div>
@@ -1171,12 +1168,11 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--begin::Page Vendors -->
 		<script src="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
-
 		<!--end::Page Vendors -->
 
 		<!--begin::Page Scripts -->
 		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
-		<script src="../assets/app/js/my-script.js" type="text/javascript"></script>
+		<script src="../assets/demo/demo3/base/state.js" type="text/javascript"></script>
 		<!--end::Page Scripts -->
 	</body>
 

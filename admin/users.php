@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if (!$_SESSION['loggedIn'] || $_SESSION['user']['profession'] != "state") {
-	header("Location: login.html");
+if (!$_SESSION['loggedIn'] || $_SESSION['user']['role'] != "admin") {
+	header("Location: login.php");
 }
 
 ?>
@@ -248,12 +248,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										 m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
-												<?php
-													if ($_SESSION['user']['image']){
-														echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
-													}
-													else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
-												?>
+													<img src="../assets/data/profiles/admin.png" alt="admin pic">
 												</span>
 											</a>
 											<div class="m-dropdown__wrapper">
@@ -262,22 +257,19 @@ License: You must have a valid license purchased only from themeforest(the above
 													<div class="m-dropdown__header m--align-center" style="background: url(../assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
-															<?php
-																if ($_SESSION['user']['image']){
-																	echo '<img src="../assets/data/profiles/'.$_SESSION['user']['image'].'" alt="">';
-																}
-																else echo '<img src="../assets/app/media/img/users/neutral.png" alt="">';
-															?>
+																<img src="../assets/data/profiles/admin.png" alt="admin pic">
 															</div>
 															<div class="m-card-user__details">
-																<?php
-																	echo $_SESSION['user']['name'];
-																	?>
-																	</span>
-																	<a href="" class="m-card-user__email m--font-weight-300 m-link">@
+																<span>
 																	<?php
-																		echo $_SESSION['user']['organization'];
-																?>
+																	echo $_SESSION['user']['fullname'];
+																	?>
+																</span>
+																<a href="" class="m-card-user__email m--font-weight-300 m-link">@
+																	<?php
+																		echo $_SESSION['user']['email'];
+																	?>
+																</a>
 															</div>
 														</div>
 													</div>
@@ -442,65 +434,61 @@ License: You must have a valid license purchased only from themeforest(the above
 					<div class="m-content">
 
             <!--Begin::Section-->
-						<div class="row">
+
+						<!--Datatable Insert-->
+						<div class="m-portlet m-portlet--mobile">
+							<div class="m-portlet__head">
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">
+											Users
+									</div>
+								</div>
+							</div>
+							<div class="m-portlet__body">
+
+								<!--begin: Datatable -->
+								<table class="table table-bordered table-hover table-checkable" id="m_table_1">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th>Profession</th>
+											<th>Country</th>
+											<th>Email</th>
+											<th>Phone</th>
+											<th>Verification</th>
+											<th>Approval</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
 <?php
+
 require_once '../functions.php';
 
-$result = queryDB("SELECT username, city, profession, picture FROM users");
+$country = $_SESSION['user']['country'];
+
+$result = queryDB("SELECT id, fullname, profession, country, email, verified, approved FROM users ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$user = $result->fetch_array(MYSQLI_ASSOC);
 
 	echo <<< _END
-              <div class="col-md-4 col-lg-3 col-xl-2">
-                <div class="m-portlet" style="border-radius: 5px;">
-									<div class="m-portlet__head p-0 justify-content-center" style="height: auto !important;">
+									<tr><td>$user[fullname]</td><td>$user[profession]</td><td>$user[country]</td><td>$user[email]</td><td>$user[phone]</td>
 _END;
-if ($user['picture']) {
-	echo '<img class="my-4" src="../assets/data/profiles/'.$user[picture].'" alt="" style="width: 100px; height: 100px; border-radius: 50%;">';
+if ($user['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
+else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
+if ($user['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--success">approved</div></td>';
+else echo '<td><div class="m-badge m-badge--wide approved">pending</div></td>';
+if ($user['approved']) echo '<td><button disabled id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+else echo '<td><button id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
 }
-else echo '<img class="my-4" src="../assets/app/media/img/users/neutral.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;">';
-echo <<< _END
-                  </div>
-                  <div class="m-portlet__body p-0">
-                    <div class="m-widget19">
-                      <div class="m-widget19__content">
-                        <div class="m-widget19__header">
-                          <div class="m-widget19__info">
-                            <span class="m-widget19__username">
-                              @$user[username]
-                            </span><br>
-                            <span class="m-widget19__time">
-                              $user[city]
-														</span>
-														<br>
-                            <span class="m-widget19__time pt-3">
-															Profession:
-_END;
-if ($user['profession'] == 'player') echo '<button type="button" class="btn btn-sm m-btn--pill btn-danger btn-brand"><i class="fa fa-football-ball fa-fw"></i>'.$user[profession].'</button>';
-else if ($user['profession'] == 'arbiter') echo '<button type="button" class="btn btn-sm m-btn--pill btn-primary btn-brand"><i class="fa fa-flag fa-fw"></i>'.$user[profession].'</button>';
-else if ($user['profession'] == 'coach') echo '<button type="button" class="btn btn-sm m-btn--pill btn-warning btn-brand"><i class="fa fa-user-check fa-fw"></i>'.$user[profession].'</button>';
-
-echo <<< _END
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="m-portlet__foot p-0">
-                    <a href="" target="_blank" class="btn m-btn--square btn-outline-dark border-0 w-100">View Profile</a>
-                  </div>
-                </div>
-							</div>
-_END;
-}
-
-$result->close()
 ?>
-
-            </div>
+									</tbody>
+								</table>
+							</div>
+						</div>
             </div>
           </div>
 				</div>
@@ -1040,6 +1028,7 @@ $result->close()
 
 		<!--begin::Page Scripts -->
 		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
+		<script src="../assets/demo/demo3/base/state.js" type="text/javascript"></script>
 
 		<!--end::Page Scripts -->
 	</body>

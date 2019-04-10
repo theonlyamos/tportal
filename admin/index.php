@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!$_SESSION['loggedIn'] || $_SESSION['user']['role'] != "admin") {
+	header("Location: login.php");
+}
+
+?>
 
 <!DOCTYPE html>
 
@@ -469,12 +477,12 @@ License: You must have a valid license purchased only from themeforest(the above
 															<div class="m-card-user__details">
 																<span>
 																	<?php
-																	echo $_SESSION['user']['name'];
+																	echo $_SESSION['user']['fullname'];
 																	?>
 																</span>
 																<a href="" class="m-card-user__email m--font-weight-300 m-link">@
 																	<?php
-																		echo $_SESSION['user']['organization'];
+																		echo $_SESSION['user']['email'];
 																	?>
 																</a>
 															</div>
