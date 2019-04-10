@@ -481,7 +481,7 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 	echo <<< _END
 									<tr><td>$user[fullname]</td><td>$user[profession]</td><td>$user[country]</td><td>$user[email]</td><td>$user[phone]</td>
 _END;
-if ($user['medcert']) echo '<td><a href="../assets/data/medical'.$user['medcert'].'" class="nav-link" target="_blank">View</a></td>';
+if ($user['medcert']) echo '<td><a href="../assets/data/medical/'.$user['medcert'].'" class="nav-link" target="_blank">View</a></td>';
 else echo '<td></td>';
 if ($user['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
 else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
