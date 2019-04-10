@@ -674,7 +674,7 @@ else {
 	$organizationid = $organization['id'];
 	echo <<< _END
 														<li class="m-nav__item">
-															<button class="btn btn-link" id="approve_tournament" data-target="$organizationid">
+															<button class="btn btn-link" id="approve_organization" data-target="$organizationid">
 																<i class="m-nav__link-icon fa fa-check text-success"></i>
 																<span class="m-nav__link-text">Approve</span>
 															</button>
