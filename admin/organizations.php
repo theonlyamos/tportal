@@ -634,7 +634,7 @@ if ($organization['document']) echo '<td><a href="../assets/data/documents/'.$or
 else echo '<td></td>';
 if ($organization['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
 else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
-if ($organization['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
+if ($organization['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--success">approved</div></td>';
 else echo '<td><div class="m-badge m-badge--wide approved-'.$organizationid.'">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
