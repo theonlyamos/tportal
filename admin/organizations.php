@@ -630,7 +630,7 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 									<tr><td>$organization[name]</td><td>$organization[country]</td><td>$organization[email]</td><td>$organization[contact]</td>
 											<td>$organization[website]</td>
 _END;
-if ($organization['document']) echo '<td><a href="../assets/data/documents/'.$organization['document'].'" class="nav-link" target="_blank">View</a></td>';
+if ($organization['document']) echo '<td><a href="../assets/data/documents/'.$organization['document'].'" class="nav-link" target="_blank"><i class="fa fa-link fa-fw"></li>View</a></td>';
 else echo '<td></td>';
 if ($organization['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
 else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
