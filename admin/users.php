@@ -257,15 +257,15 @@ License: You must have a valid license purchased only from themeforest(the above
 													<div class="m-dropdown__header m--align-center" style="background: url(../assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
-																<img src="../assets/data/profiles/admin.png" alt="admin pic">
+																<img src="../assets/data/profiles/admin.png" alt="admin pic" style="filter: invert(100%);">
 															</div>
 															<div class="m-card-user__details">
-																<span>
+																<strong class="text-white">
 																	<?php
 																	echo $_SESSION['user']['fullname'];
 																	?>
-																</span>
-																<a href="" class="m-card-user__email m--font-weight-300 m-link">@
+																</strong>
+																<a href="" class="m-card-user__email m--font-weight-300 m-link text-white">@
 																	<?php
 																		echo $_SESSION['user']['email'];
 																	?>
