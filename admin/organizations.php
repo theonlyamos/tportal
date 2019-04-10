@@ -26,7 +26,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>Users | Tournament Portal</title>
+		<title>Tournaments | Tournament Portal</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -66,7 +66,171 @@ License: You must have a valid license purchased only from themeforest(the above
 
 	<!-- begin::Body -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
-
+		<!--begin::Modal-->
+    <div class="modal fade modal-light" id="m_modal_tournament" tabindex="-1" role="dialog" aria-labelledby="tournamentModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
+        <div class="modal-content bg-primary">
+					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_tournament" novalidate="novalidate" enctype="multipart/form-data">
+						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="tournament">
+						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="post">
+						<div class="modal-header">
+							<h5 class="modal-title text-white" id="tournamentModalTitle">Create Tournament</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="m-scrollable m-scroller ps ps--active-y" data-scrollbar-shown="true" data-scrollable="true" data-height="200" style="min-height: 70vh; overflow: hidden;">
+								<div class="m-portlet">
+									<div class="m-portlet__body">
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Title:</label>
+												<input type="text" name="title" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the title of the Tournament</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Description:</label>
+												<div class="md-editor" id="1553185306142">
+													<textarea name="description" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
+													<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
+													<span class="m-form__help">Please enter the description of the Tournament</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Address:</label>
+												<input type="text" name="address" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the address of the venue</span>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">City:</label>
+												<input type="text" name="city" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the city of the venue</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Venue Description:</label>
+												<div class="md-editor" id="1553185306142">
+													<textarea name="venue" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
+													<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
+													<span class="m-form__help">Please enter the description of the tournament venue</span>
+												</div>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">Tentative Dates</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-md-6 m-form__group-sub">
+												<div class="input-group">
+													<div class="input-group-prepend"><span class="input-group-text">Start</span></div>
+													<input type="date" name="startDates[]" class="form-control m-input" placeholder="" value="">
+												</div>
+											</div>
+											<div class="col-md-6 m-form__group-sub">
+												<div class="input-group">
+													<div class="input-group-prepend"><span class="input-group-text">End</span></div>
+													<input type="date" name="endDates[]" class="form-control m-input" placeholder="" value="">
+												</div>
+											</div>
+											<div class="col-md-6 m-form__group-sub">
+												<div class="input-group">
+													<div class="input-group-prepend"><span class="input-group-text">Start</span></div>
+													<input type="date" name="startDates[]" class="form-control m-input" placeholder="" value="">
+												</div>
+											</div>
+											<div class="col-md-6 m-form__group-sub">
+												<div class="input-group">
+													<div class="input-group-prepend"><span class="input-group-text">End</span></div>
+													<input type="date" name="endDates[]" class="form-control m-input" placeholder="" value="">
+												</div>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-md-12 m-form__group-sub">
+												<label class="form-control-label">Price Money:</label>
+												<div class="input-group">
+													<div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-dollar-sign"></i></span></div>
+													<input type="number" step="0.01" name="price" class="form-control m-input" placeholder="" value="">
+												</div>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">Contact Details</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Contact Person's Name</label>
+												<input type="text" name="contactName" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the name of the contact person</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Contact Number</label>
+												<input type="phone" name="contactPhone" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the phone number of the contact person</span>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Contact Email</label>
+												<input type="email" name="contactEmail" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the email of the contact person</span>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">Organizer Details</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Organizer Name</label>
+												<input type="text" name="organizerName" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the name of the organizer</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Organizer Number</label>
+												<input type="phone" name="organizerPhone" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the phone number of the organizer</span>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Organizer Email</label>
+												<input type="email" name="organizerEmail" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the email of the organizer</span>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Tournament Picture:</label>
+												<div class="custom-file">
+													<input type="file" name="image" class="custom-file-input" id="customFile" accept="image/*">
+													<label class="custom-file-label" for="customFile">Choose file</label>
+												</div>
+												<span class="m-form__help">Select a picture to be used as the tournament picture</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" id="m_tournament_dismiss" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-warning" id="m_tournament_submit"><i class="fa fa-save fa-fw"></i>Save</button>
+						</div>
+					</form>
+        </div>
+      </div>
+    </div>
+    <!--end::Modal-->
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 
@@ -224,7 +388,7 @@ License: You must have a valid license purchased only from themeforest(the above
 																		</a>
 																		<a href="#" class="m-nav-grid__item">
 																			<i class="m-nav-grid__icon flaticon-time"></i>
-																			<span class="m-nav-grid__text">Add New User</span>
+																			<span class="m-nav-grid__text">Add New Event</span>
 																		</a>
 																	</div>
 																	<div class="m-nav-grid__row">
@@ -338,10 +502,10 @@ License: You must have a valid license purchased only from themeforest(the above
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="tournaments.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-trophy"></i><span
 									 class="m-menu__link-text">Tournaments</span></a>
 							</li>
-							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="users.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-users"></i><span
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="users.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-users"></i><span
 									 class="m-menu__link-text">Users</span></a>
 							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="users.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-map"></i><span
+							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="users.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-map"></i><span
 									 class="m-menu__link-text">Organizations</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="feedback.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
@@ -389,36 +553,8 @@ License: You must have a valid license purchased only from themeforest(the above
 					<div class="m-subheader ">
 						<div class="d-flex align-items-center">
 							<div class="mr-auto">
-								<h3 class="m-subheader__title m-subheader__title--separator">Users</h3>
-								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-									<li class="m-nav__item m-nav__item--home">
-										<a href="#" class="m-nav__link m-nav__link--icon">
-											<i class="m-nav__link-icon flaticon-users"></i>
-										</a>
-									</li>
-									<li class="m-nav__separator">-</li>
-									<li class="m-nav__item">
-										<a href="" class="m-nav__link">
-											<span class="m-nav__link-text">Base</span>
-										</a>
-									</li>
-									<li class="m-nav__separator">-</li>
-									<li class="m-nav__item">
-										<a href="" class="m-nav__link">
-											<span class="m-nav__link-text">All Users</span>
-										</a>
-									</li>
-								</ul>
-              </div>
-              <div>
-                <select class="form-control m_selectpicker" tabindex="-98">
-                  <option selected>All</option>
-                  <option value="players">Players</option>
-                  <option value="arbiters">Arbiters</option>
-                  <option value="coaches">Coaches</option>
-                  <option value="states">States</option>
-                </select>
-              </div>
+								<h3 class="m-subheader__title ">Tournaments</h3>
+							</div>
 							<div>
 								<span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
 									<span class="m-subheader__daterange-label">
@@ -436,16 +572,28 @@ License: You must have a valid license purchased only from themeforest(the above
 					<!-- END: Subheader -->
 					<div class="m-content">
 
-            <!--Begin::Section-->
-
+						<!--Begin::Section-->
 						<!--Datatable Insert-->
 						<div class="m-portlet m-portlet--mobile">
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
 										<h3 class="m-portlet__head-text">
-											Users
+											Tournaments
 									</div>
+								</div>
+								<div class="m-portlet__head-tools">
+									<ul class="m-portlet__nav">
+										<li class="m-portlet__nav-item">
+											<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air" data-toggle="modal" data-target="#m_modal_tournament">
+												<span>
+													<i class="la la-cart-plus"></i>
+													<span>New Tournament</span>
+												</span>
+											</a>
+										</li>
+										<li class="m-portlet__nav-item"></li>
+									</ul>
 								</div>
 							</div>
 							<div class="m-portlet__body">
@@ -454,12 +602,11 @@ License: You must have a valid license purchased only from themeforest(the above
 								<table class="table table-bordered table-hover table-checkable" id="m_table_1">
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th>Profession</th>
+											<th>Title</th>
+											<th>Organization</th>
 											<th>Country</th>
-											<th>Email</th>
-											<th>Phone</th>
-											<th>Verification</th>
+											<th>Venue</th>
+											<th>Price</th>
 											<th>Approval</th>
 											<th>Actions</th>
 										</tr>
@@ -471,19 +618,18 @@ require_once '../functions.php';
 
 $country = $_SESSION['user']['country'];
 
-$result = queryDB("SELECT id, fullname, profession, country, email, verified, approved FROM users ORDER BY createdAt DESC");
+$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
-	$user = $result->fetch_array(MYSQLI_ASSOC);
+	$tournament = $result->fetch_array(MYSQLI_ASSOC);
 
 	echo <<< _END
-									<tr><td>$user[fullname]</td><td>$user[profession]</td><td>$user[country]</td><td>$user[email]</td><td>$user[phone]</td>
+									<tr><td>$tournament[title]</td><td>$tournament[author]</td><td>$tournament[country]</td><td>$tournament[venue]</td>
+											<td>&dollar;$tournament[price]</td>
 _END;
-if ($user['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
-else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
-if ($user['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--success">approved</div></td>';
-else echo '<td><div class="m-badge m-badge--wide approved">pending</div></td>';
+if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
+else echo '<td><div class="m-badge m-badge--wide .approved">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
 								<div>
@@ -502,7 +648,7 @@ echo <<< _END
 															<span class="m-nav__section-text">Quick Actions</span>
 														</li>
 _END;
-if ($user['approved']) {
+if ($tournament['approved']) {
 	echo <<< _END
 														<li class="m-nav__item">
 															<button class="btn btn-link">
@@ -519,10 +665,10 @@ if ($user['approved']) {
 _END;
 }
 else {
-	$userid = $user['id'];
+	$tournamentid = $tournament['id'];
 	echo <<< _END
 														<li class="m-nav__item">
-															<button class="btn btn-link" id="approve_user" data-target="$userid">
+															<button class="btn btn-link" id="approve_tournament" data-target="$tournamentid">
 																<i class="m-nav__link-icon fa fa-check text-success"></i>
 																<span class="m-nav__link-text">Approve</span>
 															</button>
@@ -558,15 +704,14 @@ echo <<< _END
 						</td>
 					</tr>
 _END;
-#if ($user['approved']) echo '<td><button disabled id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
-#else echo '<td><button id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+#if ($tournament['approved']) echo '<td><button disabled id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+#else echo '<td><button id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve </td></tr>';
 }
 ?>
 									</tbody>
 								</table>
 							</div>
 						</div>
-            </div>
           </div>
 				</div>
 			</div>
@@ -1085,8 +1230,8 @@ _END;
 
 		<!-- begin::Quick Nav -->
 		<ul class="m-nav-sticky" style="margin-top: 30px;">
-			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Create User" data-placement="left">
-				<a href=""><i class='flaticon-add-circular-button text-primary'></i></a>
+			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Create Tournament" data-placement="left">
+				<a href="" data-toggle="modal" data-target="#m_modal_tournament"><i class='flaticon-add-circular-button text-primary'></i></a>
 			</li>
 		</ul>
 
@@ -1100,13 +1245,11 @@ _END;
 
 		<!--begin::Page Vendors -->
 		<script src="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
-
 		<!--end::Page Vendors -->
 
 		<!--begin::Page Scripts -->
 		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
 		<script src="../assets/demo/demo3/base/state.js" type="text/javascript"></script>
-
 		<!--end::Page Scripts -->
 	</body>
 

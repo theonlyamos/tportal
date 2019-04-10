@@ -505,6 +505,9 @@ License: You must have a valid license purchased only from themeforest(the above
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="users.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-users"></i><span
 									 class="m-menu__link-text">Users</span></a>
 							</li>
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="users.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-map"></i><span
+									 class="m-menu__link-text">Organizations</span></a>
+							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="feedback.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
 									 class="m-menu__link-text">Feedbacks</span></a>
 							</li>
@@ -605,7 +608,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<th>Venue</th>
 											<th>Price</th>
 											<th>Approval</th>
-											<th></th>
+											<th>Actions</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -627,8 +630,82 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 _END;
 if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
 else echo '<td><div class="m-badge m-badge--wide .approved">pending</div></td>';
-if ($tournament['approved']) echo '<td><button disabled id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
-else echo '<td><button id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+echo <<< _END
+							<td class="d-flex align-items-center justify-content-center">
+								<div>
+								<div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+									<a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
+										<i class="la la-plus m--hide"></i>
+										<i class="la la-ellipsis-h"></i>
+									</a>
+									<div class="m-dropdown__wrapper" style="z-index: 101;">
+										<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 21.5px;"></span>
+										<div class="m-dropdown__inner">
+											<div class="m-dropdown__body">
+												<div class="m-dropdown__content">
+													<ul class="m-nav">
+														<li class="m-nav__section m-nav__section--first m--hide">
+															<span class="m-nav__section-text">Quick Actions</span>
+														</li>
+_END;
+if ($tournament['approved']) {
+	echo <<< _END
+														<li class="m-nav__item">
+															<button class="btn btn-link">
+																<i class="m-nav__link-icon fa fa-check text-success"></i>
+																<span class="m-nav__link-text">Approved</span>
+															</button>
+														</li>
+														<li class="m-nav__item py-2">
+															<button class="btn btn-link">
+																<i class="m-nav__link-icon fa fa-times text-danger"></i>
+																<span class="m-nav__link-text">Cancel</span>
+															</button>
+														</li>
+_END;
+}
+else {
+	$tournamentid = $tournament['id'];
+	echo <<< _END
+														<li class="m-nav__item">
+															<button class="btn btn-link" id="approve_tournament" data-target="$tournamentid">
+																<i class="m-nav__link-icon fa fa-check text-success"></i>
+																<span class="m-nav__link-text">Approve</span>
+															</button>
+														</li>
+														<li class="m-nav__item py-2">
+															<button class="btn btn-link">
+																<i class="m-nav__link-icon fa fa-times text-danger"></i>
+																<span class="m-nav__link-text">Cancel</span>
+															</button>
+														</li>
+_END;
+}
+echo <<< _END
+														<li class="m-nav__item">
+															<button class="btn btn-link">
+																<i class="m-nav__link-icon flaticon-edit"></i>
+																<span class="m-nav__link-text">Edit</span>
+															</button>
+														</li>
+														<li class="m-nav__item pt-2">
+															<button class="btn btn-link">
+																<i class="m-nav__link-icon fa fa-trash"></i>
+																<span class="m-nav__link-text">Delete</span>
+															</button>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+_END;
+#if ($tournament['approved']) echo '<td><button disabled id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+#else echo '<td><button id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve </td></tr>';
 }
 ?>
 									</tbody>
