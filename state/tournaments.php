@@ -592,7 +592,10 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div class="m-portlet__head-tools">
 									<ul class="m-portlet__nav">
 										<li class="m-portlet__nav-item">
-											<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air" data-toggle="modal" data-target="#m_modal_tournament">
+<?php
+if ($_SESSION['user']['approved']) echo '<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air" data-toggle="modal" data-target="#m_modal_tournament">';
+else echo '<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air" data-toggle="m-tooltip" data-original-title="You account has not been approved">';
+?>
 												<span>
 													<i class="la la-cart-plus"></i>
 													<span>New Tournament</span>
@@ -638,7 +641,10 @@ _END;
 if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
 else echo '<td><div class="m-badge m-badge--wide .approved">pending</div></td>';
 if ($tournament['approved']) echo '<td><button disabled id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
-else echo '<td><button id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+else {
+	if ($_SESSION['user']['approved']) echo '<td><button id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+	else echo '<td><button data-toggle="m-tooltip" data-original-title="You account has not been approved" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
+}
 }
 ?>
 									</tbody>
