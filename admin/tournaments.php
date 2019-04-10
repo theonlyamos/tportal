@@ -623,13 +623,13 @@ $result = queryDB("SELECT * FROM posts WHERE type = 'tournament' ORDER BY create
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$tournament = $result->fetch_array(MYSQLI_ASSOC);
-
+	$tournamentid = $tournament['id'];
 	echo <<< _END
 									<tr><td>$tournament[title]</td><td>$tournament[author]</td><td>$tournament[country]</td><td>$tournament[venue]</td>
 											<td>&dollar;$tournament[price]</td>
 _END;
 if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
-else echo '<td><div class="m-badge m-badge--wide .approved">pending</div></td>';
+else echo '<td><div class="m-badge m-badge--wide approved-'.$tournamentid.'">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
 								<div>
@@ -665,7 +665,6 @@ if ($tournament['approved']) {
 _END;
 }
 else {
-	$tournamentid = $tournament['id'];
 	echo <<< _END
 														<li class="m-nav__item">
 															<button class="btn btn-link" id="approve_tournament" data-target="$tournamentid">

@@ -625,7 +625,7 @@ $result = queryDB("SELECT * FROM states ORDER BY createdAt DESC");
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$organization = $result->fetch_array(MYSQLI_ASSOC);
-
+  $organizationid = $organization['id'];
 	echo <<< _END
 									<tr><td>$organization[name]</td><td>$organization[country]</td><td>$organization[email]</td><td>$organization[contact]</td>
 											<td>$organization[website]</td>
@@ -635,7 +635,7 @@ else echo '<td></td>';
 if ($organization['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
 else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
 if ($organization['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
-else echo '<td><div class="m-badge m-badge--wide .approved">pending</div></td>';
+else echo '<td><div class="m-badge m-badge--wide approved-'.$organizationid.'">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
 								<div>
@@ -659,30 +659,29 @@ if ($organization['approved']) {
 														<li class="m-nav__item">
 															<button class="btn btn-link" disabled>
 																<i class="m-nav__link-icon fa fa-check text-success"></i>
-																<span class="m-nav__link-text">Approved</span>
+																Approved
 															</button>
 														</li>
 														<li class="m-nav__item py-2">
 															<button class="btn btn-link">
 																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																<span class="m-nav__link-text">Cancel</span>
+																Cancel
 															</button>
 														</li>
 _END;
 }
 else {
-	$organizationid = $organization['id'];
 	echo <<< _END
 														<li class="m-nav__item">
 															<button class="btn btn-link" id="approve_organization" data-target="$organizationid">
 																<i class="m-nav__link-icon fa fa-check text-success"></i>
-																<span class="m-nav__link-text">Approve</span>
+																Approve
 															</button>
 														</li>
 														<li class="m-nav__item py-2">
 															<button class="btn btn-link">
 																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																<span class="m-nav__link-text">Cancel</span>
+																Cancel
 															</button>
 														</li>
 _END;
@@ -691,13 +690,13 @@ echo <<< _END
 														<li class="m-nav__item">
 															<button class="btn btn-link">
 																<i class="m-nav__link-icon flaticon-edit"></i>
-																<span class="m-nav__link-text">Edit</span>
+																Edit
 															</button>
 														</li>
 														<li class="m-nav__item pt-2">
 															<button class="btn btn-link">
 																<i class="m-nav__link-icon fa fa-trash"></i>
-																<span class="m-nav__link-text">Delete</span>
+																Delete
 															</button>
 														</li>
 													</ul>

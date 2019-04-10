@@ -177,7 +177,7 @@ $(() =>{
        .done((d) => {
          t.attr("disabled", !0)
          mApp.unblock(".m-content")
-         t.parent().parent().find(".approved").addClass("m-badge--success");
+         $(".approved-"+t.data("target")).addClass("m-badge--success");
          Notify("Success", "User approved successfully!", "success", "fa fa-check")
        })
     })
@@ -189,7 +189,7 @@ $(() =>{
        .done((d) => {
          t.attr("disabled", !0)
          mApp.unblock(".m-content")
-         t.parent().parent().find(".approved").addClass("m-badge--success");
+         $(".approved-"+t.data("target")).addClass("m-badge--primary");
          Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
        })
     })
@@ -201,7 +201,7 @@ $(() =>{
        .done((d) => {
          t.attr("disabled", !0)
          mApp.unblock(".m-content")
-         t.parent().parent().find(".approved").addClass("m-badge--success");
+         $(".approved-"+t.data("target")).addClass("m-badge--success");
          Notify("Success", "Organization approved successfully!", "success", "fa fa-check")
        })
     })
