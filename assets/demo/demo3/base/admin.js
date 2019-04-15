@@ -195,7 +195,7 @@ $(() =>{
     mApp.block(".portal-"+target, {});
     var form = $("#bulk-"+target);
     form.ajaxSubmit({
-      url: "/tportal/actions.php",
+      url: "/actions.php",
       method: "post",
       success: (s,w) => {
         console.log(s, w)

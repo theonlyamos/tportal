@@ -188,7 +188,7 @@ require_once 'header.php';
 										</div>
 									</div>
 								</div>
-								<div class="m-portlet__body portal-fide">
+								<div class="m-portlet__body portal-rating">
 									<form action="" method="POST" enctype="multipart/form-data" id="bulk-rating" class="row">
 										<input type="hidden" name="action" value="bulk" required/>
 										<input type="hidden" name="bulk_name" value="rating" required/>
