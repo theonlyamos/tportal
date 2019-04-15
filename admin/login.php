@@ -17,7 +17,7 @@ if ($_POST){
 		$_SESSION['user'] = $admin;
 	}
 	else {
-		setLog('admin', $admin['id'], $admin['email']." invalid authentication", "admin");
+		setLog('admin', "", $admin['email']." invalid authentication", "admin");
 		$errMsg = "Authentication Error!!!";
 	}
 }
