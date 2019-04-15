@@ -301,6 +301,12 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 		if ($country) echo "<span class='m-badge m-badge--info m-badge--wide'>$country</span>";
 		echo "</span><span class='m-list-timeline__time'>$date</span></div>";
 	}
+	else if ($role == 'admin'){
+		echo "<span class='m-list-timeline__badge m-list-timeline__badge--warning'></span>";
+		echo "<span class='m-list-timeline__text'>$message ";
+		echo "<span class='m-badge m-badge--accent m-badge--wide'>admin</span>";
+		echo "</span><span class='m-list-timeline__time'>$date</span></div>";
+	}
 								
 }
 ?>

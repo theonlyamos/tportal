@@ -16,6 +16,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $result = queryDB("SELECT * FROM users WHERE email='$email'");
       
       if ($result->num_rows == 0) {
+        setLog('user', "", $email." invalid authentication", "user");
         http_response_code(402);
         echo "User with email: $email does not exist";
       }
@@ -52,6 +53,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $result = queryDB("SELECT email FROM states WHERE email='$email'");
       
       if ($result->num_rows == 0) {
+        setLog('user', "", $email." invalid authentication", "user");
         http_response_code(402);
         echo "User with email: $email does not exists";
       }
