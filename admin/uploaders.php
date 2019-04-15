@@ -161,17 +161,18 @@ require_once 'header.php';
 										</div>
 									</div>
 								</div>
-								<div class="m-portlet__body">
-									<form action="" method="POST" enctype="multipart/form-data" class="row">
+								<div class="m-portlet__body portal-fide">
+									<form action="" method="POST" enctype="multipart/form-data" id="bulk-fide" class="row">
+										<input type="hidden" name="action" value="bulk" required/>
 										<input type="hidden" name="bulk_name" value="fide" required/>
 										<div class="form-group m-form__group col-12">
 											<div class="custom-file" style="margin-left: 15px">
-												<input type="file" name="fide_bulk" class="custom-file-input" id="customFile2" accept="application/csv" required="">
+												<input type="file" name="bulk_file" class="custom-file-input" id="customFile2" accept="application/csv" required="">
 												<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
 											</div>
 										</div>
 										<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
-											<button type="submit" class="btn btn-primary m-btn m-btn--air">Upload</button>
+											<button type="button" class="bulkUpload btn btn-primary m-btn m-btn--air" data-target="fide">Upload</button>
 										</div>
 									</form>
 								</div>
@@ -187,17 +188,18 @@ require_once 'header.php';
 										</div>
 									</div>
 								</div>
-								<div class="m-portlet__body">
-									<form action="" method="POST" enctype="multipart/form-data" class="row">
+								<div class="m-portlet__body portal-fide">
+									<form action="" method="POST" enctype="multipart/form-data" id="bulk-rating" class="row">
+										<input type="hidden" name="action" value="bulk" required/>
 										<input type="hidden" name="bulk_name" value="rating" required/>
 										<div class="form-group m-form__group col-12">
 											<div class="custom-file" style="margin-left: 15px">
-												<input type="file" name="rating_bulk" class="custom-file-input" id="customFile2" accept="application/csv" required="">
+												<input type="file" name="bulk_file" class="custom-file-input" id="customFile2" accept="application/csv" required="">
 												<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
 											</div>
 										</div>
 										<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
-											<button type="submit" class="btn btn-primary m-btn m-btn--air">Upload</button>
+											<button type="button" class="bulkUpoad btn btn-primary m-btn m-btn--air" data-target="rating">Upload</button>
 										</div>
 									</form>
 								</div>

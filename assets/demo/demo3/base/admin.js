@@ -55,24 +55,6 @@ $(() =>{
     $("#editing_form [name='value']").val($(e.target).parent().text());
   })
 
-  $("[type='file']").on("change", (e) => {
-    mApp.block(".m-content", {})
-    var r = $("form#edit_picture")
-    r.ajaxSubmit({
-      url: "../stateActions.php",
-      method: "post",
-      success: (s, t) => {
-        console.log(s,t)
-        mApp.unblock(".m-content")
-        Notify("Success", "Operation performed successfully", "success", "fa fa-check")
-      },
-      error: (w) => {
-        console.log(w)
-        mApp.unblock(".m-content")
-        Notify("Error", w.statusText, "danger", "la la-close")
-      }
-    })
-  })
 
   $("#edit_name").on("click", (e) => {
     e = $(e.target), e.attr("disabled", !0)
@@ -205,4 +187,26 @@ $(() =>{
          Notify("Success", "Organization approved successfully!", "success", "fa fa-check")
        })
     })
+
+  $(".bulkUpload").on("click", (e) => {
+    var t = $(e.target);
+    t.attr("disabled", !1)
+    var target = t.data("target");
+    mApp.block(".portal-"+target, {});
+    var form = $("#bulk-"+target);
+    form.ajaxSubmit({
+      url: "/tportal/actions.php",
+      method: "post",
+      success: (s,w) => {
+        console.log(s, w)
+        t.attr("disabled", !0)
+        mApp.unblock(".portal-"+target);
+      },
+      error: (e) => {
+        console.log(e);
+        t.attr("disabled", !0)
+        mApp.unblock(".portal-"+target);
+      }
+    })
+  })
 })
