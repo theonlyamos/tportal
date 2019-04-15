@@ -167,12 +167,12 @@ require_once 'header.php';
 										<input type="hidden" name="bulk_name" value="fide" required/>
 										<div class="form-group m-form__group col-12">
 											<div class="custom-file" style="margin-left: 15px">
-												<input type="file" name="bulk_file" class="custom-file-input" id="customFile2" accept="application/csv" required="">
+												<input type="file" name="bulk_file" class="custom-file-input" id="customFile2" accept="application/csv" required>
 												<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
 											</div>
 										</div>
 										<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
-											<button type="button" class="bulkUpload btn btn-primary m-btn m-btn--air" data-target="fide">Upload</button>
+											<button type="sumbit" class="bulkUpload btn btn-primary m-btn m-btn--air" data-target="fide">Upload</button>
 										</div>
 									</form>
 								</div>
@@ -194,12 +194,12 @@ require_once 'header.php';
 										<input type="hidden" name="bulk_name" value="rating" required/>
 										<div class="form-group m-form__group col-12">
 											<div class="custom-file" style="margin-left: 15px">
-												<input type="file" name="bulk_file" class="custom-file-input" id="customFile2" accept="application/csv" required="">
+												<input type="file" name="bulk_file" class="custom-file-input" id="customFile2" accept="application/csv" required>
 												<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
 											</div>
 										</div>
 										<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
-											<button type="button" class="bulkUpoad btn btn-primary m-btn m-btn--air" data-target="rating">Upload</button>
+											<button type="submit" class="bulkUpload btn btn-primary m-btn m-btn--air" data-target="rating">Upload</button>
 										</div>
 									</form>
 								</div>

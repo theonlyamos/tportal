@@ -189,24 +189,32 @@ $(() =>{
     })
 
   $(".bulkUpload").on("click", (e) => {
+    e.preventDefault();
     var t = $(e.target);
-    t.attr("disabled", !1)
+    t.attr("disabled", !0)
     var target = t.data("target");
-    mApp.block(".portal-"+target, {});
     var form = $("#bulk-"+target);
+    console.log(form)
+    form.validate({
+      rules: {
+        bulk_file: {
+          required: !0
+        }
+      }
+    }), form.valid && (mApp.block(".portal-"+target, {}),
     form.ajaxSubmit({
       url: "/actions.php",
       method: "post",
       success: (s,w) => {
         console.log(s, w)
-        t.attr("disabled", !0)
+        t.attr("disabled", !1)
         mApp.unblock(".portal-"+target);
       },
       error: (e) => {
         console.log(e);
-        t.attr("disabled", !0)
+        t.attr("disabled", !1)
         mApp.unblock(".portal-"+target);
       }
-    })
+    }))
   })
 })

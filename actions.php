@@ -93,7 +93,7 @@ if (strtolower($_REQUEST['method']) == 'post'){
   }
   else if ($action == 'bulk'){
     if ($_SESSION['loggedIn'] && $_SESSION['user']['role'] == "admin"){
-      echo json_encode($_POST);
+      echo 'hello';
     }
   }
   else if ($action = 'donation'){
