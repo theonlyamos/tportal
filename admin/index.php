@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!$_SESSION['loggedIn'] || $_SESSION['user']['role'] != "admin") {
+if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 	header("Location: login.php");
 }
 
@@ -2698,7 +2698,7 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 
 		<!--begin::Page Scripts -->
 		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
-		
+
 		<!--end::Page Scripts -->
 	</body>
 

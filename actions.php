@@ -6,6 +6,7 @@
  * @version 1.0.0
  */
 require_once 'functions.php';
+session_start();
 
 if (strtolower($_REQUEST['method']) == 'post'){
   $action = sanitizeString($_POST['action']);
@@ -88,6 +89,11 @@ if (strtolower($_REQUEST['method']) == 'post'){
     else {
       http_response_code(500);
       echo "Error submitting feedback!";
+    }
+  }
+  else if ($action == 'bulk'){
+    if ($_SESSION['loggedIn'] && $_SESSION['user']['role'] == "admin"){
+      
     }
   }
   else if ($action = 'donation'){

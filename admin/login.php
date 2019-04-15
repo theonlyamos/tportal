@@ -10,12 +10,14 @@ if ($_POST){
 	$result = queryDB("SELECT * FROM admins WHERE email='$email' AND password='$password'");
 	if ($result->num_rows){
 		$admin = $result->fetch_array(MYSQLI_ASSOC);
+		setLog('admin', $admin['id'], $admin['email']." logged in.", "admin");
 		session_start();
 		header("Location: /admin");
 		$_SESSION['loggedIn'] = true;
 		$_SESSION['user'] = $admin;
 	}
 	else {
+		setLog('admin', $admin['id'], $admin['email']." invalid authentication", "admin");
 		$errMsg = "Authentication Error!!!";
 	}
 }
