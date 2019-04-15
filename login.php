@@ -53,18 +53,18 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $result = queryDB("SELECT email FROM states WHERE email='$email'");
       
       if ($result->num_rows == 0) {
-        setLog('user', "", $email." invalid authentication", "user");
+        setLog('organization', "", $email." invalid authentication", "user");
         http_response_code(402);
         echo "User with email: $email does not exists";
       }
       else {
-        $user = queryDB("SELECT * FROM states WHERE email='$email' AND  password='$pass'");
-        if ($user->num_rows == 0) {
-          setLog('organization', $user['id'], $user['email']." invalid authentication", $user['country']);
+        $result = queryDB("SELECT * FROM states WHERE email='$email' AND  password='$pass'");
+        if ($result->num_rows == 0) {
+          setLog('organization', "", $email." invalid authentication", "");
           http_response_code(402);
           echo "Wrong email/password. Try again!";
         }else{
-          $user = $user->fetch_array(MYSQLI_ASSOC);
+          $user = $result->fetch_array(MYSQLI_ASSOC);
           if (!$user['verified']){
             setLog('organization', $user['id'], $user['email']." logged in", $user['country']);
             http_response_code(403);
