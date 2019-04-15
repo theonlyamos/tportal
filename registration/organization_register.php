@@ -23,6 +23,7 @@ if ($_POST){
 	$email = $_SESSION['user']['email'];
 	$id = $_SESSION['user']['id'];
 	$name = $_SESSION['user']['name'];
+	$country = $_SESSION['user']['country'];
 
 	$filename = $_FILES['logo']['name'];
 	$logo = $email.$filename;
@@ -47,6 +48,7 @@ if ($_POST){
 		$_SESSION["user"] = $user;
 	}
 	else {
+		setLog('organization', $id, $email." update unsuccessful.", "org");
 		$_SESSION['errMsg'] = "Error updating User. Try Again!";
 	}
 }

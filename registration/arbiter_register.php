@@ -31,13 +31,14 @@ if ($_POST){
 
 	if (queryDB($query)){
 		$fullname = $_SESSION['user']['fullname'];
-		setLog('user', $id, "$fullname registered as $profession", $country);
+		setLog('user', $id, "$fullname registered as $profession", "user");
 		$result = queryDB("SELECT * FROM users WHERE email = '$email'");
 		$user = $result->fetch_array(MYSQLI_ASSOC);
 		header("Location: /home");
 		$_SESSION['user'] = $user;
 	}
 	else {
+		setLog('user', $id, $email." update unsuccessful.", "user");
 		$_SESSION['errMsg'] = "Error updating User. Try Again!";
 	}
 

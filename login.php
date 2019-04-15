@@ -60,7 +60,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       else {
         $result = queryDB("SELECT * FROM states WHERE email='$email' AND  password='$pass'");
         if ($result->num_rows == 0) {
-          setLog('organization', "", $email." invalid authentication", "");
+          setLog('organization', "", $email." invalid authentication", "org");
           http_response_code(402);
           echo "Wrong email/password. Try again!";
         }else{

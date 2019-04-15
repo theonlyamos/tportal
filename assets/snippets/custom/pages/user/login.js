@@ -38,7 +38,6 @@ var SnippetLogin = function () {
           url: "login.php",
           method: "post",
           success: function (e, t, r, s) {
-            console.log(e)
             var user = JSON.parse(e)
             if (user.profession === 'user'){
               if (user.completed){
