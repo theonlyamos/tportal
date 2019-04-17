@@ -244,10 +244,34 @@ $(() =>{
     var target = $(e.target).data("target");
     var name = $(e.target).data("name");
     var type = $(e.target).data("type");
-
-    $.get('/assets/data/bulkuploads/'+type+'/'+name)
-     .done((d) => {
-       console.log(d);
-     })
+    if ($("table[data-id='"+target+"']").children().length == 0){
+      mApp.block(".m-content", {})
+      $.get('/assets/data/bulkuploads/'+type+'/'+name)
+      .done((d) => {
+        mApp.unblock(".m-content")
+        var content = d.split("\n");
+        var head = content[0].split(",");
+        var thead = "<thead>";
+        var tbody = "<tbody>";
+        for (var i=0; i<head.length; i++){
+          thead += "<th>"+head[i]+"</th>"
+        }
+        thead += "</thead>";
+        var body = content;
+        body.shift();
+        for(var i=0; i<body.length; i++){
+            tr = body[i].split(",");
+            var row = "<tr>";
+            for (var j = 0; j<tr.length; j++){
+              row += "<td>"+tr[j]+"</td>";
+            }
+            row += "</tr>";
+            tbody += row;
+        }
+        tbody += "</tbody>";
+        $("table[data-id='"+target+"']").append(thead);
+        $("table[data-id='"+target+"']").append(tbody);
+      })
+    }
   })
 })

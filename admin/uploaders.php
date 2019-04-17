@@ -151,96 +151,143 @@ require_once 'header.php';
 
 					<!-- END: Subheader -->
 					<div class="m-content row">
+						<div class="m-accordion m-accordion--default m-accordion--toggle-arrow col-12" id="m_accordion_5" role="tablist">
 
-						<!--Begin::Section-->
-						<!--Datatable Insert-->
-						<div class="col-lg-6">
-							<div class="m-portlet m-portlet--full-height m-portlet--mobile">
-								<div class="m-portlet__head">
-									<div class="m-portlet__head-caption">
-										<div class="m-portlet__head-title">
-											<h3 class="m-portlet__head-text">
-												FIDE Bulk Upload
-										</div>
-									</div>
+							<!--begin::Item-->
+							<div class="m-accordion__item">
+								<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_5_item_2_head" data-toggle="collapse" href="#m_accordion_5_item_2_body" aria-expanded="false">
+									<span class="m-accordion__item-icon"><i class="fa  fa-clipboard-list"></i></span>
+									<span class="m-accordion__item-title"><b>FIDE Bulk Upload</b></span>
+									<span class="m-accordion__item-mode"></span>
 								</div>
-								<div class="m-portlet__body portal_fide">
-									<form method="POST" enctype="multipart/form-data" id="bulk_fide_form" class="row"  novalidate="novalidate">
-										<input type="hidden" name="action" value="bulk" required/>
-										<input type="hidden" name="name" value="fide" required/>
-										<div class="form-group m-form__group col-12">
-											<div class="custom-file" style="margin-left: 15px">
-												<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept=".csv,text/csv" required>
-												<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
-											</div>
-										</div>
-										<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
-											<button type="submit" id="bulk_fide_submit" class="btn btn-primary m-btn m-btn--air">Upload</button>
-										</div>
-									</form>
-									<div class="m-accordion m-accordion--default" id="m_accordion_1" role="tablist">
-<?php
-require_once '../functions.php';
-
-$result = queryDB("SELECT id, name, type FROM bulk_uploads WHERE type='fide' ORDER BY createdAt DESC");
-if ($result->num_rows){
-	for ($j = 0; $j < $result->num_rows; ++$j){
-		$result->data_seek($j);
-		$file = $result->fetch_array(MYSQLI_ASSOC);
-		$filename = $file['name'];
-		$fileid = $file['id'];
-		$filetype = $file['type'];
-		echo <<< _END
-											<!--begin::Item-->
-											<div class="m-accordion__item">
-												<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_3_head" data-toggle="collapse" href="#m_accordion_1_item_3_body" aria-expanded="false">
-													<span class="m-accordion__item-icon"><i class="fa  flaticon-alert-2"></i></span>
-													<span class="m-accordion__item-title">$filename</span>
-													<span class="m-accordion__item-mode expand" data-type="$filetype" data-name="$filename" data-target="$fileid"></span>
+								<div class="m-accordion__item-body collapse" id="m_accordion_5_item_2_body" role="tabpanel" aria-labelledby="m_accordion_5_item_2_head" data-parent="#m_accordion_5" style="">
+									<div class="m-accordion__item-content">
+										<form method="POST" enctype="multipart/form-data" id="bulk_fide_form" class="row"  novalidate="novalidate">
+											<input type="hidden" name="action" value="bulk" required/>
+											<input type="hidden" name="name" value="fide" required/>
+											<div class="form-group m-form__group col-12">
+												<div class="custom-file" style="margin-left: 15px">
+													<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept=".csv,text/csv" required>
+													<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
 												</div>
-												<div class="m-accordion__item-body collapse" id="m_accordion_1_item_3_body" role="tabpanel" aria-labelledby="m_accordion_1_item_3_head" data-parent="#m_accordion_1">
-													<div class="m-accordion__item-content">
-														<table class="table table-secondary" data-id="$fileid">
-														</table>
+											</div>
+											<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
+												<button type="submit" id="bulk_fide_submit" class="btn btn-primary m-btn m-btn--air">Upload</button>
+											</div>
+										</form>
+										<div class="m-accordion" id="m_accordion_1" role="tablist">
+	<?php
+	require_once '../functions.php';
+
+	$result = queryDB("SELECT id, name, type FROM bulk_uploads WHERE type='fide' ORDER BY createdAt DESC");
+	if ($result->num_rows){
+		$count;
+		for ($j = 0; $j < $result->num_rows; ++$j){
+			$result->data_seek($j);
+			$file = $result->fetch_array(MYSQLI_ASSOC);
+			$filename = $file['name'];
+			$fileid = $file['id'];
+			$filetype = $file['type'];
+			$count++;
+			echo <<< _END
+												<!--begin::Item-->
+												<div class="m-accordion__item">
+_END;
+										echo '<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_'.$count.'_head" data-toggle="collapse" href="#m_accordion_1_item_'.$count.'_body" aria-expanded="false">';
+										echo '<span class="m-accordion__item-icon"><i class="fa  flaticon-list-2"></i></span>';
+			echo <<< _END
+														<span class="m-accordion__item-title">$filename</span>
+														<span class="m-accordion__item-mode expand" data-type="$filetype" data-name="$filename" data-target="$fileid"></span>
+													</div>
+_END;
+											echo '<div class="m-accordion__item-body collapse" id="m_accordion_1_item_'.$count.'_body" role="tabpanel" aria-labelledby="m_accordion_1_item_'.$count.'_head" data-parent="#m_accordion_1">';
+			echo <<< _END
+														<div class="m-accordion__item-content" style="overflow: auto; max-height: 60vh !important;">
+															<table class="table table-secondary" data-id="$fileid">
+															</table>
+														</div>
 													</div>
 												</div>
-											</div>
 
-											<!--end::Item-->
+												<!--end::Item-->
 _END;
+		}
 	}
-}
-?>
-										</div>
-								</div>
-								</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="m-portlet m-portlet--full-height m-portlet--mobile">
-								<div class="m-portlet__head">
-									<div class="m-portlet__head-caption">
-										<div class="m-portlet__head-title">
-											<h3 class="m-portlet__head-text">
-												National Rating Bulk Upload
-										</div>
+	?>
+											</div>
 									</div>
 								</div>
-								<div class="m-portlet__body portal_rating">
-									<form action="" method="POST" enctype="multipart/form-data" id="bulk_rating_form" class="row"  novalidate="novalidate">
-										<input type="hidden" name="action" value="bulk" required/>
-										<input type="hidden" name="name" value="rating" required/>
-										<div class="form-group m-form__group col-12">
-											<div class="custom-file" style="margin-left: 15px">
-												<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept=".csv,text/csv" required>
-												<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
+							</div>
+
+							<!--end::Item-->
+
+							<!--begin::Item-->
+							<div class="m-accordion__item">
+								<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_5_item_3_head" data-toggle="collapse" href="#m_accordion_5_item_3_body" aria-expanded="false">
+									<span class="m-accordion__item-icon"><i class="fa  fa-clipboard-list"></i></span>
+									<span class="m-accordion__item-title"><b>National Rating Bulk Upload</b></span>
+									<span class="m-accordion__item-mode"></span>
+								</div>
+								<div class="m-accordion__item-body collapse" id="m_accordion_5_item_3_body" role="tabpanel" aria-labelledby="m_accordion_5_item_3_head" data-parent="#m_accordion_5" style="">
+									<div class="m-accordion__item-content">
+									<form method="POST" enctype="multipart/form-data" id="bulk_rating_form" class="row"  novalidate="novalidate">
+											<input type="hidden" name="action" value="bulk" required/>
+											<input type="hidden" name="name" value="rating" required/>
+											<div class="form-group m-form__group col-12">
+												<div class="custom-file" style="margin-left: 15px">
+													<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept=".csv,text/csv" required>
+													<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
+												</div>
 											</div>
-										</div>
-										<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
-											<button type="submit" id="bulk_rating_submit" class="btn btn-primary m-btn m-btn--air">Upload</button>
-										</div>
-									</form>
+											<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
+												<button type="submit" id="bulk_rating_submit" class="btn btn-primary m-btn m-btn--air">Upload</button>
+											</div>
+										</form>
+										<div class="m-accordion" id="m_accordion_1" role="tablist">
+	<?php
+	require_once '../functions.php';
+
+	$result = queryDB("SELECT id, name, type FROM bulk_uploads WHERE type='rating' ORDER BY createdAt DESC");
+	if ($result->num_rows){
+		$count;
+		for ($j = 0; $j < $result->num_rows; ++$j){
+			$result->data_seek($j);
+			$file = $result->fetch_array(MYSQLI_ASSOC);
+			$filename = $file['name'];
+			$fileid = $file['id'];
+			$filetype = $file['type'];
+			$count++;
+			echo <<< _END
+												<!--begin::Item-->
+												<div class="m-accordion__item">
+_END;
+										echo '<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_'.$count.'_head" data-toggle="collapse" href="#m_accordion_1_item_'.$count.'_body" aria-expanded="false">';
+										echo '<span class="m-accordion__item-icon"><i class="fa  flaticon-list-2"></i></span>';
+			echo <<< _END
+														<span class="m-accordion__item-title">$filename</span>
+														<span class="m-accordion__item-mode expand" data-type="$filetype" data-name="$filename" data-target="$fileid"></span>
+													</div>
+_END;
+											echo '<div class="m-accordion__item-body collapse" id="m_accordion_1_item_'.$count.'_body" role="tabpanel" aria-labelledby="m_accordion_1_item_'.$count.'_head" data-parent="#m_accordion_1">';
+			echo <<< _END
+														<div class="m-accordion__item-content" style="overflow: auto; max-height: 60vh !important;">
+															<table class="table table-secondary" data-id="$fileid">
+															</table>
+														</div>
+													</div>
+												</div>
+
+												<!--end::Item-->
+_END;
+		}
+	}
+	?>
+											</div>
+									</div>
 								</div>
-								</div>
+							</div>
+
+							<!--end::Item-->
 						</div>
           </div>
 				</div>
