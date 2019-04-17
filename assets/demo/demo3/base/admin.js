@@ -240,33 +240,14 @@ $(() =>{
        })
     })
 
-  $(".bulkUpload").on("click", (e) => {
-    e.preventDefault();
-    var t = $(e.target);
-    t.attr("disabled", !0)
-    var target = t.data("target");
-    var form = $("#bulk-"+target)[0];
-    console.log(form)
-    form.validate({
-      rules: {
-        bulk_file: {
-          required: !0
-        }
-      }
-    }), form.valid && (mApp.block(".portal-"+target, {}),
-    form.ajaxSubmit({
-      url: "/actions.php",
-      method: "post",
-      success: (s,w) => {
-        console.log(s, w)
-        t.attr("disabled", !1)
-        mApp.unblock(".portal-"+target);
-      },
-      error: (e) => {
-        console.log(e);
-        t.attr("disabled", !1)
-        mApp.unblock(".portal-"+target);
-      }
-    }))
+  $(".expand").on("click", (e) => {
+    var target = $(e.target).data("target");
+    var name = $(e.target).data("name");
+    var type = $(e.target).data("type");
+
+    $.get('/assets/data/bulk_uploads/'+$type+'/'+$name)
+     .done((d) => {
+       console.log(d);
+     })
   })
 })

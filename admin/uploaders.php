@@ -179,65 +179,38 @@ require_once 'header.php';
 										</div>
 									</form>
 									<div class="m-accordion m-accordion--default" id="m_accordion_1" role="tablist">
+<?php
+require_once '../functions.php';
 
+$result = queryDB("SELECT id, name FROM bulk_uploads WHERE type='fide' ORDER BY createdAt DESC");
+if ($result->num_rows){
+	for ($j = 0; $j < $result->num_rows; ++$j){
+		$result->data_seek($j);
+		$file = $result->fetch_array(MYSQLI_ASSOC);
+		$filename = $file['name'];
+		$fileid = $file['id'];
+		$filetype = $file['type'];
+		echo <<< _END
 											<!--begin::Item-->
 											<div class="m-accordion__item">
-												<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_1_head" data-toggle="collapse" href="#m_accordion_1_item_1_body" aria-expanded="false">
-													<span class="m-accordion__item-icon"><i class="fa flaticon-user-ok"></i></span>
-													<span class="m-accordion__item-title">Lorem Ipsum has been the industry's standard</span>
-													<span class="m-accordion__item-mode"></span>
-												</div>
-												<div class="m-accordion__item-body collapse" id="m_accordion_1_item_1_body" role="tabpanel" aria-labelledby="m_accordion_1_item_1_head" data-parent="#m_accordion_1" style="">
-													<div class="m-accordion__item-content">
-														<p>
-															Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-															electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-														</p>
-													</div>
-												</div>
-											</div>
-
-											<!--end::Item-->
-
-											<!--begin::Item-->
-											<div class="m-accordion__item">
-												<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_2_head" data-toggle="collapse" href="#m_accordion_1_item_2_body" aria-expanded="    false">
-													<span class="m-accordion__item-icon"><i class="fa  flaticon-placeholder"></i></span>
-													<span class="m-accordion__item-title">Remaining essentially unchanged</span>
-													<span class="m-accordion__item-mode"></span>
-												</div>
-												<div class="m-accordion__item-body collapse" id="m_accordion_1_item_2_body" role="tabpanel" aria-labelledby="m_accordion_1_item_2_head" data-parent="#m_accordion_1">
-													<div class="m-accordion__item-content">
-														<p>
-															Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-															electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-															printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-															the release of Letraset sheets containing
-														</p>
-													</div>
-												</div>
-											</div>
-
-											<!--end::Item-->
-
-											<!--begin::Item-->
-											<div class="m-accordion__item">
-												<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_3_head" data-toggle="collapse" href="#m_accordion_1_item_3_body" aria-expanded="    false">
+												<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_3_head" data-toggle="collapse" href="#m_accordion_1_item_3_body" aria-expanded="false">
 													<span class="m-accordion__item-icon"><i class="fa  flaticon-alert-2"></i></span>
-													<span class="m-accordion__item-title">Galley of type and scrambled</span>
-													<span class="m-accordion__item-mode"></span>
+													<span class="m-accordion__item-title">$filename</span>
+													<span class="m-accordion__item-mode expand" data-type="$filetype" data-name="$filename" data-target="$fileid"></span>
 												</div>
 												<div class="m-accordion__item-body collapse" id="m_accordion_1_item_3_body" role="tabpanel" aria-labelledby="m_accordion_1_item_3_head" data-parent="#m_accordion_1">
 													<div class="m-accordion__item-content">
-														<p>
-															Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-															electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-														</p>
+														<table class="table table-secondary" data-id="$fileid">
+														</table>
 													</div>
 												</div>
 											</div>
 
 											<!--end::Item-->
+_END;
+	}
+}
+?>
 										</div>
 								</div>
 								</div>
