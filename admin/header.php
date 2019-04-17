@@ -45,7 +45,7 @@
                   <span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
                   <div class="m-dropdown__inner">
                     <div class="m-dropdown__header m--align-center" style="background: url(../assets/app/media/img/misc/notification_bg.jpg); background-size: cover;">
-                      <span class="m-dropdown__header-title">9 New</span>
+                      <span class="m-dropdown__header-title">0 New</span>
                       <span class="m-dropdown__header-subtitle">User Notifications</span>
                     </div>
                     <div class="m-dropdown__body">
@@ -67,18 +67,18 @@
                                 <div class="m-list-timeline__items">
                                   <div class="m-list-timeline__item">
                                     <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
-                                    <span class="m-list-timeline__text">12 new users registered</span>
-                                    <span class="m-list-timeline__time">Just now</span>
+                                    <span class="m-list-timeline__text"></span>
+                                    <span class="m-list-timeline__time"></span>
                                   </div>
                                   <div class="m-list-timeline__item">
                                     <span class="m-list-timeline__badge"></span>
-                                    <span class="m-list-timeline__text">System shutdown <span class="m-badge m-badge--success m-badge--wide">pending</span></span>
-                                    <span class="m-list-timeline__time">14 mins</span>
+                                    <span class="m-list-timeline__text"><span class="m-badge m-badge--success m-badge--wide">pending</span></span>
+                                    <span class="m-list-timeline__time"></span>
                                   </div>
                                   <div class="m-list-timeline__item m-list-timeline__item--read">
                                     <span class="m-list-timeline__badge"></span>
-                                    <span href="" class="m-list-timeline__text">New order received <span class="m-badge m-badge--danger m-badge--wide">urgent</span></span>
-                                    <span class="m-list-timeline__time">7 hrs</span>
+                                    <span href="" class="m-list-timeline__text"><span class="m-badge m-badge--danger m-badge--wide">urgent</span></span>
+                                    <span class="m-list-timeline__time"></span>
                                   </div>
                                 </div>
                               </div>

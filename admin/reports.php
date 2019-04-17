@@ -1,10 +1,10 @@
 <?php
-session_start();
+/** session_start();
 
 if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 	header("Location: login.php");
 }
-
+*/
 ?>
 
 <!DOCTYPE html>

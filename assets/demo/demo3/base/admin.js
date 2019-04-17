@@ -82,6 +82,57 @@ $(() =>{
     }))
   })
 
+  $("#bulk_fide_submit").on("click", (e) => {
+    e.preventDefault();
+    e = $(e.target)
+    var r = $("#bulk_fide_form");
+    r.validate({
+      ignore: ":hidden",
+      rules: {
+        bulkFile: !0
+      }
+    }), r.valid() && (mApp.block(".portal_fide", {}), r.ajaxSubmit({
+      url: "../actions.php",
+      method: "post",
+      success: (s,t) => {
+        console.log(s,t)
+        mApp.unblock(".portal_fide")
+        Notify("Success", "File upload successful", "success", "fa fa-check")
+      },
+      error: (w) => {
+        console.log(w)
+        mApp.unblock(".portal_fide")
+        Notify("Error", w.responseText, "danger", "la la-close")
+      }
+    }))
+  })
+
+
+  $("#bulk_rating_submit").on("click", (e) => {
+    e.preventDefault();
+    e = $(e.target)
+    var r = $("#bulk_rating_form");
+    r.validate({
+      ignore: ":hidden",
+      rules: {
+        bulkFile: !0
+      }
+    }), r.valid() && (mApp.block(".portal_rating", {}), r.ajaxSubmit({
+      url: "../actions.php",
+      method: "post",
+      success: (s,t) => {
+        console.log(s,t)
+        mApp.unblock(".portal_rating")
+        Notify("Success", "File upload successful", "success", "fa fa-check")
+      },
+      error: (w) => {
+        console.log(w)
+        mApp.unblock(".portal_rating")
+        Notify("Error", w.responseText, "danger", "la la-close")
+      }
+    }))
+  })
+
   $("#m_tournament_submit").click(function (e) {
         e.preventDefault();
         e = $(e.target), e.attr("disabled", !0)
@@ -193,7 +244,7 @@ $(() =>{
     var t = $(e.target);
     t.attr("disabled", !0)
     var target = t.data("target");
-    var form = $("#bulk-"+target);
+    var form = $("#bulk-"+target)[0];
     console.log(form)
     form.validate({
       rules: {

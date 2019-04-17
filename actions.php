@@ -93,7 +93,19 @@ if (strtolower($_REQUEST['method']) == 'post'){
   }
   else if ($action == 'bulk'){
     if ($_SESSION['loggedIn'] && $_SESSION['user']['role'] == "admin"){
-      echo 'hello';
+      $type = sanitizeString($_POST['name']);
+      if ($_FILES){
+        $filename = $_FILES['bulkFile']['name'];
+        $fullpath = date(DATE_ISO8601).$filename;
+
+        if (move_uploaded_file($_FILES['bulkFile']['tmp_name'], 'assets/data/bulkuploads/'.$type."/".$fullpath)){
+          echo "Upload successful";
+        }
+        else {
+          http_response_code(400);
+          echo "Upload unsuccessful";
+        }
+      }
     }
   }
   else if ($action = 'donation'){
