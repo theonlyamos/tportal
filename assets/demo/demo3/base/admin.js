@@ -92,17 +92,17 @@ $(() =>{
       rules: {
         bulkFile: !0
       }
-    }), r.valid() && (mApp.block(".portal_fide", {}), r.ajaxSubmit({
+    }), r.valid() && (mApp.block("#bulk_fide_form", {}), r.ajaxSubmit({
       url: "../actions.php",
       method: "post",
       success: (s,t) => {
         console.log(s,t)
-        mApp.unblock(".portal_fide")
+        mApp.unblock("#bulk_fide_form")
         Notify("Success", "File upload successful", "success", "fa fa-check")
       },
       error: (w) => {
         console.log(w)
-        mApp.unblock(".portal_fide")
+        mApp.unblock("#bulk_fide_form")
         Notify("Error", w.responseText, "danger", "la la-close")
       }
     }))
@@ -118,17 +118,17 @@ $(() =>{
       rules: {
         bulkFile: !0
       }
-    }), r.valid() && (mApp.block(".portal_rating", {}), r.ajaxSubmit({
+    }), r.valid() && (mApp.block("#bulk_rating_form", {}), r.ajaxSubmit({
       url: "../actions.php",
       method: "post",
       success: (s,t) => {
         console.log(s,t)
-        mApp.unblock(".portal_rating")
+        mApp.unblock("#bulk_rating_form")
         Notify("Success", "File upload successful", "success", "fa fa-check")
       },
       error: (w) => {
         console.log(w)
-        mApp.unblock(".portal_rating")
+        mApp.unblock("#bulk_rating_form")
         Notify("Error", w.responseText, "danger", "la la-close")
       }
     }))
