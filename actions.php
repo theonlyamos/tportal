@@ -8,7 +8,7 @@
 require_once 'functions.php';
 session_start();
 
-if (strtolower($_REQUEST['method']) == 'post'){
+if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
   $action = sanitizeString($_POST['action']);
 
   if ($action == 'tournament'){
@@ -96,9 +96,13 @@ if (strtolower($_REQUEST['method']) == 'post'){
       $type = sanitizeString($_POST['name']);
       if ($_FILES){
         $filename = $_FILES['bulkFile']['name'];
-        $fullpath = date(DATE_ISO8601).$filename;
+        $fullpath = date(DATE_ISO8601)."_".$filename;
+        $userid = $_SESSION['user']['id'];
+        // $ext = pathinfo($_FILES["bulkFile"]["name"])['extension'];
 
         if (move_uploaded_file($_FILES['bulkFile']['tmp_name'], 'assets/data/bulkuploads/'.$type."/".$fullpath)){
+          $query = "INSERT INTO bulk_uploads (id, name, type, userid) VALUES (UUID(), '$fullpath', '$type', '$userid')";
+          queryDB($query);
           echo "Upload successful";
         }
         else {

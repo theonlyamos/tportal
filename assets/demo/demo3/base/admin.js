@@ -29,8 +29,9 @@ function Notify(title,message,state,icon) {
 }
 
 $(() =>{
-  $("#name_modal").on("bs.modal.show", ()=>{
+  $("#m_modal_tournament").on("show.bs.modal", ()=>{
     //alert("Opened modal")
+  
   })
 
   $(".editable").on("mouseenter", (e) => {

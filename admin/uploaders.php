@@ -165,12 +165,12 @@ require_once 'header.php';
 									</div>
 								</div>
 								<div class="m-portlet__body portal_fide">
-									<form action="" method="POST" enctype="multipart/form-data" id="bulk_fide_form" class="row"  novalidate="novalidate">
+									<form method="POST" enctype="multipart/form-data" id="bulk_fide_form" class="row"  novalidate="novalidate">
 										<input type="hidden" name="action" value="bulk" required/>
 										<input type="hidden" name="name" value="fide" required/>
 										<div class="form-group m-form__group col-12">
 											<div class="custom-file" style="margin-left: 15px">
-												<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept="image/*" required>
+												<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept=".csv,text/csv" required>
 												<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
 											</div>
 										</div>
@@ -178,6 +178,67 @@ require_once 'header.php';
 											<button type="submit" id="bulk_fide_submit" class="btn btn-primary m-btn m-btn--air">Upload</button>
 										</div>
 									</form>
+									<div class="m-accordion m-accordion--default" id="m_accordion_1" role="tablist">
+
+											<!--begin::Item-->
+											<div class="m-accordion__item">
+												<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_1_head" data-toggle="collapse" href="#m_accordion_1_item_1_body" aria-expanded="false">
+													<span class="m-accordion__item-icon"><i class="fa flaticon-user-ok"></i></span>
+													<span class="m-accordion__item-title">Lorem Ipsum has been the industry's standard</span>
+													<span class="m-accordion__item-mode"></span>
+												</div>
+												<div class="m-accordion__item-body collapse" id="m_accordion_1_item_1_body" role="tabpanel" aria-labelledby="m_accordion_1_item_1_head" data-parent="#m_accordion_1" style="">
+													<div class="m-accordion__item-content">
+														<p>
+															Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+															electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+														</p>
+													</div>
+												</div>
+											</div>
+
+											<!--end::Item-->
+
+											<!--begin::Item-->
+											<div class="m-accordion__item">
+												<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_2_head" data-toggle="collapse" href="#m_accordion_1_item_2_body" aria-expanded="    false">
+													<span class="m-accordion__item-icon"><i class="fa  flaticon-placeholder"></i></span>
+													<span class="m-accordion__item-title">Remaining essentially unchanged</span>
+													<span class="m-accordion__item-mode"></span>
+												</div>
+												<div class="m-accordion__item-body collapse" id="m_accordion_1_item_2_body" role="tabpanel" aria-labelledby="m_accordion_1_item_2_head" data-parent="#m_accordion_1">
+													<div class="m-accordion__item-content">
+														<p>
+															Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+															electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+															printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+															the release of Letraset sheets containing
+														</p>
+													</div>
+												</div>
+											</div>
+
+											<!--end::Item-->
+
+											<!--begin::Item-->
+											<div class="m-accordion__item">
+												<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_3_head" data-toggle="collapse" href="#m_accordion_1_item_3_body" aria-expanded="    false">
+													<span class="m-accordion__item-icon"><i class="fa  flaticon-alert-2"></i></span>
+													<span class="m-accordion__item-title">Galley of type and scrambled</span>
+													<span class="m-accordion__item-mode"></span>
+												</div>
+												<div class="m-accordion__item-body collapse" id="m_accordion_1_item_3_body" role="tabpanel" aria-labelledby="m_accordion_1_item_3_head" data-parent="#m_accordion_1">
+													<div class="m-accordion__item-content">
+														<p>
+															Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+															electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+														</p>
+													</div>
+												</div>
+											</div>
+
+											<!--end::Item-->
+										</div>
 								</div>
 								</div>
 						</div>
@@ -197,7 +258,7 @@ require_once 'header.php';
 										<input type="hidden" name="name" value="rating" required/>
 										<div class="form-group m-form__group col-12">
 											<div class="custom-file" style="margin-left: 15px">
-												<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept="image/*" required>
+												<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept=".csv,text/csv" required>
 												<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
 											</div>
 										</div>
