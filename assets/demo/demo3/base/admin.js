@@ -245,7 +245,7 @@ $(() =>{
     var name = $(e.target).data("name");
     var type = $(e.target).data("type");
 
-    $.get('/assets/data/bulk_uploads/'+$type+'/'+$name)
+    $.get('/assets/data/bulk_uploads/'+type+'/'+name)
      .done((d) => {
        console.log(d);
      })
