@@ -182,7 +182,7 @@ require_once 'header.php';
 <?php
 require_once '../functions.php';
 
-$result = queryDB("SELECT id, name FROM bulk_uploads WHERE type='fide' ORDER BY createdAt DESC");
+$result = queryDB("SELECT id, name, type FROM bulk_uploads WHERE type='fide' ORDER BY createdAt DESC");
 if ($result->num_rows){
 	for ($j = 0; $j < $result->num_rows; ++$j){
 		$result->data_seek($j);
