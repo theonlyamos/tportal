@@ -1,6 +1,9 @@
 <?php
-
-http_response_code(400);
-echo "File upload failed";
+if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
+  echo json_encode($_POST);
+}
+else if (strtolower($_SERVER['REQUEST_METHOD']) == 'get'){
+  echo json_encode($_GET);
+}
 
 ?>

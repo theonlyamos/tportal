@@ -115,6 +115,45 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
   else if ($action = 'donation'){
 
   }
+  else if ($action == 'sheet'){
+    if ($_SESSION['loggedIn'] && $_SESSION['user']['role'] == "admin"){
+
+      $type = sanitizeString($_POST['name']);
+      $particular = sanitizeString($_POST['particular']);
+      $amount = sanitizeString($_POST['amount']);
+      $pan = sanitizeString($_POST['pan']);
+      $userid = $_SESSION['user']['id'];
+
+      $query = "INSERT INTO sheets (id, type, particular, amount, pan, userid) VALUES (
+        UUID(), '$type', '$particular', '$amount', '$pan', '$userid')";
+      if (queryDB($query)){
+        $result = queryDB("SELECT * FROM sheets WHERE id=LAST_INSERT_ID()");
+        if ($result->num_rows){
+          echo json_encode($result->fetch_array(MYSQLI_ASSOC));
+        }
+      }
+    }
+  }
+  else if ($action = 'edit'){
+    if ($_SESSION['loggedIn'] && $_SESSION['user']['role'] == "admin"){
+      $field = sanitizeString($_POST['field']);
+      if ($field == 'sheets'){
+        $type = sanitizeString($_POST['name']);
+        $target = sanitizeString($_POST['target']);
+        $particular = sanitizeString($_POST['particular']);
+        $amount = sanitizeString($_POST['amount']);
+        $pan = sanitizeString($_POST['pan']);
+
+        $query = "UPDATE sheets SET particular='$particular', amount='$amount', pan='$pan' WHERE id='$target'";
+        if (queryDB($query)){
+          $result = queryDB("SELECT * FROM sheets WHERE id=LAST_INSERT_ID()");
+          if ($result->num_rows){
+            echo json_encode($result->fetch_array(MYSQLI_ASSOC));
+          }
+        }
+      }
+    }
+  }
 }
 else {
   $action = $_GET['name'];
@@ -144,6 +183,17 @@ else {
       if (queryDB("UPDATE states SET approved = TRUE WHERE id = '$uid'")){
         echo "ok";
       }
+    }
+  }
+  else if ($action == 'delete'){
+    $field = sanitizeString($_GET['field']);
+    if ($field == 'sheets'){
+      $target = sanitizeString($_GET['target']);
+      $query = "DELETE FROM sheets WHERE id='$target'";
+      if (queryDB($query)){
+        echo "Deletion successful";
+      }
+      else echo "Deletion failed!";
     }
   }
 }

@@ -54,6 +54,54 @@ if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 	<!-- begin::Body -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 		<!-- begin:: Page -->
+		<!--begin::Modal-->
+    <div class="modal fade modal-light" id="m_modal_sheet" tabindex="-1" role="dialog" aria-labelledby="sheetModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_sheet" novalidate="novalidate" enctype="multipart/form-data">
+						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="sheets" required>
+						<input type="hidden" name="name" class="form-control m-input editor-name" placeholder="" value="" required>
+						<input type="hidden" name="target" class="form-control m-input editor-target" placeholder="" value="" required>
+						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="edit" required>
+						<input type="hidden" class="form-control old-particular" placeholder="" value="" required>
+						<input type="hidden" class="form-control old-amount" placeholder="" value="" required>
+						<input type="hidden" class="form-control old-pan" placeholder="" value="" required>
+						<div class="modal-header">
+							<h5 class="modal-title" id="tournamentModalTitle">Edit Sheet</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group m-form__group row">
+								<div class="col-lg-12 m-form__group-sub">
+									<label class="form-control-label">Particular</label>
+									<input type="text" name="particular" class="form-control m-input editor-particular" placeholder="" value="">
+									<span class="m-form__help">Please enter the name of the particular</span>
+								</div>
+							</div>
+							<div class="form-group m-form__group row">
+								<div class="col-lg-6 m-form__group-sub">
+									<label class="form-control-label">Amount</label>
+									<input type="number" name="amount" step="0.01" class="form-control m-input editor-amount" placeholder="" value="">
+									<span class="m-form__help">Please enter the price of the particular</span>
+								</div>
+								<div class="col-lg-6 m-form__group-sub income-only">
+									<label class="form-control-label">PAN</label>
+									<input type="text" name="pan" class="form-control m-input editor-pan" placeholder="" value="">
+									<span class="m-form__help">Please enter the PAN of the particular</span>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" id="m_sheet_dismiss" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary m-btn m-btn--air" id="m_sheet_edit"><i class="fa fa-save fa-fw"></i>Save</button>
+						</div>
+					</form>
+        </div>
+      </div>
+    </div>
+    <!--end::Modal-->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 
 			<!-- BEGIN: Header -->
@@ -82,10 +130,10 @@ require_once 'header.php';
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="organizations.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-map"></i><span
 									 class="m-menu__link-text">Organizations</span></a>
 							</li>
-							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="uploaders.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon fa fa-cloud-upload-alt"></i><span
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="uploaders.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon fa fa-cloud-upload-alt"></i><span
 									 class="m-menu__link-text">Bulk Uploaders</a>
 							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="reports.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-pie-chart"></i><span
+							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="reports.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-pie-chart"></i><span
 									 class="m-menu__link-text">Reports</a>
 							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="feedback.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
@@ -160,24 +208,54 @@ require_once 'header.php';
 									<div class="m-portlet__head-caption">
 										<div class="m-portlet__head-title">
 											<h3 class="m-portlet__head-text">
-												FIDE Bulk Upload
+												Income Sheet
 										</div>
 									</div>
 								</div>
-								<div class="m-portlet__body portal_fide">
-									<form action="" method="POST" enctype="multipart/form-data" id="bulk_fide_form" class="row"  novalidate="novalidate">
-										<input type="hidden" name="action" value="bulk" required/>
-										<input type="hidden" name="name" value="fide" required/>
-										<div class="form-group m-form__group col-12">
-											<div class="custom-file" style="margin-left: 15px">
-												<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept="image/*" required>
-												<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
-											</div>
+								<div class="m-portlet__body portal_income">
+									<form action="" method="POST" enctype="multipart/form-data" id="income_sheet_form" class="row"  novalidate="novalidate">
+										<input type="hidden" name="action" value="sheet" required/>
+										<input type="hidden" name="name" value="income" required/>
+										<div class="form-group m-form__group col-6">
+											<input class="form-control" type="text" name="particular" placeholder="Particular" aria-label="Particular" required/>
 										</div>
-										<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
-											<button type="submit" id="bulk_fide_submit" class="btn btn-primary m-btn m-btn--air">Upload</button>
+                    <div class="input-group col-4">
+                      <div class="input-group-preppend">
+                        <span class="input-group-text">&dollar;</span>
+                      </div>
+											<input class="form-control" type="number" step="0.01" name="amount" placeholder="Amount" aria-label="Amount" required/>
+										</div>
+                    <div class="form-group m-form__group col-2">
+											<input class="form-control" type="text" name="pan" placeholder="PAN" arai-label="PAN"/>
+										</div>
+										<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12">
+											<button type="submit" id="income_sheet_submit" class="btn btn-success m-btn m-btn--air">
+                        <i class="fa fa-cogs fa-fw"></i> Generate
+                      </button>
 										</div>
 									</form>
+                  <div class="mt-2" style="max-height: 70vh">
+                    <table class="table table-hover table-striped table-success sheet-table" id="income_sheet_table">
+                      <thead>
+                        <tr>
+                          <th><b>Particular</b></th>
+                          <th><b>Amount</b></th>
+                          <th><b>PAN</b></th>
+													<th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                      <tfoot class="bg-dark text-white">
+												<tr>
+													<th><b>Total</b></th>
+													<th columnspan="2"><b id="income_sheet_total">0.00</b></th>
+													<th></th>
+													<th></th>
+												</tr>
+                      </tfoot>
+                    </table>
+                  </div>
 								</div>
 								</div>
 						</div>
@@ -187,26 +265,51 @@ require_once 'header.php';
 									<div class="m-portlet__head-caption">
 										<div class="m-portlet__head-title">
 											<h3 class="m-portlet__head-text">
-												National Rating Bulk Upload
+												Expenditure Sheet
 										</div>
 									</div>
 								</div>
-								<div class="m-portlet__body portal_rating">
-									<form action="" method="POST" enctype="multipart/form-data" id="bulk_rating_form" class="row"  novalidate="novalidate">
-										<input type="hidden" name="action" value="bulk" required/>
-										<input type="hidden" name="name" value="rating" required/>
-										<div class="form-group m-form__group col-12">
-											<div class="custom-file" style="margin-left: 15px">
-												<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept="image/*" required>
-												<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
-											</div>
+								<div class="m-portlet__body portal_expense">
+									<form action="" method="POST" enctype="multipart/form-data" id="expense_sheet_form" class="row"  novalidate="novalidate">
+										<input type="hidden" name="action" value="sheet" required/>
+										<input type="hidden" name="name" value="expense" required/>
+										<div class="form-group m-form__group col-7">
+											<input class="form-control" type="text" name="particular" placeholder="Particular" aria-label="Particular" required/>
 										</div>
-										<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
-											<button type="submit" id="bulk_rating_submit" class="btn btn-primary m-btn m-btn--air">Upload</button>
+                    <div class="input-group col-5">
+                      <div class="input-group-preppend">
+                        <span class="input-group-text">&dollar;</span>
+                      </div>
+											<input class="form-control" type="number" step="0.01" name="amount" placeholder="Amount" aria-label="Amount" required/>
+										</div>
+										<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12">
+											<button type="submit" id="expense_sheet_submit" class="btn btn-danger m-btn m-btn--air">
+                        <i class="fa fa-cogs fa-fw"></i> Generate
+                      </button>
 										</div>
 									</form>
+                  <div class="mt-2" style="max-height: 70vh">
+                    <table class="table table-hover table-striped table-danger sheet-table" id="expense_sheet_table">
+                      <thead>
+                        <tr>
+                          <th><b>Particular</b></th>
+                          <th><b>Amount</b></th>
+													<th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                      <tfoot class="bg-dark text-white">
+												<tr>
+													<th><b>Total</b></th>
+													<th><b id="expense_sheet_total">0.00</b></th>
+													<th></th>
+												</tr>
+                      </tfoot>
+                    </table>
+                  </div>
 								</div>
-								</div>
+							</div>
 						</div>
           </div>
 				</div>

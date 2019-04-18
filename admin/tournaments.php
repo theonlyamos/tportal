@@ -51,12 +51,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--RTL version:<link href="../assets/demo/demo3/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
-		<!--end::Global Theme Styles -->
-
-		<!--begin::Page Vendors Styles -->
-		<link href="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
-
-		<!--RTL version:<link href="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
 		<!--end::Page Vendors Styles -->
 		<link rel="shortcut icon" href="../assets/app/media/img/icons/favicon.ico" />
