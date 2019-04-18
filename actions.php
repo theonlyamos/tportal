@@ -191,7 +191,7 @@ else {
       $target = sanitizeString($_GET['target']);
       $query = "DELETE FROM sheets WHERE id='$target'";
       if (queryDB($query)){
-        echo "Deletion successful";
+        echo json_encode($_GET);
       }
       else echo "Deletion failed!";
     }
