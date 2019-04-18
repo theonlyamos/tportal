@@ -70,7 +70,7 @@ require_once 'header.php';
 					<!-- BEGIN: Aside Menu -->
 					<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark m-aside-menu--dropdown " data-menu-vertical="true" m-menu-dropdown="1" m-menu-scrollable="0" m-menu-dropdown-timeout="500">
 						<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="../state/" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-line-graph"></i><span class="m-menu__link-text">Dashboard</span></a></li>
+							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="/admin/" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-line-graph"></i><span class="m-menu__link-text">Dashboard</span></a></li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="tournaments.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-trophy"></i><span
 									 class="m-menu__link-text">Tournaments</span></a>
 							</li>

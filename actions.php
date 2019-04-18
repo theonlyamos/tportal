@@ -9,7 +9,7 @@ require_once 'functions.php';
 session_start();
 
 if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
-  $action = sanitizeString($_POST['action']);
+  $action = sanitizeString(strtolower($_POST['action']));
 
   if ($action == 'tournament'){
     $type = sanitizeString($_POST['tournament']);
@@ -112,7 +112,7 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
       }
     }
   }
-  else if ($action = 'donation'){
+  else if ($action == 'donation'){
 
   }
   else if ($action == 'sheet'){
@@ -127,10 +127,14 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
       $query = "INSERT INTO sheets (id, type, particular, amount, pan, userid) VALUES (
         UUID(), '$type', '$particular', '$amount', '$pan', '$userid')";
       if (queryDB($query)){
-        $result = queryDB("SELECT * FROM sheets WHERE id=LAST_INSERT_ID()");
+        $result = queryDB("SELECT * FROM sheets WHERE particular='$particular'");
         if ($result->num_rows){
           echo json_encode($result->fetch_array(MYSQLI_ASSOC));
         }
+      }
+      else {
+        http_response_code(500);
+        echo "Sheet wasn't added!";
       }
     }
   }

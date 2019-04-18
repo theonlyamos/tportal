@@ -245,11 +245,37 @@ require_once 'header.php';
                         </tr>
                       </thead>
                       <tbody>
+<?php
+require_once '../functions.php';
+
+$result = queryDB("SELECT * FROM sheets WHERE type='income' ORDER BY createdAt DESC");
+$total = 0.00;
+if ($result->num_rows){
+	for ($j = 0; $j < $result->num_rows; ++$j){
+		$result->data_seek($j);
+		$row = $result->fetch_array(MYSQLI_ASSOC);
+		$total += $row['amount'];
+		echo <<< _END
+									<tr class="row-$row[id]">
+										<td class="editable-particular">$row[particular]</td>
+										<td class="editable-amount">$row[amount]</td>
+										<td class="editable-pan">$row[pan]</td>
+										<td class='d-flex align-items-center justify-content-center'>
+											<i class='fa flaticon-edit-1 text-primary sheet-edit mx-2' data-toggle='modal' data-target='#m_modal_sheet' data-id='$row[id]'  data-sheet='income' style='cursor: pointer' title='Edit'></i> 
+											<i class='fa fa-trash text-danger sheet-delete' data-target='$row[id]' data-sheet='expense' style='cursor: pointer' title='Delete'></i>
+										</td>
+									</tr>
+_END;
+	}
+}
+?>
                       </tbody>
                       <tfoot class="bg-dark text-white">
 												<tr>
 													<th><b>Total</b></th>
-													<th columnspan="2"><b id="income_sheet_total">0.00</b></th>
+<?php
+													echo '<th columnspan="2"><b id="income_sheet_total">'.total.'</b></th>';
+?>
 													<th></th>
 													<th></th>
 												</tr>

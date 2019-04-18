@@ -93,7 +93,7 @@ $(() =>{
         bulkFile: !0
       }
     }), r.valid() && (mApp.block("#bulk_fide_form", {}), r.ajaxSubmit({
-      url: "../actions.php",
+      url: "/actions.php",
       method: "post",
       success: (s,t) => {
         console.log(s,t)
@@ -119,7 +119,7 @@ $(() =>{
         bulkFile: !0
       }
     }), r.valid() && (mApp.block("#bulk_rating_form", {}), r.ajaxSubmit({
-      url: "../actions.php",
+      url: "/actions.php",
       method: "post",
       success: (s,t) => {
         console.log(s,t)
@@ -145,7 +145,7 @@ $(() =>{
         amount: !0,
       }
     }), r.valid() && (mApp.block("#income_sheet_form", {}), r.ajaxSubmit({
-      url: "../actions.php",
+      url: "/actions.php",
       method: "post",
       success: (s,t) => {
         mApp.unblock("#income_sheet_form")
@@ -156,7 +156,7 @@ $(() =>{
         var total = $("#income_sheet_total").text();
         total = parseFloat(total) + parseFloat(data.amount);
         total = total.toFixed(2);
-        var row = "<tr class='row-"+data.particular+"'>";
+        var row = "<tr class='row-"+data.id+"'>";
         for (var key in data){
           if (!ignore.includes(key)){
             if (key === 'amount') row += "<td class='editable-amount'>"+parseFloat(data[key]).toFixed(2)+"</td>";
@@ -166,10 +166,10 @@ $(() =>{
         }
         row += "<td class='d-flex align-items-center justify-content-center'>";
         row += "<i class='fa flaticon-edit-1 text-primary sheet-edit mx-2' data-toggle='modal' ";
-        row += "data-target='#m_modal_sheet' data-id='" + data.particular
+        row += "data-target='#m_modal_sheet' data-id='" + data.id
         row += "' data-sheet='income' style='cursor: pointer' title='Edit'></i> ";
         row += "<i class='fa fa-trash text-danger sheet-delete' data-target='";
-        row += data.particular + "'data-sheet='income' style='cursor: pointer' title='Delete'></i></td>";
+        row += data.id + "'data-sheet='income' style='cursor: pointer' title='Delete'></i></td>";
         row += "</tr>";
         $("#income_sheet_table tbody").prepend(row);
         $("#income_sheet_total").text(total);
@@ -193,7 +193,7 @@ $(() =>{
         amount: !0,
       }
     }), r.valid() && (mApp.block("#expense_sheet_form", {}), r.ajaxSubmit({
-      url: "../actions.php",
+      url: "/actions.php",
       method: "post",
       success: (s,t) => {
         mApp.unblock("#expense_sheet_form")
@@ -204,7 +204,7 @@ $(() =>{
         var total = $("#expense_sheet_total").text();
         total = parseFloat(total) + parseFloat(data.amount);
         total = total.toFixed(2);
-        var row = "<tr class='row-"+data.particular+"'>";
+        var row = "<tr class='row-"+data.id+"'>";
         for (var key in data){
           if (!ignore.includes(key)){
             if (key === 'amount') row += "<td class='editable-amount'>"+parseFloat(data[key]).toFixed(2)+"</td>";
@@ -213,10 +213,10 @@ $(() =>{
         }
         row += "<td class='d-flex align-items-center justify-content-center'>";
         row += "<i class='fa flaticon-edit-1 text-primary sheet-edit mx-2' data-toggle='modal' ";
-        row += "data-target='#m_modal_sheet' data-id='" + data.particular
+        row += "data-target='#m_modal_sheet' data-id='" + data.id
         row += "' data-sheet='expense' style='cursor: pointer' title='Edit'></i> ";
         row += "<i class='fa fa-trash text-danger sheet-delete' data-target='";
-        row += data.particular + "'data-sheet='expense' style='cursor: pointer' title='Delete'></i></td>";
+        row += data.id + "'data-sheet='expense' style='cursor: pointer' title='Delete'></i></td>";
         row += "</tr>";
         $("#expense_sheet_table tbody").prepend(row);
         $("#expense_sheet_total").text(total);
@@ -240,7 +240,7 @@ $(() =>{
         amount: !0,
       }
     }), r.valid() && (mApp.block("#m_form_sheet", {}), r.ajaxSubmit({
-      url: "../actions.php",
+      url: "/actions.php",
       method: "post",
       success: (s,t) => {
         console.log(s,t)
@@ -255,7 +255,7 @@ $(() =>{
         console.log(total)
         newAmount = parseFloat(changes.amount)
         total += newAmount;
-        var parent = $("tr.row-"+changes.target)[0];
+        var parent = $("tr.row-"+changes.id)[0];
         $(parent).find(".editable-particular").text(changes.particular);
         $(parent).find(".editable-amount").text(changes.amount);
         if (changes.pan){
@@ -425,7 +425,7 @@ $(() =>{
     amount = parseFloat($(amount).text());
     var totalel = $("#"+n+"_sheet_total");
     var total = parseFloat($(totalel).text());
-    $.get('../actions.php', {action: "delete", target: i, field: 'sheets', name: 'delete'})
+    $.get('/actions.php', {action: "delete", target: i, field: 'sheets', name: 'delete'})
      .done((d) => {
         total -= amount;
         total = total.toFixed(2);
