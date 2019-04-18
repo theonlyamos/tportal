@@ -274,7 +274,7 @@ _END;
 												<tr>
 													<th><b>Total</b></th>
 <?php
-													echo '<th columnspan="2"><b id="income_sheet_total">'.total.'</b></th>';
+													echo '<th columnspan="2"><b id="income_sheet_total">'.number_format($total,2).'</b></th>';
 ?>
 													<th></th>
 													<th></th>
