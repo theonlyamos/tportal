@@ -138,7 +138,7 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
       }
     }
   }
-  else if ($action = 'edit'){
+  else if ($action == 'edit'){
     if ($_SESSION['loggedIn'] && $_SESSION['user']['role'] == "admin"){
       $field = sanitizeString($_POST['field']);
       if ($field == 'sheets'){
@@ -150,10 +150,18 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
 
         $query = "UPDATE sheets SET particular='$particular', amount='$amount', pan='$pan' WHERE id='$target'";
         if (queryDB($query)){
-          $result = queryDB("SELECT * FROM sheets WHERE id=LAST_INSERT_ID()");
+          $result = queryDB("SELECT * FROM sheets WHERE id='$target'");
           if ($result->num_rows){
             echo json_encode($result->fetch_array(MYSQLI_ASSOC));
           }
+          else {
+            http_response_code(500);
+            echo "Couldn't get sheet!";
+          }
+        }
+        else {
+          http_response_code(500);
+          echo "Update unsuccessful";
         }
       }
     }

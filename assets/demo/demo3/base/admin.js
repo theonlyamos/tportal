@@ -243,21 +243,18 @@ $(() =>{
       url: "/actions.php",
       method: "post",
       success: (s,t) => {
-        console.log(s,t)
         var changes = JSON.parse(s);
         var i = $(".editor-name").val();
         var amount = $(".old-amount").val();
         amount = parseFloat(amount);
         var totalel = $("#"+i+"_sheet_total")
         var total = parseFloat($(totalel).text());
-        console.log(total, amount);
         total -= amount;
-        console.log(total)
         newAmount = parseFloat(changes.amount)
         total += newAmount;
         var parent = $("tr.row-"+changes.id)[0];
         $(parent).find(".editable-particular").text(changes.particular);
-        $(parent).find(".editable-amount").text(changes.amount);
+        $(parent).find(".editable-amount").text(newAmount.toFixed(2));
         if (changes.pan){
           $(parent).find(".editable-pan").text(changes.pan);
         }
