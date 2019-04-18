@@ -258,7 +258,9 @@ if ($result->num_rows){
 		echo <<< _END
 									<tr class="row-$row[id]">
 										<td class="editable-particular">$row[particular]</td>
-										<td class="editable-amount">$row[amount]</td>
+_END;
+							echo '<td class="editable-amount">'.number_format($row[amount], 2).'</td>';
+		echo <<< _END
 										<td class="editable-pan">$row[pan]</td>
 										<td class='d-flex align-items-center justify-content-center'>
 											<i class='fa flaticon-edit-1 text-primary sheet-edit mx-2' data-toggle='modal' data-target='#m_modal_sheet' data-id='$row[id]'  data-sheet='income' style='cursor: pointer' title='Edit'></i> 
