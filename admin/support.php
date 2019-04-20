@@ -1,19 +1,32 @@
 <?php
-session_start();
+/** session_start();
 
 if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 	header("Location: login.php");
 }
-
+*/
 ?>
 
 <!DOCTYPE html>
+
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
 <html lang="en">
 
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>Bulk Uploaders | Tournament Portal</title>
+		<title>Support | Tournament Portal</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -38,12 +51,6 @@ if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 
 		<!--RTL version:<link href="../assets/demo/demo3/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
-		<!--end::Global Theme Styles -->
-
-		<!--begin::Page Vendors Styles -->
-		<link href="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
-
-		<!--RTL version:<link href="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
 		<!--end::Page Vendors Styles -->
 		<link rel="shortcut icon" href="../assets/app/media/img/icons/favicon.ico" />
@@ -56,12 +63,9 @@ if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 
-			<!-- BEGIN: Header -->
 <?php
 require_once 'header.php';
 ?>
-			<!-- END: Header -->
-
 			<!-- begin::Body -->
 			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
 
@@ -82,7 +86,7 @@ require_once 'header.php';
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="organizations.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-map"></i><span
 									 class="m-menu__link-text">Organizations</span></a>
 							</li>
-							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="uploaders.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon fa fa-cloud-upload-alt"></i><span
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="uploaders.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon fa fa-cloud-upload-alt"></i><span
 									 class="m-menu__link-text">Bulk Uploaders</a>
 							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="reports.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-pie-chart"></i><span
@@ -91,7 +95,7 @@ require_once 'header.php';
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="feedback.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
 									 class="m-menu__link-text">Feedbacks</span></a>
 							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="support.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-info"></i><span
+							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="support.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-info"></i><span
 									 class="m-menu__link-text">Support</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item--submenu m-menu__item--bottom-2" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-settings"></i><span
@@ -150,144 +154,79 @@ require_once 'header.php';
 					</div>
 
 					<!-- END: Subheader -->
-					<div class="m-content row">
-						<div class="m-accordion m-accordion--default m-accordion--toggle-arrow col-12" id="m_accordion_5" role="tablist">
-
-							<!--begin::Item-->
-							<div class="m-accordion__item">
-								<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_5_item_2_head" data-toggle="collapse" href="#m_accordion_5_item_2_body" aria-expanded="false">
-									<span class="m-accordion__item-icon"><i class="fa  fa-clipboard-list"></i></span>
-									<span class="m-accordion__item-title"><b>FIDE Bulk Upload</b></span>
-									<span class="m-accordion__item-mode"></span>
-								</div>
-								<div class="m-accordion__item-body collapse" id="m_accordion_5_item_2_body" role="tabpanel" aria-labelledby="m_accordion_5_item_2_head" data-parent="#m_accordion_5" style="">
-									<div class="m-accordion__item-content">
-										<form method="POST" enctype="multipart/form-data" id="bulk_fide_form" class="row"  novalidate="novalidate">
-											<input type="hidden" name="action" value="bulk" required/>
-											<input type="hidden" name="name" value="fide" required/>
-											<div class="form-group m-form__group col-12">
-												<div class="custom-file" style="margin-left: 15px">
-													<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept=".csv,text/csv" required>
-													<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
-												</div>
-											</div>
-											<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
-												<button type="submit" id="bulk_fide_submit" class="btn btn-primary m-btn m-btn--air">Upload</button>
-											</div>
-										</form>
-										<div class="m-accordion" id="m_accordion_1" role="tablist">
-	<?php
-	require_once '../functions.php';
-
-	$result = queryDB("SELECT id, name, type FROM bulk_uploads WHERE type='fide' ORDER BY createdAt DESC");
-	if ($result->num_rows){
-		$count;
-		for ($j = 0; $j < $result->num_rows; ++$j){
-			$result->data_seek($j);
-			$file = $result->fetch_array(MYSQLI_ASSOC);
-			$filename = $file['name'];
-			$fileid = $file['id'];
-			$filetype = $file['type'];
-			$count++;
-			echo <<< _END
-												<!--begin::Item-->
-												<div class="m-accordion__item">
-_END;
-										echo '<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_'.$count.'_head" data-toggle="collapse" href="#m_accordion_1_item_'.$count.'_body" aria-expanded="false">';
-										echo '<span class="m-accordion__item-icon"><i class="fa  flaticon-list-2"></i></span>';
-			echo <<< _END
-														<span class="m-accordion__item-title">$filename</span>
-														<span class="m-accordion__item-mode expand" data-type="$filetype" data-name="$filename" data-target="$fileid"></span>
-													</div>
-_END;
-											echo '<div class="m-accordion__item-body collapse" id="m_accordion_1_item_'.$count.'_body" role="tabpanel" aria-labelledby="m_accordion_1_item_'.$count.'_head" data-parent="#m_accordion_1">';
-			echo <<< _END
-														<div class="m-accordion__item-content" style="overflow: auto; max-height: 60vh !important;">
-															<table class="table table-secondary" data-id="$fileid">
-															</table>
-														</div>
-													</div>
-												</div>
-
-												<!--end::Item-->
-_END;
-		}
-	}
-	?>
-											</div>
+					<div class="m-content">
+						<div class="m-portlet m-portlet--full-height ">
+							<div class="m-portlet__head">
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">
+											Support Tickets
+										</h3>
 									</div>
 								</div>
 							</div>
-
-							<!--end::Item-->
-
-							<!--begin::Item-->
-							<div class="m-accordion__item">
-								<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_5_item_3_head" data-toggle="collapse" href="#m_accordion_5_item_3_body" aria-expanded="false">
-									<span class="m-accordion__item-icon"><i class="fa  fa-clipboard-list"></i></span>
-									<span class="m-accordion__item-title"><b>National Rating Bulk Upload</b></span>
-									<span class="m-accordion__item-mode"></span>
-								</div>
-								<div class="m-accordion__item-body collapse" id="m_accordion_5_item_3_body" role="tabpanel" aria-labelledby="m_accordion_5_item_3_head" data-parent="#m_accordion_5" style="">
-									<div class="m-accordion__item-content">
-									<form method="POST" enctype="multipart/form-data" id="bulk_rating_form" class="row"  novalidate="novalidate">
-											<input type="hidden" name="action" value="bulk" required/>
-											<input type="hidden" name="name" value="rating" required/>
-											<div class="form-group m-form__group col-12">
-												<div class="custom-file" style="margin-left: 15px">
-													<input type="file" name="bulkFile" class="custom-file-input" id="customFile2" accept=".csv,text/csv" required>
-													<label class="custom-file-label" for="customFile2">Choose file (CSV)</label>
-												</div>
+							<div class="m-portlet__body">
+								<div class="m-widget3">
+									<div class="m-widget3__item" id="ticket-1234">
+										<div class="m-widget3__header">
+											<div class="m-widget3__user-img">
+												<img class="m-widget3__img" src="../assets/app/media/img/users/neutral.png" alt="user picture">
 											</div>
-											<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12 px-0">
-												<button type="submit" id="bulk_rating_submit" class="btn btn-primary m-btn m-btn--air">Upload</button>
+											<div class="m-widget3__info justify-content-center">
+												<span class="m-widget3__username">
+													Deb Gibson - 
+													<span class="m--font-success">
+														Open
+													</span>
+												</span>
+												<br>
+												<span class="m-widget3__time">
+													3 weeks ago
+												</span>
 											</div>
-										</form>
-										<div class="m-accordion" id="m_accordion_1" role="tablist">
-	<?php
-	require_once '../functions.php';
-
-	$result = queryDB("SELECT id, name, type FROM bulk_uploads WHERE type='rating' ORDER BY createdAt DESC");
-	if ($result->num_rows){
-		$count;
-		for ($j = 0; $j < $result->num_rows; ++$j){
-			$result->data_seek($j);
-			$file = $result->fetch_array(MYSQLI_ASSOC);
-			$filename = $file['name'];
-			$fileid = $file['id'];
-			$filetype = $file['type'];
-			$count++;
-			echo <<< _END
-												<!--begin::Item-->
-												<div class="m-accordion__item">
-_END;
-										echo '<div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_'.$count.'_head" data-toggle="collapse" href="#m_accordion_1_item_'.$count.'_body" aria-expanded="false">';
-										echo '<span class="m-accordion__item-icon"><i class="fa  flaticon-list-2"></i></span>';
-			echo <<< _END
-														<span class="m-accordion__item-title">$filename</span>
-														<span class="m-accordion__item-mode expand" data-type="$filetype" data-name="$filename" data-target="$fileid"></span>
-													</div>
-_END;
-											echo '<div class="m-accordion__item-body collapse" id="m_accordion_1_item_'.$count.'_body" role="tabpanel" aria-labelledby="m_accordion_1_item_'.$count.'_head" data-parent="#m_accordion_1">';
-			echo <<< _END
-														<div class="m-accordion__item-content" style="overflow: auto; max-height: 60vh !important;">
-															<table class="table table-secondary" data-id="$fileid">
-															</table>
+											<span class="m-widget3__status m--font-success">
+												<li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+													<a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
+														<i class="la la-ellipsis-h m--font-brand"></i>
+													</a>
+													<div class="m-dropdown__wrapper">
+														<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+														<div class="m-dropdown__inner">
+															<div class="m-dropdown__body">
+																<div class="m-dropdown__content">
+																	<ul class="m-nav">
+																		<li class="m-nav__item" id="m_quick_sidebar_toggle" style="cursor: pointer;" data-target="1234">
+																				<i class="m-nav__link-icon flaticon-chat-1 m--font-primary"></i>
+																				<span class="m-nav__link-text m--font-primary ml-3" data-target="1234">Reply</span>
+																		</li>
+																		<li class="m-nav__item">
+																			<a href="" class="m-nav__link">
+																				<i class="m-nav__link-icon flaticon-cancel"></i>
+																				<span class="m-nav__link-text">Close</span>
+																			</a>
+																		</li>
+																		<li class="m-nav__item">
+																			<a href="" class="m-nav__link">
+																				<i class="m-nav__link-icon fa fa-trash-alt text-danger"></i>
+																				<span class="m-nav__link-text text-danger">Delete</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
 														</div>
 													</div>
-												</div>
-
-												<!--end::Item-->
-_END;
-		}
-	}
-	?>
-											</div>
+												</li>
+											</span>
+										</div>
+										<div class="m-widget3__body">
+											<p class="m-widget3__text">
+												Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.
+											</p>
+										</div>
 									</div>
 								</div>
 							</div>
-
-							<!--end::Item-->
 						</div>
           </div>
 				</div>
@@ -342,16 +281,47 @@ _END;
 
 		<!-- end:: Page -->
 
+		<!-- begin::Quick Sidebar -->
+		<div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light">
+			<div class="m-quick-sidebar__content m--hide">
+				<span id="m_quick_sidebar_close" class="m-quick-sidebar__close"><i class="la la-close"></i></span>
+				<ul id="m_quick_sidebar_tabs" class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
+					<li class="nav-item m-tabs__item">
+						<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_quick_sidebar_tabs_messenger" role="tab">Messages</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
+						<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
+							<div class="m-messenger__messages m-scrollable">
+								
+							</div>
+							<div class="m-messenger__seperator"></div>
+							<div class="m-messenger__form">
+								<div class="m-messenger__form-controls">
+									<input type="text" name="" placeholder="Type here..." class="m-messenger__form-input">
+								</div>
+								<div class="m-messenger__form-tools">
+									<a href="" class="m-messenger__form-attachment">
+										<i class="la la-paperclip"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- end::Quick Sidebar -->
+
+
 		<!-- begin::Scroll Top -->
 		<div id="m_scroll_top" class="m-scroll-top">
 			<i class="la la-arrow-up"></i>
 		</div>
 
 		<!-- end::Scroll Top -->
-
-		<!-- begin::Quick Nav -->
-
-		<!-- begin::Quick Nav -->
 
 		<!--begin::Global Theme Bundle -->
 		<script src="../assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>

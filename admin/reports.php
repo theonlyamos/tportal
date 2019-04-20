@@ -139,7 +139,7 @@ require_once 'header.php';
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="feedback.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
 									 class="m-menu__link-text">Feedbacks</span></a>
 							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="support.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-info"></i><span
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="support.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-info"></i><span
 									 class="m-menu__link-text">Support</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item--submenu m-menu__item--bottom-2" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-settings"></i><span
@@ -216,16 +216,16 @@ require_once 'header.php';
 									<form action="" method="POST" enctype="multipart/form-data" id="income_sheet_form" class="row"  novalidate="novalidate">
 										<input type="hidden" name="action" value="sheet" required/>
 										<input type="hidden" name="name" value="income" required/>
-										<div class="form-group m-form__group col-6">
+										<div class="form-group m-form__group col-lg-6">
 											<input class="form-control" type="text" name="particular" placeholder="Particular" aria-label="Particular" required/>
 										</div>
-                    <div class="input-group col-4">
+                    <div class="input-group col-lg-4">
                       <div class="input-group-preppend">
                         <span class="input-group-text">&dollar;</span>
                       </div>
 											<input class="form-control" type="number" step="0.01" name="amount" placeholder="Amount" aria-label="Amount" required/>
 										</div>
-                    <div class="form-group m-form__group col-2">
+                    <div class="form-group m-form__group col-lg-2">
 											<input class="form-control" type="text" name="pan" placeholder="PAN" arai-label="PAN"/>
 										</div>
 										<div class="form-group m-form__group d-flex align-items-end justify-content-end col-12">
@@ -264,7 +264,7 @@ _END;
 										<td class="editable-pan">$row[pan]</td>
 										<td class='d-flex align-items-center justify-content-center'>
 											<i class='fa flaticon-edit-1 text-primary sheet-edit mx-2' data-toggle='modal' data-target='#m_modal_sheet' data-id='$row[id]'  data-sheet='income' style='cursor: pointer' title='Edit'></i> 
-											<i class='fa fa-trash text-danger sheet-delete' data-target='$row[id]' data-sheet='expense' style='cursor: pointer' title='Delete'></i>
+											<i class='fa fa-trash text-danger sheet-delete' data-target='$row[id]' data-sheet='income' style='cursor: pointer' title='Delete'></i>
 										</td>
 									</tr>
 _END;
@@ -301,10 +301,10 @@ _END;
 									<form action="" method="POST" enctype="multipart/form-data" id="expense_sheet_form" class="row"  novalidate="novalidate">
 										<input type="hidden" name="action" value="sheet" required/>
 										<input type="hidden" name="name" value="expense" required/>
-										<div class="form-group m-form__group col-7">
+										<div class="form-group m-form__group col-lg-7">
 											<input class="form-control" type="text" name="particular" placeholder="Particular" aria-label="Particular" required/>
 										</div>
-                    <div class="input-group col-5">
+                    <div class="input-group col-lg-5">
                       <div class="input-group-preppend">
                         <span class="input-group-text">&dollar;</span>
                       </div>
@@ -326,11 +326,37 @@ _END;
                         </tr>
                       </thead>
                       <tbody>
+<?php
+
+$result = queryDB("SELECT * FROM sheets WHERE type='expense' ORDER BY createdAt DESC");
+$total = 0.00;
+if ($result->num_rows){
+	for ($j = 0; $j < $result->num_rows; ++$j){
+		$result->data_seek($j);
+		$row = $result->fetch_array(MYSQLI_ASSOC);
+		$total += $row['amount'];
+		echo <<< _END
+									<tr class="row-$row[id]">
+										<td class="editable-particular">$row[particular]</td>
+_END;
+							echo '<td class="editable-amount">'.number_format($row[amount], 2).'</td>';
+		echo <<< _END
+										<td class='d-flex align-items-center justify-content-center'>
+											<i class='fa flaticon-edit-1 text-primary sheet-edit mx-2' data-toggle='modal' data-target='#m_modal_sheet' data-id='$row[id]'  data-sheet='income' style='cursor: pointer' title='Edit'></i> 
+											<i class='fa fa-trash text-danger sheet-delete' data-target='$row[id]' data-sheet='expense' style='cursor: pointer' title='Delete'></i>
+										</td>
+									</tr>
+_END;
+	}
+}
+?>
                       </tbody>
                       <tfoot class="bg-dark text-white">
 												<tr>
 													<th><b>Total</b></th>
-													<th><b id="expense_sheet_total">0.00</b></th>
+<?php
+													echo '<th><b id="expense_sheet_total">'.number_format($total,2).'</b></th>';
+?>
 													<th></th>
 												</tr>
                       </tfoot>

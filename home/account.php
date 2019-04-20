@@ -650,11 +650,11 @@ echo <<< _END
 													<div class="m-widget19__header">
 														<div class="m-widget19__user-img">
 _END;
-	if ($user['picture']){
-		echo '<img class="m-widget19__img" src="../assets/data/profiles/'.$user['picture'].'" alt="">';
-	}
-	else echo '<img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt="">';
-	echo <<< _END
+if ($user['picture']){
+	echo '<img class="m-widget19__img" src="../assets/data/profiles/'.$user['picture'].'" alt="">';
+}
+else echo '<img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt="">';
+echo <<< _END
 														</div>
 														<div class="m-widget19__info">
 															<span class="m-widget19__username">
