@@ -275,86 +275,9 @@ if (!$_SESSION["loggedIn"]){
 
 							<!--Right Aside-->
 							<div class="col-xl-3 col-lg-4 d-none d-xl-block">
-							<?php
-require_once '../functions.php';
-
-$result = queryDB("SELECT email, city, fullname, picture, profession FROM users WHERE email != '".$_SESSION[user][email]."'
-ORDER BY createdAt DESC LIMIT 3");
-
-for ($j = 0; $j < $result->num_rows; ++$j){
-	$result->data_seek($j);
-	$user = $result->fetch_array(MYSQLI_ASSOC);
-
-echo <<< _END
-								<div class="m-portlet m-portlet--bordered-semi m-portlet--rounded-force">
-									<a href="">
-										<div class="m-portlet__body p-1 px-2">
-											<div class="m-widget19">
-												<div class="m-widget19__content">
-													<div class="m-widget19__header">
-														<div class="m-widget19__user-img">
-_END;
-	if ($user['picture']){
-		echo '<img class="m-widget19__img" src="../assets/data/profiles/'.$user['picture'].'" alt="">';
-	}
-	else echo '<img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt="">';
-	echo <<< _END
-														</div>
-														<div class="m-widget19__info">
-															<span class="m-widget19__username">
-																$user[fullname]
-															</span><br>
-															<span class="m-widget19__time">
-																$user[city]
-															</span>
-														</div>
-														<div class="m-widget19__stats">
-															<span class="m-widget19__number m--font-brand">
-																<i class="flaticon-user-ok"></i>
-															</span>
-															<span class="m-widget19__comment">
-																$user[profession]
-															</span>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</a>
-								</div>
-_END;
-}
-$result->close();
-?>
-								<div class="m-portlet">
-									<div class="m-portlet__body">
-										<ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
-											<li class="m-nav__item">
-												<a href="/home" class="m-nav__link">
-													<span class="m-nav__link-title">
-														<span class="m-nav__link-wrap">
-															<span class="m-nav__link-text">All Friends</span>
-														</span>
-													</span>
-												</a>
-											</li>
-											<li class="m-nav__separator m-nav__separator--fit"></li>
-											<li class="m-nav__section m--hide">
-												<span class="m-nav__section-text">Section</span>
-											</li>
-											<li class="m-nav__item">
-												<a href="header/profile&amp;demo=default.html" class="m-nav__link">
-													<i class="m-nav__link-icon flaticon-profile-1"></i>
-													<span class="m-nav__link-title">
-														<span class="m-nav__link-wrap">
-															<span class="m-nav__link-text" data-target="profile.html"></span>
-														</span>
-													</span>
-												</a>
-											</li>
-										</ul>
-									</div>
-								</div>
+								<?php
+									require_once 'rightbar.php';
+								?>
 							</div>
 						</div>
 					</div>
