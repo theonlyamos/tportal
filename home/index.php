@@ -193,25 +193,6 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 															</div>
 														</div>
 														<div class="m-widget19__header w-100">
-															<table class="table table-striped table-borderless table-info col-12 pr-0">
-																<thead>
-																	
-																</thead>
-																<tbody>
-																	<tr>
-																		<th>Start Dates</th>
-																		<th>End Dates</th>
-																	</tr>
-_END;
-$startDates = unserialize($tournament['startDates']);
-$endDates = unserialize($tournament['endDates']);
-for ($k = 0; $k < sizeof($startDates); ++$k){
-	echo "<tr><td>".$startDates[$k]."</td><td>".$endDates[$k]."</td></tr>";
-}
-	echo <<< _END
-																<tr class="bg-primary text-white"><th>Price</th><td><b>&dollar;$tournament[price]</b></td></tr>
-																</tbody>
-															</table>
 														</div>
 														<div class="m-widget19__action d-flex justify-content-end">
 															<a href="tournaments.php?id=$tournament[id]" class="btn m-btn--pill btn-outline-info m-btn">

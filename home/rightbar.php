@@ -35,7 +35,11 @@ _END;
 														</div>
 														<div class="m-widget19__stats">
 															<span class="m-widget19__number m--font-brand">
-																<i class="flaticon-user-ok"></i>
+_END;
+if ($user['profession'] == 'player') echo '<i class="fa fa-user-graduate"></i>';
+else if ($user['profession'] == 'coach') echo '<i class="fa fa-user-check"></i>';
+if ($user['profession'] == 'arbiter') echo '<i class="fa fa-user-clock"></i>';
+echo <<< _END
 															</span>
 															<span class="m-widget19__comment">
 																$user[profession]

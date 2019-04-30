@@ -276,21 +276,49 @@ if ($_GET['id']){
 																</span>
 															</div>
 														</div>
-														<div class="m-widget19__header w-100">
-															<div class="description">
-																<b>Description</b><br>
-																$tournament[description]
-															</div>
-														</div>
 														<div class="m-widget19__body">
-															<table class="table table-striped table-borderless table-info col-12 pr-0">
-																<thead>
+															<table class="table table-striped table-borderless table-dark col-12 pr-0">
+																<tbody>
+																	<tr>
+																		<th>Description</th>
+																		<td>$tournament[description]</td>
+																	</tr>
+																	<tr>
+																		<th>Address</th>
+																		<td>$tournament[address]</td>
+																	</tr>
+																	<tr>
+																		<th>Venue</th>
+																		<td>$tournament[venue]</td>
+																	</tr>
+																	<tr>
+																		<th>Organizer</th>
+																		<td>$tournament[organizerName]</td>
+																	</tr>
+																	<tr>
+																		<th>Organizer Phone</th>
+																		<td>$tournament[organizerPhone]</td>
+																	</tr>
+																	<tr>
+																		<th>Organizer Email</th>
+																		<td>$tournament[organizerEmail]</td>
+																	</tr>
+																	<tr>
+																		<th>Contact Person</th>
+																		<td>$tournament[contactName]</td>
+																	</tr>
+																	<tr>
+																		<th>Contact Phone</th>
+																		<td>$tournament[contactPhone]</td>
+																	</tr>
+																	<tr>
+																		<th>Contact Email</th>
+																		<td>$tournament[contactEmail]</td>
+																	</tr>
 																	<tr>
 																		<th>Start Dates</th>
 																		<th>End Dates</th>
 																	</tr>
-																</thead>
-																<tbody>
 _END;
 $startDates = unserialize($tournament['startDates']);
 $endDates = unserialize($tournament['endDates']);
@@ -303,9 +331,10 @@ for ($k = 0; $k < sizeof($startDates); ++$k){
 															</table>
 														</div>
 														<div class="m-widget19__action d-flex justify-content-end">
-															<a href="tournaments.php?id=$tournament[id]" class="btn m-btn--pill btn-outline-info m-btn">
-																View
-															</a>
+															<button class="btn m-btn--pill btn-info m-btn">
+																<i class="fa fa-check-circle"></i>
+																Register
+															</button>
 														</div>
 													</div>
 												</div>
