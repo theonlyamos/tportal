@@ -153,6 +153,7 @@ if (!$_SESSION["loggedIn"]){
                     <div class="tab-pane active p-4" id="m_user_profile_tab_1">
                       <div class="row">
                         <div class="col-xl-6">
+<!--
                           <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
                             <div class="m-portlet__head m-portlet__head--fit">
                               <div class="m-portlet__head-caption">
@@ -219,7 +220,14 @@ if (!$_SESSION["loggedIn"]){
                                 </div>
                               </div>
                             </div>
-                          </div>
+													</div>
+-->
+<?php
+if ($_GET['id']){
+	$tid = $_GET['id'];
+	echo $tid;
+}
+?>
                         </div>
                       </div>
                     </div>

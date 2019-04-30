@@ -192,7 +192,7 @@ else {
 
     if ($field == 'users'){
       if (queryDB("UPDATE users SET approved = TRUE WHERE id = '$uid'")){
-        $result = queryDB("SELECT fullname, email FROM states WHERE id = '$uid'");
+        $result = queryDB("SELECT fullname, email FROM users WHERE id = '$uid'");
         if ($result->num_rows){
           $user = $result->fetch_array(MYSQLI_ASSOC);
           $email = $user['email'];

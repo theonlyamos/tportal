@@ -210,9 +210,9 @@ for ($k = 0; $k < sizeof($startDates); ++$k){
 															</table>
 														</div>
 														<div class="m-widget19__action d-flex justify-content-end">
-															<button type="button" class="btn m-btn--pill btn-outline-info m-btn">
-																	View
-																</button>
+															<a href="tournaments.php?id=$tournament[id]" class="btn m-btn--pill btn-outline-info m-btn">
+																View
+															</a>
 														</div>
 													</div>
 												</div>
