@@ -204,11 +204,11 @@ else {
     }
     else if ($field == 'tournaments'){
       if (queryDB("UPDATE posts SET approved = TRUE WHERE type = 'tournament' AND id = '$uid'")){
-        $result = queryDB("SELECT name, email FROM posts WHERE id = '$uid'");
+        $result = queryDB("SELECT title, organizerEmail FROM posts WHERE id = '$uid'");
         if ($result->num_rows){
           $user = $result->fetch_array(MYSQLI_ASSOC);
-          $email = $user['email'];
-          $name = $user['name'];
+          $email = $user['organizerEmail'];
+          $name = $user['title'];
         }
         $done = TRUE;
         setLog('admin', $uid, $name.' has been approved.', 'tournament');
