@@ -5,6 +5,14 @@
  * @date    2019-03-24 22:19:13
  * @version 1.0.0
  */
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
+
 require_once 'functions.php';
 session_start();
 
@@ -180,21 +188,77 @@ else {
   else if ($action == 'approve'){
     $uid = sanitizeString($_GET['target']);
     $field = sanitizeString($_GET['field']);
+    $done = FALSE;
 
     if ($field == 'users'){
       if (queryDB("UPDATE users SET approved = TRUE WHERE id = '$uid'")){
-        echo "ok";
+        $result = queryDB("SELECT fullname, email FROM states WHERE id = '$uid'");
+        if ($result->num_rows){
+          $user = $result->fetch_array(MYSQLI_ASSOC);
+          $email = $user['email'];
+          $name = $user['fullname'];
+        }
+        $done = TRUE;
+        setLog('admin', $uid, $email.' has been approved.', 'admin');
       }
     }
     else if ($field == 'tournaments'){
       if (queryDB("UPDATE posts SET approved = TRUE WHERE type = 'tournament' AND id = '$uid'")){
-        echo "ok";
+        $result = queryDB("SELECT name, email FROM posts WHERE id = '$uid'");
+        if ($result->num_rows){
+          $user = $result->fetch_array(MYSQLI_ASSOC);
+          $email = $user['email'];
+          $name = $user['name'];
+        }
+        $done = TRUE;
+        setLog('admin', $uid, $name.' has been approved.', 'tournament');
       }
     }
     else if ($field == 'organizations'){
       if (queryDB("UPDATE states SET approved = TRUE WHERE id = '$uid'")){
-        echo "ok";
+        $result = queryDB("SELECT name, email FROM states WHERE id = '$uid'");
+        if ($result->num_rows){
+          $user = $result->fetch_array(MYSQLI_ASSOC);
+          $email = $user['email'];
+          $name = $user['name'];
+        }
+        $done = TRUE;
+        setLog('admin', $uid, $name.' has been approved.', 'organization');
       }
+    }
+
+    if ($done) {
+      echo "ok";
+
+      $mail = new PHPMailer(TRUE);
+      try {
+        $mail->setFrom('donotreply@barthwal.com', "Tportal");
+        $mail->addAddress($email, $name);
+        $mail->isHTML(TRUE);
+        if ($field == 'users' || $field == 'organizations'){
+          $mail->Subject ="Account Approval";
+          $mail->Body = "<h3>Hi, <b>".$name."</b></h3><br><h3>Your account has been approved.<br><a href='http://tportal.epizy.com/login'>Login to register for tournaments.</a></h3>";
+        }
+        else if ($field == 'tournaments'){
+          $mail->Subject ="Tournament Approval";
+          $mail->Body = "<h3>Your tournament <b>".$name."</b> has been approved.</h3>";
+        }
+        $mail->isSMTP();
+        $mail->Host = "mail.barthwal.com";
+        $mail->SMTPAuth = TRUE;
+        $mail->Username = "donotreply@barthwal.com";
+        $mail->Password = 'gZV$PL(J$rxW';
+        $mail->Port = 587;
+        $mail->send();
+      }
+      catch (Exception $e) {
+        echo $e-> errorMessage();
+      }
+      catch (\Exception $e){
+          echo $e->getMessage();
+      }
+
+      http_response_code(201);
     }
   }
   else if ($action == 'delete'){

@@ -141,7 +141,7 @@ if (!$_SESSION["loggedIn"]){
 
 require_once '../functions.php';
 
-$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' ORDER BY createdAt DESC");
+$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' AND approved=TRUE ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
