@@ -1,6 +1,7 @@
 <?php
 
 require_once '../functions.php';
+require_once '../countries.php';
 
 $result = queryDB("SELECT email, city, fullname, picture, profession FROM users WHERE email != '".$_SESSION[user][email]."'
 AND completed=TRUE ORDER BY createdAt DESC LIMIT 5");
@@ -8,7 +9,7 @@ AND completed=TRUE ORDER BY createdAt DESC LIMIT 5");
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$user = $result->fetch_array(MYSQLI_ASSOC);
-
+	$country = $countries[$user['country']];
 echo <<< _END
 								<div class="m-portlet m-portlet--bordered-semi m-portlet--rounded-force">
 									<a href="">
@@ -29,7 +30,7 @@ _END;
 																$user[fullname]
 															</span><br>
 															<span class="m-widget19__time">
-																$user[city]
+																$country
 															</span>
 														</div>
 														<div class="m-widget19__stats">

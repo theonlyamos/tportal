@@ -140,20 +140,21 @@ if (!$_SESSION["loggedIn"]){
 <?php
 
 require_once '../functions.php';
+require_once '../countries.php';
 
 $result = queryDB("SELECT * FROM posts WHERE type = 'tournament' AND approved=TRUE ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$tournament = $result->fetch_array(MYSQLI_ASSOC);
-
+	$country = $countries[$tournament['country']];
 	echo <<< _END
 									<div class="col-md-12">
 										<div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
 											<div class="m-portlet__head m-portlet__head--fit">
 												<div class="m-portlet__head-caption">
 													<div class="m-portlet__head-action">
-														<button type="button" class="btn btn-sm m-btn--pill  btn-primary"><i class="flaticon-placeholder-2"></i>$tournament[country]</button>
+														<button type="button" class="btn btn-sm m-btn--pill  btn-primary"><i class="flaticon-placeholder-2"></i>$country</button>
 													</div>
 												</div>
 											</div>
