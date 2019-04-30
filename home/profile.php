@@ -166,9 +166,9 @@ if (!$_SESSION["loggedIn"]){
 											</div>
 										</div>
 										<ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
-<?php
-require_once 'sidebar.php';
-?>
+											<?php
+												require_once 'leftbar.php';
+											?>
 										</ul>
 									</div>
 								</div>
