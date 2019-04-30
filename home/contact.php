@@ -201,19 +201,25 @@ if (!$_SESSION["loggedIn"]){
                           <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Name</label>
                             <div class="col-7">
-                              <input class="form-control m-input" type="text" placeholder="Fullname" name="name" required>
+															<?php
+																echo '<input class="form-control m-input" type="text" name="fullname" value="'.$_SESSION['user']['fullname'].'" required>';
+															?>
                             </div>
                           </div>
                           <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Email</label>
                             <div class="col-7">
-                              <input class="form-control m-input" type="email" name="email" placeholder="example@email.com" required>
+															<?php
+																echo '<input class="form-control m-input" type="email" name="email" value="'.$_SESSION['user']['email'].'" required>';
+															?>
                             </div>
                           </div>
                           <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Contact No.</label>
                             <div class="col-7">
-                              <input class="form-control m-input" name="phone" type="text" placeholder="+456669067890">
+															<?php
+																echo '<input class="form-control m-input" name="phone" value="'.$_SESSION['user']['phone'].'">';
+															?>
                             </div>
                           </div>
                           <div class="form-group m-form__group row">
