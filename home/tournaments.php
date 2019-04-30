@@ -143,7 +143,7 @@ if (!$_SESSION["loggedIn"]){
                               <li class="nav-item m-tabs__item">
                                   <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
                                       <i class="flaticon-share m--hide"></i>
-                                      Past Tournaments
+                                      Tournaments
                                   </a>
                               </li>
                           </ul>
@@ -152,8 +152,8 @@ if (!$_SESSION["loggedIn"]){
                   <div class="tab-content">
                     <div class="tab-pane active p-4" id="m_user_profile_tab_1">
                       <div class="row">
-                        <div class="col-xl-6">
 <!--
+                        <div class="col-xl-6">
                           <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
                             <div class="m-portlet__head m-portlet__head--fit">
                               <div class="m-portlet__head-caption">
@@ -223,9 +223,90 @@ if (!$_SESSION["loggedIn"]){
 													</div>
 -->
 <?php
+require_once '../functions.php';
+require_once '../countries.php';
+
 if ($_GET['id']){
-	$tid = $_GET['id'];
-	echo $tid;
+	$tid = sanitizeString($_GET['id']);
+	
+	$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' AND id='$tid'");
+	$tournament = $result->fetch_array(MYSQLI_ASSOC);
+	$country = $countries[$tournament['country']];
+
+	echo <<< _END
+								<div class="col-12">
+									<div class="col-md-12">
+										<div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">
+											<div class="m-portlet__head m-portlet__head--fit">
+												<div class="m-portlet__head-caption">
+													<div class="m-portlet__head-action">
+														<button type="button" class="btn btn-sm m-btn--pill  btn-primary"><i class="flaticon-placeholder-2"></i>$country</button>
+													</div>
+												</div>
+											</div>
+											<div class="m-portlet__body">
+												<div class="m-widget19">
+													<div class="m-widget19__pic m-portlet-fit--top m-portlet-fit--sides" style="max-height: 50vh; overflow: hidden;">
+														<img src="../assets/app/media/img/bg/chess.png" alt="">
+														<h3 class="m-widget19__title m--font-light">
+															<i class="fa fa-trophy fa-2x fa-fw text-warning"></i>
+															$tournament[title]
+														</h3>
+														<div class="m-widget19__shadow"></div>
+													</div>
+													<div class="m-widget19__content">
+														<div class="m-widget19__header">
+															<div class="m-widget19__user-img">
+																<img class="m-widget19__img" src="../assets/app/media/img/users/neutral.png" alt="">
+															</div>
+															<div class="m-widget19__info">
+																<span class="m-widget19__username">
+																	$tournament[author]
+																</span><br>
+																<span class="m-widget19__time">
+																	$tournament[city]
+																</span>
+															</div>
+															<div class="m-widget19__stats">
+																<span class="m-widget19__number m--font-brand">
+																	0
+																</span>
+																<span class="m-widget19__comment">
+																	Registered
+																</span>
+															</div>
+														</div>
+														<div class="m-widget19__header w-100">
+															<table class="table table-striped table-borderless table-info col-12 pr-0">
+																<thead>
+																	<tr>
+																		<th>Start Dates</th>
+																		<th>End Dates</th>
+																	</tr>
+																</thead>
+																<tbody>
+_END;
+$startDates = unserialize($tournament['startDates']);
+$endDates = unserialize($tournament['endDates']);
+for ($k = 0; $k < sizeof($startDates); ++$k){
+	echo "<tr><td>".$startDates[$k]."</td><td>".$endDates[$k]."</td></tr>";
+}
+	echo <<< _END
+																<tr class="bg-primary text-white"><th>Price</th><td><b>&dollar;$tournament[price]</b></td></tr>
+																</tbody>
+															</table>
+														</div>
+														<div class="m-widget19__action d-flex justify-content-end">
+															<a href="tournaments.php?id=$tournament[id]" class="btn m-btn--pill btn-outline-info m-btn">
+																View
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+_END;
 }
 ?>
                         </div>
