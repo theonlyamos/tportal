@@ -3,7 +3,7 @@
 require_once '../functions.php';
 require_once '../countries.php';
 
-$result = queryDB("SELECT email, city, fullname, picture, profession FROM users WHERE email != '".$_SESSION[user][email]."'
+$result = queryDB("SELECT email, country, fullname, picture, profession FROM users WHERE email != '".$_SESSION[user][email]."'
 AND completed=TRUE ORDER BY createdAt DESC LIMIT 5");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
