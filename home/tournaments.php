@@ -165,60 +165,9 @@ if (!$_SESSION["loggedIn"]){
 											</div>
 										</div>
 										<ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
-											<li class="m-nav__separator m-nav__separator--fit"></li>
-											<li class="m-nav__section m--hide">
-												<span class="m-nav__section-text">Section</span>
-											</li>
-											<li class="m-nav__item">
-												<a href="/home" class="m-nav__link">
-													<i class="m-nav__link-icon flaticon-home"></i>
-													<span class="m-nav__link-title">
-														<span class="m-nav__link-wrap">
-															<span class="m-nav__link-text" data-target="home.html">Home</span>
-														</span>
-													</span>
-												</a>
-											</li>
-											<li class="m-nav__item">
-												<a href="profile.php" class="m-nav__link">
-													<i class="m-nav__link-icon flaticon-profile-1"></i>
-													<span class="m-nav__link-title">
-														<span class="m-nav__link-wrap">
-															<span class="m-nav__link-text" data-target="profile.php">My Profile</span>
-														</span>
-													</span>
-												</a>
-											</li>
-											<li class="m-nav__item">
-												<a href="account.php" class="m-nav__link" data-target="acount.html">
-													<i class="m-nav__link-icon flaticon-user-settings"></i>
-													<span class="m-nav__link-text" data-target="account.html">Account Settings</span>
-												</a>
-											</li>
-											<li class="m-nav__item">
-												<a href="tournaments.php" class="m-nav__link">
-													<i class="m-nav__link-icon flaticon-trophy"></i>
-													<span class="m-nav__link-text" data-target="my-tournaments.html">Tournaments</span>
-												</a>
-											</li>
-											<li class="m-nav__item">
-												<a href="contact.php" class="m-nav__link">
-													<i class="m-nav__link-icon flaticon-support"></i>
-													<span class="m-nav__link-text" data-target="contact-us.html">Contact Us</span>
-												</a>
-											</li>
-											<li class="m-nav__item">
-												<a href="support.html" class="m-nav__link">
-													<i class="m-nav__link-icon flaticon-questions-circular-button"></i>
-													<span class="m-nav__link-text" data-target="support.html">Support</span>
-												</a>
-											</li>
-											<li class="m-nav__item">
-												<a href="feedback.html" class="m-nav__link">
-													<i class="m-nav__link-icon flaticon-feed"></i>
-													<span class="m-nav__link-text" data-target="feedback.html">Feedback</span>
-												</a>
-											</li>
+											<?php
+												require_once 'leftbar.php';
+											?>
 										</ul>
 									</div>
 								</div>
@@ -297,25 +246,16 @@ if (!$_SESSION["loggedIn"]){
                                         Sun, 17 Mar 2019 11:45:13 GMT
                                       </span>
                                     </div>
-                                    <div class="m-widget19__stats">
-                                      <span class="m-widget19__number m--font-brand">
-                                        0
-                                      </span>
-                                      <span class="m-widget19__comment">
-                                        Registered
-                                      </span>
-                                    </div>
                                   </div>
                                   <div class="m-widget19__body">
                                     Lorem Ipsum is simply dummy text of the printing and typesetting industry scrambled it to make text of the printing and typesetting industry scrambled a type specimen book text of the dummy text of the printing printing and typesetting
                                     industry scrambled dummy text of the printing.
                                   </div>
                                 </div>
-                                <div class="m-widget19__action">
-                                  <button type="button" class="btn m-btn--pill btn-info m-btn">
-                                    <i class="fa fa-check"></i>
-                                    Approve
-                                  </button>
+                                <div class="m-widget19__action d-flex justify-content-end">
+                                  <a href="#" type="button" class="btn m-btn--pill btn-outline-info m-btn">
+                                    View
+																	</a>
                                 </div>
                               </div>
                             </div>

@@ -276,7 +276,9 @@ if ($_SESSION['user']['trainerTitle']){
                           <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Phone No.</label>
                             <div class="col-7">
-                                <input class="form-control m-input" name="phone" type="text" placeholder="+456669067890">
+<?php
+													echo '<input class="form-control m-input" name="phone" type="text" value="'.$_SESSION['user']['phone'].'">';
+?>
                             </div>
                           </div>
                           <div class="form-group m-form__group row">
@@ -360,7 +362,8 @@ if ($_SESSION['user']['trainerTitle']){
                             <div class="col-7">
                                 <input class="form-control m-input" type="password" name="rpassword"  required>
                             </div>
-                          </div>
+													</div>
+                        </div>
                         <div class="m-portlet__foot m-portlet__foot--fit">
                           <div class="m-form__actions">
                             <div class="row">
@@ -386,7 +389,7 @@ if ($_SESSION['user']['trainerTitle']){
 require_once '../functions.php';
 
 $result = queryDB("SELECT email, city, fullname, picture, profession FROM users WHERE email != '".$_SESSION[user][email]."'
-ORDER BY createdAt DESC LIMIT 3");
+AND completed=TRUE ORDER BY createdAt DESC LIMIT 3");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);

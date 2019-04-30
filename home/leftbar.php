@@ -41,13 +41,13 @@
   </a>
 </li>
 <li class="m-nav__item">
-  <a href="support.html" class="m-nav__link">
+  <a href="support.php" class="m-nav__link">
     <i class="m-nav__link-icon flaticon-questions-circular-button"></i>
     <span class="m-nav__link-text" data-target="support.html">Support</span>
   </a>
 </li>
 <li class="m-nav__item">
-  <a href="feedback.html" class="m-nav__link">
+  <a href="feedback.php" class="m-nav__link">
     <i class="m-nav__link-icon flaticon-feed"></i>
     <span class="m-nav__link-text" data-target="feedback.html">Feedback</span>
   </a>

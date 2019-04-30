@@ -229,8 +229,8 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 																</span>
 															</div>
 														</div>
-														<div class="m-widget19__header row w-100">
-															<table class="table table-striped table-borderless table-info col-12">
+														<div class="m-widget19__header w-100">
+															<table class="table table-striped table-borderless table-info col-12 pr-0">
 																<thead>
 																	<tr>
 																		<th>Start Dates</th>
@@ -250,9 +250,8 @@ for ($k = 0; $k < sizeof($startDates); ++$k){
 															</table>
 														</div>
 														<div class="m-widget19__action d-flex justify-content-end">
-															<button type="button" class="btn m-btn--pill btn-info m-btn">
-																	<i class="fa fa-check"></i>
-																	Register
+															<button type="button" class="btn m-btn--pill btn-outline-info m-btn">
+																	View
 																</button>
 														</div>
 													</div>
@@ -272,7 +271,7 @@ _END;
 							<?php
 
 $result = queryDB("SELECT email, city, fullname, picture, profession FROM users WHERE email != '".$_SESSION[user][email]."'
-ORDER BY createdAt DESC LIMIT 3");
+AND completed=TRUE ORDER BY createdAt DESC LIMIT 3");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
