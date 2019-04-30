@@ -139,10 +139,12 @@ if (!$_SESSION["loggedIn"]){
 								<div class="row tournaments-section">
 <?php
 
+$country = $_SESSION['user']['country'];
+
 require_once '../functions.php';
 require_once '../countries.php';
 
-$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' AND approved=TRUE ORDER BY createdAt DESC");
+$result = queryDB("SELECT * FROM posts WHERE type = 'tournament' AND approved=TRUE AND country = '$country' ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
@@ -193,12 +195,13 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 														<div class="m-widget19__header w-100">
 															<table class="table table-striped table-borderless table-info col-12 pr-0">
 																<thead>
+																	
+																</thead>
+																<tbody>
 																	<tr>
 																		<th>Start Dates</th>
 																		<th>End Dates</th>
 																	</tr>
-																</thead>
-																<tbody>
 _END;
 $startDates = unserialize($tournament['startDates']);
 $endDates = unserialize($tournament['endDates']);

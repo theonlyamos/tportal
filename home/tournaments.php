@@ -277,6 +277,12 @@ if ($_GET['id']){
 															</div>
 														</div>
 														<div class="m-widget19__header w-100">
+															<div class="description">
+																<b>Description</b><br>
+																$tournament[description]
+															</div>
+														</div>
+														<div class="m-widget19__body">
 															<table class="table table-striped table-borderless table-info col-12 pr-0">
 																<thead>
 																	<tr>
