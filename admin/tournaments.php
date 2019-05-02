@@ -65,7 +65,7 @@ License: You must have a valid license purchased only from themeforest(the above
       <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
         <div class="modal-content">
 					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_tournament" novalidate="novalidate" enctype="multipart/form-data">
-						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="tournament">
+						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="tournaments">
 						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="post">
 						<div class="modal-header">
 							<h5 class="modal-title" id="tournamentModalTitle">Create Tournament</h5>

@@ -497,12 +497,12 @@ $(() =>{
   $(".tournament_details").on("click", (e) => {
     var id = $(e.target).data("id");
     console.log(id);
-    mApp.block(".modal-body", {})
+    mApp.block(".m-content", {})
     $.get('/actions.php', {name: "details", target: id, field: 'tournaments'})
      .done((d) => {
         var data = JSON.parse(d);
         var tournament = data.tournament;
-        mApp.unblock(".modal-body");
+        mApp.unblock(".m-content");
      })
   })
 
@@ -510,10 +510,10 @@ $(() =>{
     var t = $(e.target);
     var target = t.data("target")
     var action = t.data("action")
-    mApp.block(".modal-body", {})
+    mApp.block(".m-content", {})
     $.get('/actions.php', {name: action, target: target, field: "tournaments"})
      .done((d) => {
-       mApp.unblock(".modal-body")
+       mApp.unblock(".m-content")
        if (action == 'approve'){
         $(".approved-"+t.data("target")).addClass("m-badge--primary").text("approved");
         Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
