@@ -496,12 +496,28 @@ $(() =>{
 
   $(".tournament_details").on("click", (e) => {
     var id = $(e.target).data("id");
-    console.log(id);
+    $(".action_tournament").data("target", id);
+    $("#m_form_tournament").resetForm();
     mApp.block(".m-content", {})
     $.get('/actions.php', {name: "details", target: id, field: 'tournaments'})
      .done((d) => {
         var data = JSON.parse(d);
         var tournament = data.tournament;
+        var formFields = ["title", "description", "address", "city", "country", "venue",
+                          "tentativeDates", "price", "contactName", "contactPhone", "contactEmail",
+                          "organizerName", "organizerEmail", "organizerPhone"]
+        $("#tournamentModalTitle").text("Tournament Details");
+        for (var i = 0; i<formFields.length; i++){
+          if (formFields[i] == 'tentativeDates'){
+            for (var j = 0; j<tournament.tentativeDates.length; j++){
+              var el = $("[name='tentativeDates[]']")[j]
+              $(el).val(tournament.tentativeDates[j])
+            }
+          }
+          else {
+            $("[name='"+formFields[i]+"']").val(tournament[formFields[i]]);
+          }
+        }
         mApp.unblock(".m-content");
      })
   })
@@ -513,7 +529,6 @@ $(() =>{
     mApp.block(".m-content", {})
     $.get('/actions.php', {name: action, target: target, field: "tournaments"})
      .done((d) => {
-       mApp.unblock(".m-content")
        if (action == 'approve'){
         $(".approved-"+t.data("target")).addClass("m-badge--primary").text("approved");
         Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
@@ -526,6 +541,7 @@ $(() =>{
         $("td."+t.data("target")).remove();
         Notify("Success", "Tournament deleted successfully!", "success", "fa fa-trash");
        }
+       mApp.unblock(".m-content")
      })
   })
 })

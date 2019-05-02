@@ -172,44 +172,44 @@ else {
     echo json_encode($result->fetch_array(MYSQLI_ASSOC));
   }
   else if ($action == 'approve' && $_SESSION['user']['role'] == 'admin'){
-    $uid = sanitizeString($_GET['target']);
+    $target = sanitizeString($_GET['target']);
     $field = sanitizeString($_GET['field']);
     $done = FALSE;
 
     if ($field == 'users'){
-      if (queryDB("UPDATE users SET approved = TRUE WHERE id = '$uid'")){
-        $result = queryDB("SELECT fullname, email FROM users WHERE id = '$uid'");
+      if (queryDB("UPDATE users SET approved = TRUE WHERE id = '$target'")){
+        $result = queryDB("SELECT fullname, email FROM users WHERE id = '$target'");
         if ($result->num_rows){
           $user = $result->fetch_array(MYSQLI_ASSOC);
           $email = $user['email'];
           $name = $user['fullname'];
         }
         $done = TRUE;
-        setLog('admin', $uid, $email.' has been approved.', 'admin');
+        setLog('admin', $target, $email.' has been approved.', 'admin');
       }
     }
     else if ($field == 'tournaments'){
-      if (queryDB("UPDATE posts SET approved = TRUE WHERE type = 'tournament' AND id = '$uid'")){
-        $result = queryDB("SELECT title, organizerEmail FROM posts WHERE id = '$uid'");
+      if (queryDB("UPDATE posts SET approved = TRUE WHERE type = 'tournament' AND id = '$target'")){
+        $result = queryDB("SELECT title, organizerEmail FROM posts WHERE id = '$target'");
         if ($result->num_rows){
           $user = $result->fetch_array(MYSQLI_ASSOC);
           $email = $user['organizerEmail'];
           $name = $user['title'];
         }
         $done = TRUE;
-        setLog('admin', $uid, $name.' has been approved.', 'tournament');
+        setLog('admin', $target, $name.' has been approved.', 'tournament');
       }
     }
     else if ($field == 'organizations'){
-      if (queryDB("UPDATE states SET approved = TRUE WHERE id = '$uid'")){
-        $result = queryDB("SELECT name, email FROM states WHERE id = '$uid'");
+      if (queryDB("UPDATE states SET approved = TRUE WHERE id = '$target'")){
+        $result = queryDB("SELECT name, email FROM states WHERE id = '$target'");
         if ($result->num_rows){
           $user = $result->fetch_array(MYSQLI_ASSOC);
           $email = $user['email'];
           $name = $user['name'];
         }
         $done = TRUE;
-        setLog('admin', $uid, $name.' has been approved.', 'organization');
+        setLog('admin', $target, $name.' has been approved.', 'organization');
       }
     }
 
@@ -228,6 +228,84 @@ else {
         else if ($field == 'tournaments'){
           $mail->Subject ="Tournament Approval";
           $mail->Body = "<h3>Your tournament <b>".$name."</b> has been approved.</h3>";
+        }
+        $mail->isSMTP();
+        $mail->Host = "mail.barthwal.com";
+        $mail->SMTPAuth = TRUE;
+        $mail->Username = "donotreply@barthwal.com";
+        $mail->Password = 'gZV$PL(J$rxW';
+        $mail->Port = 587;
+        $mail->send();
+      }
+      catch (Exception $e) {
+        http_response_code(400);
+        echo $e-> errorMessage();
+      }
+      catch (\Exception $e){
+        http_response_code(400);
+          echo $e->getMessage();
+      }
+
+      http_response_code(201);
+    }
+  }
+  else if ($action == 'reject' && $_SESSION['user']['role'] == 'admin'){
+    $target = sanitizeString($_GET['target']);
+    $field = sanitizeString($_GET['field']);
+    $done = FALSE;
+
+    if ($field == 'users'){
+      if (queryDB("UPDATE users SET approved = FALSE WHERE id = '$target'")){
+        $result = queryDB("SELECT fullname, email FROM users WHERE id = '$target'");
+        if ($result->num_rows){
+          $user = $result->fetch_array(MYSQLI_ASSOC);
+          $email = $user['email'];
+          $name = $user['fullname'];
+        }
+        $done = TRUE;
+        setLog('admin', $target, $email.' has been rejected.', 'admin');
+      }
+    }
+    else if ($field == 'tournaments'){
+      if (queryDB("UPDATE posts SET approved = FALSE WHERE type = 'tournament' AND id = '$target'")){
+        $result = queryDB("SELECT title, organizerEmail FROM posts WHERE id = '$target'");
+        if ($result->num_rows){
+          $user = $result->fetch_array(MYSQLI_ASSOC);
+          $email = $user['organizerEmail'];
+          $name = $user['title'];
+        }
+        $done = TRUE;
+        setLog('admin', $target, $name.' has been reject.', 'tournament');
+      }
+    }
+    else if ($field == 'organizations'){
+      if (queryDB("UPDATE states SET approved = FALSE WHERE id = '$target'")){
+        $result = queryDB("SELECT name, email FROM states WHERE id = '$target'");
+        if ($result->num_rows){
+          $user = $result->fetch_array(MYSQLI_ASSOC);
+          $email = $user['email'];
+          $name = $user['name'];
+        }
+        $done = TRUE;
+        setLog('admin', $target, $name.' has been rejected.', 'organization');
+      }
+    }
+
+    if ($done) {
+      echo "ok";
+
+      $mail = new PHPMailer(TRUE);
+      try {
+        $mail->setFrom('donotreply@barthwal.com', "Tportal");
+        $mail->addAddress($email, $name);
+        $mail->isHTML(TRUE);
+        if ($field == 'users' || $field == 'organizations'){
+          $mail->Subject ="Account Approval";
+          $mail->Body = "<h3>Hi, <b>".$name."</b></h3><br><h3>Your account has been reject.<br><a href='http://tportal.epizy.com/login'>Login to learn why.</a></h3>";
+        }
+        else if ($field == 'tournaments'){
+          $mail->Subject ="Tournament Approval";
+          $mail->Body = "<h3>Your tournament <b>".$name."</b> has been rejected.</h3>";
         }
         $mail->isSMTP();
         $mail->Host = "mail.barthwal.com";
@@ -282,7 +360,7 @@ else {
     $target = sanitizeString($_GET['target']);
 
     if ($field == 'tournaments'){
-      $result = queryDB("SELECT * FROM posts WHERE id = '$target' AND approved = TRUE");
+      $result = queryDB("SELECT * FROM posts WHERE id = '$target'");
       if ($result->num_rows){
         $tournament = $result->fetch_array(MYSQLI_ASSOC);
         setLog('admin', $_SESSION['user']['id'], "get tournament: ".$target, "tournament");
