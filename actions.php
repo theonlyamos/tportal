@@ -177,7 +177,7 @@ else {
     $done = FALSE;
 
     if ($field == 'users'){
-      if (queryDB("UPDATE users SET approved = TRUE WHERE id = '$target'")){
+      if (queryDB("UPDATE users SET approved = TRUE, rejected = FALSE WHERE id = '$target'")){
         $result = queryDB("SELECT fullname, email FROM users WHERE id = '$target'");
         if ($result->num_rows){
           $user = $result->fetch_array(MYSQLI_ASSOC);
@@ -189,7 +189,7 @@ else {
       }
     }
     else if ($field == 'tournaments'){
-      if (queryDB("UPDATE posts SET approved = TRUE WHERE type = 'tournament' AND id = '$target'")){
+      if (queryDB("UPDATE posts SET approved = TRUE, rejected = FALSE WHERE type = 'tournament' AND id = '$target'")){
         $result = queryDB("SELECT title, organizerEmail FROM posts WHERE id = '$target'");
         if ($result->num_rows){
           $user = $result->fetch_array(MYSQLI_ASSOC);
@@ -201,7 +201,7 @@ else {
       }
     }
     else if ($field == 'organizations'){
-      if (queryDB("UPDATE states SET approved = TRUE WHERE id = '$target'")){
+      if (queryDB("UPDATE states SET approved = TRUE, rejected = FALSE WHERE id = '$target'")){
         $result = queryDB("SELECT name, email FROM states WHERE id = '$target'");
         if ($result->num_rows){
           $user = $result->fetch_array(MYSQLI_ASSOC);
@@ -255,7 +255,7 @@ else {
     $done = FALSE;
 
     if ($field == 'users'){
-      if (queryDB("UPDATE users SET approved = FALSE WHERE id = '$target'")){
+      if (queryDB("UPDATE users SET approved = FALSE, rejected = TRUE WHERE id = '$target'")){
         $result = queryDB("SELECT fullname, email FROM users WHERE id = '$target'");
         if ($result->num_rows){
           $user = $result->fetch_array(MYSQLI_ASSOC);
@@ -267,7 +267,7 @@ else {
       }
     }
     else if ($field == 'tournaments'){
-      if (queryDB("UPDATE posts SET approved = FALSE WHERE type = 'tournament' AND id = '$target'")){
+      if (queryDB("UPDATE posts SET approved = FALSE, rejected = TRUE WHERE type = 'tournament' AND id = '$target'")){
         $result = queryDB("SELECT title, organizerEmail FROM posts WHERE id = '$target'");
         if ($result->num_rows){
           $user = $result->fetch_array(MYSQLI_ASSOC);
@@ -279,7 +279,7 @@ else {
       }
     }
     else if ($field == 'organizations'){
-      if (queryDB("UPDATE states SET approved = FALSE WHERE id = '$target'")){
+      if (queryDB("UPDATE states SET approved = FALSE, rejected = TRUE WHERE id = '$target'")){
         $result = queryDB("SELECT name, email FROM states WHERE id = '$target'");
         if ($result->num_rows){
           $user = $result->fetch_array(MYSQLI_ASSOC);

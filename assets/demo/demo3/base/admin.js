@@ -526,7 +526,7 @@ $(() =>{
     var t = $(e.target);
     var target = t.data("target")
     var action = t.data("action")
-    mApp.block(".m-content", {})
+    mApp.block(".modal-body", {})
     $.get('/actions.php', {name: action, target: target, field: "tournaments"})
      .done((d) => {
        if (action == 'approve'){
@@ -544,7 +544,7 @@ $(() =>{
         $("#m_tournament_dismiss").click();
         Notify("Success", "Tournament deleted successfully!", "success", "fa fa-trash");
        }
-       mApp.unblock(".m-content")
+       mApp.unblock(".modal-body")
      })
   })
 })
