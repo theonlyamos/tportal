@@ -354,18 +354,6 @@ $(() =>{
        })
     })
 
-    $(".approve_tournament").on("click", (e) => {
-      var t = $(e.target)
-      mApp.block(".m-content", {})
-      $.get('/actions.php', {name: "approve", target: t.data("target"), field: "tournaments"})
-       .done((d) => {
-         t.attr("disabled", !0)
-         mApp.unblock(".m-content")
-         $(".approved-"+t.data("target")).addClass("m-badge--primary");
-         Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
-       })
-    })
-
     $(".approve_organization").on("click", (e) => {
       var t = $(e.target)
       mApp.block(".m-content", {})
@@ -422,7 +410,7 @@ $(() =>{
     amount = parseFloat($(amount).text());
     var totalel = $("#"+n+"_sheet_total");
     var total = parseFloat($(totalel).text());
-    $.get('/actions.php', {action: "delete", target: i, field: 'sheets', name: 'delete'})
+    $.get('/actions.php', {target: i, field: 'sheets', name: 'delete'})
      .done((d) => {
         total -= amount;
         total = total.toFixed(2);
@@ -504,5 +492,41 @@ $(() =>{
         
       }
     }
+  })
+
+  $(".tournament_details").on("click", (e) => {
+    var id = $(e.target).data("id");
+    console.log(id);
+    mApp.block(".modal-body", {})
+    $.get('/actions.php', {name: "details", target: id, field: 'tournaments'})
+     .done((d) => {
+        console.log(d)
+        var data = JSON.parse(d);
+        var tournament = data.tournament;
+        mApp.unblock(".modal-body");
+     })
+  })
+
+  $(".action_tournament").on("click", (e) => {
+    var t = $(e.target);
+    var target = t.data("target")
+    var action = t.data("action")
+    mApp.block(".modal-body", {})
+    $.get('/actions.php', {name: action, target: target, field: "tournaments"})
+     .done((d) => {
+       mApp.unblock(".modal-body")
+       if (action == 'approve'){
+        $(".approved-"+t.data("target")).addClass("m-badge--primary").text("approved");
+        Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
+       }
+       else if (action == 'reject'){
+        $(".approved-"+t.data("target")).addClass("m-badge--danger").text("rejected");
+        Notify("Success", "Tournament rejected!", "danger", "fa fa-times-circle");
+       }
+       else if (action == 'delete'){
+        $("td."+t.data("target")).remove();
+        Notify("Success", "Tournament deleted successfully!", "success", "fa fa-trash");
+       }
+     })
   })
 })

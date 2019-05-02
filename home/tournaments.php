@@ -316,6 +316,14 @@ if ($_GET['id']){
 																		<td>$tournament[contactEmail]</td>
 																	</tr>
 																	<tr>
+																		<th>Appointed Arbiter</th>
+																		<td>$tournament[arbiter]</td>
+																	</tr>
+																	<tr>
+																		<th>Appointed Coach</th>
+																		<td>$tournament[coach]</td>
+																	</tr>
+																	<tr class="bg-secondary text-dark">
 																		<th>Start Dates</th>
 																		<th>End Dates</th>
 																	</tr>

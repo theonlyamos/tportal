@@ -63,12 +63,12 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--begin::Modal-->
     <div class="modal fade modal-light" id="m_modal_tournament" tabindex="-1" role="dialog" aria-labelledby="tournamentModalTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
-        <div class="modal-content bg-primary">
+        <div class="modal-content">
 					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_tournament" novalidate="novalidate" enctype="multipart/form-data">
 						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="tournament">
 						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="post">
 						<div class="modal-header">
-							<h5 class="modal-title text-white" id="tournamentModalTitle">Create Tournament</h5>
+							<h5 class="modal-title" id="tournamentModalTitle">Create Tournament</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -121,29 +121,14 @@ License: You must have a valid license purchased only from themeforest(the above
 											<h3 class="m-form__heading-title">Tentative Dates</h3>
 										</div>
 										<div class="form-group m-form__group row">
-											<div class="col-md-6 m-form__group-sub">
-												<div class="input-group">
-													<div class="input-group-prepend"><span class="input-group-text">Start</span></div>
-													<input type="date" name="startDates[]" class="form-control m-input" placeholder="" value="">
-												</div>
+											<div class="col-md-4 m-form__group-sub">
+												<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
 											</div>
-											<div class="col-md-6 m-form__group-sub">
-												<div class="input-group">
-													<div class="input-group-prepend"><span class="input-group-text">End</span></div>
-													<input type="date" name="endDates[]" class="form-control m-input" placeholder="" value="">
-												</div>
+											<div class="col-md-4 m-form__group-sub">
+												<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
 											</div>
-											<div class="col-md-6 m-form__group-sub">
-												<div class="input-group">
-													<div class="input-group-prepend"><span class="input-group-text">Start</span></div>
-													<input type="date" name="startDates[]" class="form-control m-input" placeholder="" value="">
-												</div>
-											</div>
-											<div class="col-md-6 m-form__group-sub">
-												<div class="input-group">
-													<div class="input-group-prepend"><span class="input-group-text">End</span></div>
-													<input type="date" name="endDates[]" class="form-control m-input" placeholder="" value="">
-												</div>
+											<div class="col-md-4 m-form__group-sub">
+												<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -218,6 +203,17 @@ License: You must have a valid license purchased only from themeforest(the above
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" id="m_tournament_dismiss" data-dismiss="modal">Close</button>
+							<div class="dropdown">
+								<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Actions
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenu2" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
+									<button class="dropdown-item text-primary action_tournament" type="button" data-action="approve" data-target=""><i class="fa fa-check-circle text-primary"></i> Approve</button>
+									<button class="dropdown-item text-info action_tournament" type="button" data-action="reject" data-target=""><i class="fa fa-times-circle text-info"></i> Reject</button>
+									<button class="dropdown-item text-dark feedback_tournament" type="button" data-action="feedback" data-target=""><i class="fa fa-share-alt text-dark"></i> Feedback</button>
+									<button class="dropdown-item text-danger action_tournament" type="button" data-action="delete" data-target=""><i class="fa fa-trash text-danger"></i> Delete</button>
+								</div>
+							</div>
 							<button type="submit" class="btn btn-warning" id="m_tournament_submit"><i class="fa fa-save fa-fw"></i>Save</button>
 						</div>
 					</form>
@@ -374,81 +370,17 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 	$tournament = $result->fetch_array(MYSQLI_ASSOC);
 	$tournamentid = $tournament['id'];
 	echo <<< _END
-									<tr><td>$tournament[title]</td><td>$tournament[author]</td><td>$tournament[country]</td><td>$tournament[venue]</td>
+									<tr class="$tournament[id]"><td>$tournament[title]</td><td>$tournament[author]</td><td>$tournament[country]</td><td>$tournament[venue]</td>
 											<td>&dollar;$tournament[price]</td>
 _END;
 if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
 else echo '<td><div class="m-badge m-badge--wide approved-'.$tournamentid.'">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
-								<div>
-								<div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-									<a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
-										<i class="la la-plus m--hide"></i>
-										<i class="la la-ellipsis-h"></i>
-									</a>
-									<div class="m-dropdown__wrapper" style="z-index: 101;">
-										<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 21.5px;"></span>
-										<div class="m-dropdown__inner">
-											<div class="m-dropdown__body">
-												<div class="m-dropdown__content">
-													<ul class="m-nav">
-														<li class="m-nav__section m-nav__section--first m--hide">
-															<span class="m-nav__section-text">Quick Actions</span>
-														</li>
-_END;
-if ($tournament['approved']) {
-	echo <<< _END
-														<li class="m-nav__item">
-															<button class="btn btn-link" disabled>
-																<i class="m-nav__link-icon fa fa-check text-success"></i>
-																Approved
-															</button>
-														</li>
-														<li class="m-nav__item py-2">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																Cancel
-															</button>
-														</li>
-_END;
-}
-else {
-	echo <<< _END
-														<li class="m-nav__item">
-															<button class="btn btn-link approve_tournament" data-target="$tournamentid">
-																<i class="m-nav__link-icon fa fa-check text-success"></i>
-																Approve
-															</button>
-														</li>
-														<li class="m-nav__item py-2">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																Cancel
-															</button>
-														</li>
-_END;
-}
-echo <<< _END
-														<li class="m-nav__item">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon flaticon-edit"></i>
-																Edit
-															</button>
-														</li>
-														<li class="m-nav__item pt-2">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon fa fa-trash"></i>
-																Delete
-															</button>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+								<a href="#" class="btn btn-lg btn-secondary m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill tournament_details" data-toggle="modal" data-target="#m_modal_tournament" data-id="$tournament[id]">
+									<i class="la la-plus m--hide" data-id="$tournament[id]></i>
+									<i class="la la-ellipsis-h" data-id="$tournament[id]></i>
+								</a>
 						</td>
 					</tr>
 _END;

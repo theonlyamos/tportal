@@ -185,7 +185,7 @@ else {
     $result = queryDB("SELECT fullname, email, profession, picture FROM users");
     echo json_encode($result->fetch_array(MYSQLI_ASSOC));
   }
-  else if ($action == 'approve'){
+  else if ($action == 'approve' && $_SESSION['user']['role'] == 'admin'){
     $uid = sanitizeString($_GET['target']);
     $field = sanitizeString($_GET['field']);
     $done = FALSE;
@@ -252,9 +252,11 @@ else {
         $mail->send();
       }
       catch (Exception $e) {
+        http_response_code(400);
         echo $e-> errorMessage();
       }
       catch (\Exception $e){
+        http_response_code(400);
           echo $e->getMessage();
       }
 
@@ -263,13 +265,44 @@ else {
   }
   else if ($action == 'delete'){
     $field = sanitizeString($_GET['field']);
+    $target = sanitizeString($_GET['target']);
     if ($field == 'sheets'){
-      $target = sanitizeString($_GET['target']);
       $query = "DELETE FROM sheets WHERE id='$target'";
       if (queryDB($query)){
-        echo json_encode($_GET);
+        setLog("admin", $_SESSION['user']['id'], "deleted sheet: ".$target, "admin");
+        echo json_encode("ok");
       }
-      else echo "Deletion failed!";
+      
+      else {
+        setLog("admin", $_SESSION['user']['id'], "failed to delete sheet: ".$target, "admin");
+        http_response_code(400);
+        echo "Deletion failed!";
+      }
+    }
+    else if ($field == 'tournaments'){
+      if (queryDB("DELETE FROM posts WHERE id = '$target'")){
+        setLog("admin", $_SESSION['user']['id'], "deleted sheet: ".$target, "tournament");
+        echo "ok";
+      }
+      else {
+        setLog("admin", $_SESSION['user']['id'], "failed to delete sheet: ".$target, "tournament");
+        http_response_code(400);
+        echo "Deletion failed";
+      }
+    }
+  }
+  else if ($action == 'details'){
+    $field = sanitizeString($_GET['field']);
+    $target = sanitizeString($_GET['id']);
+
+    if ($field == 'tournaments'){
+      $result = queryDB("SELECT * FROM posts WHERE id = '$target' AND approved = TRUE");
+      if ($result->num_rows){
+        $tournament = $result->fetch_array(MYSQLI_ASSOC);
+        setLog('admin', $_SESSION['user']['id'], "get tournament: ".$target, "tournament");
+        $tournament['tentativeDates'] = unserialize($tournament['tentativeDates']);
+        echo json_encode(array("success" => "true", "tournament" => $tournament));
+      }
     }
   }
 }
