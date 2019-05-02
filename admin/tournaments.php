@@ -248,10 +248,10 @@ require_once 'header.php';
 									 class="m-menu__link-text">Organizations</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="uploaders.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon fa fa-cloud-upload-alt"></i><span
-									 class="m-menu__link-text">Bulk Uploaders</a>
+									 class="m-menu__link-text">Bulk Uploaders</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="reports.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-pie-chart"></i><span
-									 class="m-menu__link-text">Reports</a>
+									 class="m-menu__link-text">Reports</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="feedback.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
 									 class="m-menu__link-text">Feedbacks</span></a>
@@ -325,6 +325,7 @@ require_once 'header.php';
 									<div class="m-portlet__head-title">
 										<h3 class="m-portlet__head-text">
 											Tournaments
+										</h3>
 									</div>
 								</div>
 								<div class="m-portlet__head-tools">
@@ -378,8 +379,8 @@ else echo '<td><div class="m-badge m-badge--wide approved-'.$tournamentid.'">pen
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
 								<a href="#" class="btn btn-lg btn-secondary m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill tournament_details" data-toggle="modal" data-target="#m_modal_tournament" data-id="$tournament[id]">
-									<i class="la la-plus m--hide" data-id="$tournament[id]></i>
-									<i class="la la-ellipsis-h" data-id="$tournament[id]></i>
+									<i class="la la-plus m--hide" data-id="$tournament[id]"></i>
+									<i class="la la-ellipsis-h" data-id="$tournament[id]"></i>
 								</a>
 						</td>
 					</tr>
