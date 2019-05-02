@@ -183,7 +183,31 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Organizer Email</label>
 												<input type="email" name="organizerEmail" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">Please enter the email of the organizer</span>
+											</div>
+										</div>
+										<div id="arbiters">
+											<div class="form-group m-form__group row">
+												<div class="col-11 m-form__group-sub">
+													<label class="form-control-label">Arbiters</label>
+													<input type="phone" name="arbiters[]" class="form-control m-input" placeholder="Enter name of an arbiter" value="">
+												</div>
+												<div class="col-1 m-form__group-sub">
+													<label class="form-control-label text-center">&#8203;</label>
+													<button type="button" class="btn m-btn btn-primary" id="add_arbiter" title="Add Arbiter">+</button>
+												</div>
+											</div>
+										</div>
+										<br>
+										<div id="coaches">
+											<div class="form-group m-form__group row">
+												<div class="col-11 m-form__group-sub">
+													<label class="form-control-label">Coaches</label>
+													<input type="phone" name="coaches[]" class="form-control m-input" placeholder="Enter name of a coach" value="">
+												</div>
+												<div class="col-1 m-form__group-sub">
+													<label class="form-control-label text-center">&#8203;</label>
+													<button type="button" class="btn m-btn btn-primary" id="add_coache" title="Add Coach">+</button>
+												</div>
 											</div>
 										</div>
 										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
@@ -361,6 +385,7 @@ require_once 'header.php';
 <?php
 
 require_once '../functions.php';
+require_once '../countries.php';
 
 $country = $_SESSION['user']['country'];
 
@@ -370,8 +395,9 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$tournament = $result->fetch_array(MYSQLI_ASSOC);
 	$tournamentid = $tournament['id'];
+	$country = $countries[$tournament['country']];
 	echo <<< _END
-									<tr class="$tournament[id]"><td>$tournament[title]</td><td>$tournament[author]</td><td>$tournament[country]</td><td>$tournament[venue]</td>
+									<tr class="$tournament[id]"><td>$tournament[title]</td><td>$tournament[author]</td><td>$country</td><td>$tournament[venue]</td>
 											<td>&dollar;$tournament[price]</td>
 _END;
 if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary approved-'.$tournamentid.'">approved</div></td>';

@@ -530,14 +530,14 @@ $(() =>{
     $.get('/actions.php', {name: action, target: target, field: "tournaments"})
      .done((d) => {
        if (action == 'approve'){
-        $(".approved-"+t.data("target")).addClass("m-badge--primary").text("approved");
+        $(".approved-"+t.data("target")).removeClass("m-badge--danger").addClass("m-badge--primary").text("approved");
         $("#m_tournament_dismiss").click();
         Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
        }
        else if (action == 'reject'){
-        $(".approved-"+t.data("target")).addClass("m-badge--danger").text("rejected");
+        $(".approved-"+t.data("target")).removeClass("m-badge--primary").addClass("m-badge--danger").text("rejected");
         $("#m_tournament_dismiss").click();
-        Notify("Success", "Tournament rejected!", "danger", "fa fa-times-circle");
+        Notify("Success", "Tournament rejected!", "success", "fa fa-times-circle");
        }
        else if (action == 'delete'){
         $("tr."+t.data("target")).remove();
