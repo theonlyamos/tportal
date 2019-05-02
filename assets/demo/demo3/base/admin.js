@@ -500,7 +500,6 @@ $(() =>{
     mApp.block(".modal-body", {})
     $.get('/actions.php', {name: "details", target: id, field: 'tournaments'})
      .done((d) => {
-        console.log(d)
         var data = JSON.parse(d);
         var tournament = data.tournament;
         mApp.unblock(".modal-body");

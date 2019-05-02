@@ -293,7 +293,7 @@ else {
   }
   else if ($action == 'details'){
     $field = sanitizeString($_GET['field']);
-    $target = sanitizeString($_GET['id']);
+    $target = sanitizeString($_GET['target']);
 
     if ($field == 'tournaments'){
       $result = queryDB("SELECT * FROM posts WHERE id = '$target' AND approved = TRUE");
@@ -301,7 +301,7 @@ else {
         $tournament = $result->fetch_array(MYSQLI_ASSOC);
         setLog('admin', $_SESSION['user']['id'], "get tournament: ".$target, "tournament");
         $tournament['tentativeDates'] = unserialize($tournament['tentativeDates']);
-        echo json_encode(array("success" => "true", "tournament" => $tournament));
+        echo json_encode(array("success" => TRUE, "tournament" => $tournament));
       }
     }
   }
