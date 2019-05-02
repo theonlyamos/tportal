@@ -531,14 +531,17 @@ $(() =>{
      .done((d) => {
        if (action == 'approve'){
         $(".approved-"+t.data("target")).addClass("m-badge--primary").text("approved");
+        $("#m_tournament_dismiss").click();
         Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
        }
        else if (action == 'reject'){
         $(".approved-"+t.data("target")).addClass("m-badge--danger").text("rejected");
+        $("#m_tournament_dismiss").click();
         Notify("Success", "Tournament rejected!", "danger", "fa fa-times-circle");
        }
        else if (action == 'delete'){
-        $("td."+t.data("target")).remove();
+        $("tr."+t.data("target")).remove();
+        $("#m_tournament_dismiss").click();
         Notify("Success", "Tournament deleted successfully!", "success", "fa fa-trash");
        }
        mApp.unblock(".m-content")

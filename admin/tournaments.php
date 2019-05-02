@@ -374,7 +374,7 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 									<tr class="$tournament[id]"><td>$tournament[title]</td><td>$tournament[author]</td><td>$tournament[country]</td><td>$tournament[venue]</td>
 											<td>&dollar;$tournament[price]</td>
 _END;
-if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
+if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary approved-'.$tournamentid.'">approved</div></td>';
 else echo '<td><div class="m-badge m-badge--wide approved-'.$tournamentid.'">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
