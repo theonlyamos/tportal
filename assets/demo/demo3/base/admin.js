@@ -281,7 +281,7 @@ $(() =>{
             title: {
               required: !0
             },
-            organization: {
+            author: {
               required: !0
             },
             description: {
@@ -296,9 +296,10 @@ $(() =>{
           }
         }), l.valid() && (mApp.block("#m_modal_tournament .modal-content", {}), 
           l.ajaxSubmit({
-            url: "../stateActions.php",
+            url: "../adminActions.php",
             method: "post",
             success: (w,s) => {
+              console.log(w)
 /*
               var tour = '<div class="col-xl-4 col-lg-3 col-md-2"><div class="m-portlet m-portlet--bordered-semi m-portlet--full-height  m-portlet--rounded-force">';
               tour += '<div class="m-portlet__head m-portlet__head--fit"><div class="m-portlet__head-caption"><div class="m-portlet__head-action">';
@@ -497,6 +498,8 @@ $(() =>{
   $(".tournament_details").on("click", (e) => {
     var id = $(e.target).data("id");
     $(".action_tournament").data("target", id);
+    $("input[name='action']").val("edit");
+    $("input[name='target']").val(id);
     $("#m_form_tournament").resetForm();
     mApp.block(".m-content", {})
     $.get('/actions.php', {name: "details", target: id, field: 'tournaments'})
@@ -546,5 +549,41 @@ $(() =>{
        }
        mApp.unblock(".modal-body")
      })
+  })
+
+  $("#add_arbiter").on("click", (e) => {
+    if ($("#add_arbiter_input").val()){
+      var arbiter = $("#add_arbiter_input").val()
+      var line = '<div class="col-11 m-form__group-sub mt-2 input">'
+      line += '<input type="phone" name="arbiters[]" class="form-control m-input bg-secondary"'
+      line += ' placeholder="" value="'+arbiter+'" readonly></div>'
+      line += '<div class="col-1 m-form__group-sub mt-2">'
+      line += '<button type="button" class="btn m-btn btn-danger" id="remove_arbiter"'
+      line += ' title="Remove Arbiter">-</button></div>'
+
+      $("#arbiters .form-group").append(line);
+      $("#add_arbiter_input").val("")
+    }
+  })
+
+  $("#add_coache").on("click", (e) => {
+    if ($("#add_coache_input").val()){
+      var coache = $("#add_coache_input").val()
+      var line = '<div class="col-11 m-form__group-sub mt-2 input">'
+      line += '<input type="phone" name="coaches[]" class="form-control m-input bg-secondary"'
+      line += ' placeholder="" value="'+coache+'" readonly></div>'
+      line += '<div class="col-1 m-form__group-sub mt-2">'
+      line += '<button type="button" class="btn m-btn btn-danger" id="remove_coache"'
+      line += ' title="Remove Coache">-</button></div>'
+
+      $("#coaches .form-group").append(line);
+      $("#add_coache_input").val("")
+    }
+  })
+
+  $("#arbiters").on("click", "#remove_arbiter", (e) => {
+    var t = $(e.target).parent().closest(".input")
+
+    console.log(t)
   })
 })
