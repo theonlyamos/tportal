@@ -30,7 +30,7 @@ function Notify(title,message,state,icon) {
 
 $(() =>{
   $("#m_modal_tournament").on("show.bs.modal", ()=>{
-    //alert("Opened modal")
+    alert("Opened modal")
   
   })
 
@@ -498,16 +498,17 @@ $(() =>{
   $(".tournament_details").on("click", (e) => {
     var id = $(e.target).data("id");
     $(".action_tournament").data("target", id);
-    $("input[name='action']").val("edit");
+    $("input[name='action']").val("update");
     $("input[name='target']").val(id);
     $("#m_form_tournament").resetForm();
+    $("#arbiters_list").html("");
+    $("#coaches_list").html("");
     mApp.block(".m-content", {})
     $.get('/actions.php', {name: "details", target: id, field: 'tournaments'})
      .done((d) => {
         var data = JSON.parse(d);
         var tournament = data.tournament;
-        console.log(tournament.users);
-        var formFields = ["title", "description", "address", "city", "country", "venue",
+        var formFields = ["title", "description", "address", "city", "country", "venue", "users",
                           "tentativeDates", "price", "contactName", "contactPhone", "contactEmail",
                           "organizerName", "organizerEmail", "organizerPhone", "author", "arbiters", "coaches"]
         for (var i = 0; i<formFields.length; i++){
@@ -518,28 +519,45 @@ $(() =>{
             }
           }
           else if (formFields[i] == 'arbiters'){
-            for (var j = 0; j<tournament.arbiters.length; j++){
-              var arbiter = tournament.arbiters[j]
-              var line = '<div class="col-11 m-form__group-sub mt-2 input">'
-              line += '<input type="phone" name="arbiters[]" class="form-control m-input bg-secondary"'
-              line += ' placeholder="" value="'+arbiter+'" readonly></div>'
-              line += '<div class="col-1 m-form__group-sub mt-2">'
-              line += '<button type="button" class="btn m-btn btn-danger" id="remove_arbiter"'
-              line += ' title="Remove Arbiter">-</button></div>'
-              $("#arbiters .form-group").append(line);
-            }
+            if (tournament.arbiters){
+              for (var j = 0; j<tournament.arbiters.length; j++){
+                var arbiter = tournament.arbiters[j]
+                var line = '<div class="col-11 m-form__group-sub mt-2 input">'
+                line += '<input type="phone" name="arbiters[]" class="form-control m-input bg-secondary"'
+                line += ' placeholder="" value="'+arbiter+'" readonly></div>'
+                line += '<div class="col-1 m-form__group-sub mt-2">'
+                line += '<button type="button" class="btn m-btn btn-danger" id="remove_arbiter"'
+                line += ' title="Remove Arbiter">-</button></div>'
+                $("#arbiters .form-group").append(line);
+              }
+          }
           }
           else if (formFields[i] == 'coaches'){
-            for (var j = 0; j<tournament.coaches.length; j++){
-              var coache = tournament.coaches[j]
-              var line = '<div class="col-11 m-form__group-sub mt-2 input">'
-              line += '<input type="phone" name="arbiters[]" class="form-control m-input bg-secondary"'
-              line += ' placeholder="" value="'+coache+'" readonly></div>'
-              line += '<div class="col-1 m-form__group-sub mt-2">'
-              line += '<button type="button" class="btn m-btn btn-danger" id="remove_arbiter"'
-              line += ' title="Remove Arbiter">-</button></div>'
+            if (tournament.coaches){
+              for (var j = 0; j<tournament.coaches.length; j++){
+                var coache = tournament.coaches[j]
+                var line = '<div class="col-11 m-form__group-sub mt-2 input">'
+                line += '<input type="phone" name="arbiters[]" class="form-control m-input bg-secondary"'
+                line += ' placeholder="" value="'+coache+'" readonly></div>'
+                line += '<div class="col-1 m-form__group-sub mt-2">'
+                line += '<button type="button" class="btn m-btn btn-danger" id="remove_arbiter"'
+                line += ' title="Remove Arbiter">-</button></div>'
 
-              $("#coaches .form-group").append(line);
+                $("#coaches .form-group").append(line);
+              }
+            }
+          }
+          else if (formFields[i] == 'users'){
+
+            for (var j in tournament.users){
+              if (tournament.users[j].profession == 'arbiter'){
+                var line = '<option>'+tournament.users[j].fullname+'</option>'
+                $("#arbiters_list").append(line);
+              }
+              else if (tournament.users[j].profession == 'coach'){
+                var line = '<option>'+tournament.users[j].fullname+'</option>'
+                $("#coaches_list").append(line);
+              }
             }
           }
           else {

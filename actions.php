@@ -358,7 +358,7 @@ else {
   else if ($action == 'details'){
     $field = sanitizeString($_GET['field']);
     $target = sanitizeString($_GET['target']);
-
+    $users = [];
     if ($field == 'tournaments'){
       $result = queryDB("SELECT * FROM posts WHERE id = '$target'");
       if ($result->num_rows){
@@ -367,6 +367,16 @@ else {
         $tournament['tentativeDates'] = unserialize($tournament['tentativeDates']);
         $tournament['arbiters'] = unserialize($tournament['arbiters']);
         $tournament['coaches'] = unserialize($tournament['coaches']);
+        $country = $tournament['country'];
+        $result = queryDB("SELECT id, fullname, profession FROM users WHERE (profession = 'arbiter' OR profession = 'coach') AND country='$country'");
+        if ($result->num_rows){
+          for ($j = 0; $j < $result->num_rows; ++$j){
+            $result->data_seek($j);
+            $user = $result->fetch_array(MYSQLI_ASSOC);
+            $users[$user['id']] = $user;
+          }
+          $tournament['users'] = $users;
+        }
         echo json_encode(array("success" => TRUE, "tournament" => $tournament));
       }
     }
