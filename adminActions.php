@@ -5,7 +5,7 @@ session_start();
 require_once 'functions.php';
 
 if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
-  $field = sanitizeString($_POST['action']);
+  $field = sanitizeString($_POST['field']);
   $uid = $_SESSION['id'];
   
   if ($field == 'tournaments'){

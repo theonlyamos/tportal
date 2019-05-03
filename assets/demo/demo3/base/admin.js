@@ -508,13 +508,39 @@ $(() =>{
         var tournament = data.tournament;
         var formFields = ["title", "description", "address", "city", "country", "venue",
                           "tentativeDates", "price", "contactName", "contactPhone", "contactEmail",
-                          "organizerName", "organizerEmail", "organizerPhone"]
+                          "organizerName", "organizerEmail", "organizerPhone", "author"]
         $("#tournamentModalTitle").text("Tournament Details");
         for (var i = 0; i<formFields.length; i++){
           if (formFields[i] == 'tentativeDates'){
             for (var j = 0; j<tournament.tentativeDates.length; j++){
               var el = $("[name='tentativeDates[]']")[j]
               $(el).val(tournament.tentativeDates[j])
+            }
+          }
+          else if (formFields[i] == 'arbiters'){
+            for (var j = 0; j<tournament.arbiters.length; j++){
+              var arbiter = tournament.arbiters[j]
+              var line = '<div class="col-11 m-form__group-sub mt-2 input">'
+              line += '<input type="phone" name="arbiters[]" class="form-control m-input bg-secondary"'
+              line += ' placeholder="" value="'+arbiter+'" readonly></div>'
+              line += '<div class="col-1 m-form__group-sub mt-2">'
+              line += '<button type="button" class="btn m-btn btn-danger" id="remove_arbiter"'
+              line += ' title="Remove Arbiter">-</button></div>'
+
+              $("#arbiters .form-group").append(line);
+            }
+          }
+          else if (formFields[i] == 'coaches'){
+            for (var j = 0; j<tournament.coaches.length; j++){
+              var coache = tournament.coaches[j]
+              var line = '<div class="col-11 m-form__group-sub mt-2 input">'
+              line += '<input type="phone" name="arbiters[]" class="form-control m-input bg-secondary"'
+              line += ' placeholder="" value="'+coache+'" readonly></div>'
+              line += '<div class="col-1 m-form__group-sub mt-2">'
+              line += '<button type="button" class="btn m-btn btn-danger" id="remove_arbiter"'
+              line += ' title="Remove Arbiter">-</button></div>'
+
+              $("#coaches .form-group").append(line);
             }
           }
           else {

@@ -365,6 +365,8 @@ else {
         $tournament = $result->fetch_array(MYSQLI_ASSOC);
         setLog('admin', $_SESSION['user']['id'], "get tournament: ".$target, "tournament");
         $tournament['tentativeDates'] = unserialize($tournament['tentativeDates']);
+        $tournament['arbiters'] = unserialize($tournament['arbiters']);
+        $tournament['coaches'] = unserialize($tournament['coaches']);
         echo json_encode(array("success" => TRUE, "tournament" => $tournament));
       }
     }
