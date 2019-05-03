@@ -506,10 +506,10 @@ $(() =>{
      .done((d) => {
         var data = JSON.parse(d);
         var tournament = data.tournament;
+        console.log(tournament.users);
         var formFields = ["title", "description", "address", "city", "country", "venue",
                           "tentativeDates", "price", "contactName", "contactPhone", "contactEmail",
-                          "organizerName", "organizerEmail", "organizerPhone", "author"]
-        $("#tournamentModalTitle").text("Tournament Details");
+                          "organizerName", "organizerEmail", "organizerPhone", "author", "arbiters", "coaches"]
         for (var i = 0; i<formFields.length; i++){
           if (formFields[i] == 'tentativeDates'){
             for (var j = 0; j<tournament.tentativeDates.length; j++){
@@ -526,7 +526,6 @@ $(() =>{
               line += '<div class="col-1 m-form__group-sub mt-2">'
               line += '<button type="button" class="btn m-btn btn-danger" id="remove_arbiter"'
               line += ' title="Remove Arbiter">-</button></div>'
-
               $("#arbiters .form-group").append(line);
             }
           }

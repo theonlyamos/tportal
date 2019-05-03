@@ -93,6 +93,12 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
         $result = queryDB("SELECT * FROM posts ORDER BY updatedAt DESC LIMIT 1");
         $tournament = $result->fetch_array(MYSQLI_ASSOC);
         $tournament['tentativeDates'] = unserialize($tournament['tentativeDates']);
+        $country = $tournament['country'];
+        $result = queryDB("SELECT id, fullname, profession FROM users WHERE country='$country' AND profession = 'arbiter' OR profession = 'coach'");
+        if ($result->num_rows){
+          $users = $result->fetch_array(MYSQLI_ASSOC);
+          $tournament['users'] = $users;
+        }
         http_response_code(202);
         echo json_encode($tournament);
       }
