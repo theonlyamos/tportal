@@ -30,7 +30,7 @@ function Notify(title,message,state,icon) {
 
 $(() =>{
   $("#m_modal_tournament").on("show.bs.modal", ()=>{
-    alert("Opened modal")
+    //alert("Opened modal")
   
   })
 
