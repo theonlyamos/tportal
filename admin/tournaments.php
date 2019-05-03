@@ -666,8 +666,8 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 	$tournamentid = $tournament['id'];
 	$country = $countries[$tournament['country']];
 	echo <<< _END
-									<tr class="$tournament[id]"><td>$tournament[title]</td><td>$tournament[author]</td><td>$country</td><td>$tournament[venue]</td>
-											<td>&dollar;$tournament[price]</td>
+									<tr class="$tournament[id]"><td class="title">$tournament[title]</td><td class="author">$tournament[author]</td><td class="country">$country</td>
+									<td class="venue">$tournament[venue]</td><td class="price">&dollar;$tournament[price]</td>
 _END;
 if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary approved-'.$tournamentid.'">approved</div></td>';
 else if ($tournament['rejected']) echo '<td><div class="m-badge m-badge--wide m-badge--danger approved-'.$tournamentid.'">rejected</div></td>';

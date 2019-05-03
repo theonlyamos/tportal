@@ -60,6 +60,460 @@ License: You must have a valid license purchased only from themeforest(the above
 
 	<!-- begin::Body -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+		<!--begin::Modal-->
+    <div class="modal fade modal-light" id="m_modal_tournament" tabindex="-1" role="dialog" aria-labelledby="tournamentModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
+        <div class="modal-content">
+					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_tournament" novalidate="novalidate" enctype="multipart/form-data">
+						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="tournaments">
+						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="post">
+						<input type="hidden" name="target" class="form-control m-input" placeholder="" value="">
+						<div class="modal-header">
+							<h5 class="modal-title" id="tournamentModalTitle">Tournament</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="m-scrollable m-scroller ps ps--active-y" data-scrollbar-shown="true" data-scrollable="true" data-height="200" style="min-height: 70vh; overflow: hidden;">
+								<div class="m-portlet">
+									<div class="m-portlet__body">
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Title:</label>
+												<input type="text" name="title" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the title of the Tournament</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Organization:</label>
+												<input type="text" name="author" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Tournament author</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Description:</label>
+												<div class="md-editor" id="1553185306142">
+													<textarea name="description" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
+													<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
+													<span class="m-form__help">Please enter the description of the Tournament</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Address:</label>
+												<input type="text" name="address" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the address of the venue</span>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">City:</label>
+												<input type="text" name="city" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the city of the venue</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Address:</label>
+												<select name="country" class="form-control m-input" required>
+													<option value="" selected>Select Country</option>
+													<option value="AF">Afghanistan</option>
+													<option value="AX">Åland Islands</option>
+													<option value="AL">Albania</option>
+													<option value="DZ">Algeria</option>
+													<option value="AS">American Samoa</option>
+													<option value="AD">Andorra</option>
+													<option value="AO">Angola</option>
+													<option value="AI">Anguilla</option>
+													<option value="AQ">Antarctica</option>
+													<option value="AG">Antigua and Barbuda</option>
+													<option value="AR">Argentina</option>
+													<option value="AM">Armenia</option>
+													<option value="AW">Aruba</option>
+													<option value="AU">Australia</option>
+													<option value="AT">Austria</option>
+													<option value="AZ">Azerbaijan</option>
+													<option value="BS">Bahamas</option>
+													<option value="BH">Bahrain</option>
+													<option value="BD">Bangladesh</option>
+													<option value="BB">Barbados</option>
+													<option value="BY">Belarus</option>
+													<option value="BE">Belgium</option>
+													<option value="BZ">Belize</option>
+													<option value="BJ">Benin</option>
+													<option value="BM">Bermuda</option>
+													<option value="BT">Bhutan</option>
+													<option value="BO">Bolivia, Plurinational State of</option>
+													<option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+													<option value="BA">Bosnia and Herzegovina</option>
+													<option value="BW">Botswana</option>
+													<option value="BV">Bouvet Island</option>
+													<option value="BR">Brazil</option>
+													<option value="IO">British Indian Ocean Territory</option>
+													<option value="BN">Brunei Darussalam</option>
+													<option value="BG">Bulgaria</option>
+													<option value="BF">Burkina Faso</option>
+													<option value="BI">Burundi</option>
+													<option value="KH">Cambodia</option>
+													<option value="CM">Cameroon</option>
+													<option value="CA">Canada</option>
+													<option value="CV">Cape Verde</option>
+													<option value="KY">Cayman Islands</option>
+													<option value="CF">Central African Republic</option>
+													<option value="TD">Chad</option>
+													<option value="CL">Chile</option>
+													<option value="CN">China</option>
+													<option value="CX">Christmas Island</option>
+													<option value="CC">Cocos (Keeling) Islands</option>
+													<option value="CO">Colombia</option>
+													<option value="KM">Comoros</option>
+													<option value="CG">Congo</option>
+													<option value="CD">Congo, the Democratic Republic of the</option>
+													<option value="CK">Cook Islands</option>
+													<option value="CR">Costa Rica</option>
+													<option value="CI">Côte d'Ivoire</option>
+													<option value="HR">Croatia</option>
+													<option value="CU">Cuba</option>
+													<option value="CW">Curaçao</option>
+													<option value="CY">Cyprus</option>
+													<option value="CZ">Czech Republic</option>
+													<option value="DK">Denmark</option>
+													<option value="DJ">Djibouti</option>
+													<option value="DM">Dominica</option>
+													<option value="DO">Dominican Republic</option>
+													<option value="EC">Ecuador</option>
+													<option value="EG">Egypt</option>
+													<option value="SV">El Salvador</option>
+													<option value="GQ">Equatorial Guinea</option>
+													<option value="ER">Eritrea</option>
+													<option value="EE">Estonia</option>
+													<option value="ET">Ethiopia</option>
+													<option value="FK">Falkland Islands (Malvinas)</option>
+													<option value="FO">Faroe Islands</option>
+													<option value="FJ">Fiji</option>
+													<option value="FI">Finland</option>
+													<option value="FR">France</option>
+													<option value="GF">French Guiana</option>
+													<option value="PF">French Polynesia</option>
+													<option value="TF">French Southern Territories</option>
+													<option value="GA">Gabon</option>
+													<option value="GM">Gambia</option>
+													<option value="GE">Georgia</option>
+													<option value="DE">Germany</option>
+													<option value="GH">Ghana</option>
+													<option value="GI">Gibraltar</option>
+													<option value="GR">Greece</option>
+													<option value="GL">Greenland</option>
+													<option value="GD">Grenada</option>
+													<option value="GP">Guadeloupe</option>
+													<option value="GU">Guam</option>
+													<option value="GT">Guatemala</option>
+													<option value="GG">Guernsey</option>
+													<option value="GN">Guinea</option>
+													<option value="GW">Guinea-Bissau</option>
+													<option value="GY">Guyana</option>
+													<option value="HT">Haiti</option>
+													<option value="HM">Heard Island and McDonald Islands</option>
+													<option value="VA">Holy See (Vatican City State)</option>
+													<option value="HN">Honduras</option>
+													<option value="HK">Hong Kong</option>
+													<option value="HU">Hungary</option>
+													<option value="IS">Iceland</option>
+													<option value="IN">India</option>
+													<option value="ID">Indonesia</option>
+													<option value="IR">Iran, Islamic Republic of</option>
+													<option value="IQ">Iraq</option>
+													<option value="IE">Ireland</option>
+													<option value="IM">Isle of Man</option>
+													<option value="IL">Israel</option>
+													<option value="IT">Italy</option>
+													<option value="JM">Jamaica</option>
+													<option value="JP">Japan</option>
+													<option value="JE">Jersey</option>
+													<option value="JO">Jordan</option>
+													<option value="KZ">Kazakhstan</option>
+													<option value="KE">Kenya</option>
+													<option value="KI">Kiribati</option>
+													<option value="KP">Korea, Democratic People's Republic of</option>
+													<option value="KR">Korea, Republic of</option>
+													<option value="KW">Kuwait</option>
+													<option value="KG">Kyrgyzstan</option>
+													<option value="LA">Lao People's Democratic Republic</option>
+													<option value="LV">Latvia</option>
+													<option value="LB">Lebanon</option>
+													<option value="LS">Lesotho</option>
+													<option value="LR">Liberia</option>
+													<option value="LY">Libya</option>
+													<option value="LI">Liechtenstein</option>
+													<option value="LT">Lithuania</option>
+													<option value="LU">Luxembourg</option>
+													<option value="MO">Macao</option>
+													<option value="MK">Macedonia, the former Yugoslav Republic of</option>
+													<option value="MG">Madagascar</option>
+													<option value="MW">Malawi</option>
+													<option value="MY">Malaysia</option>
+													<option value="MV">Maldives</option>
+													<option value="ML">Mali</option>
+													<option value="MT">Malta</option>
+													<option value="MH">Marshall Islands</option>
+													<option value="MQ">Martinique</option>
+													<option value="MR">Mauritania</option>
+													<option value="MU">Mauritius</option>
+													<option value="YT">Mayotte</option>
+													<option value="MX">Mexico</option>
+													<option value="FM">Micronesia, Federated States of</option>
+													<option value="MD">Moldova, Republic of</option>
+													<option value="MC">Monaco</option>
+													<option value="MN">Mongolia</option>
+													<option value="ME">Montenegro</option>
+													<option value="MS">Montserrat</option>
+													<option value="MA">Morocco</option>
+													<option value="MZ">Mozambique</option>
+													<option value="MM">Myanmar</option>
+													<option value="NA">Namibia</option>
+													<option value="NR">Nauru</option>
+													<option value="NP">Nepal</option>
+													<option value="NL">Netherlands</option>
+													<option value="NC">New Caledonia</option>
+													<option value="NZ">New Zealand</option>
+													<option value="NI">Nicaragua</option>
+													<option value="NE">Niger</option>
+													<option value="NG">Nigeria</option>
+													<option value="NU">Niue</option>
+													<option value="NF">Norfolk Island</option>
+													<option value="MP">Northern Mariana Islands</option>
+													<option value="NO">Norway</option>
+													<option value="OM">Oman</option>
+													<option value="PK">Pakistan</option>
+													<option value="PW">Palau</option>
+													<option value="PS">Palestinian Territory, Occupied</option>
+													<option value="PA">Panama</option>
+													<option value="PG">Papua New Guinea</option>
+													<option value="PY">Paraguay</option>
+													<option value="PE">Peru</option>
+													<option value="PH">Philippines</option>
+													<option value="PN">Pitcairn</option>
+													<option value="PL">Poland</option>
+													<option value="PT">Portugal</option>
+													<option value="PR">Puerto Rico</option>
+													<option value="QA">Qatar</option>
+													<option value="RE">Réunion</option>
+													<option value="RO">Romania</option>
+													<option value="RU">Russian Federation</option>
+													<option value="RW">Rwanda</option>
+													<option value="BL">Saint Barthélemy</option>
+													<option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+													<option value="KN">Saint Kitts and Nevis</option>
+													<option value="LC">Saint Lucia</option>
+													<option value="MF">Saint Martin (French part)</option>
+													<option value="PM">Saint Pierre and Miquelon</option>
+													<option value="VC">Saint Vincent and the Grenadines</option>
+													<option value="WS">Samoa</option>
+													<option value="SM">San Marino</option>
+													<option value="ST">Sao Tome and Principe</option>
+													<option value="SA">Saudi Arabia</option>
+													<option value="SN">Senegal</option>
+													<option value="RS">Serbia</option>
+													<option value="SC">Seychelles</option>
+													<option value="SL">Sierra Leone</option>
+													<option value="SG">Singapore</option>
+													<option value="SX">Sint Maarten (Dutch part)</option>
+													<option value="SK">Slovakia</option>
+													<option value="SI">Slovenia</option>
+													<option value="SB">Solomon Islands</option>
+													<option value="SO">Somalia</option>
+													<option value="ZA">South Africa</option>
+													<option value="GS">South Georgia and the South Sandwich Islands</option>
+													<option value="SS">South Sudan</option>
+													<option value="ES">Spain</option>
+													<option value="LK">Sri Lanka</option>
+													<option value="SD">Sudan</option>
+													<option value="SR">Suriname</option>
+													<option value="SJ">Svalbard and Jan Mayen</option>
+													<option value="SZ">Swaziland</option>
+													<option value="SE">Sweden</option>
+													<option value="CH">Switzerland</option>
+													<option value="SY">Syrian Arab Republic</option>
+													<option value="TW">Taiwan, Province of China</option>
+													<option value="TJ">Tajikistan</option>
+													<option value="TZ">Tanzania, United Republic of</option>
+													<option value="TH">Thailand</option>
+													<option value="TL">Timor-Leste</option>
+													<option value="TG">Togo</option>
+													<option value="TK">Tokelau</option>
+													<option value="TO">Tonga</option>
+													<option value="TT">Trinidad and Tobago</option>
+													<option value="TN">Tunisia</option>
+													<option value="TR">Turkey</option>
+													<option value="TM">Turkmenistan</option>
+													<option value="TC">Turks and Caicos Islands</option>
+													<option value="TV">Tuvalu</option>
+													<option value="UG">Uganda</option>
+													<option value="UA">Ukraine</option>
+													<option value="AE">United Arab Emirates</option>
+													<option value="GB">United Kingdom</option>
+													<option value="US">United States</option>
+													<option value="UM">United States Minor Outlying Islands</option>
+													<option value="UY">Uruguay</option>
+													<option value="UZ">Uzbekistan</option>
+													<option value="VU">Vanuatu</option>
+													<option value="VE">Venezuela, Bolivarian Republic of</option>
+													<option value="VN">Viet Nam</option>
+													<option value="VG">Virgin Islands, British</option>
+													<option value="VI">Virgin Islands, U.S.</option>
+													<option value="WF">Wallis and Futuna</option>
+													<option value="EH">Western Sahara</option>
+													<option value="YE">Yemen</option>
+													<option value="ZM">Zambia</option>
+													<option value="ZW">Zimbabwe</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Venue Description:</label>
+												<div class="md-editor" id="1553185306142">
+													<textarea name="venue" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
+													<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
+													<span class="m-form__help">Please enter the description of the tournament venue</span>
+												</div>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">Tentative Dates</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-md-4 m-form__group-sub">
+												<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
+											</div>
+											<div class="col-md-4 m-form__group-sub">
+												<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
+											</div>
+											<div class="col-md-4 m-form__group-sub">
+												<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-md-12 m-form__group-sub">
+												<label class="form-control-label">Price Money:</label>
+												<div class="input-group">
+													<div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-dollar-sign"></i></span></div>
+													<input type="number" step="0.01" name="price" class="form-control m-input" placeholder="" value="">
+												</div>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">Contact Details</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Contact Person's Name</label>
+												<input type="text" name="contactName" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the name of the contact person</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Contact Number</label>
+												<input type="phone" name="contactPhone" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the phone number of the contact person</span>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Contact Email</label>
+												<input type="email" name="contactEmail" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the email of the contact person</span>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="m-form__heading">
+											<h3 class="m-form__heading-title">Organizer Details</h3>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Organizer Name</label>
+												<input type="text" name="organizerName" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the name of the organizer</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Organizer Number</label>
+												<input type="phone" name="organizerPhone" class="form-control m-input" placeholder="" value="">
+												<span class="m-form__help">Please enter the phone number of the organizer</span>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Organizer Email</label>
+												<input type="email" name="organizerEmail" class="form-control m-input" placeholder="" value="">
+											</div>
+										</div>
+										<div id="arbiters">
+											<div class="form-group m-form__group row">
+												<div class="col-11 m-form__group-sub">
+													<label class="form-control-label">Arbiters</label>
+													<input type="phone" id="add_arbiter_input" class="form-control m-input" placeholder="Enter name of an arbiter" value="" list="arbiters_list">
+													<datalist id="arbiters_list">
+													</datalist>
+												</div>
+												<div class="col-1 m-form__group-sub">
+													<label class="form-control-label text-center">&#8203;</label>
+													<button type="button" class="btn m-btn btn-primary" id="add_arbiter" title="Add Arbiter">+</button>
+												</div>
+											</div>
+										</div>
+										<br>
+										<div id="coaches">
+											<div class="form-group m-form__group row">
+												<div class="col-11 m-form__group-sub">
+													<label class="form-control-label">Coaches</label>
+													<input type="phone" id="add_coache_input" class="form-control m-input" placeholder="Enter name of a coach" value="" list="coaches_list">
+													<datalist id="coaches_list">
+													</datalist>
+												</div>
+												<div class="col-1 m-form__group-sub">
+													<label class="form-control-label text-center">&#8203;</label>
+													<button type="button" class="btn m-btn btn-primary" id="add_coache" title="Add Coach">+</button>
+												</div>
+											</div>
+										</div>
+										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Tournament Picture:</label>
+												<div class="custom-file">
+													<input type="file" name="image" class="custom-file-input" id="customFile" accept="image/*">
+													<label class="custom-file-label" for="customFile">Choose file</label>
+												</div>
+												<span class="m-form__help">Select a picture to be used as the tournament picture</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" id="m_tournament_dismiss" data-dismiss="modal">Close</button>
+							<div class="dropdown">
+								<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Actions
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenu2" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
+									<button class="dropdown-item text-primary action_tournament" type="button" data-action="approve" data-target=""><i class="fa fa-check-circle text-primary"></i> Approve</button>
+									<button class="dropdown-item text-info action_tournament" type="button" data-action="reject" data-target=""><i class="fa fa-times-circle text-info"></i> Reject</button>
+									<button class="dropdown-item text-dark feedback_tournament" type="button" data-action="feedback" data-target=""><i class="fa fa-share-alt text-dark"></i> Feedback</button>
+									<button class="dropdown-item text-danger action_tournament" type="button" data-action="delete" data-target=""><i class="fa fa-trash text-danger"></i> Delete</button>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-warning" id="m_tournament_submit"><i class="fa fa-save fa-fw"></i>Save</button>
+						</div>
+					</form>
+        </div>
+      </div>
+    </div>
+    <!--end::Modal-->
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 
@@ -223,85 +677,23 @@ $result->data_seek($j);
 $user = $result->fetch_array(MYSQLI_ASSOC);
 $userid = $user['id'];
 echo <<< _END
-									<tr><td>$user[fullname]</td><td>$user[profession]</td><td>$user[country]</td><td>$user[email]</td><td>$user[phone]</td>
+									<tr class="$user[id]"><td class="fullname">$user[fullname]</td><td class="profession">$user[profession]</td>
+									<td class="country">$user[country]</td><td class="email">$user[email]</td><td class="phone">$user[phone]</td>
 _END;
 if ($user['medcert']) echo '<td><a href="../assets/data/medical/'.$user['medcert'].'" class="nav-link" target="_blank"><i class="fa fa-link fa-fw"></li>View</a></td>';
 else echo '<td></td>';
 if ($user['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
 else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
-if ($user['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--success">approved</div></td>';
+if ($user['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--success approved-'.$userid.'">approved</div></td>';
+else if ($user['rejected']) echo '<td><div class="m-badge m-badge--wide m-badge--danger approved-'.$userid.'">approved</div></td>';
 else echo '<td><div class="m-badge m-badge--wide approved-'.$userid.'">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
-								<div>
-								<div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-									<a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
-										<i class="la la-plus m--hide"></i>
-										<i class="la la-ellipsis-h"></i>
-									</a>
-									<div class="m-dropdown__wrapper" style="z-index: 101;">
-										<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 21.5px;"></span>
-										<div class="m-dropdown__inner">
-											<div class="m-dropdown__body">
-												<div class="m-dropdown__content">
-													<ul class="m-nav">
-														<li class="m-nav__section m-nav__section--first m--hide">
-															<span class="m-nav__section-text">Quick Actions</span>
-														</li>
-_END;
-if ($user['approved']) {
-						echo <<< _END
-														<li class="m-nav__item">
-															<button class="btn btn-link" disabled>
-																<i class="m-nav__link-icon fa fa-check text-success"></i>
-																Approved
-															</button>
-														</li>
-														<li class="m-nav__item py-2">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																Reject
-															</button>
-														</li>
-_END;
-}
-else {
-						echo <<< _END
-														<li class="m-nav__item">
-															<button class="btn btn-link approve_user" data-target="$userid">
-																<i class="m-nav__link-icon fa fa-check text-success"></i>
-																Approve
-															</button>
-														</li>
-														<li class="m-nav__item py-2">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																Reject
-															</button>
-														</li>
-_END;
-}
-						echo <<< _END
-														<li class="m-nav__item">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon flaticon-edit"></i>
-																Edit
-															</button>
-														</li>
-														<li class="m-nav__item pt-2">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon fa fa-trash"></i>
-																Delete
-															</button>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</td>
+								<a href="#" class="btn btn-lg btn-secondary m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill tournament_details" data-toggle="modal" data-target="#m_modal_tournament" data-id="$tournament[id]">
+									<i class="la la-plus m--hide" data-id="$user[id]"></i>
+									<i class="la la-ellipsis-h" data-id="$user[id]"></i>
+								</a>
+							</td>
 						</tr>
 _END;
 #if ($user['approved']) echo '<td><button disabled id="approve_user" data-target="'.$user['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
