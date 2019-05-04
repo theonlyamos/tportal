@@ -104,4 +104,22 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
     }
   }
 }
+else {
+  $field = sanitizeString($_GET['field']);
+
+  if ($field == 'users'){
+    $action = sanitizeString($_GET['action']);
+
+    if ($action == 'details'){
+      $target = sanitizeString($_GET['target']);
+
+      $result = queryDB("SELECT * FROM users WHERE id = '$target'");
+      if ($result->num_rows){
+        $user = $result->fetch_array(MYSQLI_ASSOC);
+        setLog('admin', $_SESSION['user']['id'], "get user: ".$target, "user");
+        echo json_encode(array("success" => TRUE, "user" => $user));
+      }
+    }
+  }
+}
 ?>

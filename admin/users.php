@@ -61,15 +61,15 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- begin::Body -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 		<!--begin::Modal-->
-    <div class="modal fade modal-light" id="m_modal_tournament" tabindex="-1" role="dialog" aria-labelledby="tournamentModalTitle" aria-hidden="true">
+    <div class="modal fade modal-light" id="m_modal_user" tabindex="-1" role="dialog" aria-labelledby="userModalTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
         <div class="modal-content">
-					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_tournament" novalidate="novalidate" enctype="multipart/form-data">
-						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="tournaments">
-						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="post">
+					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_user" novalidate="novalidate" enctype="multipart/form-data">
+						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="users">
+						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="update">
 						<input type="hidden" name="target" class="form-control m-input" placeholder="" value="">
 						<div class="modal-header">
-							<h5 class="modal-title" id="tournamentModalTitle">Tournament</h5>
+							<h5 class="modal-title" id="userModalTitle">User</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -80,43 +80,86 @@ License: You must have a valid license purchased only from themeforest(the above
 									<div class="m-portlet__body">
 										<div class="form-group m-form__group row">
 											<div class="col-lg-12 m-form__group-sub">
-												<label class="form-control-label">Title:</label>
-												<input type="text" name="title" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">Please enter the title of the Tournament</span>
+													<label class="form-control-label">Fullname</label>
+													<input type="text" name="fullname" class="form-control m-input" placeholder="" value="">
+												</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Email</label>
+												<input type="text" name="email" class="form-control m-input" placeholder="" value="">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Username</label>
+												<input type="text" name="username" class="form-control m-input" placeholder="" value="">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
-											<div class="col-lg-12 m-form__group-sub">
-												<label class="form-control-label">Organization:</label>
-												<input type="text" name="author" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">Tournament author</span>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Profession</label>
+												<input type="text" name="profession" class="form-control m-input" placeholder="" value="">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Trainter Title</label>
+												<input type="text" name="trainterTitle" class="form-control m-input" placeholder="" value="">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
-											<div class="col-lg-12 m-form__group-sub">
-												<label class="form-control-label">Description:</label>
-												<div class="md-editor" id="1553185306142">
-													<textarea name="description" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
-													<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
-													<span class="m-form__help">Please enter the description of the Tournament</span>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Date of Birth</label>
+												<input class="form-control m-input" type="date" value="" name="dob" required>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Gender</label>
+												<div class="m-radio-inline">
+													<label class="m-radio">
+														<input type="radio" value="male" name="gender" required> Male
+														<span></span>
+													</label>
+													<label class="m-radio">
+														<input type="radio" value="female" name="gender" required> Female
+														<span></span>
+													</label>
 												</div>
 											</div>
 										</div>
-										<div class="form-group m-form__group row">
+										<div class="m-form__group form-group row align-items-center">
 											<div class="col-lg-6 m-form__group-sub">
-												<label class="form-control-label">Address:</label>
-												<input type="text" name="address" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">Please enter the address of the venue</span>
+												<label class="form-control-label">Type of Blindness</label>
+												<select name="blindness" id="" class="form-control" required>
+													<option value="" selected></option>
+													<option value="partial">Partial</option>
+													<option value="full">Full</option>
+												</select>
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
-												<label class="form-control-label">City:</label>
-												<input type="text" name="city" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">Please enter the city of the venue</span>
+												<label class="form-control-label">Address</label>
+												<input type="text" name="address" class="form-control m-input" placeholder="" value="">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
-												<label class="form-control-label">Address:</label>
+												<label class="form-control-label">Postal Code</label>
+												<input type="text" name="postal" class="form-control m-input" placeholder="" value="">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">District</label>
+												<input type="text" name="district" class="form-control m-input" placeholder="" value="">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">City</label>
+												<input type="text" name="city" class="form-control m-input" placeholder="" value="">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">State</label>
+												<input type="text" name="state" class="form-control m-input" placeholder="" value="">
+											</div>
+										</div>
+										<div class="form-row m-form__group">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Country</label>
 												<select name="country" class="form-control m-input" required>
 													<option value="" selected>Select Country</option>
 													<option value="AF">Afghanistan</option>
@@ -372,122 +415,70 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
-											<div class="col-lg-12 m-form__group-sub">
-												<label class="form-control-label">Venue Description:</label>
-												<div class="md-editor" id="1553185306142">
-													<textarea name="venue" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
-													<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
-													<span class="m-form__help">Please enter the description of the tournament venue</span>
-												</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Cell Number</label>
+												<input type="text" name="cell" class="form-control m-input" placeholder="" value="">
 											</div>
-										</div>
-										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
-										<div class="m-form__heading">
-											<h3 class="m-form__heading-title">Tentative Dates</h3>
-										</div>
-										<div class="form-group m-form__group row">
-											<div class="col-md-4 m-form__group-sub">
-												<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
-											</div>
-											<div class="col-md-4 m-form__group-sub">
-												<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
-											</div>
-											<div class="col-md-4 m-form__group-sub">
-												<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
-											</div>
-										</div>
-										<div class="form-group m-form__group row">
-											<div class="col-md-12 m-form__group-sub">
-												<label class="form-control-label">Price Money:</label>
-												<div class="input-group">
-													<div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-dollar-sign"></i></span></div>
-													<input type="number" step="0.01" name="price" class="form-control m-input" placeholder="" value="">
-												</div>
-											</div>
-										</div>
-										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
-										<div class="m-form__heading">
-											<h3 class="m-form__heading-title">Contact Details</h3>
-										</div>
-										<div class="form-group m-form__group row">
-											<div class="col-lg-12 m-form__group-sub">
-												<label class="form-control-label">Contact Person's Name</label>
-												<input type="text" name="contactName" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">Please enter the name of the contact person</span>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Phone Number</label>
+												<input type="text" name="phone" class="form-control m-input" placeholder="" value="">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
-												<label class="form-control-label">Contact Number</label>
-												<input type="phone" name="contactPhone" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">Please enter the phone number of the contact person</span>
+												<label class="form-control-label">FIDE ID</label>
+												<input type="text" name="fideid" class="form-control m-input" placeholder="" value="">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
-												<label class="form-control-label">Contact Email</label>
-												<input type="email" name="contactEmail" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">Please enter the email of the contact person</span>
-											</div>
-										</div>
-										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
-										<div class="m-form__heading">
-											<h3 class="m-form__heading-title">Organizer Details</h3>
-										</div>
-										<div class="form-group m-form__group row">
-											<div class="col-lg-12 m-form__group-sub">
-												<label class="form-control-label">Organizer Name</label>
-												<input type="text" name="organizerName" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">Please enter the name of the organizer</span>
+												<label class="form-control-label">FIDE Rating</label>
+												<input type="text" name="fiderating" class="form-control m-input" placeholder="" value="">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
-												<label class="form-control-label">Organizer Number</label>
-												<input type="phone" name="organizerPhone" class="form-control m-input" placeholder="" value="">
-												<span class="m-form__help">Please enter the phone number of the organizer</span>
+												<label class="form-control-label">PAN No.</label>
+												<input type="text" name="pan" class="form-control m-input" placeholder="" value="">
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
-												<label class="form-control-label">Organizer Email</label>
-												<input type="email" name="organizerEmail" class="form-control m-input" placeholder="" value="">
+												<label class="form-control-label">Adhar Card No.</label>
+												<input type="text" name="adhar" class="form-control m-input" placeholder="" value="">
 											</div>
 										</div>
-										<div id="arbiters">
-											<div class="form-group m-form__group row">
-												<div class="col-11 m-form__group-sub">
-													<label class="form-control-label">Arbiters</label>
-													<input type="phone" id="add_arbiter_input" class="form-control m-input" placeholder="Enter name of an arbiter" value="" list="arbiters_list">
-													<datalist id="arbiters_list">
-													</datalist>
-												</div>
-												<div class="col-1 m-form__group-sub">
-													<label class="form-control-label text-center">&#8203;</label>
-													<button type="button" class="btn m-btn btn-primary" id="add_arbiter" title="Add Arbiter">+</button>
-												</div>
-											</div>
-										</div>
-										<br>
-										<div id="coaches">
-											<div class="form-group m-form__group row">
-												<div class="col-11 m-form__group-sub">
-													<label class="form-control-label">Coaches</label>
-													<input type="phone" id="add_coache_input" class="form-control m-input" placeholder="Enter name of a coach" value="" list="coaches_list">
-													<datalist id="coaches_list">
-													</datalist>
-												</div>
-												<div class="col-1 m-form__group-sub">
-													<label class="form-control-label text-center">&#8203;</label>
-													<button type="button" class="btn m-btn btn-primary" id="add_coache" title="Add Coach">+</button>
-												</div>
-											</div>
-										</div>
-										<div class="m-separator m-separator--dashed m-separator--lg my-3"></div>
 										<div class="form-group m-form__group row">
-											<div class="col-lg-12 m-form__group-sub">
-												<label class="form-control-label">Tournament Picture:</label>
-												<div class="custom-file">
-													<input type="file" name="image" class="custom-file-input" id="customFile" accept="image/*">
-													<label class="custom-file-label" for="customFile">Choose file</label>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">National Rating</label>
+												<input type="text" name="national" class="form-control m-input" placeholder="" value="">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Years of Experience</label>
+												<input type="number" name="experience" class="form-control m-input" placeholder="" value="">
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Communication Preference</label>
+												<div class="m-checkbox-inline">
+													<label class="m-checkbox">
+														<input type="checkbox" value="email" name="communication[]"> Email
+														<span></span>
+													</label>
+													<label class="m-checkbox">
+														<input type="checkbox" value="sms" name="communication[]"> SMS
+														<span></span>
+													</label>
+													<label class="m-checkbox">
+														<input type="checkbox" value="whatsapp" name="communication[]"> Whatsapp
+														<span></span>
+													</label>
 												</div>
-												<span class="m-form__help">Select a picture to be used as the tournament picture</span>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<a href="#" class="profile-pic" target="_blank"><strong>Profile Picture</strong></a>
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<a href="#" class="medcert" target="_blank"><strong>Medical Certificate</strong></a>
 											</div>
 										</div>
 									</div>
@@ -501,10 +492,10 @@ License: You must have a valid license purchased only from themeforest(the above
 									Actions
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenu2" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
-									<button class="dropdown-item text-primary action_tournament" type="button" data-action="approve" data-target=""><i class="fa fa-check-circle text-primary"></i> Approve</button>
-									<button class="dropdown-item text-info action_tournament" type="button" data-action="reject" data-target=""><i class="fa fa-times-circle text-info"></i> Reject</button>
-									<button class="dropdown-item text-dark feedback_tournament" type="button" data-action="feedback" data-target=""><i class="fa fa-share-alt text-dark"></i> Feedback</button>
-									<button class="dropdown-item text-danger action_tournament" type="button" data-action="delete" data-target=""><i class="fa fa-trash text-danger"></i> Delete</button>
+									<button class="dropdown-item text-primary action_user" type="button" data-action="approve" data-target=""><i class="fa fa-check-circle text-primary"></i> Approve</button>
+									<button class="dropdown-item text-info action_user" type="button" data-action="reject" data-target=""><i class="fa fa-times-circle text-info"></i> Reject</button>
+									<button class="dropdown-item text-dark feedback_user" type="button" data-action="feedback" data-target=""><i class="fa fa-share-alt text-dark"></i> Feedback</button>
+									<button class="dropdown-item text-danger action_user" type="button" data-action="delete" data-target=""><i class="fa fa-trash text-danger"></i> Delete</button>
 								</div>
 							</div>
 							<button type="submit" class="btn btn-warning" id="m_tournament_submit"><i class="fa fa-save fa-fw"></i>Save</button>
@@ -689,7 +680,7 @@ else if ($user['rejected']) echo '<td><div class="m-badge m-badge--wide m-badge-
 else echo '<td><div class="m-badge m-badge--wide approved-'.$userid.'">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
-								<a href="#" class="btn btn-lg btn-secondary m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill tournament_details" data-toggle="modal" data-target="#m_modal_tournament" data-id="$tournament[id]">
+								<a href="#" class="btn btn-lg btn-secondary m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill user_details" data-toggle="modal" data-target="#m_modal_user" data-id="$user[id]">
 									<i class="la la-plus m--hide" data-id="$user[id]"></i>
 									<i class="la la-ellipsis-h" data-id="$user[id]"></i>
 								</a>

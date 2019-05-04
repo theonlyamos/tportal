@@ -627,6 +627,36 @@ $(() =>{
   $("#arbiters").on("click", "#remove_arbiter", (e) => {
     var t = $(e.target).parent().closest(".input")
 
-    console.log(t)
+  })
+
+    // Users edit
+  $(".user_details").on("click", (e) => {
+    var id = $(e.target).data("id");
+    $("#userModalTitle").text("User - "+id);
+    $(".user_tournament").data("target", id);
+    $("input[name='action']").val("update");
+    $("input[name='target']").val(id);
+    $("#m_form_user").resetForm();
+    mApp.block(".m-content", {})
+    $.get('/adminActions.php', {action: "details", target: id, field: 'users'})
+     .done((d) =>{
+      var data = JSON.parse(d);
+      var user = data.user;
+      var formFields = ["fullname", "email", "username", "profession", "trainertitle", "dob", "gender",
+                        "blindness", "address", "postal", "district", "city", "state", "country", "cell",
+                        "phone", "fideid", "fiderating ", "pan", "adhar", "national", "experience",
+                        "communication", "image", "medcert"]
+      for (var i = 0; i<formFields.length; i++){
+        if (user.hasOwnProperty(formFields[i])){
+          if (formFields[i] == "gender"){
+            $("[value='"+formFields[i]+"']").checked();
+          }
+          else {
+            $("[name='"+formFields[i]+"']").val(user[formFields[i]]);
+          }
+        }
+      }
+      mApp.unblock(".m-content");
+    })
   })
 })
