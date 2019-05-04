@@ -101,7 +101,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Trainter Title</label>
-												<input type="text" name="trainterTitle" class="form-control m-input" placeholder="" value="">
+												<input type="text" name="trainertitle" class="form-control m-input" placeholder="" value="">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
@@ -486,7 +486,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" id="m_tournament_dismiss" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-secondary" id="m_user_dismiss" data-dismiss="modal">Close</button>
 							<div class="dropdown">
 								<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Actions
@@ -498,7 +498,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									<button class="dropdown-item text-danger action_user" type="button" data-action="delete" data-target=""><i class="fa fa-trash text-danger"></i> Delete</button>
 								</div>
 							</div>
-							<button type="submit" class="btn btn-warning" id="m_tournament_submit"><i class="fa fa-save fa-fw"></i>Save</button>
+							<button type="submit" class="btn btn-warning" id="m_user_submit"><i class="fa fa-save fa-fw"></i>Save</button>
 						</div>
 					</form>
         </div>
@@ -661,7 +661,7 @@ require_once '../functions.php';
 
 $country = $_SESSION['user']['country'];
 
-$result = queryDB("SELECT id, fullname, profession, country, email, phone, medcert, verified, approved FROM users ORDER BY createdAt DESC");
+$result = queryDB("SELECT id, fullname, profession, country, email, phone, medcert, verified, approved, rejected FROM users ORDER BY createdAt DESC");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 $result->data_seek($j);
@@ -676,7 +676,7 @@ else echo '<td></td>';
 if ($user['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
 else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
 if ($user['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--success approved-'.$userid.'">approved</div></td>';
-else if ($user['rejected']) echo '<td><div class="m-badge m-badge--wide m-badge--danger approved-'.$userid.'">approved</div></td>';
+else if ($user['rejected']) echo '<td><div class="m-badge m-badge--wide m-badge--danger approved-'.$userid.'">rejected</div></td>';
 else echo '<td><div class="m-badge m-badge--wide approved-'.$userid.'">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">

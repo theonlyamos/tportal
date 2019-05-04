@@ -192,12 +192,10 @@ else {
       if (queryDB("UPDATE posts SET approved = TRUE, rejected = FALSE WHERE type = 'tournament' AND id = '$target'")){
         $result = queryDB("SELECT title, organizerEmail FROM posts WHERE id = '$target'");
         if ($result->num_rows){
-          $user = $result->fetch_array(MYSQLI_ASSOC);
-          $email = $user['organizerEmail'];
-          $name = $user['title'];
+          $tournament = $result->fetch_array(MYSQLI_ASSOC);
         }
         $done = TRUE;
-        setLog('admin', $target, $name.' has been approved.', 'tournament');
+        setLog('admin', $target, $tournament['title'].' has been approved.', 'tournament');
       }
     }
     else if ($field == 'organizations'){
@@ -301,7 +299,7 @@ else {
         $mail->isHTML(TRUE);
         if ($field == 'users' || $field == 'organizations'){
           $mail->Subject ="Account Approval";
-          $mail->Body = "<h3>Hi, <b>".$name."</b></h3><br><h3>Your account has been reject.<br><a href='http://tportal.epizy.com/login'>Login to learn why.</a></h3>";
+          $mail->Body = "<h3>Hi, <b>".$name."</b></h3><br><h3>Your account has been rejected.<br><a href='http://tportal.epizy.com/login'>Login to learn why.</a></h3>";
         }
         else if ($field == 'tournaments'){
           $mail->Subject ="Tournament Approval";

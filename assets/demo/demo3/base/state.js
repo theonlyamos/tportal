@@ -102,7 +102,7 @@ $(() =>{
 
   $("#m_tournament_submit").click(function (e) {
         e.preventDefault();
-        e = $(e.target), e.attr("disabled", !0)
+        e = $(e.target), e.attr("disabled", !1)
         l = $("#m_form_tournament");
         l.validate({
           rules: {
@@ -151,7 +151,7 @@ $(() =>{
 
               $(tour).prependTo(".tournaments-section");
 */
-              e.attr("disabled", !1)
+              e.attr("disabled", !0)
               mApp.unblock("#m_modal_tournament .modal-content")
               l.clearForm().resetForm()
               $("#m_tournament_dismiss").click();

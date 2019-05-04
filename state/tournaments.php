@@ -127,30 +127,15 @@ License: You must have a valid license purchased only from themeforest(the above
 											<h3 class="m-form__heading-title">Tentative Dates</h3>
 										</div>
 										<div class="form-group m-form__group row">
-											<div class="col-md-6 m-form__group-sub">
-												<div class="input-group">
-													<div class="input-group-prepend"><span class="input-group-text">Start</span></div>
-													<input type="date" name="startDates[]" class="form-control m-input" placeholder="" value="">
+												<div class="col-md-4 m-form__group-sub">
+													<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
 												</div>
-											</div>
-											<div class="col-md-6 m-form__group-sub">
-												<div class="input-group">
-													<div class="input-group-prepend"><span class="input-group-text">End</span></div>
-													<input type="date" name="endDates[]" class="form-control m-input" placeholder="" value="">
+												<div class="col-md-4 m-form__group-sub">
+													<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
 												</div>
-											</div>
-											<div class="col-md-6 m-form__group-sub">
-												<div class="input-group">
-													<div class="input-group-prepend"><span class="input-group-text">Start</span></div>
-													<input type="date" name="startDates[]" class="form-control m-input" placeholder="" value="">
+												<div class="col-md-4 m-form__group-sub">
+													<input type="date" name="tentativeDates[]" class="form-control m-input" placeholder="" value="">
 												</div>
-											</div>
-											<div class="col-md-6 m-form__group-sub">
-												<div class="input-group">
-													<div class="input-group-prepend"><span class="input-group-text">End</span></div>
-													<input type="date" name="endDates[]" class="form-control m-input" placeholder="" value="">
-												</div>
-											</div>
 										</div>
 										<div class="form-group m-form__group row">
 											<div class="col-md-12 m-form__group-sub">
@@ -618,7 +603,7 @@ else echo '<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-
 											<th>Venue</th>
 											<th>Price</th>
 											<th>Approval</th>
-											<th></th>
+											<th>Actions</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -639,12 +624,8 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 											<td>&dollar;$tournament[price]</td>
 _END;
 if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">approved</div></td>';
+else if ($tournament['rejected']) echo '<td><div class="m-badge m-badge--wide m-badge--danger">approved</div></td>';
 else echo '<td><div class="m-badge m-badge--wide .approved">pending</div></td>';
-if ($tournament['approved']) echo '<td><button disabled id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
-else {
-	if ($_SESSION['user']['approved']) echo '<td><button data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air approve_tournament">Approve</td></tr>';
-	else echo '<td><button data-toggle="m-tooltip" data-original-title="You account has not been approved" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
-}
 }
 ?>
 									</tbody>

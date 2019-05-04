@@ -633,7 +633,7 @@ $(() =>{
   $(".user_details").on("click", (e) => {
     var id = $(e.target).data("id");
     $("#userModalTitle").text("User - "+id);
-    $(".user_tournament").data("target", id);
+    $(".action_user").data("target", id);
     $("input[name='action']").val("update");
     $("input[name='target']").val(id);
     $("#m_form_user").resetForm();
@@ -645,11 +645,17 @@ $(() =>{
       var formFields = ["fullname", "email", "username", "profession", "trainertitle", "dob", "gender",
                         "blindness", "address", "postal", "district", "city", "state", "country", "cell",
                         "phone", "fideid", "fiderating ", "pan", "adhar", "national", "experience",
-                        "communication", "image", "medcert"]
+                        "communication", "picture", "medcert"]
       for (var i = 0; i<formFields.length; i++){
         if (user.hasOwnProperty(formFields[i])){
           if (formFields[i] == "gender"){
-            $("[value='"+formFields[i]+"']").checked();
+            $("[value='"+user[formFields[i]]+"']").prop("checked", true);
+          }
+          else if (formFields[i] == "picture") {
+            $(".profile-pic").attr("href", '/assets/data/profiles/'+user[formFields[i]])
+          }
+          else if (formFields[i] == "medcert") {
+            $(".medcert").attr("href", '/assets/data/medical/'+user[formFields[i]])
           }
           else {
             $("[name='"+formFields[i]+"']").val(user[formFields[i]]);
@@ -658,5 +664,31 @@ $(() =>{
       }
       mApp.unblock(".m-content");
     })
+  })
+
+  $(".action_user").on("click", (e) => {
+    var t = $(e.target);
+    var target = t.data("target")
+    var action = t.data("action")
+    mApp.block(".modal-body", {})
+    $.get('/adminActions.php', {action: action, target: target, field: "users"})
+     .done((d) => {
+       if (action == 'approve'){
+        $(".approved-"+t.data("target")).removeClass("m-badge--danger").addClass("m-badge--success").text("approved");
+        $("#m_tournament_dismiss").click();
+        Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
+       }
+       else if (action == 'reject'){
+        $(".approved-"+t.data("target")).removeClass("m-badge--primary").addClass("m-badge--danger").text("rejected");
+        $("#m_tournament_dismiss").click();
+        Notify("Success", "Tournament rejected!", "success", "fa fa-times-circle");
+       }
+       else if (action == 'delete'){
+        $("tr."+t.data("target")).remove();
+        $("#m_tournament_dismiss").click();
+        Notify("Success", "Tournament deleted successfully!", "success", "fa fa-trash");
+       }
+       mApp.unblock(".modal-body")
+     })
   })
 })
