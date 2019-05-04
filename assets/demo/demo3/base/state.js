@@ -109,7 +109,7 @@ $(() =>{
             title: {
               required: !0
             },
-            organization: {
+            author: {
               required: !0
             },
             description: {
@@ -170,39 +170,88 @@ $(() =>{
   
     })
 
-    $(".approve_user").on("click", (e) => {
-      var t = $(e.target)
-      mApp.block(".m-content", {})
-      $.get('/actions.php', {name: "approve", target: t.data("target"), field: "users"})
-       .done((d) => {
-         t.attr("disabled", !0)
-         mApp.unblock(".m-content")
-         $(".approved-"+t.data("target")).addClass("m-badge--success");
-         Notify("Success", "User approved successfully!", "success", "fa fa-check")
-       })
-    })
+  $(".approve_user").on("click", (e) => {
+    var t = $(e.target)
+    mApp.block(".m-content", {})
+    $.get('/actions.php', {name: "approve", target: t.data("target"), field: "users"})
+      .done((d) => {
+        t.attr("disabled", !0)
+        mApp.unblock(".m-content")
+        $(".approved-"+t.data("target")).addClass("m-badge--success");
+        Notify("Success", "User approved successfully!", "success", "fa fa-check")
+      })
+  })
 
-    $(".approve_tournament").on("click", (e) => {
-      var t = $(e.target)
-      mApp.block(".m-content", {})
-      $.get('/actions.php', {name: "approve", target: t.data("target"), field: "tournaments"})
-       .done((d) => {
-         t.attr("disabled", !0)
-         mApp.unblock(".m-content")
-         $(".approved-"+t.data("target")).addClass("m-badge--primary");
-         Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
-       })
-    })
+  $(".tournament_details").on("click", (e) => {
+    var id = $(e.target).data("id");
+    $(".action_tournament").data("target", id);
+    $("input[name='action']").val("update");
+    $("input[name='target']").val(id);
+    $("#m_form_tournament").resetForm();
+    $("#arbiters_list").html("");
+    $("#coaches_list").html("");
+    mApp.block(".m-content", {})
+    $.get('/stateActions.php', {action: "details", target: id, field: 'tournaments'})
+      .done((d) => {
+        var data = JSON.parse(d);
+        var tournament = data.tournament;
+        var formFields = ["title", "description", "address", "city", "country", "venue", "users",
+                          "tentativeDates", "price", "contactName", "contactPhone", "contactEmail",
+                          "organizerName", "organizerEmail", "organizerPhone", "author", "arbiters", "coaches"]
+        for (var i = 0; i<formFields.length; i++){
+          if (formFields[i] == 'tentativeDates'){
+            for (var j = 0; j<tournament.tentativeDates.length; j++){
+              var el = $("[name='tentativeDates[]']")[j]
+              $(el).val(tournament.tentativeDates[j])
+            }
+          }
+          else if (formFields[i] == 'arbiters'){
+            if (tournament.arbiters){
+              for (var j = 0; j<tournament.arbiters.length; j++){
+                var arbiter = tournament.arbiters[j]
+                var line = '<div class="col-11 m-form__group-sub mt-2 input">'
+                line += '<input type="phone" name="arbiters[]" class="form-control m-input bg-secondary"'
+                line += ' placeholder="" value="'+arbiter+'" readonly></div>'
+                line += '<div class="col-1 m-form__group-sub mt-2">'
+                line += '<button type="button" class="btn m-btn btn-danger" id="remove_arbiter"'
+                line += ' title="Remove Arbiter">-</button></div>'
+                $("#arbiters .form-group").append(line);
+              }
+          }
+          }
+          else if (formFields[i] == 'coaches'){
+            if (tournament.coaches){
+              for (var j = 0; j<tournament.coaches.length; j++){
+                var coache = tournament.coaches[j]
+                var line = '<div class="col-11 m-form__group-sub mt-2 input">'
+                line += '<input type="phone" name="arbiters[]" class="form-control m-input bg-secondary"'
+                line += ' placeholder="" value="'+coache+'" readonly></div>'
+                line += '<div class="col-1 m-form__group-sub mt-2">'
+                line += '<button type="button" class="btn m-btn btn-danger" id="remove_arbiter"'
+                line += ' title="Remove Arbiter">-</button></div>'
 
-    $(".approve_organization").on("click", (e) => {
-      var t = $(e.target)
-      mApp.block(".m-content", {})
-      $.get('/actions.php', {name: "approve", target: t.data("target"), field: "organizations"})
-       .done((d) => {
-         t.attr("disabled", !0)
-         mApp.unblock(".m-content")
-         $(".approved-"+t.data("target")).addClass("m-badge--success");
-         Notify("Success", "Organization approved successfully!", "success", "fa fa-check")
-       })
-    })
+                $("#coaches .form-group").append(line);
+              }
+            }
+          }
+          else if (formFields[i] == 'users'){
+
+            for (var j in tournament.users){
+              if (tournament.users[j].profession == 'arbiter'){
+                var line = '<option>'+tournament.users[j].fullname+'</option>'
+                $("#arbiters_list").append(line);
+              }
+              else if (tournament.users[j].profession == 'coach'){
+                var line = '<option>'+tournament.users[j].fullname+'</option>'
+                $("#coaches_list").append(line);
+              }
+            }
+          }
+          else {
+            $("[name='"+formFields[i]+"']").val(tournament[formFields[i]]);
+          }
+        }
+        mApp.unblock(".m-content");
+      })
+  })
 })

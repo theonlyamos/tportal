@@ -4,7 +4,7 @@ session_start();
 
 require_once 'functions.php';
 
-if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
+if (strtolower($_SERVER['REQUEST_METHOD']) == 'post' && $_SESSION['user']['role'] == 'admin'){
   $field = sanitizeString($_POST['field']);
   $uid = $_SESSION['id'];
   
