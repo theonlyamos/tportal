@@ -671,13 +671,13 @@ echo <<< _END
 									<tr class="$user[id]"><td class="fullname">$user[fullname]</td><td class="profession">$user[profession]</td>
 									<td class="country">$user[country]</td><td class="email">$user[email]</td><td class="phone">$user[phone]</td>
 _END;
-if ($user['medcert']) echo '<td><a href="../assets/data/medical/'.$user['medcert'].'" class="nav-link" target="_blank"><i class="fa fa-link fa-fw"></li>View</a></td>';
-else echo '<td></td>';
-if ($user['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
-else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
-if ($user['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--success approved-'.$userid.'">approved</div></td>';
-else if ($user['rejected']) echo '<td><div class="m-badge m-badge--wide m-badge--danger approved-'.$userid.'">rejected</div></td>';
-else echo '<td><div class="m-badge m-badge--wide approved-'.$userid.'">pending</div></td>';
+if ($user['medcert']) echo '<td class="medcert"><a href="../assets/data/medical/'.$user['medcert'].'" class="nav-link" target="_blank"><i class="fa fa-link fa-fw"></li>View</a></td>';
+else echo '<td class="medcert"></td>';
+if ($user['verified']) echo '<td class="verified"><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
+else echo '<td class="verified"><div class="m-badge m-badge--wide verified">pending</div></td>';
+if ($user['approved']) echo '<td class="approved"><div class="m-badge m-badge--wide m-badge--success approved-'.$userid.'">approved</div></td>';
+else if ($user['rejected']) echo '<td class="approved"><div class="m-badge m-badge--wide m-badge--danger approved-'.$userid.'">rejected</div></td>';
+else echo '<td class="approved><div class="m-badge m-badge--wide approved-'.$userid.'">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
 								<a href="#" class="btn btn-lg btn-secondary m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill user_details" data-toggle="modal" data-target="#m_modal_user" data-id="$user[id]">

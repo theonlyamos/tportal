@@ -669,9 +669,9 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 									<tr class="$tournament[id]"><td class="title">$tournament[title]</td><td class="author">$tournament[author]</td><td class="country">$country</td>
 									<td class="venue">$tournament[venue]</td><td class="price">&dollar;$tournament[price]</td>
 _END;
-if ($tournament['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--primary approved-'.$tournamentid.'">approved</div></td>';
-else if ($tournament['rejected']) echo '<td><div class="m-badge m-badge--wide m-badge--danger approved-'.$tournamentid.'">rejected</div></td>';
-else echo '<td><div class="m-badge m-badge--wide approved-'.$tournamentid.'">pending</div></td>';
+if ($tournament['approved']) echo '<td class="approved"><div class="m-badge m-badge--wide m-badge--primary approved-'.$tournamentid.'">approved</div></td>';
+else if ($tournament['rejected']) echo '<td class="approced"><div class="m-badge m-badge--wide m-badge--danger approved-'.$tournamentid.'">rejected</div></td>';
+else echo '<td class="approved"><div class="m-badge m-badge--wide approved-'.$tournamentid.'">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
 								<a href="#" class="btn btn-lg btn-secondary m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill tournament_details" data-toggle="modal" data-target="#m_modal_tournament" data-id="$tournament[id]">

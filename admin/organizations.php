@@ -53,6 +53,401 @@ if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 
 	<!-- begin::Body -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+		<!--begin::Modal-->
+    <div class="modal fade modal-light" id="m_modal_organization" tabindex="-1" role="dialog" aria-labelledby="userModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
+        <div class="modal-content">
+					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_user" novalidate="novalidate" enctype="multipart/form-data">
+						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="organizations">
+						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="update">
+						<input type="hidden" name="target" class="form-control m-input" placeholder="" value="">
+						<div class="modal-header">
+							<h5 class="modal-title" id="organizationModalTitle">Organization</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="m-scrollable m-scroller ps ps--active-y" data-scrollbar-shown="true" data-scrollable="true" data-height="200" style="min-height: 70vh; overflow: hidden;">
+								<div class="m-portlet">
+									<div class="m-portlet__body">
+										<div class="form-group m-form__group row">
+											<label for="example-text-input" class="col-2 col-form-label text-left">Organization name</label>
+											<div class="col-10">
+												<input class="form-control m-input bg-secondary" type="text" value="" name="name" readonly>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<label for="example-text-input" class="col-2 col-form-label text-left">Email</label>
+											<div class="col-10">
+												<input class="form-control m-input bg-secondary" type="text" value="" name="email" readonly>
+											</div>
+										</div>
+										<div class="form-row m-form__group">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Country</label>
+												<select name="country" class="form-control m-input" required>
+													<option value="" selected>Select Country</option>
+													<option value="AF">Afghanistan</option>
+													<option value="AX">Åland Islands</option>
+													<option value="AL">Albania</option>
+													<option value="DZ">Algeria</option>
+													<option value="AS">American Samoa</option>
+													<option value="AD">Andorra</option>
+													<option value="AO">Angola</option>
+													<option value="AI">Anguilla</option>
+													<option value="AQ">Antarctica</option>
+													<option value="AG">Antigua and Barbuda</option>
+													<option value="AR">Argentina</option>
+													<option value="AM">Armenia</option>
+													<option value="AW">Aruba</option>
+													<option value="AU">Australia</option>
+													<option value="AT">Austria</option>
+													<option value="AZ">Azerbaijan</option>
+													<option value="BS">Bahamas</option>
+													<option value="BH">Bahrain</option>
+													<option value="BD">Bangladesh</option>
+													<option value="BB">Barbados</option>
+													<option value="BY">Belarus</option>
+													<option value="BE">Belgium</option>
+													<option value="BZ">Belize</option>
+													<option value="BJ">Benin</option>
+													<option value="BM">Bermuda</option>
+													<option value="BT">Bhutan</option>
+													<option value="BO">Bolivia, Plurinational State of</option>
+													<option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+													<option value="BA">Bosnia and Herzegovina</option>
+													<option value="BW">Botswana</option>
+													<option value="BV">Bouvet Island</option>
+													<option value="BR">Brazil</option>
+													<option value="IO">British Indian Ocean Territory</option>
+													<option value="BN">Brunei Darussalam</option>
+													<option value="BG">Bulgaria</option>
+													<option value="BF">Burkina Faso</option>
+													<option value="BI">Burundi</option>
+													<option value="KH">Cambodia</option>
+													<option value="CM">Cameroon</option>
+													<option value="CA">Canada</option>
+													<option value="CV">Cape Verde</option>
+													<option value="KY">Cayman Islands</option>
+													<option value="CF">Central African Republic</option>
+													<option value="TD">Chad</option>
+													<option value="CL">Chile</option>
+													<option value="CN">China</option>
+													<option value="CX">Christmas Island</option>
+													<option value="CC">Cocos (Keeling) Islands</option>
+													<option value="CO">Colombia</option>
+													<option value="KM">Comoros</option>
+													<option value="CG">Congo</option>
+													<option value="CD">Congo, the Democratic Republic of the</option>
+													<option value="CK">Cook Islands</option>
+													<option value="CR">Costa Rica</option>
+													<option value="CI">Côte d'Ivoire</option>
+													<option value="HR">Croatia</option>
+													<option value="CU">Cuba</option>
+													<option value="CW">Curaçao</option>
+													<option value="CY">Cyprus</option>
+													<option value="CZ">Czech Republic</option>
+													<option value="DK">Denmark</option>
+													<option value="DJ">Djibouti</option>
+													<option value="DM">Dominica</option>
+													<option value="DO">Dominican Republic</option>
+													<option value="EC">Ecuador</option>
+													<option value="EG">Egypt</option>
+													<option value="SV">El Salvador</option>
+													<option value="GQ">Equatorial Guinea</option>
+													<option value="ER">Eritrea</option>
+													<option value="EE">Estonia</option>
+													<option value="ET">Ethiopia</option>
+													<option value="FK">Falkland Islands (Malvinas)</option>
+													<option value="FO">Faroe Islands</option>
+													<option value="FJ">Fiji</option>
+													<option value="FI">Finland</option>
+													<option value="FR">France</option>
+													<option value="GF">French Guiana</option>
+													<option value="PF">French Polynesia</option>
+													<option value="TF">French Southern Territories</option>
+													<option value="GA">Gabon</option>
+													<option value="GM">Gambia</option>
+													<option value="GE">Georgia</option>
+													<option value="DE">Germany</option>
+													<option value="GH">Ghana</option>
+													<option value="GI">Gibraltar</option>
+													<option value="GR">Greece</option>
+													<option value="GL">Greenland</option>
+													<option value="GD">Grenada</option>
+													<option value="GP">Guadeloupe</option>
+													<option value="GU">Guam</option>
+													<option value="GT">Guatemala</option>
+													<option value="GG">Guernsey</option>
+													<option value="GN">Guinea</option>
+													<option value="GW">Guinea-Bissau</option>
+													<option value="GY">Guyana</option>
+													<option value="HT">Haiti</option>
+													<option value="HM">Heard Island and McDonald Islands</option>
+													<option value="VA">Holy See (Vatican City State)</option>
+													<option value="HN">Honduras</option>
+													<option value="HK">Hong Kong</option>
+													<option value="HU">Hungary</option>
+													<option value="IS">Iceland</option>
+													<option value="IN">India</option>
+													<option value="ID">Indonesia</option>
+													<option value="IR">Iran, Islamic Republic of</option>
+													<option value="IQ">Iraq</option>
+													<option value="IE">Ireland</option>
+													<option value="IM">Isle of Man</option>
+													<option value="IL">Israel</option>
+													<option value="IT">Italy</option>
+													<option value="JM">Jamaica</option>
+													<option value="JP">Japan</option>
+													<option value="JE">Jersey</option>
+													<option value="JO">Jordan</option>
+													<option value="KZ">Kazakhstan</option>
+													<option value="KE">Kenya</option>
+													<option value="KI">Kiribati</option>
+													<option value="KP">Korea, Democratic People's Republic of</option>
+													<option value="KR">Korea, Republic of</option>
+													<option value="KW">Kuwait</option>
+													<option value="KG">Kyrgyzstan</option>
+													<option value="LA">Lao People's Democratic Republic</option>
+													<option value="LV">Latvia</option>
+													<option value="LB">Lebanon</option>
+													<option value="LS">Lesotho</option>
+													<option value="LR">Liberia</option>
+													<option value="LY">Libya</option>
+													<option value="LI">Liechtenstein</option>
+													<option value="LT">Lithuania</option>
+													<option value="LU">Luxembourg</option>
+													<option value="MO">Macao</option>
+													<option value="MK">Macedonia, the former Yugoslav Republic of</option>
+													<option value="MG">Madagascar</option>
+													<option value="MW">Malawi</option>
+													<option value="MY">Malaysia</option>
+													<option value="MV">Maldives</option>
+													<option value="ML">Mali</option>
+													<option value="MT">Malta</option>
+													<option value="MH">Marshall Islands</option>
+													<option value="MQ">Martinique</option>
+													<option value="MR">Mauritania</option>
+													<option value="MU">Mauritius</option>
+													<option value="YT">Mayotte</option>
+													<option value="MX">Mexico</option>
+													<option value="FM">Micronesia, Federated States of</option>
+													<option value="MD">Moldova, Republic of</option>
+													<option value="MC">Monaco</option>
+													<option value="MN">Mongolia</option>
+													<option value="ME">Montenegro</option>
+													<option value="MS">Montserrat</option>
+													<option value="MA">Morocco</option>
+													<option value="MZ">Mozambique</option>
+													<option value="MM">Myanmar</option>
+													<option value="NA">Namibia</option>
+													<option value="NR">Nauru</option>
+													<option value="NP">Nepal</option>
+													<option value="NL">Netherlands</option>
+													<option value="NC">New Caledonia</option>
+													<option value="NZ">New Zealand</option>
+													<option value="NI">Nicaragua</option>
+													<option value="NE">Niger</option>
+													<option value="NG">Nigeria</option>
+													<option value="NU">Niue</option>
+													<option value="NF">Norfolk Island</option>
+													<option value="MP">Northern Mariana Islands</option>
+													<option value="NO">Norway</option>
+													<option value="OM">Oman</option>
+													<option value="PK">Pakistan</option>
+													<option value="PW">Palau</option>
+													<option value="PS">Palestinian Territory, Occupied</option>
+													<option value="PA">Panama</option>
+													<option value="PG">Papua New Guinea</option>
+													<option value="PY">Paraguay</option>
+													<option value="PE">Peru</option>
+													<option value="PH">Philippines</option>
+													<option value="PN">Pitcairn</option>
+													<option value="PL">Poland</option>
+													<option value="PT">Portugal</option>
+													<option value="PR">Puerto Rico</option>
+													<option value="QA">Qatar</option>
+													<option value="RE">Réunion</option>
+													<option value="RO">Romania</option>
+													<option value="RU">Russian Federation</option>
+													<option value="RW">Rwanda</option>
+													<option value="BL">Saint Barthélemy</option>
+													<option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+													<option value="KN">Saint Kitts and Nevis</option>
+													<option value="LC">Saint Lucia</option>
+													<option value="MF">Saint Martin (French part)</option>
+													<option value="PM">Saint Pierre and Miquelon</option>
+													<option value="VC">Saint Vincent and the Grenadines</option>
+													<option value="WS">Samoa</option>
+													<option value="SM">San Marino</option>
+													<option value="ST">Sao Tome and Principe</option>
+													<option value="SA">Saudi Arabia</option>
+													<option value="SN">Senegal</option>
+													<option value="RS">Serbia</option>
+													<option value="SC">Seychelles</option>
+													<option value="SL">Sierra Leone</option>
+													<option value="SG">Singapore</option>
+													<option value="SX">Sint Maarten (Dutch part)</option>
+													<option value="SK">Slovakia</option>
+													<option value="SI">Slovenia</option>
+													<option value="SB">Solomon Islands</option>
+													<option value="SO">Somalia</option>
+													<option value="ZA">South Africa</option>
+													<option value="GS">South Georgia and the South Sandwich Islands</option>
+													<option value="SS">South Sudan</option>
+													<option value="ES">Spain</option>
+													<option value="LK">Sri Lanka</option>
+													<option value="SD">Sudan</option>
+													<option value="SR">Suriname</option>
+													<option value="SJ">Svalbard and Jan Mayen</option>
+													<option value="SZ">Swaziland</option>
+													<option value="SE">Sweden</option>
+													<option value="CH">Switzerland</option>
+													<option value="SY">Syrian Arab Republic</option>
+													<option value="TW">Taiwan, Province of China</option>
+													<option value="TJ">Tajikistan</option>
+													<option value="TZ">Tanzania, United Republic of</option>
+													<option value="TH">Thailand</option>
+													<option value="TL">Timor-Leste</option>
+													<option value="TG">Togo</option>
+													<option value="TK">Tokelau</option>
+													<option value="TO">Tonga</option>
+													<option value="TT">Trinidad and Tobago</option>
+													<option value="TN">Tunisia</option>
+													<option value="TR">Turkey</option>
+													<option value="TM">Turkmenistan</option>
+													<option value="TC">Turks and Caicos Islands</option>
+													<option value="TV">Tuvalu</option>
+													<option value="UG">Uganda</option>
+													<option value="UA">Ukraine</option>
+													<option value="AE">United Arab Emirates</option>
+													<option value="GB">United Kingdom</option>
+													<option value="US">United States</option>
+													<option value="UM">United States Minor Outlying Islands</option>
+													<option value="UY">Uruguay</option>
+													<option value="UZ">Uzbekistan</option>
+													<option value="VU">Vanuatu</option>
+													<option value="VE">Venezuela, Bolivarian Republic of</option>
+													<option value="VN">Viet Nam</option>
+													<option value="VG">Virgin Islands, British</option>
+													<option value="VI">Virgin Islands, U.S.</option>
+													<option value="WF">Wallis and Futuna</option>
+													<option value="EH">Western Sahara</option>
+													<option value="YE">Yemen</option>
+													<option value="ZM">Zambia</option>
+													<option value="ZW">Zimbabwe</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-12">
+												<input class="form-control m-input" type="text" value="" name="contact" placeholder="Contact No[Landline]" required>
+											</div>
+										</div>
+										<div class="form-row m-form__group">
+											<div class="col-4">
+												<input class="form-control m-input" type="email" placeholder="Secondary Email" name="secondEmail" required>
+											</div>
+											<div class="col-4">
+												<input class="form-control m-input" type="text" placeholder="Mobile No" name="phone" required>
+											</div>
+											<div class="col-4">
+												<input class="form-control m-input" type="text" placeholder="Website URL" name="website" required>
+											</div>
+										</div>
+										<div class="form-row m-form__group">
+											<div class="col-6">
+												<input class="form-control m-input" type="text" placeholder="Name of Organizer" name="organizer" required>
+											</div>
+											<div class="col-6">
+												<input class="form-control m-input" type="text" placeholder="Organizer Email" name="organizerEmail" required>
+											</div>
+										</div>
+
+										<div class="form-group m-form__group row">
+											<label for=""  class="col-lg-5 col-form-label text-left">Registration No (Public Trust or Society Reg No.):</label>
+											<div class="col-lg-9 custom-file" style="margin-left: 15px">
+												<input type="file" name="document" class="custom-file-input" id="customFile2" accept="image/jpeg,image/png,application/pdf" required="">
+												<label class="custom-file-label" for="customFile2">Choose file (JPG,PNG,PDF)</label>
+											</div>
+											<div class="col-lg-2">
+												<input class="form-control m-input" type="text" placeholder="PAN No" name="pan" required>
+											</div>
+										</div>
+
+										<div class="form-row m-form__group">
+											<div class="col-12">
+												<textarea class="form-control m-input" rows="5" type="text" placeholder="Aims & Objectives" name="obectives" required></textarea>
+											</div>
+										</div>
+										<div class="form-row m-form__group">
+											<div class="col-12">
+												List of Office Bearers
+											</div>
+										</div>
+										<div id="bearers">
+											<div class="form-row m-form__group">
+												<div class="col-4">
+													<input class="form-control m-input" type="text" placeholder="Bearers Name" name="bearerNames[]" required>
+												</div>
+												<div class="col-2">
+													<input class="form-control m-input" type="text" placeholder="Contact No" name="bearerPhones[]" required>
+												</div>
+												<div class="col-2">
+													<input class="form-control m-input" type="text" placeholder="Email Id" name="bearerEmails[]" required>
+												</div>
+												<div class="col-2">
+													<input class="form-control m-input" type="text" placeholder="PAN No" name="bearerPans[]" required>
+												</div>
+												<div class="col-2">
+													<input class="form-control m-input" type="text" placeholder="Designation" name="bearerDesignations[]" required>
+												</div>
+											</div>
+										</div>
+										<div class="form-row m-form__group">
+											<div class="col-12 text-right">
+												<button type="button" id="add_bearer" class="btn btn-success btn-sm">Add More</button>
+											</div>
+										</div>
+										<div class="form-row m-form__group">
+											<div class="col-6">
+												<input class="form-control m-input" type="text" placeholder="Key Contact Person" name="contactPerson" required>
+											</div>
+											<div class="col-6">
+												<input class="form-control m-input" type="text" placeholder="Contact No" name="contactPhone" required>
+											</div>
+										</div>
+										<div class="form-group m-form__group row">
+											<label for=""  class="col-5 col-form-label text-left">Logo:</label>
+											<div class="col-11 custom-file" style="margin-left: 15px">
+												<input type="file" name="logo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,image/gif" required="">
+												<label class="custom-file-label" for="customFile">Choose file (JPG,PNG,GIF)</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" id="m_organization_dismiss" data-dismiss="modal">Close</button>
+							<div class="dropdown">
+								<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Actions
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenu2" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
+									<button class="dropdown-item text-primary action_organization" type="button" data-action="approve" data-target=""><i class="fa fa-check-circle text-primary"></i> Approve</button>
+									<button class="dropdown-item text-info action_organization" type="button" data-action="reject" data-target=""><i class="fa fa-times-circle text-info"></i> Reject</button>
+									<button class="dropdown-item text-dark feedback_organization" type="button" data-action="feedback" data-target=""><i class="fa fa-share-alt text-dark"></i> Feedback</button>
+									<button class="dropdown-item text-danger action_organization" type="button" data-action="delete" data-target=""><i class="fa fa-trash text-danger"></i> Delete</button>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-warning" id="m_organization_submit"><i class="fa fa-save fa-fw"></i>Save</button>
+						</div>
+					</form>
+        </div>
+      </div>
+    </div>
+    <!--end::Modal-->
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 <?php
@@ -203,87 +598,24 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 	$organization = $result->fetch_array(MYSQLI_ASSOC);
   $organizationid = $organization['id'];
 	echo <<< _END
-									<tr><td>$organization[name]</td><td>$organization[country]</td><td>$organization[email]</td><td>$organization[contact]</td>
-											<td>$organization[website]</td>
+									<tr class="$organizationid"><td class="name">$organization[name]</td><td class="country">$organization[country]</td>
+									<td name="email">$organization[email]</td><td name="contact">$organization[contact]</td><td name="website">$organization[website]</td>
 _END;
-if ($organization['document']) echo '<td><a href="../assets/data/documents/'.$organization['document'].'" class="nav-link" target="_blank"><i class="fa fa-link fa-fw"></li>View</a></td>';
-else echo '<td></td>';
-if ($organization['verified']) echo '<td><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
-else echo '<td><div class="m-badge m-badge--wide verified">pending</div></td>';
-if ($organization['approved']) echo '<td><div class="m-badge m-badge--wide m-badge--success">approved</div></td>';
-else echo '<td><div class="m-badge m-badge--wide approved-'.$organizationid.'">pending</div></td>';
+if ($organization['document']) echo '<td class="document"><a href="../assets/data/documents/'.$organization['document'].'" class="nav-link" target="_blank"><i class="fa fa-link fa-fw"></li>View</a></td>';
+else echo '<td class="document"></td>';
+if ($organization['verified']) echo '<td class="verified"><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
+else echo '<td class="verified"><div class="m-badge m-badge--wide verified">pending</div></td>';
+if ($organization['approved']) echo '<td class="approved"><div class="m-badge m-badge--wide m-badge--success approved-'.$organizationid.'">approved</div></td>';
+else if ($organization['rejected']) echo '<td class="approved"><div class="m-badge m-badge--wide m-badge--danger approved-'.$organizationid.'">rejected</div></td>';
+else echo '<td class="approved"><div class="m-badge m-badge--wide approved-'.$organizationid.'">pending</div></td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
-								<div>
-								<div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-									<a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
-										<i class="la la-plus m--hide"></i>
-										<i class="la la-ellipsis-h"></i>
-									</a>
-									<div class="m-dropdown__wrapper" style="z-index: 101;">
-										<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 21.5px;"></span>
-										<div class="m-dropdown__inner">
-											<div class="m-dropdown__body">
-												<div class="m-dropdown__content">
-													<ul class="m-nav">
-														<li class="m-nav__section m-nav__section--first m--hide">
-															<span class="m-nav__section-text">Quick Actions</span>
-														</li>
-_END;
-if ($organization['approved']) {
-	echo <<< _END
-														<li class="m-nav__item">
-															<button class="btn btn-link" disabled>
-																<i class="m-nav__link-icon fa fa-check text-success"></i>
-																Approved
-															</button>
-														</li>
-														<li class="m-nav__item py-2">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																Cancel
-															</button>
-														</li>
-_END;
-}
-else {
-	echo <<< _END
-														<li class="m-nav__item">
-															<button class="btn btn-link approve_organization" data-target="$organizationid">
-																<i class="m-nav__link-icon fa fa-check text-success"></i>
-																Approve
-															</button>
-														</li>
-														<li class="m-nav__item py-2">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon fa fa-times text-danger"></i>
-																Cancel
-															</button>
-														</li>
-_END;
-}
-echo <<< _END
-														<li class="m-nav__item">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon flaticon-edit"></i>
-																Edit
-															</button>
-														</li>
-														<li class="m-nav__item pt-2">
-															<button class="btn btn-link">
-																<i class="m-nav__link-icon fa fa-trash"></i>
-																Delete
-															</button>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</td>
-					</tr>
+								<a href="#" class="btn btn-lg btn-secondary m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill organization_details" data-toggle="modal" data-target="#m_modal_organization" data-id="$organization[id]">
+									<i class="la la-plus m--hide" data-id="$organization[id]"></i>
+									<i class="la la-ellipsis-h" data-id="$organization[id]"></i>
+								</a>
+							</td>
+						</tr>
 _END;
 #if ($tournament['approved']) echo '<td><button disabled id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve</td></tr>';
 #else echo '<td><button id="approve_tournament" data-target="'.$tournament['id'].'" class="btn btn-primary btn-sm m-btn m-btn--air">Approve </td></tr>';
