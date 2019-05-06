@@ -142,7 +142,7 @@ else {
       if ($done) {
         $subject ="Account Approval";
         $body = "<h3>Hi, <strong>".$name."</strong></h3><p>Your account has been approved.</p><p>You can now participate in tournaments.</p><p><a href='http://tportal.epizy.com/login'>Login to register for tournaments.</a></p>";
-        echo $email;
+        
         sendPHPMail($email, $name, $subject, $body);
         http_response_code(201);
       }
@@ -165,9 +165,8 @@ else {
 
       if ($done) {
         $subject ="Account Approval";
-        $body = "<h3>Hi, <strong>".$name."</strong></h3><br><h3>Your account has been rejected.<br><a href='http://tportal.epizy.com/login'>Login to learn more....</a></h3>";
+        $body = "<h3>Hi, <strong>".$name."</strong></h3><p>Your account has been rejected.</p><p><a href='http://tportal.epizy.com/login'>Login to learn more....</a></p>";
         
-        echo $email;
         sendPHPMail($email, $name, $subject, $body);
         http_response_code(201);
       }
