@@ -20,7 +20,6 @@ if ($connection->connect_error) die($connection->connect_error);
 
 function queryDB ($query){
   global $connection;
-  $query = $connection->real_escape_string($query);
   $result = $connection->query($query);
   if (!$result) die($connection->error);
   return $result;
@@ -32,7 +31,7 @@ function sanitizeString($var) {
   $var = strip_tags($var);
   $var = htmlentities($var);
   $var = stripslashes($var);
-  return $var;
+  return $query = $connection->real_escape_string($var);
 }
 
 function createTable($name, $query) {

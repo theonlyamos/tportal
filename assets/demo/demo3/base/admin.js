@@ -671,20 +671,21 @@ $(() =>{
     mApp.block(".modal-body", {})
     $.get('/adminActions.php', {action: action, target: target, field: "users"})
      .done((d) => {
+       console.log(d);
        if (action == 'approve'){
         $(".approved-"+t.data("target")).removeClass("m-badge--danger").addClass("m-badge--success").text("approved");
         $("#m_tournament_dismiss").click();
-        Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
+        Notify("Success", "User approved successfully!", "success", "fa fa-check")
        }
        else if (action == 'reject'){
         $(".approved-"+t.data("target")).removeClass("m-badge--primary").addClass("m-badge--danger").text("rejected");
         $("#m_tournament_dismiss").click();
-        Notify("Success", "Tournament rejected!", "success", "fa fa-times-circle");
+        Notify("Success", "User rejected!", "success", "fa fa-times-circle");
        }
        else if (action == 'delete'){
         $("tr."+t.data("target")).remove();
         $("#m_tournament_dismiss").click();
-        Notify("Success", "Tournament deleted successfully!", "success", "fa fa-trash");
+        Notify("Success", "User deleted successfully!", "success", "fa fa-trash");
        }
        mApp.unblock(".modal-body")
      })
