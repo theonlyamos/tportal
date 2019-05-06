@@ -30,8 +30,7 @@ function Notify(title,message,state,icon) {
 
 $(() =>{
   $("#m_modal_tournament").on("show.bs.modal", ()=>{
-    //alert("Opened modal")
-  
+    $("#m_form_tournament").resetForm();
   })
 
   $(".editable").on("mouseenter", (e) => {
@@ -500,7 +499,6 @@ $(() =>{
     $(".action_tournament").data("target", id);
     $("input[name='action']").val("update");
     $("input[name='target']").val(id);
-    $("#m_form_tournament").resetForm();
     $("#arbiters_list").html("");
     $("#coaches_list").html("");
     mApp.block(".m-content", {})

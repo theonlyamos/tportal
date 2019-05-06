@@ -29,8 +29,12 @@ function Notify(title,message,state,icon) {
 }
 
 $(() =>{
-  $("#name_modal").on("bs.modal.show", ()=>{
+  $("#name_modal").on("show.bs.modal", ()=>{
     //alert("Opened modal")
+  })
+
+  $("#m_modal_tournament").on("show.bs.modal", ()=>{
+    $("#m_form_tournament").resetForm();
   })
 
   $(".editable").on("mouseenter", (e) => {

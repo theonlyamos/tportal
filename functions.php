@@ -5,17 +5,22 @@
  * @date    2019-03-20 14:37:00
  * @version 1.0.0
  */
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
-$dbhost = "sql304.epizy.com";
-$dbuser = "epiz_23637101";
-$dbpass = "30fBCiC73v";
-$dbname = "epiz_23637101_tportal";
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
 
-$connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+require_once '.env.php';
+
+$connection = new mysqli($dbCreds['host'], $dbCreds['user'], $dbCreds['pass'], $dbCreds['name']);
 if ($connection->connect_error) die($connection->connect_error);
 
 function queryDB ($query){
   global $connection;
+  $query = $connection->real_escape_string($query);
   $result = $connection->query($query);
   if (!$result) die($connection->error);
   return $result;
@@ -27,7 +32,7 @@ function sanitizeString($var) {
   $var = strip_tags($var);
   $var = htmlentities($var);
   $var = stripslashes($var);
-  return $connection->real_escape_string($var);
+  return $var;
 }
 
 function createTable($name, $query) {
@@ -61,6 +66,31 @@ function getLogs($lastLog){
   }
   else {
     return false;
+  }
+}
+
+function sendPHPMail($address, $name="", $subject, $body){
+  global $smtpCreds;
+  $mail = new PHPMailer(TRUE);
+  try {
+    $mail->setFrom($smtpCreds['username'], "Tportal");
+    $mail->addAddress($address, $name);
+    $mail->Subject = $subject;
+    $mail->isHTML(TRUE);
+    $mail->Body = $body;
+    $mail->isSMTP();
+    $mail->Host = $smtpCreds['host'];
+    $mail->SMTPAuth = TRUE;
+    $mail->Username = $smtpCreds['username'];
+    $mail->Password = $smtpCreds['password'];
+    $mail->Port = 587;
+    $mail->send();
+  }
+  catch (Exception $e) {
+    echo $e-> errorMessage();
+  }
+  catch (\Exception $e){
+      echo $e->getMessage();
   }
 }
 

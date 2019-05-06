@@ -5,16 +5,10 @@
  * @date    2019-03-24 22:19:13
  * @version 1.0.0
  */
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
 
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
-require 'PHPMailer/src/Exception.php';
+session_start();
 
 require_once 'functions.php';
-session_start();
 
 if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
   $action = sanitizeString(strtolower($_POST['action']));
@@ -212,38 +206,10 @@ else {
     }
 
     if ($done) {
-      echo "ok";
-
-      $mail = new PHPMailer(TRUE);
-      try {
-        $mail->setFrom('donotreply@barthwal.com', "Tportal");
-        $mail->addAddress($email, $name);
-        $mail->isHTML(TRUE);
-        if ($field == 'users' || $field == 'organizations'){
-          $mail->Subject ="Account Approval";
-          $mail->Body = "<h3>Hi, <b>".$name."</b></h3><br><h3>Your account has been approved.<br><a href='http://tportal.epizy.com/login'>Login to register for tournaments.</a></h3>";
-        }
-        else if ($field == 'tournaments'){
-          $mail->Subject ="Tournament Approval";
-          $mail->Body = "<h3>Your tournament <b>".$name."</b> has been approved.</h3>";
-        }
-        $mail->isSMTP();
-        $mail->Host = "mail.barthwal.com";
-        $mail->SMTPAuth = TRUE;
-        $mail->Username = "donotreply@barthwal.com";
-        $mail->Password = 'gZV$PL(J$rxW';
-        $mail->Port = 587;
-        $mail->send();
-      }
-      catch (Exception $e) {
-        http_response_code(400);
-        echo $e-> errorMessage();
-      }
-      catch (\Exception $e){
-        http_response_code(400);
-          echo $e->getMessage();
-      }
-
+      $subject ="Account Approval";
+      $body = "<h3>Hi, <strong>".$name."</strong></h3><br><h3>Your account has been approved.<br><a href='http://tportal.epizy.com/login'>Login to register for tournaments.</a></h3>";
+      
+      sendPHPMail($email, $name, $subject, $body);
       http_response_code(201);
     }
   }
@@ -290,38 +256,10 @@ else {
     }
 
     if ($done) {
-      echo "ok";
-
-      $mail = new PHPMailer(TRUE);
-      try {
-        $mail->setFrom('donotreply@barthwal.com', "Tportal");
-        $mail->addAddress($email, $name);
-        $mail->isHTML(TRUE);
-        if ($field == 'users' || $field == 'organizations'){
-          $mail->Subject ="Account Approval";
-          $mail->Body = "<h3>Hi, <b>".$name."</b></h3><br><h3>Your account has been rejected.<br><a href='http://tportal.epizy.com/login'>Login to learn why.</a></h3>";
-        }
-        else if ($field == 'tournaments'){
-          $mail->Subject ="Tournament Approval";
-          $mail->Body = "<h3>Your tournament <b>".$name."</b> has been rejected.</h3>";
-        }
-        $mail->isSMTP();
-        $mail->Host = "mail.barthwal.com";
-        $mail->SMTPAuth = TRUE;
-        $mail->Username = "donotreply@barthwal.com";
-        $mail->Password = 'gZV$PL(J$rxW';
-        $mail->Port = 587;
-        $mail->send();
-      }
-      catch (Exception $e) {
-        http_response_code(400);
-        echo $e-> errorMessage();
-      }
-      catch (\Exception $e){
-        http_response_code(400);
-          echo $e->getMessage();
-      }
-
+      $subject ="Account Approval";
+      $body = "<h3>Hi, <strong>".$name."</strong></h3><br><h3>Your account has been rejected.<br><a href='http://tportal.epizy.com/login'>Login to learn why.</a></h3>";
+      
+      sendPHPMail($email, $name, $subject, $body);
       http_response_code(201);
     }
   }
