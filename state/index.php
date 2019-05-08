@@ -638,7 +638,7 @@ License: You must have a valid license purchased only from themeforest(the above
 require_once '../functions.php';
 
 $country = $_SESSION['user']['country'];
-$result = queryDB("SELECT username, profession FROM users");
+$result = queryDB("SELECT username, profession FROM users WHERE country='$country'");
 
 $players = 0;
 $coaches = 0;

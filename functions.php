@@ -73,7 +73,14 @@ function sendPHPMail($address, $name="", $subject, $body){
   $mail = new PHPMailer(TRUE);
   try {
     $mail->setFrom($smtpCreds['username'], "Tportal");
-    $mail->addAddress($address, $name);
+    if (is_array($address)){
+      foreach($address as $mail){
+        $mail->addCC($mail, $name);
+      }
+    }
+    else {
+      $mail->addAddress($address, $name);
+    }
     $mail->Subject = $subject;
     $mail->isHTML(TRUE);
     $mail->Body = $body;

@@ -46,6 +46,8 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post' && $_SESSION['user']['role'
       $userid = $_SESSION['user']['id'];
       $user_role = $_SESSION['user']['profession'];
 
+      $done = FALSE;
+
       $image = NULL;
       if ($_FILES){
         $filename = $_FILES['image']['name'];
@@ -60,16 +62,39 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post' && $_SESSION['user']['role'
       '$contactPhone', '$contactEmail', '$organizerName', '$organizerPhone', '$organizerEmail', '$userid', '$user_role', '$image')";
 
       if (queryDB($query)){
+        $done = TRUE;
         setLog('organization', $_SESSION['user']['id'], "posted tournament: $title", $_SESSION['user']['country']);
         $result = queryDB("SELECT * FROM posts ORDER BY createdAt DESC LIMIT 1");
         $tournament = $result->fetch_array(MYSQLI_ASSOC);
         $tournament['tentativeDates'] = unserialize($tournament['tentativeDates']);
+        $tournamentid = tournament['id'];
         http_response_code(202);
         echo json_encode($tournament);
       }
       else {
         http_response_code(500);
         echo "Error during operation.";
+      }
+
+      if ($done) {
+        $subject ="New Tournament";
+        $body = "<h4>A new tournament has been posted</h4><br>
+                <table><tr><th>Organization</th><td><strong>$author</strong></td></tr>
+                <tr><th>Tournament Name</th><td><strong>$title</strong></td></tr>
+                <tr><th>Country</th><td><strong>$country</strong></td></tr>
+                <tr><th>City</th><td><strong>$city</strong></td></tr>
+                <tr><th>Venue</th><td><strong>$venue</strong><td></tr>
+                <tr><th>Price</th><td><strong>&dollar;$city</strong></td></tr></table>
+                <p><a href='http://tportal.com/home/tournaments.php?id=$tournamentid' target='_blank'>
+                Click here to view and register for tournament</a></p>";
+        
+        $email = array($email);
+        $result = queryDB("SELECT email FROM users, states WHERE users.country='$country'");
+        $addresses = $result->fetch_array(MYSQL_NUM);
+        $email = array_merge($email, $addresses);
+        
+        sendPHPMail($email, $name, $subject, $body);  
+        http_response_code(201);
       }
     }
     else if ($action == 'update'){

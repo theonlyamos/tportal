@@ -196,8 +196,75 @@ else {
       $result = queryDB("SELECT * FROM states WHERE id = '$target'");
       if ($result->num_rows){
         $org = $result->fetch_array(MYSQLI_ASSOC);
+        $org['bearerNames'] = unserialize($org['bearerNames']);
+        $org['bearerPhones'] = unserialize($org['bearerPhones']);
+        $org['bearerEmails'] = unserialize($org['bearerEmails']);
+        $org['bearerPans'] = unserialize($org['bearerPans']);
+        $org['bearerDesignations'] = unserialize($org['bearerDesignations']);
         setLog('admin', $_SESSION['user']['id'], "get organization: ".$target, $org['country']);
         echo json_encode(array("success" => TRUE, "orgs" => $org));
+      }
+    }
+
+    else if ($action == 'approve'){
+      $target = sanitizeString($_GET['target']);
+      $done = FALSE;
+  
+      if (queryDB("UPDATE states SET approved = TRUE, rejected = FALSE WHERE id = '$target'")){
+        $result = queryDB("SELECT email, name FROM states WHERE id = '$target'");
+        if ($result->num_rows){
+          $org = $result->fetch_array(MYSQLI_ASSOC);
+          $email = $org['email'];
+          $name = $org['name'];
+        }
+        $done = TRUE;
+        setLog('admin', $target, $name.' has been approved.', 'admin');
+      }
+  
+      if ($done) {
+        $subject ="Account Approval";
+        $body = "<h3><strong>".$name."</strong></h3><p>Your account has been approved.</p><p>You can now participate in tournaments.</p><p><a href='http://tportal.epizy.com/login'>Login to register for tournaments.</a></p>";
+        
+        sendPHPMail($email, $name, $subject, $body);
+        http_response_code(201);
+      }
+    }
+  
+    else if ($action == 'reject'){
+      $target = sanitizeString($_GET['target']);
+      $done = FALSE;
+      
+      if (queryDB("UPDATE states SET approved = FALSE, rejected = TRUE WHERE id = '$target'")){
+        $result = queryDB("SELECT name, email FROM states WHERE id = '$target'");
+        if ($result->num_rows){
+          $org = $result->fetch_array(MYSQLI_ASSOC);
+          $email = $org['email'];
+          $name = $org['name'];
+        }
+        $done = TRUE;
+        setLog('admin', $target, $name.' has been rejected.', 'admin');
+      }
+  
+      if ($done) {
+        $subject ="Account Approval";
+        $body = "<h3><strong>".$name."</strong></h3><p>Your account has been rejected.</p><p><a href='http://tportal.epizy.com/login'>Login to learn more....</a></p>";
+        
+        sendPHPMail($email, $name, $subject, $body);
+        http_response_code(201);
+      }
+    }
+  
+    else if ($action == 'delete'){
+      $target = sanitizeString($_GET['target']);
+  
+      if (queryDB("DELETE FROM states WHERE id = '$target'")){
+        setLog("admin", $target, "organization $target has been deleted", "admin");
+        echo "ok";
+      }
+      else {
+        setLog("admin", $target, "failed to delete organization ".$target, "admin");
+        http_response_code(400);
+        echo "Deletion failed";
       }
     }
   }

@@ -277,7 +277,7 @@ if ($_GET['id']){
 															</div>
 														</div>
 														<div class="m-widget19__body">
-															<table class="table table-striped table-borderless table-dark col-12 pr-0">
+															<table class="table table-striped table-borderless col-12 pr-0">
 																<tbody>
 																	<tr>
 																		<th>Description</th>

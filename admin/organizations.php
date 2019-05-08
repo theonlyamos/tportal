@@ -379,7 +379,7 @@ if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 											<div class="col-lg-2 col-sm-2 m-form__group-sub">
 												<label class="form-control-label text-center">&#8203;</label>
 												<div>
-													<a href='#' class="document btn btn-primary btn-sm m-btn">View</a>
+													<a href='#' class="document btn btn-primary btn-sm m-btn" target="_blank">View</a>
 												</div>
 											</div>
 											<div class="col-lg-3 m-form__group-sub">
@@ -443,7 +443,7 @@ if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 											<div class="col-lg-2 col-sm-2 m-form__group-sub">
 												<label class="form-control-label text-center">&#8203;</label>
 												<div>
-													<a href='#' class="logo btn btn-primary btn-sm m-btn">View</a>
+													<a href='#' class="logo btn btn-primary btn-sm m-btn" target="_blank">View</a>
 												</div>
 											</div>
 										</div>

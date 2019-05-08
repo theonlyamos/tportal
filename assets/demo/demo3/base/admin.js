@@ -671,7 +671,6 @@ $(() =>{
     mApp.block(".modal-body", {})
     $.get('/adminActions.php', {action: action, target: target, field: "users"})
      .done((d) => {
-       console.log(d);
        if (action == 'approve'){
         $(".approved-"+t.data("target")).removeClass("m-badge--danger").addClass("m-badge--success").text("approved");
         $("#m_tournament_dismiss").click();
@@ -693,13 +692,13 @@ $(() =>{
 
   $(".organization_details").on("click", (e) => {
     var id = $(e.target).data("id");
-    $("#organizationModalTitle").text("User - "+id);
+    $("#organizationModalTitle").text("Organization - "+id);
     $(".action_organization").data("target", id);
     $("input[name='action']").val("update");
     $("input[name='target']").val(id);
     $("#m_form_organization").resetForm();
     mApp.block(".m-content", {})
-    $.get('/adminActions.php', {action: "details", target: id, field: 'orgnnizations'})
+    $.get('/adminActions.php', {action: "details", target: id, field: 'organizations'})
      .done((d) =>{
       var data = JSON.parse(d);
       var orgs = data.orgs;
@@ -746,11 +745,37 @@ $(() =>{
             }
           }
           else {
-            $("[name='"+formFields[i]+"']").val(user[formFields[i]]);
+            $("[name='"+formFields[i]+"']").val(orgs[formFields[i]]);
           }
         }
       }
       mApp.unblock(".m-content");
     })
+  })
+
+  $(".action_organization").on("click", (e) => {
+    var t = $(e.target);
+    var target = t.data("target")
+    var action = t.data("action")
+    mApp.block(".modal-body", {})
+    $.get('/adminActions.php', {action: action, target: target, field: "organizations"})
+     .done((d) => {
+       if (action == 'approve'){
+        $(".approved-"+t.data("target")).removeClass("m-badge--danger").addClass("m-badge--success").text("approved");
+        $("#m_tournament_dismiss").click();
+        Notify("Success", "Organization approved!", "success", "fa fa-check")
+       }
+       else if (action == 'reject'){
+        $(".approved-"+t.data("target")).removeClass("m-badge--primary").addClass("m-badge--danger").text("rejected");
+        $("#m_tournament_dismiss").click();
+        Notify("Success", "Organization rejected!", "warning", "fa fa-times-circle");
+       }
+       else if (action == 'delete'){
+        $("tr."+t.data("target")).remove();
+        $("#m_tournament_dismiss").click();
+        Notify("Success", "Organization deleted!", "danger", "fa fa-trash");
+       }
+       mApp.unblock(".modal-body")
+     })
   })
 })
