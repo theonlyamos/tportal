@@ -690,4 +690,67 @@ $(() =>{
        mApp.unblock(".modal-body")
      })
   })
+
+  $(".organization_details").on("click", (e) => {
+    var id = $(e.target).data("id");
+    $("#organizationModalTitle").text("User - "+id);
+    $(".action_organization").data("target", id);
+    $("input[name='action']").val("update");
+    $("input[name='target']").val(id);
+    $("#m_form_organization").resetForm();
+    mApp.block(".m-content", {})
+    $.get('/adminActions.php', {action: "details", target: id, field: 'orgnnizations'})
+     .done((d) =>{
+      var data = JSON.parse(d);
+      var orgs = data.orgs;
+      var formFields = ["name", "email", "secondEmail", "country", "contact", "phone", "website",
+                        "organizer", "organizerEmail", "document", "pan", "objectives", "bearerNames",
+                        "bearerPhones", "bearerEmails", "bearerPans", "bearerDesignations",
+                        "contactPerson", "contactPhone", "logo"]
+      for (var i = 0; i<formFields.length; i++){
+        if (orgs.hasOwnProperty(formFields[i])){
+          if (formFields[i] == "document"){
+            $("a.document").attr("href", "/assets/data/documents/"+orgs[formFields[i]])
+          }
+          else if (formFields[i] == "logo") {
+            $("a.logo").attr("href", "/assets/data/documents/"+orgs[formFields[i]])
+          }
+          else if (formFields[i] == "bearerNames") {
+            for (var j = 0; j<orgs.bearerNames.length; j++){
+              var el = $("[name='bearerNames[]']")[j]
+              $(el).val(orgs.bearerNames[j])
+            }
+          }
+          else if (formFields[i] == "bearerPhones") {
+            for (var j = 0; j<orgs.bearerPhones.length; j++){
+              var el = $("[name='bearerPhones[]']")[j]
+              $(el).val(orgs.bearerPhones[j])
+            }
+          }
+          else if (formFields[i] == "bearerEmails") {
+            for (var j = 0; j<orgs.bearerEmails.length; j++){
+              var el = $("[name='bearerEmails[]']")[j]
+              $(el).val(orgs.bearerEmails[j])
+            }
+          }
+          else if (formFields[i] == "bearerPans") {
+            for (var j = 0; j<orgs.bearerPans.length; j++){
+              var el = $("[name='bearerPans[]']")[j]
+              $(el).val(orgs.bearerPans[j])
+            }
+          }
+          else if (formFields[i] == "bearerDesignations") {
+            for (var j = 0; j<orgs.bearerDesignations.length; j++){
+              var el = $("[name='bearerDesignations[]']")[j]
+              $(el).val(orgs.bearerDesignations[j])
+            }
+          }
+          else {
+            $("[name='"+formFields[i]+"']").val(user[formFields[i]]);
+          }
+        }
+      }
+      mApp.unblock(".m-content");
+    })
+  })
 })

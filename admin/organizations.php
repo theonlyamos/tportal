@@ -72,18 +72,22 @@ if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 								<div class="m-portlet">
 									<div class="m-portlet__body">
 										<div class="form-group m-form__group row">
-											<label for="example-text-input" class="col-2 col-form-label text-left">Organization name</label>
-											<div class="col-10">
-												<input class="form-control m-input bg-secondary" type="text" value="" name="name" readonly>
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Organization Name</label>
+												<input class="form-control m-input" type="text" value="" name="name">
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
-											<label for="example-text-input" class="col-2 col-form-label text-left">Email</label>
-											<div class="col-10">
-												<input class="form-control m-input bg-secondary" type="text" value="" name="email" readonly>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Email</label>
+												<input class="form-control m-input" type="text" value="" name="email">
+											</div>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Secondary Email</label>
+												<input class="form-control m-input" type="text" value="" name="secondEmail">
 											</div>
 										</div>
-										<div class="form-row m-form__group">
+										<div class="form-group m-form__group row">
 											<div class="col-lg-6 m-form__group-sub">
 												<label class="form-control-label">Country</label>
 												<select name="country" class="form-control m-input" required>
@@ -339,45 +343,54 @@ if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 													<option value="ZW">Zimbabwe</option>
 												</select>
 											</div>
-										</div>
-										<div class="col-12">
-												<input class="form-control m-input" type="text" value="" name="contact" placeholder="Contact No[Landline]" required>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Contact No. [Landline]</label>
+												<input class="form-control m-input" type="text" value="" name="contact" placeholder="" required>
 											</div>
 										</div>
-										<div class="form-row m-form__group">
-											<div class="col-4">
-												<input class="form-control m-input" type="email" placeholder="Secondary Email" name="secondEmail" required>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Mobile No.</label>
+												<input class="form-control m-input" type="text" placeholder="" name="phone" required>
 											</div>
-											<div class="col-4">
-												<input class="form-control m-input" type="text" placeholder="Mobile No" name="phone" required>
-											</div>
-											<div class="col-4">
-												<input class="form-control m-input" type="text" placeholder="Website URL" name="website" required>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Website URL</label>
+												<input class="form-control m-input" type="text" placeholder="" name="website" required>
 											</div>
 										</div>
-										<div class="form-row m-form__group">
-											<div class="col-6">
-												<input class="form-control m-input" type="text" placeholder="Name of Organizer" name="organizer" required>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Name of Organizer</label>
+												<input class="form-control m-input" type="text" placeholder="" name="organizer" required>
 											</div>
-											<div class="col-6">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Email of Organizer</label>
 												<input class="form-control m-input" type="text" placeholder="Organizer Email" name="organizerEmail" required>
 											</div>
 										</div>
-
 										<div class="form-group m-form__group row">
-											<label for=""  class="col-lg-5 col-form-label text-left">Registration No (Public Trust or Society Reg No.):</label>
-											<div class="col-lg-9 custom-file" style="margin-left: 15px">
-												<input type="file" name="document" class="custom-file-input" id="customFile2" accept="image/jpeg,image/png,application/pdf" required="">
-												<label class="custom-file-label" for="customFile2">Choose file (JPG,PNG,PDF)</label>
+											<div class="col-lg-7 col-sm-10 m-form__group-sub">
+												<label class="form-control-label">Registration No (Public Trust or Society Reg No.)</label>
+												<div class="custom-file">
+													<input type="file" name="document" class="custom-file-input" id="customFile2" accept="image/jpeg,image/png,application/pdf" required="">
+													<label class="custom-file-label" for="customFile2">Choose file (JPG,PNG,PDF)</label>
+												</div>
 											</div>
-											<div class="col-lg-2">
+											<div class="col-lg-2 col-sm-2 m-form__group-sub">
+												<label class="form-control-label text-center">&#8203;</label>
+												<div>
+													<a href='#' class="document btn btn-primary btn-sm m-btn">View</a>
+												</div>
+											</div>
+											<div class="col-lg-3 m-form__group-sub">
+												<label class="form-control-label">PAN No.</label>
 												<input class="form-control m-input" type="text" placeholder="PAN No" name="pan" required>
 											</div>
 										</div>
-
-										<div class="form-row m-form__group">
-											<div class="col-12">
-												<textarea class="form-control m-input" rows="5" type="text" placeholder="Aims & Objectives" name="obectives" required></textarea>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Aims & Objectives</label>
+												<textarea class="form-control m-input" rows="5" type="text" placeholder="" name="objectives" required></textarea>
 											</div>
 										</div>
 										<div class="form-row m-form__group">
@@ -409,19 +422,29 @@ if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 												<button type="button" id="add_bearer" class="btn btn-success btn-sm">Add More</button>
 											</div>
 										</div>
-										<div class="form-row m-form__group">
-											<div class="col-6">
-												<input class="form-control m-input" type="text" placeholder="Key Contact Person" name="contactPerson" required>
+										<div class="form-group m-form__group row">
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Contact Person Name</label>
+												<input class="form-control m-input" type="text" placeholder="" name="contactPerson" required>
 											</div>
-											<div class="col-6">
-												<input class="form-control m-input" type="text" placeholder="Contact No" name="contactPhone" required>
+											<div class="col-lg-6 m-form__group-sub">
+												<label class="form-control-label">Contact Person No.</label>
+												<input class="form-control m-input" type="text" placeholder="" name="contactPhone" required>
 											</div>
 										</div>
 										<div class="form-group m-form__group row">
-											<label for=""  class="col-5 col-form-label text-left">Logo:</label>
-											<div class="col-11 custom-file" style="margin-left: 15px">
-												<input type="file" name="logo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,image/gif" required="">
-												<label class="custom-file-label" for="customFile">Choose file (JPG,PNG,GIF)</label>
+											<div class="col-lg-10 col-sm-10 m-form__group-sub">
+												<label class="form-control-label">Logo</label>
+												<div class="custom-file">
+													<input type="file" name="logo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png,image/gif" required="">
+													<label class="custom-file-label" for="customFile">Choose file (JPG,PNG,GIF)</label>
+												</div>
+											</div>
+											<div class="col-lg-2 col-sm-2 m-form__group-sub">
+												<label class="form-control-label text-center">&#8203;</label>
+												<div>
+													<a href='#' class="logo btn btn-primary btn-sm m-btn">View</a>
+												</div>
 											</div>
 										</div>
 									</div>

@@ -186,5 +186,20 @@ else {
       }
     }
   }
+
+  else if ($field == 'organizations'){
+    $action = sanitizeString($_GET['action']);
+
+    if ($action == 'details'){
+      $target = sanitizeString($_GET['target']);
+
+      $result = queryDB("SELECT * FROM states WHERE id = '$target'");
+      if ($result->num_rows){
+        $org = $result->fetch_array(MYSQLI_ASSOC);
+        setLog('admin', $_SESSION['user']['id'], "get organization: ".$target, $org['country']);
+        echo json_encode(array("success" => TRUE, "orgs" => $org));
+      }
+    }
+  }
 }
 ?>
