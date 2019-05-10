@@ -93,10 +93,10 @@ require_once 'header.php';
 							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="users.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-users"></i><span
 									 class="m-menu__link-text">Users</span></a>
 							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="feedback.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="feedback.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
 									 class="m-menu__link-text">Feedbacks</span></a>
 							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="support.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-info"></i><span
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="support.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-info"></i><span
 									 class="m-menu__link-text">Support</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="settings.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-settings"></i><span
