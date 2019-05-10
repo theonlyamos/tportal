@@ -144,7 +144,7 @@
                             <span class="m-nav__section-text">Section</span>
                           </li>
                           <li class="m-nav__item">
-                            <a href="profile.php" class="m-nav__link">
+                            <a href="index.php" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-line-graph"></i>
                               <span class="m-nav__link-title">
                                 <span class="m-nav__link-wrap">
@@ -154,31 +154,31 @@
                             </a>
                           </li>
                           <li class="m-nav__item">
-                            <a href="profile.php" class="m-nav__link">
+                            <a href="tournaments.php" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-trophy"></i>
                               <span class="m-nav__link-text">Tournaments</span>
                             </a>
                           </li>
                           <li class="m-nav__item">
-                            <a href="profile.php" class="m-nav__link">
+                            <a href="users.php" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-users"></i>
                               <span class="m-nav__link-text">Users</span>
                             </a>
                           </li>
                           <li class="m-nav__item">
-                            <a href="profile.php" class="m-nav__link">
+                            <a href="feedback.php" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-share"></i>
                               <span class="m-nav__link-text">Feedback</span>
                             </a>
                           </li>
                           <li class="m-nav__item">
-                            <a href="profile.php" class="m-nav__link">
+                            <a href="support.php" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-info"></i>
                               <span class="m-nav__link-text">Support</span>
                             </a>
                           </li>
                           <li class="m-nav__item">
-                            <a href="profile.php" class="m-nav__link">
+                            <a href="settings.php" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-settings"></i>
                               <span class="m-nav__link-text">Settings</span>
                             </a>

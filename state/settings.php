@@ -221,7 +221,7 @@ echo <<< _END
                         <div class="col-lg-6 m-form__group-sub">
                           <label class="form-control-label">Country</label>
                           <select name="country" value="$country" class="form-control m-input" required>
-                            <option value="" selected>Select Country</option>
+                            <option value="">Select Country</option>
                             <option value="AF">Afghanistan</option>
                             <option value="AX">Åland Islands</option>
                             <option value="AL">Albania</option>
