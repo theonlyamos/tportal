@@ -1146,6 +1146,11 @@ _END;
 
 		<!--end::Global Theme Bundle -->
 
+		<script type="text/javascript">
+			$(()=> {
+				$("[name='country']").val($("[name='country']").attr("value"));
+			})
+		</script>
 		<!--begin::Page Vendors -->
 		<script src="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
 
