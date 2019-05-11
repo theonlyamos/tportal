@@ -106,6 +106,39 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post' && $_SESSION['user']['role'
   else if ($field == 'users'){
     
   }
+
+  else if ($field == 'tickets'){
+    $action = sanitizeString($_POST['action']);
+    $target = sanitizeString($_POST['target']);
+
+    if ($action == 'message'){
+      $msg = sanitizeString($_POST['message']);
+      $message = array("type" => "out", "userId" => $_SESSION['user']['id'], "userRole" => "admin", "message" => msg, "date" => date(DATE_RFC2822));
+      $result = queryDB("SELECT conversation, userid, ticketnum FROM tickets WHERE ticketnum = '$target'");
+      if ($result->num_rows){
+        $ticket = $result->fetch_array(MYSQLI_ASSOC);
+        $conversation = unserialize($ticket['conversation']);
+        array_push($conversation, $message);
+        $conversation = serialize($conversation);
+
+        if (queryDB("UPDATE tickets SET conversation = '$conversation', replied = TRUE WHERE ticketnum = '$target'")){
+          setLog('admin', $ticket['userid'], "replied to ticket #".$ticket['ticketnum'], "ticket");
+          http_response_code(203);
+          echo json_encode(array("success" => TRUE));
+        }
+        else {
+          setLog('admin', $ticket['userid'], "reply to ticket #".$ticket['ticketnum']." failed", "ticket");
+          http_response_code(400);
+          echo json_encode(array("success" => FALSE));
+        }
+      }
+      else {
+        setLog('admin', $ticket['userid'], "reply to ticket #".$ticket['ticketnum']." failed", "ticket");
+        http_response_code(400);
+        echo json_encode(array("success" => FALSE));
+      }
+    }
+  }
 }
 else {
   $field = sanitizeString($_GET['field']);
@@ -265,6 +298,29 @@ else {
         setLog("admin", $target, "failed to delete organization ".$target, "admin");
         http_response_code(400);
         echo "Deletion failed";
+      }
+    }
+  }
+
+  else if ($field == 'tickets'){
+    $action = sanitizeString($_GET['action']);
+    $target = sanitizeString($_GET['target']);
+
+    if ($action == 'details'){
+      $result = queryDB("SELECT conversation FROM tickets WHERE ticketnum = '$target'");
+      if ($result->num_rows){
+        $ticket = $result->fetch_array(MYSQLI_ASSOC);
+        $conversation = unserialize($ticket['conversation']);
+
+        setLog("admin", $target, "get ticket #".$target, "ticket");
+
+        http_response_code(200);
+        echo json_encode(array("success" => TRUE, "conversation" => $conversation));
+      }
+      else {
+        setLog('admin', $ticket['userid'], "get ticket #".$ticket['ticketnum']." failed", "ticket");
+        http_response_code(400);
+        echo json_encode(array("success" => FALSE));
       }
     }
   }

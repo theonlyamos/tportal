@@ -299,7 +299,7 @@ require_once 'header.php';
 							<div class="m-messenger__seperator"></div>
 							<div class="m-messenger__form">
 								<div class="m-messenger__form-controls">
-									<input type="text" name="" placeholder="Type here..." class="m-messenger__form-input">
+									<input type="text" name="" data-target="" placeholder="Type here..." class="m-messenger__form-input">
 								</div>
 								<div class="m-messenger__form-tools">
 									<a href="" class="m-messenger__form-attachment">

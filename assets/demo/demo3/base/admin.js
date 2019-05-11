@@ -446,48 +446,82 @@ $(() =>{
 
   $("#m_quick_sidebar_toggle").on("click", (e) => {
     var target = $(e.target).data("target");
-    var parent = $("#ticket-"+target)[0];
-    var username = $(parent).find(".m-widget3__username").text().trim().split("-")[0];
-    var img = $(parent).find(".m-widget3__img").prop("src");
-    var time = $(parent).find(".m-widget3__time").text().trim();
-    var msg = $(parent).find(".m-widget3__text").text().trim();
 
-    var message = '<div class="m-messenger__wrapper">'
-    message += '<div class="m-messenger__message m-messenger__message--in">'
-    message += '<div class="m-messenger__message-pic">'
-    message += '<img src="'+img+'" alt="user picture" /></div>'
-    message += '<div class="m-messenger__message-body">'
-    message += '<div class="m-messenger__message-arrow"></div>'
-    message += '<div class="m-messenger__message-content">'
-    message += '<div class="m-messenger__message-username">'+username+'</div>'
-    message += '<div class="m-messenger__message-text">'+msg+'</div>'
-    message += '</div></div></div></div>'
-    message += '<div class="m-messenger__datetime">'+time+'</div>'
+    $.get("/adminActions.php", {field: 'tickets', action: 'details', target: target})
+     .done((d) => {
+      var d = JSON.parse(d);
+      if (d.success){
+        $(".m-messenger__messages").html("");
+        var conversation = d.conversation;
+        console.log(conversation);
+        for (var j; j < conversation.length; j++){
+          if (conversation[j].type === 'in'){
+            var parent = $("#ticket-"+target)[0];
+            var username = $(parent).find(".m-widget3__username").text().trim().split("-")[0];
+            var img = $(parent).find(".m-widget3__img").prop("src");
+            var time = new Date(conversation[j].message).getMinutes();
+            var msg = conversation[j].message;
+            $(".m-messenger__form-input").data("target", target)
 
-    $(".m-messenger__messages").html(message);
-  })
+            var message = '<div class="m-messenger__wrapper">'
+            message += '<div class="m-messenger__message m-messenger__message--in">'
+            message += '<div class="m-messenger__message-pic">'
+            message += '<img src="'+img+'" alt="user picture" /></div>'
+            message += '<div class="m-messenger__message-body">'
+            message += '<div class="m-messenger__message-arrow"></div>'
+            message += '<div class="m-messenger__message-content">'
+            message += '<div class="m-messenger__message-username">'+username+'</div>'
+            message += '<div class="m-messenger__message-text">'+msg+'</div>'
+            message += '</div></div></div></div>'
+            message += '<div class="m-messenger__datetime">'+time+'</div>'
 
-  $(".m-messenger__form-input").on("keypress", (e)=> {
-    if (e.which === 13) {
-      var msg = e.target.value
-      if (msg) {
-        mApp.block(".m-messenger__messages", {})
-        $.post("/actions.php", {message: msg, user : 1234})
-         .done((d) =>{
-            console.log(d);
-            var d = JSON.parse(d);
+            $(".m-messenger__messages").append(message);
+          }
+          else {
+            var msg = conversation[j].message;
             var message = '<div class="m-messenger__wrapper">'
             message += '<div class="m-messenger__message m-messenger__message--out">'
             message += '<div class="m-messenger__message-body">'
             message += '<div class="m-messenger__message-arrow"></div>'
             message += '<div class="m-messenger__message-content">'
-            message += '<div class="m-messenger__message-text">'+d.message+'</div>'
+            message += '<div class="m-messenger__message-text">'+msg+'</div>'
             message += '</div></div></div></div>'
 
             $(".m-messenger__messages").append(message);
             $(".m-messenger__form-input").val("");
+          }
+        }
+        
+      }
+    })
+  })
 
-            mApp.unblock(".m-messenger__messages");
+  $(".m-messenger__form-input").on("keypress", (e)=> {
+    if (e.which === 13) {
+      var msg = e.target.value
+      var target = $(e.target).data("target");
+      if (msg) {
+        mApp.block(".m-messenger__messages", {})
+        $.post("/adminActions.php", {field: 'tickets', action: 'message', target: target, message: msg})
+         .done((d) =>{
+            var d = JSON.parse(d);
+            if (d.success){
+              var message = '<div class="m-messenger__wrapper">'
+              message += '<div class="m-messenger__message m-messenger__message--out">'
+              message += '<div class="m-messenger__message-body">'
+              message += '<div class="m-messenger__message-arrow"></div>'
+              message += '<div class="m-messenger__message-content">'
+              message += '<div class="m-messenger__message-text">'+msg+'</div>'
+              message += '</div></div></div></div>'
+
+              $(".m-messenger__messages").append(message);
+              $(".m-messenger__form-input").val("");
+
+              mApp.unblock(".m-messenger__messages");
+            }
+            else {
+              mApp.unblock(".m-messenger__messages");
+            }
          })
         
       }

@@ -4,6 +4,39 @@ session_start();
 if (!$_SESSION["loggedIn"]){
 	header("Location: /");
 }
+else if (isset($_POST)){
+	$target = $_SESSION['user']['id'];
+	$email = sanitizeString($_POST['email']);
+	$title = sanitizeString($_POST['title']);
+	$msg = sanitizeString($_POST['message']);
+
+	$conversation = array();
+	$message = array("type" => "in", "userId" => $target, "userRole" => "user", "message" => msg, "date" => date(DATE_RFC2822));
+	array_push($conversation, $message);
+	$conversation = serialize($conversation);
+
+	$query = "INSERT INTO tickets (id, email, userid, title, conversation) VALUES
+					(UUID(), '$email', '$target', '$title', '$conversation')";
+
+	if (queryDB($query)){
+		$result = queryDB("SELECT ticketnum FROM tickets WHERE email = '$email' ORDER BY createdAt DESC");
+		$result = $result->fetch_array(MYSQLI_ASSOC);
+		$body = "<h4>Hi, <strong>".$_SESSION['user']['fullname']."</strong><h4><br>
+						 <p>Your support ticket has been created successfully</p>
+						 <p>We will reply as soon as possible</p><br>
+						 <p>Ticket Details</p><br>
+						 <h5><strong>Ticket #: </strong>".$result['ticketnum']."</h5><br>
+						 <h5><strong>Ticket subject: </strong>".$title."</h5><br>
+						 <h5><strong>Ticket #: </strong>".$result['ticketnum']."</h5><br>
+						 <p>".$msg."</p>";
+		$subject = $title." - ticket #".$result['ticketnum'];
+		sendPHPMail($email, $_SESSION['user']['fullname'], $subject, $body);
+		$successMsg = $result['ticketnum'];
+	}
+	else {
+		$errMsg = "Error created support ticket.";
+	}
+}
 ?>
 
 
@@ -151,7 +184,7 @@ if (!$_SESSION["loggedIn"]){
                   </div>
                   <div class="tab-content">
                     <div class="tab-pane active" id="m_user_profile_tab_1">
-                      <form class="m-form m-form--fit m-form--label-align-right">
+                      <form class="m-form m-form--fit m-form--label-align-right" action="support.php" method="post" enctype="multipart/form-data">
                         <div class="m-portlet__body">
                           <div class="form-group m-form__group row">
                             <div class="col-10 ml-auto">
@@ -172,14 +205,20 @@ if (!$_SESSION["loggedIn"]){
                             <label for="example-text-input" class="col-2 col-form-label">Email</label>
                             <div class="col-7">
 															<?php
-																echo '<input class="form-control m-input" type="email" name="email" value="'.$_SESSION['user']['email'].'" required>';
+																echo '<input class="form-control m-input" type="email" name="email" value="'.$_SESSION['user']['email'].'" required readonly>';
 															?>
+                            </div>
+                          </div>
+													<div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Subject</label>
+                            <div class="col-7">
+															<input class="form-control m-input" type="email" name="title" value="'.$_SESSION['user']['email'].'" required>
                             </div>
                           </div>
                           <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Your Query</label>
                             <div class="col-7">
-                                <textarea class="form-control m-input" rows="4" name="query" required></textarea>
+                                <textarea class="form-control m-input" rows="4" name="message" required></textarea>
                             </div>
                           </div>
                         </div>
