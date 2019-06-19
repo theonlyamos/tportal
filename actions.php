@@ -276,7 +276,7 @@ else {
     if ($field == 'sheets'){
       $query = "DELETE FROM sheets WHERE id='$target'";
       if (queryDB($query)){
-        setLog("admin", $_SESSION['user']['id'], "deleted sheet: ".$target, "admin");
+        setLog("admin", $_SESSION['user']['id'], "deleted : ".$target, "admin");
         echo json_encode("ok");
       }
       
@@ -288,11 +288,11 @@ else {
     }
     else if ($field == 'tournaments'){
       if (queryDB("DELETE FROM posts WHERE id = '$target'")){
-        setLog("admin", $_SESSION['user']['id'], "deleted sheet: ".$target, "tournament");
+        setLog("admin", $_SESSION['user']['id'], "deleted tournament: ".$target, "tournament");
         echo "ok";
       }
       else {
-        setLog("admin", $_SESSION['user']['id'], "failed to delete sheet: ".$target, "tournament");
+        setLog("admin", $_SESSION['user']['id'], "failed to delete tournament: ".$target, "tournament");
         http_response_code(400);
         echo "Deletion failed";
       }
