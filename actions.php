@@ -158,7 +158,9 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
 else {
   $action = $_GET['name'];
   if ($action == 'logout') {
+    $user = $_SESSION['user'];
     destroySession();
+    setLog($user['role'], $user['id'], $user['email']." logged out", $user['country']);
     header("Location: /login.html");
   }
   else if ($action == 'getUsers' && $_SESSION['user']['role'] == 'admin') {
