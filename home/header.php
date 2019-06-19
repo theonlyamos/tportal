@@ -43,7 +43,7 @@
         <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark  d-flex align-items-center">
           <h3 style="color: #7b7e8a; font-weight: 100;">
             <?php
-              echo '<i class="fa fa-2x fa-fw '.$PAGE_ICON.'"></i> |';
+              echo '<i class="fa fa-fw '.$PAGE_ICON.'"></i> |';
               echo '<span>'.$PAGE_TITLE.'</span>';
             ?>
           </h3>
