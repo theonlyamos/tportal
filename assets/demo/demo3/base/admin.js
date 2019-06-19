@@ -702,7 +702,6 @@ $(() =>{
     var id = $(e.target).data("id");
     $("#userModalTitle").text("User - "+id);
     $(".action_user").data("target", id);
-    $("input[name='action']").val("update");
     $("input[name='target']").val(id);
     $("#m_form_user").resetForm();
     mApp.block(".m-content", {})

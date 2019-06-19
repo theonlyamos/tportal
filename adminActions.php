@@ -109,18 +109,18 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post' && $_SESSION['user']['role'
     $title    = sanitizeString($_POST['title']);
     $message  = sanitizeString($_POST['message']);
     $from     = $_SESSION['user']['id'];
+    $role     = $_SESSION['user']['role'];
 
     if ($action == 'feedback'){
-      $query = "INSERT INTO feedbacks (id, from, userid, title, message) VALUES(
-        UUID(), '$from', '$target', '$title', '$message')";
+      $query = "INSERT INTO feedbacks (id, sender, role, userid, title, message) VALUES(
+        UUID(), '$from', '$role', '$target', '$title', '$message')";
 
       if (queryDB($query)){
         setLog("admin", $target, "feedback to: ".$target, "admin");
         $result = queryDB("SELECT fullname, email FROM users WHERE id = '$target'");
         if ($result->num_rows){
           $user         = $result->fetch_array(MYSQLI_ASSOC);
-          $mailSubject  = "Feedback from Tportal";
-          sendPHPMail($user['email'], $user['fullname'], $mailSubject, $message);
+          sendPHPMail($user['email'], $user['fullname'], $title, $message);
         }
         http_response_code(202);
         echo json_encode(array("success" => True));
