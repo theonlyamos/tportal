@@ -66,9 +66,9 @@
         </a>
       </li>
       <li class="m-nav__item">
-        <a href="tournaments.php" class="m-nav__link">
+        <a href="tournaments.php" class="m-nav__link" data-target="acount.html">
           <i class="m-nav__link-icon flaticon-trophy"></i>
-          <span class="m-nav__link-text" data-target="my-tournaments.html">Tournaments</span>
+          <span class="m-nav__link-text" data-target="account.html">Tournaments</span>
         </a>
       </li>
       <li class="m-nav__item">

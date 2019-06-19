@@ -164,79 +164,34 @@ if (!$_SESSION["loggedIn"]){
                               </div>
                           </div>
                           <div class="form-group m-form__group row">
-                              <label for="example-text-input" class="col-2 col-form-label">Email</label>
-                              <div class="col-7">
+                              <label for="example-text-input" class="col-md-3 col-form-label">Email</label>
+                              <div class="col-md-9">
 <?php
                                 echo '<input class="form-control m-input" type="text" value="'.$_SESSION['user']['email'].'" name="email" required>';
 ?>
                               </div>
                           </div>
                           <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Recovery Email</label>
-                            <div class="col-7">
+                            <label for="example-text-input" class="col-md-3 col-form-label">Recovery Email</label>
+                            <div class="col-md-9">
                                 <input class="form-control m-input" type="text" name="recovery" placeholder="example@email.com" required>
                             </div>
                           </div>
                           <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Phone No.</label>
-                            <div class="col-7">
+                            <label for="example-text-input" class="col-md-3 col-form-label">Phone No.</label>
+                            <div class="col-md-9">
 <?php
 													echo '<input class="form-control m-input" name="phone" type="text" value="'.$_SESSION['user']['phone'].'">';
 ?>
                             </div>
                           </div>
-                          <div class="form-group m-form__group row">
-                              <div class="col-10 ml-auto">
-                                  <h3 class="m-form__section">Social</h3>
-                              </div>
-                          </div>
-                          <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">
-                            <i class="m-nav__link-icon flaticon-linkedin-logo text-info"></i>
-                              Linkedin
-                            </label>
-                            <div class="col-7">
-                              <input class="form-control m-input" type="text" value="">
-                            </div>
-                          </div>
-                          <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">
-                              <i class="m-nav__link-icon flaticon-facebook-letter-logo text-info"></i>
-                              Facebook
-                            </label>
-                            <div class="col-7">
-                                <input class="form-control m-input" type="text" value="">
-                            </div>
-                          </div>
-                          <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">
-                              <i class="m-nav__link-icon flaticon-twitter-logo text-info"></i>
-                              Twitter
-                            </label>
-                            <div class="col-7">
-                                <input class="form-control m-input" type="text" value="">
-                            </div>
-                          </div>
-                          <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">
-                              <i class="m-nav__link-icon flaticon-instagram-logo"></i>
-                              Instagram
-                            </label>
-                            <div class="col-7">
-                                <input class="form-control m-input" type="text" value="">
-                            </div>
-                          </div>
                         </div>
                         <div class="m-portlet__foot m-portlet__foot--fit">
                           <div class="m-form__actions">
-                            <div class="row">
-                              <div class="col-2">
-                              </div>
-                              <div class="col-7">
-                                  <button type="reset" class="btn btn-accent m-btn m-btn--air m-btn--custom">Save changes</button>&nbsp;&nbsp;
-                                  <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">Cancel</button>
-                              </div>
-                            </div>
+                            <div class="d-flex justify-content-end">
+																<button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">Cancel</button>
+																<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">Save changes</button>&nbsp;&nbsp;
+														</div>
                           </div>
                         </div>
                       </form>
@@ -250,34 +205,30 @@ if (!$_SESSION["loggedIn"]){
                               </div>
                           </div>
                           <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Current Password</label>
-                            <div class="col-7">
+                            <label for="example-text-input" class="col-md-3 col-form-label">Current Password</label>
+                            <div class="col-md-9">
                                 <input class="form-control m-input" type="password" name="password"  required>
                             </div>
 													</div>
 													<div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">New Password</label>
-                            <div class="col-7">
+                            <label for="example-text-input" class="col-md-3 col-form-label">New Password</label>
+                            <div class="col-md-9">
                                 <input class="form-control m-input" type="password" name="npassword"  required>
                             </div>
 													</div>
 													<div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Repeat New Password</label>
-                            <div class="col-7">
+                            <label for="example-text-input" class="col-md-3 col-form-label">Repeat New Password</label>
+                            <div class="col-md-9">
                                 <input class="form-control m-input" type="password" name="rpassword"  required>
                             </div>
 													</div>
                         </div>
                         <div class="m-portlet__foot m-portlet__foot--fit">
                           <div class="m-form__actions">
-                            <div class="row">
-                              <div class="col-2">
-                              </div>
-                              <div class="col-7">
-                                  <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">Change Password</button>&nbsp;&nbsp;
-                                  <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">Cancel</button>
-                              </div>
-                            </div>
+                            <div class="d-flex justify-content-end">
+																<button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">Cancel</button>
+																<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">Change Password</button>
+														</div>
                           </div>
                         </div>
                       </form>
