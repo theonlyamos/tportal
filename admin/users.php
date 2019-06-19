@@ -509,7 +509,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <div class="modal fade modal-light" id="m_modal_feed" tabindex="-1" role="dialog" aria-labelledby="feedModalTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
         <div class="modal-content">
-					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_feed" novalidate="novalidate" enctype="multipart/form-data">
+					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_feed" novalidate="novalidate">
 						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="users">
 						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="feedback">
 						<input type="hidden" name="target" class="form-control m-input" placeholder="" value="">
@@ -520,26 +520,24 @@ License: You must have a valid license purchased only from themeforest(the above
 							</button>
 						</div>
 						<div class="modal-body">
-							<div class="m-scrollable m-scroller ps ps--active-y" data-scrollbar-shown="true" data-scrollable="true" data-height="200" style="min-height: 70vh; overflow: hidden;">
-								<div class="m-portlet">
-									<div class="m-portlet__body">
-										<div class="form-group m-form__group row">
-											<div class="col-lg-12 m-form__group-sub">
-												<label class="form-control-label">Fullname</label>
-												<input type="text" name="fullname" class="form-control m-input" placeholder="" value="">
-											</div>
+							<div class="m-portlet">
+								<div class="m-portlet__body">
+									<div class="form-group m-form__group row">
+										<div class="col-lg-12 m-form__group-sub">
+											<label class="form-control-label">Title</label>
+											<input type="text" name="title" class="form-control m-input" placeholder="" value="">
 										</div>
-										<div class="form-group m-form__group">
-												<label class="form-control-label">Message</label>
-												<textarea type="text" name="message" class="form-control m-input" placeholder=""></textarea>
-										</div>
+									</div>
+									<div class="form-group m-form__group">
+											<label class="form-control-label">Message</label>
+											<textarea rows="5" name="message" class="form-control m-input" placeholder=""></textarea>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-light" id="m_feed_dismiss" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary" id="m_feed_submit"><i class="fa fa-send fa-fw"></i>Send</button>
+							<button type="submit" class="btn btn-primary" id="m_feed_submit"><i class="fa flaticon-paper-plane fa-fw"></i>Send</button>
 						</div>
 					</form>
         </div>

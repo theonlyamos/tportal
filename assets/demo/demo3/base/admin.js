@@ -351,6 +351,33 @@ $(() =>{
   
     })
 
+    $("#m_feed_submit").on("click", (e) => {
+      e.preventDefault();
+      e = $(e.target)
+      var r = $("#m_form_feed");
+      r.validate({
+        ignore: ":hidden",
+        rules: {
+          title: !0,
+          message: !0,
+        }
+      }), r.valid() && (mApp.block("#m_form_feed", {}), r.ajaxSubmit({
+        url: "/adminActions.php",
+        method: "post",
+        success: (s,t) => {
+          mApp.unblock("#m_form_feed")
+          r.clearForm().resetForm()
+          Notify("Success", "Feedback sent successfully", "success", "fa fa-check")
+          $("#m_feed_dismiss").click();
+        },
+        error: (w) => {
+          console.log(w)
+          mApp.unblock("#income_sheet_form")
+          Notify("Error", w.responseText, "danger", "la la-close")
+        }
+      }))
+    })
+
     $(".approve_user").on("click", (e) => {
       var t = $(e.target)
       mApp.block(".m-content", {})
