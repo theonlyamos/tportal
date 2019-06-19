@@ -60,7 +60,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 	<!-- begin::Body -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
-		<!--begin::Modal-->
+		<!--begin::User Modal-->
     <div class="modal fade modal-light" id="m_modal_user" tabindex="-1" role="dialog" aria-labelledby="userModalTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
         <div class="modal-content">
@@ -494,7 +494,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div class="dropdown-menu" aria-labelledby="dropdownMenu2" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
 									<button class="dropdown-item text-primary action_user" type="button" data-action="approve" data-target=""><i class="fa fa-check-circle text-primary"></i> Approve</button>
 									<button class="dropdown-item text-info action_user" type="button" data-action="reject" data-target=""><i class="fa fa-times-circle text-info"></i> Reject</button>
-									<button class="dropdown-item text-dark feedback_user" type="button" data-action="feedback" data-target=""><i class="fa fa-share-alt text-dark"></i> Feedback</button>
+									<button class="dropdown-item text-dark feedback_user" type="button" data-action="feedback" data-toggle="modal" data-target="#m_modal_feed" data-id=""><i class="fa fa-share-alt text-dark"></i> Feedback</button>
 									<button class="dropdown-item text-danger action_user" type="button" data-action="delete" data-target=""><i class="fa fa-trash text-danger"></i> Delete</button>
 								</div>
 							</div>
@@ -504,7 +504,48 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
       </div>
     </div>
-    <!--end::Modal-->
+    <!--end::User Modal-->
+		<!--begin::Feedback Modal-->
+    <div class="modal fade modal-light" id="m_modal_feed" tabindex="-1" role="dialog" aria-labelledby="feedModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 50%;">
+        <div class="modal-content">
+					<form class="m-form m-form--label-align-left- m-form--state-" id="m_form_feed" novalidate="novalidate" enctype="multipart/form-data">
+						<input type="hidden" name="field" class="form-control m-input" placeholder="" value="users">
+						<input type="hidden" name="action" class="form-control m-input" placeholder="" value="feedback">
+						<input type="hidden" name="target" class="form-control m-input" placeholder="" value="">
+						<div class="modal-header">
+							<h5 class="modal-title" id="feedModalTitle">Feedback</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="m-scrollable m-scroller ps ps--active-y" data-scrollbar-shown="true" data-scrollable="true" data-height="200" style="min-height: 70vh; overflow: hidden;">
+								<div class="m-portlet">
+									<div class="m-portlet__body">
+										<div class="form-group m-form__group row">
+											<div class="col-lg-12 m-form__group-sub">
+												<label class="form-control-label">Fullname</label>
+												<input type="text" name="fullname" class="form-control m-input" placeholder="" value="">
+											</div>
+										</div>
+										<div class="form-group m-form__group">
+												<label class="form-control-label">Message</label>
+												<textarea type="text" name="message" class="form-control m-input" placeholder=""></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-light" id="m_feed_dismiss" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary" id="m_feed_submit"><i class="fa fa-send fa-fw"></i>Send</button>
+						</div>
+					</form>
+        </div>
+      </div>
+    </div>
+    <!--end::Feedback Modal-->
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 

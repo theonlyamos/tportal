@@ -33,6 +33,15 @@ $(() =>{
     $("#m_form_tournament").resetForm();
   })
 
+  $("#m_modal_user").on("show.bs.modal", ()=>{
+    $("#m_form_user").resetForm();
+  })
+
+  $("#m_modal_feed").on("show.bs.modal", ()=>{
+    $("#m_form_feed").resetForm();
+    $("#m_user_dismiss").click();
+  })
+
   $(".editable").on("mouseenter", (e) => {
     $(e.target).children(".editor").show();
   }).mouseleave((e) => {
