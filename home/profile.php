@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+$PAGE_ICON = 'flaticon-profile-1';
+$PAGE_TITLE = 'Profile';
 if (!$_SESSION["loggedIn"]){
 	header("Location: /");
 }
@@ -58,8 +59,8 @@ if (!$_SESSION["loggedIn"]){
 
 			<!-- BEGIN: Header -->
 			<?php
-          require_once 'header.php';
-      ?>
+          		require_once 'header.php';
+      		?>
 			<!-- END: Header -->
 
 			<!-- begin::Body -->

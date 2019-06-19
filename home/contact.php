@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+$PAGE_ICON = 'flaticon-support';
+$PAGE_TITLE = 'Contact Us';
 if (!$_SESSION["loggedIn"]){
 	header("Location: /");
 }

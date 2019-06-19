@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+$PAGE_ICON = 'flaticon-questions-circular-button';
+$PAGE_TITLE = 'Support';
 if (!$_SESSION["loggedIn"]){
 	header("Location: /");
 }

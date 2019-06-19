@@ -1,6 +1,7 @@
 <?php 
 session_start();
-
+$PAGE_ICON = 'flaticon-feed';
+$PAGE_TITLE = 'Feedback';
 if (!$_SESSION["loggedIn"]){
 	header("Location: /");
 }

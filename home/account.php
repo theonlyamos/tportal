@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+$PAGE_ICON = 'flaticon-user-settings';
+$PAGE_TITLE = 'Account Settings';
 if (!$_SESSION["loggedIn"]){
 	header("Location: /");
 }

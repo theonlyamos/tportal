@@ -11,7 +11,6 @@
             </a>
           </div>
           <div class="m-stack__item m-stack__item--middle m-brand__tools">
-
             <!-- BEGIN: Responsive Aside Left Menu Toggler -->
             <a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
               <span></span>
@@ -41,8 +40,13 @@
 
         <!-- BEGIN: Horizontal Menu -->
         <button class="m-aside-header-menu-mobile-close  m-aside-header-menu-mobile-close--skin-dark " id="m_aside_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
-        <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark">
-
+        <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark  d-flex align-items-center">
+          <h3 style="color: #7b7e8a; font-weight: 100;">
+            <?php
+              echo '<i class="fa fa-fw '.$PAGE_ICON.'"></i> |';
+              echo '<span>'.$PAGE_TITLE.'</span>';
+            ?>
+          </h3>
         </div>
 
         <!-- END: Horizontal Menu -->

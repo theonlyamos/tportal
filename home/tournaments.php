@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+$PAGE_ICON = 'flaticon-trophy';
+$PAGE_TITLE = 'Tournaments';
 if (!$_SESSION["loggedIn"]){
 	header("Location: /");
 }
