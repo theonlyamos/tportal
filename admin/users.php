@@ -486,9 +486,9 @@ License: You must have a valid license purchased only from themeforest(the above
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" id="m_user_dismiss" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" id="m_user_dismiss" data-dismiss="modal">Close</button>
 							<div class="dropdown">
-								<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Actions
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenu2" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
