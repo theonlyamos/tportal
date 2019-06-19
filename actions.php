@@ -161,7 +161,12 @@ else {
     $user = $_SESSION['user'];
     destroySession();
     setLog($user['role'], $user['id'], $user['email']." logged out", $user['country']);
-    header("Location: /login.html");
+    if ($user['role'] == 'admin'){
+      header("Location: /admin/login.php");
+    }
+    else {
+      header("Location: /login.html");
+    }
   }
   else if ($action == 'getUsers' && $_SESSION['user']['role'] == 'admin') {
     $result = queryDB("SELECT fullname, email, profession, picture FROM users");
