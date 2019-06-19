@@ -155,7 +155,7 @@ require_once 'header.php';
 
 					<!-- END: Subheader -->
 					<div class="m-content">
-						<div class="m-portlet m-portlet--full-height ">
+						<div class="m-portlet">
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">

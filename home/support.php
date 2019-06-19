@@ -4,7 +4,10 @@ session_start();
 if (!$_SESSION["loggedIn"]){
 	header("Location: /");
 }
-else if (isset($_POST)){
+else {
+	if ($_POST){
+	require_once '../functions.php';
+
 	$target = $_SESSION['user']['id'];
 	$email = sanitizeString($_POST['email']);
 	$title = sanitizeString($_POST['title']);
@@ -21,21 +24,22 @@ else if (isset($_POST)){
 	if (queryDB($query)){
 		$result = queryDB("SELECT ticketnum FROM tickets WHERE email = '$email' ORDER BY createdAt DESC");
 		$result = $result->fetch_array(MYSQLI_ASSOC);
-		$body = "<h4>Hi, <strong>".$_SESSION['user']['fullname']."</strong><h4><br>
+		$body = "<h4>Hi, <strong>".$_SESSION['user']['fullname']."</strong></h4>
 						 <p>Your support ticket has been created successfully</p>
-						 <p>We will reply as soon as possible</p><br>
+						 <p>We will reply as soon as possible</p>
 						 <p>Ticket Details</p><br>
-						 <h5><strong>Ticket #: </strong>".$result['ticketnum']."</h5><br>
-						 <h5><strong>Ticket subject: </strong>".$title."</h5><br>
-						 <h5><strong>Ticket #: </strong>".$result['ticketnum']."</h5><br>
+						 <h5><strong>Ticket #</strong>".$result['ticketnum']."</h5>
+						 <h5><strong>Ticket subject: </strong>".$title."</h5>
+						 <h5><strong>Message </strong>".$result['ticketnum']."</h5>
 						 <p>".$msg."</p>";
 		$subject = $title." - ticket #".$result['ticketnum'];
 		sendPHPMail($email, $_SESSION['user']['fullname'], $subject, $body);
-		$successMsg = $result['ticketnum'];
+		$successMsg = "Support ticket #".$result['ticketnum']." created successfully!";
 	}
 	else {
-		$errMsg = "Error created support ticket.";
+		$errMsg = "Error created support ticket!";
 	}
+}
 }
 ?>
 
@@ -191,16 +195,26 @@ else if (isset($_POST)){
                               <h3 class="m-form__section">Get Help</h3>
                             </div>
                           </div>
-                          <div class="form-group m-form__group row">
-                            <div class="col-10 ml-auto">
-                              <h5 class="ls-1 fw-1">
-                                We hope you liked using TournamentPortal. To make it even better, we need feedback 
-                                <br>from the community. Your smallest of feedbacks can be a valuable insight that 
-                                <br>can help us to make this site better. Let's build something that can take sports
-                                <br>to the next level.
-                              </h5>
-                            </div>
-                          </div>
+													<?php
+														if ($errMsg){
+															echo <<< _END
+																						<div class='form-group m-form__group row justify-content-center align-items-center'>
+																							<div class="col-10 ml-auto">
+																								<div class='alert alert-danger'>$errMsg</div>
+																							</div>
+																						</div>
+_END;
+														}
+														else if ($successMsg){
+															echo <<< _END
+																						<div class='form-group m-form__group row justify-content-center align-items-center'>
+																							<div class="col-10 ml-auto">
+																								<div class='alert alert-success'>$successMsg</div>
+																							</div>
+																						</div>
+_END;
+														}
+													?>
                           <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Email</label>
                             <div class="col-7">
@@ -212,7 +226,7 @@ else if (isset($_POST)){
 													<div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Subject</label>
                             <div class="col-7">
-															<input class="form-control m-input" type="email" name="title" value="'.$_SESSION['user']['email'].'" required>
+															<input class="form-control m-input" type="text" name="title" value="" required>
                             </div>
                           </div>
                           <div class="form-group m-form__group row">
@@ -237,7 +251,81 @@ else if (isset($_POST)){
                     </div>
                   </div>
                 </div>
-                                                
+
+								<div class="m-portlet">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+													Support Tickets
+												</h3>
+											</div>
+										</div>
+									</div>
+									<div class="m-portlet__body">
+										<div class="m-widget3">
+											<div class="m-widget3__item" id="ticket-1234">
+												<div class="m-widget3__header">
+													<div class="m-widget3__user-img">
+														<img class="m-widget3__img" src="../assets/app/media/img/users/neutral.png" alt="user picture">
+													</div>
+													<div class="m-widget3__info justify-content-center">
+														<span class="m-widget3__username">
+															Deb Gibson - 
+															<span class="m--font-success">
+																Open
+															</span>
+														</span>
+														<br>
+														<span class="m-widget3__time">
+															3 weeks ago
+														</span>
+													</div>
+													<span class="m-widget3__status m--font-success">
+														<li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+															<a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
+																<i class="la la-ellipsis-h m--font-brand"></i>
+															</a>
+															<div class="m-dropdown__wrapper">
+																<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+																<div class="m-dropdown__inner">
+																	<div class="m-dropdown__body">
+																		<div class="m-dropdown__content">
+																			<ul class="m-nav">
+																				<li class="m-nav__item" id="m_quick_sidebar_toggle" style="cursor: pointer;" data-target="1234">
+																						<i class="m-nav__link-icon flaticon-chat-1 m--font-primary"></i>
+																						<span class="m-nav__link-text m--font-primary ml-3" data-target="1234">Reply</span>
+																				</li>
+																				<li class="m-nav__item">
+																					<a href="" class="m-nav__link">
+																						<i class="m-nav__link-icon flaticon-cancel"></i>
+																						<span class="m-nav__link-text">Close</span>
+																					</a>
+																				</li>
+																				<li class="m-nav__item">
+																					<a href="" class="m-nav__link">
+																						<i class="m-nav__link-icon fa fa-trash-alt text-danger"></i>
+																						<span class="m-nav__link-text text-danger">Delete</span>
+																					</a>
+																				</li>
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</li>
+													</span>
+												</div>
+												<div class="m-widget3__body">
+													<p class="m-widget3__text">
+														Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
 							</div>
 
 							<!--Right Aside-->
