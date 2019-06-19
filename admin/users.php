@@ -486,7 +486,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="m_user_dismiss" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-light" id="m_user_dismiss" data-dismiss="modal">Close</button>
 							<div class="dropdown">
 								<button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Actions
@@ -498,7 +498,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									<button class="dropdown-item text-danger action_user" type="button" data-action="delete" data-target=""><i class="fa fa-trash text-danger"></i> Delete</button>
 								</div>
 							</div>
-							<button type="submit" class="btn btn-warning" id="m_user_submit"><i class="fa fa-save fa-fw"></i>Save</button>
+							<button type="submit" class="btn btn-primary" id="m_user_submit"><i class="fa fa-save fa-fw"></i>Save</button>
 						</div>
 					</form>
         </div>
