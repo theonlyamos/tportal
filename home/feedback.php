@@ -95,85 +95,57 @@ if (!$_SESSION["loggedIn"]){
 								</div>
                 <div class="tab-content">
                   <div class="tab-pane active" id="m_user_profile_tab_1">
-                    <form class="m-form m-form--fit m-form--label-align-right">
-                      <div class="m-portlet__body">
-												<div class="form-group m-form__group row">
-													<div class="col-12 ml-auto">
-														<div class="m-widget3">
-																<div class="m-widget3__item">
-																	<div class="m-widget3__header">
-																		<div class="m-widget3__user-img">
-																			<img class="m-widget3__img" src="../../assets/app/media/img/users/profile_pic.jpg" alt="">
-																		</div>
-																		<div class="m-widget3__info">
-																			<span class="m-widget3__username">
-																				Melania Trump
-																			</span><br>
-																			<span class="m-widget3__time">
-																				2 day ago
-																			</span>
-																		</div>
-																		<span class="m-widget3__status m--font-info">
-																			Pending
+										<div class="m-portlet__body">
+											<div class="form-group m-form__group row">
+												<div class="col-12 ml-auto">
+													<div class="m-widget3">
+<?php
+require_once '../functions.php';
+$uid = $_SESSION['user']['id'];
+
+if ($_SESSION['user']['role'] == 'admin'){
+$result = queryDB("SELECT id, sender, role, title, message, picture, fullname AS 'name' FROM feedbacks CROSS JOIN admins WHERE (userid = '$uid')");
+}
+else if ($_SESSION['user']['role'] == 'state'){
+$result = queryDB("SELECT id, sender, role, title, message, name FROM feedbacks CROSS JOIN states WHERE (userid = '$uid')");
+}
+if ($result->num_rows){
+for ($j = 0; $j < $result->num_rows; ++$j){
+	$result->data_seek($j);
+	$feed = $result->fetch_array(MYSQLI_ASSOC);
+
+	echo <<< _END
+															<div class="m-widget3__item" data-target="$feed[id]">
+																<div class="m-widget3__header">
+																	<div class="m-widget3__user-img">
+																		<img class="m-widget3__img" src="../../assets/app/media/img/users/profile_1.jpg" alt="">
+																	</div>
+																	<div class="m-widget3__info">
+																		<span class="m-widget3__username">
+																			$feed[name]
+																		</span><br>
+																		<span class="m-widget3__time">
+																			2 day ago
 																		</span>
 																	</div>
-																	<div class="m-widget3__body">
-																		<p class="m-widget3__text">
-																			Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.
-																		</p>
-																	</div>
+																	<span class="m-widget3__status m--font-info">
+																		$feed[title]
+																	</span>
 																</div>
-																<div class="m-widget3__item">
-																	<div class="m-widget3__header">
-																		<div class="m-widget3__user-img">
-																			<img class="m-widget3__img" src="../../assets/app/media/img/users/user_1.jpg" alt="">
-																		</div>
-																		<div class="m-widget3__info">
-																			<span class="m-widget3__username">
-																				Lebron King James
-																			</span><br>
-																			<span class="m-widget3__time">
-																				1 day ago
-																			</span>
-																		</div>
-																		<span class="m-widget3__status m--font-brand">
-																			Open
-																		</span>
-																	</div>
-																	<div class="m-widget3__body">
-																		<p class="m-widget3__text">
-																			Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.Ut wisi enim ad minim veniam,quis nostrud exerci tation ullamcorper.
-																		</p>
-																	</div>
-																</div>
-																<div class="m-widget3__item">
-																	<div class="m-widget3__header">
-																		<div class="m-widget3__user-img">
-																			<img class="m-widget3__img" src="../../assets/app/media/img/users/user_2.jpg" alt="">
-																		</div>
-																		<div class="m-widget3__info">
-																			<span class="m-widget3__username">
-																				Deb Gibson
-																			</span><br>
-																			<span class="m-widget3__time">
-																				3 weeks ago
-																			</span>
-																		</div>
-																		<span class="m-widget3__status m--font-success">
-																			Closed
-																		</span>
-																	</div>
-																	<div class="m-widget3__body">
-																		<p class="m-widget3__text">
-																			Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.
-																		</p>
-																	</div>
+																<div class="m-widget3__body">
+																	<p class="m-widget3__text">
+																		$feed[message]
+																	</p>
 																</div>
 															</div>
-													</div>
+_END;
+}
+}
+?>
+														</div>
 												</div>
-                      </div>
-                    </form>
+											</div>
+										</div>
                   </div>
                 </div>
               </div>

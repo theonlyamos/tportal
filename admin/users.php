@@ -529,8 +529,11 @@ License: You must have a valid license purchased only from themeforest(the above
 										</div>
 									</div>
 									<div class="form-group m-form__group">
-											<label class="form-control-label">Message</label>
-											<textarea rows="5" name="message" class="form-control m-input" placeholder=""></textarea>
+										<div class="md-editor" id="1553185306142">
+											<textarea name="message" class="form-control md-input" data-provide="markdown" rows="5" style="resize: none;"></textarea>
+											<div class="md-fullscreen-controls"><a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a></div>
+											<span class="m-form__help">Please enter the description of the tournament venue</span>
+										</div>
 									</div>
 								</div>
 							</div>

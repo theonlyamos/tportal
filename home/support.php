@@ -208,69 +208,57 @@ _END;
 										</div>
 									</div>
 									<div class="m-portlet__body">
-										<div class="m-widget3">
-											<div class="m-widget3__item" id="ticket-1234">
-												<div class="m-widget3__header">
-													<div class="m-widget3__user-img">
-														<img class="m-widget3__img" src="../assets/app/media/img/users/neutral.png" alt="user picture">
-													</div>
-													<div class="m-widget3__info justify-content-center">
-														<span class="m-widget3__username">
-															Deb Gibson - 
-															<span class="m--font-success">
-																Open
-															</span>
-														</span>
-														<br>
-														<span class="m-widget3__time">
-															3 weeks ago
-														</span>
-													</div>
-													<span class="m-widget3__status m--font-success">
-														<li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-															<a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
-																<i class="la la-ellipsis-h m--font-brand"></i>
-															</a>
-															<div class="m-dropdown__wrapper">
-																<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-																<div class="m-dropdown__inner">
-																	<div class="m-dropdown__body">
-																		<div class="m-dropdown__content">
-																			<ul class="m-nav">
-																				<li class="m-nav__item" id="m_quick_sidebar_toggle" style="cursor: pointer;" data-target="1234">
-																						<i class="m-nav__link-icon flaticon-chat-1 m--font-primary"></i>
-																						<span class="m-nav__link-text m--font-primary ml-3" data-target="1234">Reply</span>
-																				</li>
-																				<li class="m-nav__item">
-																					<a href="" class="m-nav__link">
-																						<i class="m-nav__link-icon flaticon-cancel"></i>
-																						<span class="m-nav__link-text">Close</span>
-																					</a>
-																				</li>
-																				<li class="m-nav__item">
-																					<a href="" class="m-nav__link">
-																						<i class="m-nav__link-icon fa fa-trash-alt text-danger"></i>
-																						<span class="m-nav__link-text text-danger">Delete</span>
-																					</a>
-																				</li>
-																			</ul>
-																		</div>
-																	</div>
+										<div class="form-group m-form__group row">
+											<div class="col-12 ml-auto">
+												<div class="m-widget3">
+<?php
+require_once '../functions.php';
+$uid = $_SESSION['user']['id'];
+
+if ($_SESSION['user']['role'] == 'admin'){
+$result = queryDB("SELECT id, sender, role, title, message, picture, name FROM feedbacks CROSS JOIN admins WHERE (userid = '$uid')");
+}
+else if ($_SESSION['user']['role'] == 'state'){
+$result = queryDB("SELECT id, sender, role, title, message, picture, name FROM feedbacks CROSS JOIN states WHERE (userid = '$uid')");
+}
+if ($result->num_rows){
+for ($j = 0; $j < $result->num_rows; ++$j){
+$result->data_seek($j);
+$feed = $result->fetch_array(MYSQLI_ASSOC);
+
+echo <<< _END
+														<div class="m-widget3__item" data-target="$feed[id]">
+															<div class="m-widget3__header">
+																<div class="m-widget3__user-img">
+																	<img class="m-widget3__img" src="../../assets/app/media/img/users/$feed[picture]" alt="">
 																</div>
+																<div class="m-widget3__info">
+																	<span class="m-widget3__username">
+																		$feed[name]
+																	</span><br>
+																	<span class="m-widget3__time">
+																		2 day ago
+																	</span>
+																</div>
+																<span class="m-widget3__status m--font-info">
+																	$feed[title]
+																</span>
 															</div>
-														</li>
-													</span>
-												</div>
-												<div class="m-widget3__body">
-													<p class="m-widget3__text">
-														Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.
-													</p>
-												</div>
+															<div class="m-widget3__body">
+																<p class="m-widget3__text">
+																	$feed[message]
+																</p>
+															</div>
+														</div>
+_END;
+}
+}
+?>
+													</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
 							</div>
 
 							<!--Right Aside-->
