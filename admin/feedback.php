@@ -8,25 +8,12 @@ if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 ?>
 
 <!DOCTYPE html>
-
-<!-- 
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <html lang="en">
 
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>Support | Tournament Portal</title>
+		<title>Feedback | Tournament Portal</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -92,10 +79,10 @@ require_once 'header.php';
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="reports.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-pie-chart"></i><span
 									 class="m-menu__link-text">Reports</a>
 							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="feedback.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
+							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="feedback.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
 									 class="m-menu__link-text">Feedbacks</span></a>
 							</li>
-							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="support.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-info"></i><span
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="support.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-info"></i><span
 									 class="m-menu__link-text">Support</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item--submenu m-menu__item--bottom-2" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-settings"></i><span
@@ -137,11 +124,11 @@ require_once 'header.php';
 					<div class="m-subheader ">
 						<div class="d-flex align-items-center">
 							<div class="mr-auto">
-									<h3 class="m-subheader__title m-subheader__title--separator">Support</h3>
+									<h3 class="m-subheader__title m-subheader__title--separator">Feedback</h3>
 									<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 										<li class="m-nav__item m-nav__item--home">
 											<a href="#" class="m-nav__link m-nav__link--icon">
-												<i class="m-nav__link-icon flaticon-info"></i>
+												<i class="m-nav__link-icon flaticon-feed"></i>
 											</a>
 										</li>
 										<li class="m-nav__separator">-</li>
@@ -153,7 +140,7 @@ require_once 'header.php';
 										<li class="m-nav__separator">-</li>
 										<li class="m-nav__item">
 											<a href="" class="m-nav__link">
-												<span class="m-nav__link-text">All tickets</span>
+												<span class="m-nav__link-text">All feedback</span>
 											</a>
 										</li>
 									</ul>
@@ -174,79 +161,124 @@ require_once 'header.php';
 
 					<!-- END: Subheader -->
 					<div class="m-content">
-						<div class="m-portlet">
+						<div class="m-portlet m-portlet--full-height m-portlet--tabs " id="feedbacks">
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
-										<h3 class="m-portlet__head-text">
-											Support Tickets
+										<span class="m-portlet__head-icon">
+											<i class="flaticon-share"></i>
+										</span>
+										<h3 class="m-portlet__head-text m--font-primary">
+											Feedback
 										</h3>
 									</div>
 								</div>
 							</div>
-							<div class="m-portlet__body">
-								<div class="m-widget3">
-									<div class="m-widget3__item" id="ticket-1234">
-										<div class="m-widget3__header">
-											<div class="m-widget3__user-img">
-												<img class="m-widget3__img" src="../assets/app/media/img/users/neutral.png" alt="user picture">
-											</div>
-											<div class="m-widget3__info justify-content-center">
-												<span class="m-widget3__username">
-													Deb Gibson - 
-													<span class="m--font-success">
-														Open
-													</span>
-												</span>
-												<br>
-												<span class="m-widget3__time">
-													3 weeks ago
-												</span>
-											</div>
-											<span class="m-widget3__status m--font-success">
-												<li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-													<a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
-														<i class="la la-ellipsis-h m--font-brand"></i>
-													</a>
-													<div class="m-dropdown__wrapper">
-														<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-														<div class="m-dropdown__inner">
-															<div class="m-dropdown__body">
-																<div class="m-dropdown__content">
-																	<ul class="m-nav">
-																		<li class="m-nav__item" id="m_quick_sidebar_toggle" style="cursor: pointer;" data-target="1234">
-																				<i class="m-nav__link-icon flaticon-chat-1 m--font-primary"></i>
-																				<span class="m-nav__link-text m--font-primary ml-3" data-target="1234">Reply</span>
-																		</li>
-																		<li class="m-nav__item">
-																			<a href="" class="m-nav__link">
-																				<i class="m-nav__link-icon flaticon-cancel"></i>
-																				<span class="m-nav__link-text">Close</span>
-																			</a>
-																		</li>
-																		<li class="m-nav__item">
-																			<a href="" class="m-nav__link">
-																				<i class="m-nav__link-icon fa fa-trash-alt text-danger"></i>
-																				<span class="m-nav__link-text text-danger">Delete</span>
-																			</a>
-																		</li>
-																	</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="m_user_profile_tab_1">
+									<div class="m-portlet__body">
+										<div class="form-group m-form__group row">
+											<div class="col-12 ml-auto">
+												<div class="m-widget3">
+<?php
+require_once '../functions.php';
+
+if ($_GET['id']){
+	$fid = sanitizeString($_GET['id']);
+	$result = queryDB("SELECT feedbacks.id, sender, seen, feedbacks.role, title, message, fullname AS 'name' FROM feedbacks CROSS JOIN admins WHERE (feedbacks.id = '$fid')");
+
+	if ($result->num_rows){
+		$feed = $result->fetch_array(MYSQLI_ASSOC);
+
+		echo <<< _END
+														<a href="/home/feedback.php?id=$feed[id]">
+															<div class="m-widget3__item" data-target="$feed[id]">
+																<div class="m-widget3__header">
+																	<div class="m-widget3__user-img">
+																		<img class="m-widget3__img" src="../../assets/app/media/img/users/admin.png" alt="">
+																	</div>
+																	<div class="m-widget3__info">
+																		<span class="m-widget3__username">
+																			$feed[title]
+																		</span><br>
+																		<span class="m-widget3__time">
+																			$feed[name] <span class="m-badge m-badge--info">Admin</span>
+																		</span>
+																	</div>
+																</div>
+																<div class="m-widget3__body">
+																	<p class="m-widget3__text">
+																		$feed[message]
+																	</p>
 																</div>
 															</div>
+														</a>
+_END;
+	
+
+	setLog('admin', $uid, $_SESSION['user']['email']." read feedback: <strong>".$feed['title']."</strong>", "admin");
+	}
+}
+else {
+	$result = queryDB("SELECT feedbacks.id, sender, feedbacks.role, seen, title, message, fullname AS 'name' FROM feedbacks CROSS JOIN admins WHERE (admins.id = feedbacks.sender)");
+
+	if ($result->num_rows){
+	for ($j = 0; $j < $result->num_rows; ++$j){
+		$result->data_seek($j);
+		$feed = $result->fetch_array(MYSQLI_ASSOC);
+		$message = substr($feed['message'], 0, 100)."...";
+
+		echo <<< _END
+														<a href="/admin/feedback.php?id=$feed[id]">
+															<div class="m-widget3__item" data-target="$feed[id]">
+																<div class="m-widget3__header">
+																	<div class="m-widget3__user-img">
+																		<img class="m-widget3__img" src="../../assets/app/media/img/users/admin.png" alt="">
+																	</div>
+																	<div class="m-widget3__info">
+																		<span class="m-widget3__username">
+																			$feed[title]
+																		</span><br>
+																		<span class="m-widget3__time">
+																			$feed[name] <span class="m-badge m-badge--info">Admin</span>
+																		</span>
+																	</div>
+_END;
+if ($feed['seen']){
+		echo <<< _END
+																	<span class="m-widget3__status m--font-danger">
+																		<span class="m-badge m-badge--metal">read</span>
+																	</span>
+_END;
+}
+else {
+		echo <<< _END
+																	<span class="m-widget3__status m--font-danger">
+																		<span class="m-badge m-badge--danger">new</span>
+																	</span>
+_END;
+}
+		echo <<< _END
+																</div>
+																<div class="m-widget3__body">
+																	<p class="m-widget3__text">
+																		$message
+																	</p>
+																</div>
+															</div>
+														</a>
+_END;
+		}
+	}
+}
+?>
 														</div>
-													</div>
-												</li>
-											</span>
+												</div>
+											</div>
 										</div>
-										<div class="m-widget3__body">
-											<p class="m-widget3__text">
-												Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+                  </div>
+                </div>
+              </div>
           </div>
 				</div>
 			</div>
