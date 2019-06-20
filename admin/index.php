@@ -279,7 +279,7 @@ _END;
 													<div class="m-list-timeline m-list-timeline--skin-light">
 														<div class="m-list-timeline__items">
 <?php
-$result = queryDB("SELECT * FROM logs ORDER BY createdAt DESC");
+$result = queryDB("SELECT * FROM logs ORDER BY createdAt DESC LIMIT 50");
 
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
