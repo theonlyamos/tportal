@@ -226,7 +226,6 @@ else {
 	for ($j = 0; $j < $result->num_rows; ++$j){
 		$result->data_seek($j);
 		$feed = $result->fetch_array(MYSQLI_ASSOC);
-		$message = substr($feed['message'], 0, 100)."...";
 
 		echo <<< _END
 														<a href="/admin/feedback.php?id=$feed[id]">
@@ -262,7 +261,7 @@ _END;
 																</div>
 																<div class="m-widget3__body">
 																	<p class="m-widget3__text">
-																		$message
+																		$feed[message]
 																	</p>
 																</div>
 															</div>
