@@ -35,7 +35,7 @@ if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
 
 		<!--RTL version:<link href="../assets/vendors/base/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 		<link href="../assets/demo/demo3/base/style.bundle.css" rel="stylesheet" type="text/css" />
-
+		<link href="../assets/demo/demo3/base/admin.css" rel="stylesheet" type="text/css" />
 		<!--RTL version:<link href="../assets/demo/demo3/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
 
@@ -79,7 +79,7 @@ require_once 'header.php';
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="reports.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-pie-chart"></i><span
 									 class="m-menu__link-text">Reports</a>
 							</li>
-							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="feedback.html" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
+							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="feedback.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
 									 class="m-menu__link-text">Feedbacks</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="support.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-info"></i><span
@@ -214,9 +214,7 @@ if ($_GET['id']){
 															</div>
 														</a>
 _END;
-	
 
-	setLog('admin', $uid, $_SESSION['user']['email']." read feedback: <strong>".$feed['title']."</strong>", "admin");
 	}
 }
 else {

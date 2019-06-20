@@ -48,6 +48,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--RTL version:<link href="../assets/vendors/base/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 		<link href="../assets/demo/demo3/base/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/demo/demo3/base/admin.css" rel="stylesheet" type="text/css" />
 
 		<!--RTL version:<link href="../assets/demo/demo3/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
