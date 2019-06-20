@@ -103,14 +103,15 @@ if (!$_SESSION["loggedIn"]){
 require_once '../functions.php';
 $uid = $_SESSION['user']['id'];
 
-$result = queryDB("SELECT feedbacks.id, sender, feedbacks.role, title, message, fullname AS 'name' FROM feedbacks CROSS JOIN admins WHERE (userid = '$uid')");
+if ($_GET['id']){
+	$fid = sanitizeString($_GET['id']);
+	$result = queryDB("SELECT feedbacks.id, sender, seen, feedbacks.role, title, message, fullname AS 'name' FROM feedbacks CROSS JOIN admins WHERE (feedbacks.id = '$fid' AND admins.id = feedbacks.sender)");
 
-if ($result->num_rows){
-for ($j = 0; $j < $result->num_rows; ++$j){
-	$result->data_seek($j);
-	$feed = $result->fetch_array(MYSQLI_ASSOC);
+	if ($result->num_rows){
+		$feed = $result->fetch_array(MYSQLI_ASSOC);
 
-	echo <<< _END
+		echo <<< _END
+														<a href="/home/feedback.php?id=$feed[id]">
 															<div class="m-widget3__item" data-target="$feed[id]">
 																<div class="m-widget3__header">
 																	<div class="m-widget3__user-img">
@@ -118,15 +119,12 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 																	</div>
 																	<div class="m-widget3__info">
 																		<span class="m-widget3__username">
-																			$feed[name]
+																			$feed[title]
 																		</span><br>
 																		<span class="m-widget3__time">
-																			2 day ago
+																			$feed[name] <span class="m-badge m-badge--info">Admin</span>
 																		</span>
 																	</div>
-																	<span class="m-widget3__status m--font-info">
-																		$feed[title]
-																	</span>
 																</div>
 																<div class="m-widget3__body">
 																	<p class="m-widget3__text">
@@ -134,8 +132,66 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 																	</p>
 																</div>
 															</div>
+														</a>
+_END;
+	
+	if (!$feed['seen']){
+		queryDB("UPDATE feedbacks SET seen = TRUE WHERE id = '$fid'");
+		setLog('user', $uid, $_SESSION['user']['email']." read feedback: <strong>".$feed['title']."</strong>", $_SESSION['user']['country']);
+	}
+	}
+}
+else {
+	$result = queryDB("SELECT feedbacks.id, sender, feedbacks.role, seen, title, message, fullname AS 'name' FROM feedbacks CROSS JOIN admins WHERE (admins.id = feedbacks.sender AND userid = '$uid')");
+
+	if ($result->num_rows){
+	for ($j = 0; $j < $result->num_rows; ++$j){
+		$result->data_seek($j);
+		$feed = $result->fetch_array(MYSQLI_ASSOC);
+		$message = substr($feed['message'], 0, 100)."...";
+
+		echo <<< _END
+														<a href="/home/feedback.php?id=$feed[id]">
+															<div class="m-widget3__item" data-target="$feed[id]">
+																<div class="m-widget3__header">
+																	<div class="m-widget3__user-img">
+																		<img class="m-widget3__img" src="../../assets/app/media/img/users/admin.png" alt="">
+																	</div>
+																	<div class="m-widget3__info">
+																		<span class="m-widget3__username">
+																			$feed[title]
+																		</span><br>
+																		<span class="m-widget3__time">
+																			$feed[name] <span class="m-badge m-badge--info">Admin</span>
+																		</span>
+																	</div>
+_END;
+if ($feed['seen']){
+		echo <<< _END
+																	<span class="m-widget3__status m--font-danger">
+																		<span class="m-badge m-badge--metal">read</span>
+																	</span>
 _END;
 }
+else {
+		echo <<< _END
+																	<span class="m-widget3__status m--font-danger">
+																		<span class="m-badge m-badge--danger">new</span>
+																	</span>
+_END;
+}
+		echo <<< _END
+																</div>
+																<div class="m-widget3__body">
+																	<p class="m-widget3__text">
+																		$message
+																	</p>
+																</div>
+															</div>
+														</a>
+_END;
+		}
+	}
 }
 ?>
 														</div>

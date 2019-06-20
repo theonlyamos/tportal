@@ -6,6 +6,7 @@ $(() => {
     $(".option-input."+e.target.value).show();
   });
 
+/* Feedback onclick
   $(".m-widget3__item").on("click", (e) => {
     mApp.block("#feedbacks .m-portlet__body", {})
 
@@ -17,5 +18,5 @@ $(() => {
     console.log([name, time, status, text]);
     mApp.unblock("#feedbacks .m-portlet__body")
   });
-
+*/
 })

@@ -3,7 +3,7 @@ session_start();
 $PAGE_ICON = 'flaticon-home';
 $PAGE_TITLE = 'Home';
 if (!$_SESSION["loggedIn"]){
-	header("Location: /");
+	header("Location: /login.html");
 }
 ?>
 
