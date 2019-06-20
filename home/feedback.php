@@ -103,12 +103,8 @@ if (!$_SESSION["loggedIn"]){
 require_once '../functions.php';
 $uid = $_SESSION['user']['id'];
 
-if ($_SESSION['user']['role'] == 'admin'){
-$result = queryDB("SELECT id, sender, role, title, message, picture, fullname AS 'name' FROM feedbacks CROSS JOIN admins WHERE (userid = '$uid')");
-}
-else if ($_SESSION['user']['role'] == 'state'){
-$result = queryDB("SELECT id, sender, role, title, message, name FROM feedbacks CROSS JOIN states WHERE (userid = '$uid')");
-}
+$result = queryDB("SELECT feedbacks.id, sender, feedbacks.role, title, message, fullname AS 'name' FROM feedbacks CROSS JOIN admins WHERE (userid = '$uid')");
+
 if ($result->num_rows){
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
@@ -118,7 +114,7 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 															<div class="m-widget3__item" data-target="$feed[id]">
 																<div class="m-widget3__header">
 																	<div class="m-widget3__user-img">
-																		<img class="m-widget3__img" src="../../assets/app/media/img/users/profile_1.jpg" alt="">
+																		<img class="m-widget3__img" src="../../assets/app/media/img/users/admin.png" alt="">
 																	</div>
 																	<div class="m-widget3__info">
 																		<span class="m-widget3__username">
