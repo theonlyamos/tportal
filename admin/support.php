@@ -198,7 +198,8 @@ if ($result->num_rows){
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$ticket = $result->fetch_array(MYSQLI_ASSOC);
-	$conversation = $ticket['conversation'];
+	$conversation = unserialize($ticket['conversation']);
+	$message = end($conversation)['message'];
 
 echo <<< _END
 									<div class="m-widget3__item" id='$ticket[ticketnum]'>
@@ -277,7 +278,7 @@ _END;
 										</div>
 										<div class="m-widget3__body">
 											<p class="m-widget3__text">
-												$conversation[message]
+												$message
 											</p>
 										</div>
 									</div>
