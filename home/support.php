@@ -33,7 +33,7 @@ if ($_POST){
 	}
 
 	$query = "INSERT INTO tickets (id, userid, title, conversation, attachment) VALUES
-					(UUID(), ''$userid', '$title', '$conversation', '$attachment')";
+					(UUID(), '$userid', '$title', '$conversation', '$attachment')";
 
 	if (queryDB($query)){
 		$result = queryDB("SELECT ticketnum FROM tickets WHERE (title = '$title' AND userid = '$userid') ORDER BY createdAt DESC LIMIT 1");
