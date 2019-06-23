@@ -4,17 +4,17 @@ require_once 'functions.php';
 if (isset($_POST['email']) && isset($_POST['password'])) {
   $email = sanitizeString($_POST['email']);
   $pass = sanitizeString($_POST['password']);
-
+  
   if ($email == "" || $pass == ""){
     http_response_code(402);
     echo "Not all fields are entered;";
   }
   else {
     $pass = createHash($pass, $email);
-
-    if ($_POST['profession'] == "user"){
+    
+    if (sanitizeString($_POST['profession']) == "user"){
       $result = queryDB("SELECT * FROM users WHERE email='$email'");
-      
+     
       if ($result->num_rows == 0) {
         setLog('user', "", $email." invalid authentication", "user");
         http_response_code(402);
@@ -22,6 +22,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       }
       else {
         $user = $result->fetch_array(MYSQLI_ASSOC);
+
         if ($pass != $user['password']) {
           setLog('user', $user['id'], $user['email']." invalid authentication", $user['country']);
           http_response_code(402);

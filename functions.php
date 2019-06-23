@@ -51,10 +51,9 @@ setcookie(session_name(), '', time()-2592000, '/');
 session_destroy();
 }
 
-function setLog($role, $userid, $message,$country, $level = 'log'){
+function setLog($role, $userid, $message,$country, $level = "log"){
   $query = "INSERT INTO logs (id, role, userid, message, country, level) VALUES (
-    UUID(), '$role', '$userid', '$message', '$country', $level
-  )";
+    UUID(), '$role', '$userid', '$message', '$country', '$level')";
   queryDB($query);
 }
 
