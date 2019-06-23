@@ -187,21 +187,57 @@ require_once 'header.php';
 							</div>
 							<div class="m-portlet__body">
 								<div class="m-widget3">
-									<div class="m-widget3__item" id="ticket-1234">
+<?php
+require_once '../functions.php';
+
+$result = queryDB("SELECT tickets.id, userid, ticketnum, title, conversation, attachment, 
+									status, tickets.createdAt fullname AS 'name', picture FROM tickets 
+									CROSS JOIN users WHERE (userid = users.id) ORDER BY tickets.createdAt DESC LIMIT 10");
+
+if ($result->num_rows){
+for ($j = 0; $j < $result->num_rows; ++$j){
+	$result->data_seek($j);
+	$ticket = $result->fetch_array(MYSQLI_ASSOC);
+	$conversation = $ticket['conversation'];
+
+echo <<< _END
+									<div class="m-widget3__item" id='$ticket[ticketnum]'>
 										<div class="m-widget3__header">
 											<div class="m-widget3__user-img">
-												<img class="m-widget3__img" src="../assets/app/media/img/users/neutral.png" alt="user picture">
+_END;
+
+if ($ticket['picture']){
+										echo '<img class="m-widget3__img" src="../assets/data/profiles/'.$ticket['picture'].'" alt="user picture">';
+}
+else {
+										echo '<img class="m-widget3__img" src="../assets/app/media/img/users/neutral.png" alt="user picture">';
+}
+echo <<< _END
 											</div>
 											<div class="m-widget3__info justify-content-center">
 												<span class="m-widget3__username">
-													Deb Gibson - 
+													$ticket[name] - 
+_END;
+if ($ticket['status'] == 'open'){
+		echo <<< _END
 													<span class="m--font-success">
 														Open
 													</span>
+_END;
+}
+else {
+		echo <<< _END
+													<span class="m--font-metal">
+														closed
+													</span>
+_END;
+}
+
+		echo <<< _END
 												</span>
 												<br>
 												<span class="m-widget3__time">
-													3 weeks ago
+													$ticket[createdAt]
 												</span>
 											</div>
 											<span class="m-widget3__status m--font-success">
@@ -215,18 +251,18 @@ require_once 'header.php';
 															<div class="m-dropdown__body">
 																<div class="m-dropdown__content">
 																	<ul class="m-nav">
-																		<li class="m-nav__item" id="m_quick_sidebar_toggle" style="cursor: pointer;" data-target="1234">
+																		<li class="m-nav__item" id="m_quick_sidebar_toggle" style="cursor: pointer;" data-target="$ticket[ticketnum]">
 																				<i class="m-nav__link-icon flaticon-chat-1 m--font-primary"></i>
-																				<span class="m-nav__link-text m--font-primary ml-3" data-target="1234">Reply</span>
+																				<span class="m-nav__link-text m--font-primary ml-3">Reply</span>
 																		</li>
-																		<li class="m-nav__item">
-																			<a href="" class="m-nav__link">
+																		<li class="m-nav__item" id="close_ticket" data-target="$target[ticketnum]" data-user="$target[userid]">
+																			<a href="#" class="m-nav__link">
 																				<i class="m-nav__link-icon flaticon-cancel"></i>
 																				<span class="m-nav__link-text">Close</span>
 																			</a>
 																		</li>
-																		<li class="m-nav__item">
-																			<a href="" class="m-nav__link">
+																		<li class="m-nav__item"  id="delete_ticket" data-target="$target[ticketnum]" data-user="$target[userid]">
+																			<a href="#" class="m-nav__link">
 																				<i class="m-nav__link-icon fa fa-trash-alt text-danger"></i>
 																				<span class="m-nav__link-text text-danger">Delete</span>
 																			</a>
@@ -241,10 +277,14 @@ require_once 'header.php';
 										</div>
 										<div class="m-widget3__body">
 											<p class="m-widget3__text">
-												Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.
+												$conversation[message]
 											</p>
 										</div>
 									</div>
+_END;
+}
+}
+?>
 								</div>
 							</div>
 						</div>

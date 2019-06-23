@@ -51,9 +51,9 @@ setcookie(session_name(), '', time()-2592000, '/');
 session_destroy();
 }
 
-function setLog($role, $userid, $message,$country){
-  $query = "INSERT INTO logs (id, role, userid, message, country) VALUES (
-    UUID(), '$role', '$userid', '$message', '$country'
+function setLog($role, $userid, $message,$country, $level = 'log'){
+  $query = "INSERT INTO logs (id, role, userid, message, country, level) VALUES (
+    UUID(), '$role', '$userid', '$message', '$country', $level
   )";
   queryDB($query);
 }
@@ -68,11 +68,11 @@ function getLogs($lastLog){
   }
 }
 
-function sendPHPMail($address, $name="", $subject, $body){
+function sendPHPMail($address, $name="", $subject, $body, $mailFrom = "Tportal"){
   global $smtpCreds;
   $mail = new PHPMailer(TRUE);
   try {
-    $mail->setFrom($smtpCreds['username'], "Tportal");
+    $mail->setFrom($smtpCreds['username'], $mailFrom);
     if (is_array($address)){
       foreach($address as $mail){
         $mail->addCC($mail, $name);

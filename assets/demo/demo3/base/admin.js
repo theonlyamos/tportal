@@ -343,7 +343,7 @@ $(() =>{
               console.log(e)
               e.attr("disabled", !1)
               mApp.unblock("#m_modal_tournament .modal-content")
-              Notify("Error", "Tournament not created. Try again", "danger", "fa fa-check")
+              Notify("Error", "Tournament not created. Try again", "danger", "la la-close")
             }
           })
           
@@ -481,9 +481,9 @@ $(() =>{
   })
 
   $("#m_quick_sidebar_toggle").on("click", (e) => {
-    var target = $(e.target).data("target");
-
-    $.get("/adminActions.php", {field: 'tickets', action: 'details', target: target})
+    var target = $(e.currentTarget).data("target");
+    var user = $(e.currentTarget).data("user");
+    $.get("/adminActions.php", {field: 'tickets', action: 'details', target: target, user: user})
      .done((d) => {
       var d = JSON.parse(d);
       if (d.success){
@@ -530,6 +530,44 @@ $(() =>{
         
       }
     })
+  })
+
+  $("#close_ticket").on('click', (e) => {
+    var target = $(e.target).data("target");
+    var user = $(e.currentTarget).data("user");
+    mApp.block(".m-content", {})
+    $.get("/adminActions.php", {field: 'tickets', action: 'close', target: target, user: user})
+     .done((d) => {
+       mApp.unblock(".m-content");
+       var s = JSON.parse(d)
+       
+       if (s.success){
+        $("#"+target)[0].remove();
+        Notify("Success", "Ticket closed successfully", "success", "fa fa-check")
+       }
+       else {
+         Notify("Error", w.responseText, "danger", "la la-close")
+       }
+     })
+  })
+
+  $("#delete_ticket").on('click', (e) => {
+    var target = $(e.target).data("target");
+    var user = $(e.currentTarget).data("user");
+    mApp.block(".m-content", {})
+    $.get("/adminActions.php", {field: 'tickets', action: 'delete', target: target, user: user})
+     .done((d) => {
+       mApp.unblock(".m-content");
+       var s = JSON.parse(d)
+    
+       if (s.success){
+        $("#"+target)[0].remove();
+        Notify("Success", "Ticket deleted successfully", "success", "fa fa-trash")
+       }
+       else {
+         Notify("Error", w.responseText, "danger", "la la-close")
+       }
+     })
   })
 
   $(".m-messenger__form-input").on("keypress", (e)=> {

@@ -10,6 +10,7 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$user = $result->fetch_array(MYSQLI_ASSOC);
 	$country = $countries[$user['country']];
+
 echo <<< _END
 								<div class="m-portlet m-portlet--bordered-semi m-portlet--rounded-force">
 									<a href="">

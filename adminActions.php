@@ -333,18 +333,49 @@ else {
     $target = sanitizeString($_GET['target']);
 
     if ($action == 'details'){
-      $result = queryDB("SELECT conversation FROM tickets WHERE ticketnum = '$target'");
+      $ticketnum = sanitizeString($_GET['target']);
+      $userid = sanitizeString($_GET['user']);
+
+      $result = queryDB("SELECT tickets.id, userid, ticketnum, title, conversation, attachment, status,createdAt, fullname AS 'name', 
+                         picture FROM tickets CROSS JOIN users WHERE (ticketnum = '$ticketnum')");
       if ($result->num_rows){
         $ticket = $result->fetch_array(MYSQLI_ASSOC);
         $conversation = unserialize($ticket['conversation']);
-
-        setLog("admin", $target, "get ticket #".$target, "ticket");
-
-        http_response_code(200);
-        echo json_encode(array("success" => TRUE, "conversation" => $conversation));
+        $ticket['conversation'] = $conversation;
+        array_push($ticket, array("success" => TRUE));
+        setLog("admin", $ticket['userid'], "get ticket: #".$ticket['ticketnum'], "admin");
+        echo json_encode($ticket);
       }
       else {
-        setLog('admin', $ticket['userid'], "get ticket #".$ticket['ticketnum']." failed", "ticket");
+        setLog("admin", $userid, "get ticket #".$ticketnum." failed", "admin", "error");
+        http_response_code(400);
+        echo json_encode(array("success" => FALSE));
+      }
+    }
+    else if ($action == 'close'){
+      $ticketnum = sanitizeString($_GET['target']);
+      $userid = sanitizeString($_GET['user']);
+
+      if (queryDB("UPDATE tickets SET status = 'closed' WHERE ticketnum = '$ticketnum'")){
+        setLog("admin", $userid, "closed ticket #".$ticketnum, "admin");
+        echo json_encode(array("success" => TRUE));
+      }
+      else {
+        setLog("admin", $userid, "ticket close failure: #".$ticketnum, "admin", "error");
+        http_response_code(400);
+        echo json_encode(array("success" => FALSE));
+      }
+    }
+    else if ($action == 'delete'){
+      $ticketnum = sanitizeString($_GET['target']);
+      $userid = sanitizeString($_GET['user']);
+
+      if (queryDB("DELETE FROM tickets WHERE ticketnum = '$ticketnum'")){
+        setLog('admin', $userid, "deleted ticket: #".$ticketnum, "admin");
+        echo json_encode(array("success" => TRUE));
+      }
+      else {
+        setLog("admin", $userid, "ticket #".$ticketnum." delete failure", "admin", "error");
         http_response_code(400);
         echo json_encode(array("success" => FALSE));
       }

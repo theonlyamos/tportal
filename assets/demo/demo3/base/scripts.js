@@ -19,4 +19,14 @@ $(() => {
     mApp.unblock("#feedbacks .m-portlet__body")
   });
 */
+
+  $("#newTicket").on("click", ()=> {
+    $(".new-ticket-portlet").hide();
+    $(".tickets-portlet").removeClass("d-none");
+  });
+
+  $("#backToTickets").on("click", ()=> {
+    $(".tickets-portlet").addClass("d-none");
+    $(".new-ticket-portlet").show();
+  });
 })

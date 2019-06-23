@@ -2,48 +2,63 @@
 session_start();
 $PAGE_ICON = 'flaticon-questions-circular-button';
 $PAGE_TITLE = 'Support';
+
 if (!$_SESSION["loggedIn"]){
-	header("Location: /");
+	header("Location: /login.html");
 }
-else {
-	if ($_POST){
+
+if ($_POST){
 	require_once '../functions.php';
 
 	$target = $_SESSION['user']['id'];
-	$email = sanitizeString($_POST['email']);
+	$email = $_SESSION['user']['email'];
 	$title = sanitizeString($_POST['title']);
+	$rawMessage = $_POST['message'];
 	$msg = sanitizeString($_POST['message']);
 
 	$conversation = array();
 	$message = array("type" => "in", "userId" => $target, "userRole" => "user", "message" => msg, "date" => date(DATE_RFC2822));
 	array_push($conversation, $message);
+	echo $conversation;
 	$conversation = serialize($conversation);
 
-	$query = "INSERT INTO tickets (id, email, userid, title, conversation) VALUES
-					(UUID(), '$email', '$target', '$title', '$conversation')";
+	$attachment = "";
+
+	if ($_FILES){
+		$filename = $_FILES['attachment']['name'];
+		$fullpath = date(DATE_ISO8601)."_".$filename;
+		$userid = $_SESSION['user']['id'];
+		// $ext = pathinfo($_FILES["bulkFile"]["name"])['extension'];
+
+		move_uploaded_file($_FILES['attachment']['tmp_name'], 'assets/data/tickets/'.$fullpath);
+		$attachment = $fullpath;
+	}
+
+	$query = "INSERT INTO tickets (id, email, userid, title, conversation, attachment) VALUES
+					(UUID(), '$email', '$target', '$title', '$conversation', '$attachment')";
 
 	if (queryDB($query)){
-		$result = queryDB("SELECT ticketnum FROM tickets WHERE email = '$email' ORDER BY createdAt DESC");
+		$result = queryDB("SELECT ticketnum FROM tickets WHERE email = '$email' ORDER BY createdAt DESC LIMIT 1");
 		$result = $result->fetch_array(MYSQLI_ASSOC);
 		$body = "<h4>Hi, <strong>".$_SESSION['user']['fullname']."</strong></h4>
-						 <p>Your support ticket has been created successfully</p>
-						 <p>We will reply as soon as possible</p>
-						 <p>Ticket Details</p><br>
-						 <h5><strong>Ticket #</strong>".$result['ticketnum']."</h5>
-						 <h5><strong>Ticket subject: </strong>".$title."</h5>
-						 <h5><strong>Message </strong>".$result['ticketnum']."</h5>
-						 <p>".$msg."</p>";
+							<p>Your support ticket has been created successfully</p>
+							<p>We will reply as soon as possible</p>
+							<p>Ticket Details</p><br>
+							<h5><strong>Ticket #</strong>".$result['ticketnum']."</h5>
+							<h5><strong>Ticket subject: </strong>".$title."</h5>
+							<h5><strong>Message </strong>".$result['ticketnum']."</h5>
+							<p>".$rawMessage."</p>";
 		$subject = $title." - ticket #".$result['ticketnum'];
-		sendPHPMail($email, $_SESSION['user']['fullname'], $subject, $body);
+		sendPHPMail($email, $_SESSION['user']['fullname'], $subject, $body, "Tportal Support");
+		setLog("user", $_SESSION['user']['id'], "New support ticket: ".$result['ticketnum'], $_SESSION['user']['country']);
 		$successMsg = "Support ticket #".$result['ticketnum']." created successfully!";
 	}
 	else {
 		$errMsg = "Error created support ticket!";
 	}
 }
-}
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -118,25 +133,26 @@ else {
 							<!--Pages Section-->
 							<div class="col-xl-6 col-lg-8">
 
-                <div class="m-portlet m-portlet--full-height m-portlet--tabs">
-                  <div class="m-portlet__head">
-                      <div class="m-portlet__head-tools">
-                          <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-                              <li class="nav-item m-tabs__item">
-                                  <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
-                                      <i class="flaticon-share m--hide"></i>
-                                      Support
-                                  </a>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="tab-content">
-                    <div class="tab-pane active" id="m_user_profile_tab_1">
-                      <form class="m-form m-form--fit m-form--label-align-right" action="support.php" method="post" enctype="multipart/form-data">
-                        <div class="m-portlet__body">
+								<div class="m-portlet tickets-portlet d-none">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+													Support
+												</h3>
+											</div>
+										</div>
+										<div class="m-portlet__head-tools">
+											<button type="button" class="m-btn btn btn-dark btn-sm" id="backToTickets">
+												<i class="fa fa-arrow-left"></i> 
+												<span>Back</span>
+											</button>
+										</div>
+									</div>
+									<div class="m-portlet__body">
+										<form class="m-form m-form--fit m-form--label-align-right" action="support.php" method="post" enctype="multipart/form-data">
                           <div class="form-group m-form__group row">
-                            <div class="col-10 ml-auto">
+                            <div class="col-md-10 ml-auto">
                               <h3 class="m-form__section">Get Help</h3>
                             </div>
                           </div>
@@ -144,7 +160,7 @@ else {
 														if ($errMsg){
 															echo <<< _END
 																						<div class='form-group m-form__group row justify-content-center align-items-center'>
-																							<div class="col-10 ml-auto">
+																							<div class="col-md-10 ml-auto">
 																								<div class='alert alert-danger'>$errMsg</div>
 																							</div>
 																						</div>
@@ -153,7 +169,7 @@ _END;
 														else if ($successMsg){
 															echo <<< _END
 																						<div class='form-group m-form__group row justify-content-center align-items-center'>
-																							<div class="col-10 ml-auto">
+																							<div class="col-md-10 ml-auto">
 																								<div class='alert alert-success'>$successMsg</div>
 																							</div>
 																						</div>
@@ -161,50 +177,53 @@ _END;
 														}
 													?>
                           <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Email</label>
-                            <div class="col-7">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
 															<?php
 																echo '<input class="form-control m-input" type="email" name="email" value="'.$_SESSION['user']['email'].'" required readonly>';
 															?>
                             </div>
                           </div>
 													<div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Subject</label>
-                            <div class="col-7">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Subject</label>
+                            <div class="col-sm-10">
 															<input class="form-control m-input" type="text" name="title" value="" required>
                             </div>
                           </div>
                           <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Your Query</label>
-                            <div class="col-7">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Your Query</label>
+                            <div class="col-sm-10">
                                 <textarea class="form-control m-input" rows="4" name="message" required></textarea>
                             </div>
+													</div>
+													<div class="form-group m-form__group row">
+														<label for="exampleInputEmail1" class="col-sm-2 col-form-label">Attachment</label>
+														<div class="custom-file col-sm-10">
+															<input type="file" name="attachment" class="custom-file-input form-control m-input" id="customFile" accept="image/jpeg, image/png, application/pdf">
+															<label class="custom-file-label selected" for="customFile"></label>
+														</div>
+													</div>
+													<div class="form-group m-form__group d-flex justify-content-end">
+														<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">Submit</button>&nbsp;&nbsp;
                           </div>
-                        </div>
-                        <div class="m-portlet__foot m-portlet__foot--fit">
-                          <div class="m-form__actions">
-                            <div class="row">
-                              <div class="col-2">
-                              </div>
-                              <div class="col-7">
-                                  <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">Submit</button>&nbsp;&nbsp;
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                       </form>
-                    </div>
-                  </div>
-                </div>
-
-								<div class="m-portlet">
+									</div>
+								</div>
+								
+								<div class="m-portlet new-ticket-portlet">
 									<div class="m-portlet__head">
 										<div class="m-portlet__head-caption">
 											<div class="m-portlet__head-title">
 												<h3 class="m-portlet__head-text">
-													Support Tickets
+													Tickets
 												</h3>
 											</div>
+										</div>
+										<div class="m-portlet__head-tools">
+											<button type="button" class="m-btn btn btn-brand btn-sm" id="newTicket" title="Create new ticket">
+												<i class="fa fa-plus"></i> 
+												<span>New</span>
+											</button>
 										</div>
 									</div>
 									<div class="m-portlet__body">
@@ -251,6 +270,7 @@ echo <<< _END
 															</div>
 														</div>
 _END;
+
 }
 }
 ?>
