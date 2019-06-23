@@ -17,7 +17,7 @@ if ($_POST){
 
 	$conversation = array();
 	$message = array("type" => "in", "userId" => $userid, "userRole" => "user", "message" => $msg, "date" => date(DATE_RFC2822));
-	array_push($conversation, serialize($message));
+	array_push($conversation, $message);
 	$conversation = serialize($conversation);
 
 	$attachment = "";
@@ -231,39 +231,44 @@ _END;
 <?php
 require_once '../functions.php';
 $uid = $_SESSION['user']['id'];
+$picture = $_SESSION['user']['picture'];
 
-if ($_SESSION['user']['role'] == 'admin'){
-$result = queryDB("SELECT id, sender, role, title, message, picture, name FROM feedbacks CROSS JOIN admins WHERE (userid = '$uid')");
-}
-else if ($_SESSION['user']['role'] == 'state'){
-$result = queryDB("SELECT id, sender, role, title, message, picture, name FROM feedbacks CROSS JOIN states WHERE (userid = '$uid')");
-}
+$result = queryDB("SELECT id, ticketnum, title, userid, conversation FROM tickets WHERE (userid = '$uid') ORDER BY createdAt DESC");
+
 if ($result->num_rows){
 for ($j = 0; $j < $result->num_rows; ++$j){
 $result->data_seek($j);
-$feed = $result->fetch_array(MYSQLI_ASSOC);
+$ticket = $result->fetch_array(MYSQLI_ASSOC);
+$conversation = unserialize($ticket['conversation']);
 
 echo <<< _END
-														<div class="m-widget3__item" data-target="$feed[id]">
+														<div class="m-widget3__item" data-target="$ticket[id]">
 															<div class="m-widget3__header">
 																<div class="m-widget3__user-img">
-																	<img class="m-widget3__img" src="../../assets/app/media/img/users/$feed[picture]" alt="">
+_END;
+if ($picture){
+				echo '<img class="m-widget3__img" src="../../assets/app/media/img/users/'.$picture.'" alt="">';
+}
+else {
+				echo '<img class="m-widget3__img" src="../../assets/app/media/img/users/neutral.png" alt="">';
+}
+		echo <<< _END
 																</div>
 																<div class="m-widget3__info">
 																	<span class="m-widget3__username">
-																		$feed[name]
+																		$ticket[name]
 																	</span><br>
 																	<span class="m-widget3__time">
 																		2 day ago
 																	</span>
 																</div>
 																<span class="m-widget3__status m--font-info">
-																	$feed[title]
+																	$ticket[title]
 																</span>
 															</div>
 															<div class="m-widget3__body">
 																<p class="m-widget3__text">
-																	$feed[message]
+																	$conversation[message]
 																</p>
 															</div>
 														</div>
