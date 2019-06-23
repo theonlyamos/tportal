@@ -191,7 +191,7 @@ require_once 'header.php';
 require_once '../functions.php';
 
 $result = queryDB("SELECT tickets.id, userid, ticketnum, title, conversation, attachment, 
-									status, tickets.createdAt fullname AS 'name', picture FROM tickets 
+									status, tickets.createdAt, fullname AS 'name', picture FROM tickets 
 									CROSS JOIN users WHERE (userid = users.id) ORDER BY tickets.createdAt DESC LIMIT 10");
 
 if ($result->num_rows){
