@@ -48,7 +48,7 @@ if ($_POST){
 							<p>".$rawMessage."</p>";
 		$subject = $title." - ticket #".$result['ticketnum'];
 		sendPHPMail($email, $_SESSION['user']['fullname'], $subject, $body, "Tportal Support");
-		setLog("user", $_SESSION['user']['id'], "New support ticket: ".$result['ticketnum'], $_SESSION['user']['country']);
+		setLog("user", $_SESSION['user']['id'], "New support ticket: #".$result['ticketnum'], $_SESSION['user']['country']);
 		$successMsg = "Support ticket #".$result['ticketnum']." created successfully!";
 	}
 	else {
@@ -233,7 +233,7 @@ require_once '../functions.php';
 $uid = $_SESSION['user']['id'];
 $picture = $_SESSION['user']['picture'];
 
-$result = queryDB("SELECT id, ticketnum, title, userid, conversation FROM tickets WHERE (userid = '$uid') ORDER BY createdAt DESC");
+$result = queryDB("SELECT id, ticketnum, title, userid, conversation, status, createdAt FROM tickets WHERE (userid = '$uid') ORDER BY createdAt DESC");
 
 if ($result->num_rows){
 for ($j = 0; $j < $result->num_rows; ++$j){
@@ -241,8 +241,9 @@ $result->data_seek($j);
 $ticket = $result->fetch_array(MYSQLI_ASSOC);
 $conversation = unserialize($ticket['conversation']);
 
+$message = $conversation[0]['message'];
 echo <<< _END
-														<div class="m-widget3__item" data-target="$ticket[id]">
+														<div class="m-widget3__item px-2 py-1" data-target="$ticket[id]">
 															<div class="m-widget3__header">
 																<div class="m-widget3__user-img">
 _END;
@@ -256,19 +257,21 @@ else {
 																</div>
 																<div class="m-widget3__info">
 																	<span class="m-widget3__username">
-																		$ticket[name]
+																		$ticket[title]
 																	</span><br>
 																	<span class="m-widget3__time">
-																		2 day ago
+																		$ticket[createdAt]
 																	</span>
 																</div>
 																<span class="m-widget3__status m--font-info">
-																	$ticket[title]
+																	<span class="m-badge m-badge-sm m-badge--info">
+																		$ticket[status]
+																	</span>
 																</span>
 															</div>
 															<div class="m-widget3__body">
 																<p class="m-widget3__text">
-																	$conversation[message]
+																	$message
 																</p>
 															</div>
 														</div>
