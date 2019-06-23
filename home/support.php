@@ -28,7 +28,7 @@ if ($_POST){
 		$userid = $_SESSION['user']['id'];
 		// $ext = pathinfo($_FILES["bulkFile"]["name"])['extension'];
 
-		move_uploaded_file($_FILES['attachment']['tmp_name'], 'assets/data/tickets/'.$fullpath);
+		move_uploaded_file($_FILES['attachment']['tmp_name'], '../assets/data/tickets/'.$fullpath);
 		$attachment = $fullpath;
 	}
 
