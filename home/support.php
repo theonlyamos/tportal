@@ -10,14 +10,13 @@ if (!$_SESSION["loggedIn"]){
 if ($_POST){
 	require_once '../functions.php';
 
-	$target = $_SESSION['user']['id'];
-	$email = $_SESSION['user']['email'];
+	$userid = $_SESSION['user']['id'];
 	$title = sanitizeString($_POST['title']);
 	$rawMessage = $_POST['message'];
 	$msg = sanitizeString($_POST['message']);
 
 	$conversation = array();
-	$message = array("type" => "in", "userId" => $target, "userRole" => "user", "message" => msg, "date" => date(DATE_RFC2822));
+	$message = array("type" => "in", "userId" => $userid, "userRole" => "user", "message" => msg, "date" => date(DATE_RFC2822));
 	array_push($conversation, $message);
 	echo $conversation;
 	$conversation = serialize($conversation);
@@ -34,11 +33,11 @@ if ($_POST){
 		$attachment = $fullpath;
 	}
 
-	$query = "INSERT INTO tickets (id, email, userid, title, conversation, attachment) VALUES
-					(UUID(), '$email', '$target', '$title', '$conversation', '$attachment')";
+	$query = "INSERT INTO tickets (id, userid, title, conversation, attachment) VALUES
+					(UUID(), ''$userid', '$title', '$conversation', '$attachment')";
 
 	if (queryDB($query)){
-		$result = queryDB("SELECT ticketnum FROM tickets WHERE email = '$email' ORDER BY createdAt DESC LIMIT 1");
+		$result = queryDB("SELECT ticketnum FROM tickets WHERE (title = '$title' AND userid = '$userid') ORDER BY createdAt DESC LIMIT 1");
 		$result = $result->fetch_array(MYSQLI_ASSOC);
 		$body = "<h4>Hi, <strong>".$_SESSION['user']['fullname']."</strong></h4>
 							<p>Your support ticket has been created successfully</p>
