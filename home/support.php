@@ -17,7 +17,7 @@ if ($_POST){
 
 	$conversation = array();
 	$message = array("type" => "in", "userId" => $userid, "userRole" => "user", "message" => $msg, "date" => date(DATE_RFC2822));
-	array_push($conversation, $message);
+	array_push($conversation, serialize($message));
 	$conversation = serialize($conversation);
 
 	$attachment = "";
