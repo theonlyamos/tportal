@@ -342,7 +342,7 @@ else {
         $ticket = $result->fetch_array(MYSQLI_ASSOC);
         $conversation = unserialize($ticket['conversation']);
         $ticket['conversation'] = $conversation;
-        array_push($ticket, array("success" => TRUE));
+        $ticket['success'] = TRUE;
         setLog("admin", $ticket['userid'], "get ticket: #".$ticket['ticketnum'], "admin");
         echo json_encode($ticket);
       }

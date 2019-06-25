@@ -353,6 +353,9 @@ _END;
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
+						<div class="alert alert-info text-center">
+							<strong class="m-messenger__title"></strong>
+						</div>
 						<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
 							<div class="m-messenger__messages m-scrollable">
 								

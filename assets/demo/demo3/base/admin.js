@@ -491,27 +491,26 @@ $(() =>{
         $(".m-messenger__messages").html("");
         var conversation = d.conversation;
         console.log(conversation);
-        for (var j; j < conversation.length; j++){
+        for (var j = 0; j < conversation.length; j++){
           if (conversation[j].type === 'in'){
-            var parent = $("#ticket-"+target)[0];
-            var username = $(parent).find(".m-widget3__username").text().trim().split("-")[0];
-            var img = $(parent).find(".m-widget3__img").prop("src");
-            var time = new Date(conversation[j].message).getMinutes();
+            var time = new Date(conversation[j].date).toDateString();
             var msg = conversation[j].message;
             $(".m-messenger__form-input").data("target", target)
 
             var message = '<div class="m-messenger__wrapper">'
             message += '<div class="m-messenger__message m-messenger__message--in">'
-            message += '<div class="m-messenger__message-pic">'
-            message += '<img src="'+img+'" alt="user picture" /></div>'
+            message += '<div class="m-messenger__message-pic">';
+            if (d.picture) message += '<img src="/assets/data/profiles/'+d.picture+'" alt="user picture" /></div>'
+            else message += '<img src="/assets/app/media/img/users/neutral.png" alt="user picture" /></div>'
             message += '<div class="m-messenger__message-body">'
             message += '<div class="m-messenger__message-arrow"></div>'
             message += '<div class="m-messenger__message-content">'
-            message += '<div class="m-messenger__message-username">'+username+'</div>'
+            message += '<div class="m-messenger__message-username">'+d.name+'</div>'
             message += '<div class="m-messenger__message-text">'+msg+'</div>'
             message += '</div></div></div></div>'
             message += '<div class="m-messenger__datetime">'+time+'</div>'
 
+            $(".m-messenger__title").text(d.title);
             $(".m-messenger__messages").append(message);
           }
           else {
