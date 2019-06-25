@@ -485,12 +485,10 @@ $(() =>{
     var user = $(e.currentTarget).data("user");
     $.get("/adminActions.php", {field: 'tickets', action: 'details', target: target, user: user})
      .done((d) => {
-       console.log(d)
       var d = JSON.parse(d);
       if (d.success){
         $(".m-messenger__messages").html("");
         var conversation = d.conversation;
-        console.log(conversation);
         for (var j = 0; j < conversation.length; j++){
           if (conversation[j].type === 'in'){
             var time = new Date(conversation[j].date).toDateString();
@@ -506,8 +504,12 @@ $(() =>{
             message += '<div class="m-messenger__message-arrow"></div>'
             message += '<div class="m-messenger__message-content">'
             message += '<div class="m-messenger__message-username">'+d.name+'</div>'
-            message += '<div class="m-messenger__message-text">'+msg+'</div>'
-            message += '</div></div></div></div>'
+            message += '<div class="m-messenger__message-text">'+msg
+            if (d.attachment){
+              message += '<hr><a href="/assets/data/tickets/'+d.attachment+'" target="_blank" style="font-size: 12px">';
+              message += '<i class="fa flaticon-attachment"></i> <span>'+d.attachment.substr(0, 43)+'</span></a>';
+            } 
+            message += '</div></div></div></div></div>'
             message += '<div class="m-messenger__datetime">'+time+'</div>'
 
             $(".m-messenger__title").text(d.title);
@@ -527,7 +529,8 @@ $(() =>{
             $(".m-messenger__form-input").val("");
           }
         }
-        
+        var d = $(".m-scrollable");
+        d.scrollTop(d[1].scrollHeight - d.height());
       }
     })
   })
@@ -596,6 +599,8 @@ $(() =>{
             else {
               mApp.unblock(".m-messenger__messages");
             }
+            var d = $(".m-scrollable");
+            d.scrollTop(d[1].scrollHeight - d.height());
          })
         
       }

@@ -362,12 +362,17 @@ _END;
 							</div>
 							<div class="m-messenger__seperator"></div>
 							<div class="m-messenger__form">
+								<div class="m-messenger__form-tools">
+									<a href="" class="m-messenger__form-attachment">
+										<i class="la la-paperclip"></i>
+									</a>
+								</div>
 								<div class="m-messenger__form-controls">
 									<input type="text" name="" data-target="" placeholder="Type here..." class="m-messenger__form-input">
 								</div>
 								<div class="m-messenger__form-tools">
 									<a href="" class="m-messenger__form-attachment">
-										<i class="la la-paperclip"></i>
+										<i class="fa fa-paper-plane"></i>
 									</a>
 								</div>
 							</div>

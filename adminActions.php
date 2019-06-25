@@ -139,7 +139,7 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post' && $_SESSION['user']['role'
 
     if ($action == 'message'){
       $msg = sanitizeString($_POST['message']);
-      $message = array("type" => "out", "userId" => $_SESSION['user']['id'], "userRole" => "admin", "message" => msg, "date" => date(DATE_RFC2822));
+      $message = array("type" => "out", "userId" => $_SESSION['user']['id'], "userRole" => "admin", "message" => $msg, "date" => date(DATE_RFC2822));
       $result = queryDB("SELECT conversation, userid, ticketnum FROM tickets WHERE ticketnum = '$target'");
       if ($result->num_rows){
         $ticket = $result->fetch_array(MYSQLI_ASSOC);
