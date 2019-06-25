@@ -485,6 +485,7 @@ $(() =>{
     var user = $(e.currentTarget).data("user");
     $.get("/adminActions.php", {field: 'tickets', action: 'details', target: target, user: user})
      .done((d) => {
+       console.log(d)
       var d = JSON.parse(d);
       if (d.success){
         $(".m-messenger__messages").html("");
