@@ -506,8 +506,8 @@ $(() =>{
             message += '<div class="m-messenger__message-username">'+d.name+'</div>'
             message += '<div class="m-messenger__message-text">'+msg
             if (d.attachment){
-              message += '<hr><a href="/assets/data/tickets/'+d.attachment+'" target="_blank" style="font-size: 12px">';
-              message += '<i class="fa flaticon-attachment"></i> <span>'+d.attachment.substr(0, 43)+'</span></a>';
+              message += '<hr><a href="/assets/data/tickets/'+conversation.attachment+'" target="_blank" style="font-size: 12px">';
+              message += '<i class="fa flaticon-attachment"></i> <span>'+conversation["attachment"].substr(0, 43)+'</span></a>';
             } 
             message += '</div></div></div></div></div>'
             message += '<div class="m-messenger__datetime">'+time+'</div>'
