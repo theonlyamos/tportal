@@ -267,6 +267,11 @@ else {
 																		<span class="m-badge m-badge-sm m-badge--info">
 																			$ticket[status]
 																		</span>
+_END;
+if ($conversation[0]['attachment']){
+														echo  	'<i class="la la-paper-clip"></i>';
+}
+		echo <<< _END
 																	</span><br>
 																	<span class="m-widget3__time">
 																		$ticket[createdAt]
