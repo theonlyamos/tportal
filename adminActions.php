@@ -336,12 +336,12 @@ else {
       $ticketnum = sanitizeString($_GET['target']);
       $userid = sanitizeString($_GET['user']);
 
-      $result = queryDB("SELECT tickets.id, userid, ticketnum, title, conversation, attachment, status, tickets.createdAt, fullname AS 'name', 
+      $result = queryDB("SELECT tickets.id, userid, ticketnum, title, conversation, status, tickets.createdAt, fullname AS 'name', 
                          picture FROM tickets CROSS JOIN users WHERE (ticketnum = '$ticketnum')");
       if ($result->num_rows){
         $ticket = $result->fetch_array(MYSQLI_ASSOC);
         $conversation = unserialize($ticket['conversation']);
-        $ticket['conversation'] = $conversation;
+        $ticket['conversation'] = unserialize(base64_decode($ticket['conversation']));
         $ticket['success'] = TRUE;
         setLog("admin", $ticket['userid'], "get ticket: #".$ticket['ticketnum'], "admin");
         echo json_encode($ticket);

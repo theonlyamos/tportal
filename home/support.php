@@ -14,13 +14,13 @@ if ($_POST){
 	$title = sanitizeString($_POST['title']);
 	$rawMessage = $_POST['message'];
 	$msg = sanitizeString($_POST['message']);
+	$email = $_SESSION['user']['email'];
 
 	$attachment = "";
 
 	if ($_FILES){
 		$filename = $_FILES['attachment']['name'];
 		$fullpath = date(DATE_ISO8601)."_".$filename;
-		$userid = $_SESSION['user']['id'];
 		// $ext = pathinfo($_FILES["bulkFile"]["name"])['extension'];
 
 		move_uploaded_file($_FILES['attachment']['tmp_name'], '../assets/data/tickets/'.$fullpath);
@@ -31,12 +31,12 @@ if ($_POST){
 	$message = array("type" => "in", "userId" => $userid, "userRole" => "user", "message" => $msg, 
 									 "date" => date(DATE_RFC2822), "attachment" => $attachment);
 	array_push($conversation, $message);
-	$conversation = serialize($conversation);
+	$conversation = base64_encode(serialize($conversation));
 
 	$country = $_SESSION['user']['country'];
 
 	$query = "INSERT INTO tickets (id, userid, title, conversation, country) VALUES
-					(UUID(), '$userid', '$title', '$conversation', country)";
+					(UUID(), '$userid', '$title', '$conversation', '$country')";
 
 	if (queryDB($query)){
 		$result = queryDB("SELECT ticketnum FROM tickets WHERE (title = '$title' AND userid = '$userid') ORDER BY createdAt DESC LIMIT 1");
@@ -193,21 +193,7 @@ _END;
                           </div>
                           <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">Your Query</label>
-                            <div class="col-sm-10">if ($_FILES){
-        $filename = $_FILES['bulkFile']['name'];
-        $fullpath = date(DATE_ISO8601)."_".$filename;
-        $userid = $_SESSION['user']['id'];
-        // $ext = pathinfo($_FILES["bulkFile"]["name"])['extension'];
-
-        if (move_uploaded_file($_FILES['bulkFile']['tmp_name'], 'assets/data/bulkuploads/'.$type."/".$fullpath)){
-          $query = "INSERT INTO bulk_uploads (id, name, type, userid) VALUES (UUID(), '$fullpath', '$type', '$userid')";
-          queryDB($query);
-          echo "Upload successful";
-        }
-        else {
-          http_response_code(400);
-          echo "Upload unsuccessful";
-        }
+                            <div class="col-sm-10">
                                 <textarea class="form-control m-input" rows="4" name="message" required></textarea>
                             </div>
 													</div>
@@ -256,9 +242,11 @@ if ($result->num_rows){
 for ($j = 0; $j < $result->num_rows; ++$j){
 $result->data_seek($j);
 $ticket = $result->fetch_array(MYSQLI_ASSOC);
-$conversation = unserialize($ticket['conversation']);
-
+$conversation = unserialize(base64_decode($ticket['conversation']));
 $message = $conversation[0]['message'];
+$message = str_replace("\\n", '<br>', $message );
+$message = str_replace("\\r", '', $message );
+$message = stripslashes($message);
 $type = $conversation[0]['type'];
 echo <<< _END
 														<div class="m-widget3__item px-2 py-1" data-target="$ticket[id]">
@@ -288,14 +276,14 @@ _END;
 if ($type == 'in') {
 		echo <<< _END
 																<span class="m-widget3__status m--font-primary">
-																		<i class="fa flaticon-reply"></i>
+																 <i class="fa fa-share"></i>
 																</span>
 _END;
 }
 else {
 		echo <<< _END
-																<span class="m-widget3__status m--font-primary">
-																	<i class="fa fa-share"></i>
+																<span class="m-widget3__status m--font-info">
+																	<i class="fa flaticon-reply"></i>
 																</span>
 _END;
 }

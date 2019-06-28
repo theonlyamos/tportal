@@ -190,7 +190,7 @@ require_once 'header.php';
 <?php
 require_once '../functions.php';
 
-$result = queryDB("SELECT tickets.id, userid, ticketnum, title, conversation, attachment, 
+$result = queryDB("SELECT tickets.id, userid, ticketnum, title, conversation,
 									status, tickets.createdAt, fullname AS 'name', picture FROM tickets 
 									CROSS JOIN users WHERE (userid = users.id) ORDER BY tickets.createdAt DESC LIMIT 10");
 
@@ -198,8 +198,11 @@ if ($result->num_rows){
 for ($j = 0; $j < $result->num_rows; ++$j){
 	$result->data_seek($j);
 	$ticket = $result->fetch_array(MYSQLI_ASSOC);
-	$conversation = unserialize($ticket['conversation']);
+	$conversation = unserialize(base64_decode($ticket['conversation']));
 	$message = end($conversation)['message'];
+	$message = str_replace("\\n", '<br>', $message );
+	$message = str_replace("\\r", '', $message );
+	$message = stripslashes($message);
 
 echo <<< _END
 									<div class="m-widget3__item" id='$ticket[ticketnum]'>
