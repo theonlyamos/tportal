@@ -29,6 +29,14 @@ function Notify(title,message,state,icon) {
 }
 
 $(() =>{
+  String.prototype.stripSlashes = function(){
+    return this.replace(/\\(.)/mg, "$1");
+  }
+
+  String.prototype.stripNewlines = function(){
+    return this.replace("\\r\\n", " ");
+  }
+
   $("#m_modal_tournament").on("show.bs.modal", ()=>{
     $("#m_form_tournament").resetForm();
   })
@@ -489,10 +497,13 @@ $(() =>{
       if (d.success){
         $(".m-messenger__messages").html("");
         var conversation = d.conversation;
+
         for (var j = 0; j < conversation.length; j++){
           if (conversation[j].type === 'in'){
             var time = new Date(conversation[j].date).toDateString();
             var msg = conversation[j].message;
+            var msg = msg.stripNewlines();
+            var msg = msg.stripSlashes();
             $(".m-messenger__form-input").data("target", target)
 
             var message = '<div class="m-messenger__wrapper">'
@@ -505,9 +516,9 @@ $(() =>{
             message += '<div class="m-messenger__message-content">'
             message += '<div class="m-messenger__message-username">'+d.name+'</div>'
             message += '<div class="m-messenger__message-text">'+msg
-            if (d.attachment){
-              message += '<hr><a href="/assets/data/tickets/'+conversation.attachment+'" target="_blank" style="font-size: 12px">';
-              message += '<i class="fa flaticon-attachment"></i> <span>'+conversation["attachment"].substr(0, 43)+'</span></a>';
+            if (conversation[j].attachment){
+              message += '<hr><a href="/assets/data/tickets/'+conversation[j].attachment+'" target="_blank" style="font-size: 12px">';
+              message += '<i class="fa flaticon-attachment"></i> <span>'+conversation[j]["attachment"].substr(0, 43)+'</span></a>';
             } 
             message += '</div></div></div></div></div>'
             message += '<div class="m-messenger__datetime">'+time+'</div>'
@@ -539,6 +550,7 @@ $(() =>{
     e.preventDefault();
     var target = $(e.currentTarget).data("target");
     var user = $(e.currentTarget).data("user");
+
     mApp.block(".m-content", {})
     $.get("/adminActions.php", {field: 'tickets', action: 'close', target: target, user: user})
      .done((d) => {
@@ -546,13 +558,14 @@ $(() =>{
        var s = JSON.parse(d)
        
        if (s.success){
-        $("#"+target)[0].remove();
-        Notify("Success", "Ticket closed successfully", "success", "fa fa-check")
+        Notify("Success", "Ticket closed successfully", "success", "fa fa-check");
+        $("."+target).find(".status").text("closed").removeClass("m--font-danger").addClass("m--font-metal");
        }
        else {
          Notify("Error", w.responseText, "danger", "la la-close")
        }
      })
+     
   })
 
   $(".delete_ticket").on('click', (e) => {
@@ -566,8 +579,9 @@ $(() =>{
        var s = JSON.parse(d)
     
        if (s.success){
-        $("#"+target)[0].remove();
-        Notify("Success", "Ticket deleted successfully", "success", "fa fa-trash")
+        Notify("Success", "Ticket deleted successfully", "success", "fa fa-trash");
+        $("."+target).remove();
+        $("#m_quick_sidebar_close").click();
        }
        else {
          Notify("Error", w.responseText, "danger", "la la-close")

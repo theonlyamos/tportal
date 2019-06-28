@@ -205,7 +205,7 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 	$message = stripslashes($message);
 
 echo <<< _END
-									<div class="m-widget3__item" id='m_quick_sidebar_toggle' data-target="$ticket[ticketnum]">
+									<div class="m-widget3__item $ticket[ticketnum]" id='m_quick_sidebar_toggle' data-target="$ticket[ticketnum]">
 										<div class="m-widget3__header">
 											<div class="m-widget3__user-img">
 _END;
@@ -224,14 +224,14 @@ echo <<< _END
 _END;
 if ($ticket['status'] == 'open'){
 		echo <<< _END
-													<span class="m--font-success">
+													<span class="status m--font-danger">
 														Open
 													</span>
 _END;
 }
 else {
 		echo <<< _END
-													<span class="m--font-metal">
+													<span class="status m--font-metal">
 														closed
 													</span>
 _END;
@@ -243,6 +243,11 @@ _END;
 												<span class="m-widget3__time">
 													$ticket[createdAt]
 												</span>
+_END;
+if ($conversation[0]['attachment']){
+														echo  	'<i class="la la-paperclip"></i>';
+}
+		echo <<< _END
 											</div>
 											<span class="m-widget3__status m--font-success">
 												<li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
