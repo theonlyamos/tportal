@@ -282,7 +282,7 @@ _END;
 }
 else {
 		echo <<< _END
-																<span class="m-widget3__status m--font-info">
+																<span class="m-widget3__status m--font-danger">
 																	<i class="fa flaticon-reply"></i>
 																</span>
 _END;
