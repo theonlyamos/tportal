@@ -143,9 +143,9 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post' && $_SESSION['user']['role'
       $result = queryDB("SELECT conversation, userid, ticketnum FROM tickets WHERE ticketnum = '$target'");
       if ($result->num_rows){
         $ticket = $result->fetch_array(MYSQLI_ASSOC);
-        $conversation = unserialize($ticket['conversation']);
+        $conversation = unserialize(base64_decode($ticket['conversation']));
         array_push($conversation, $message);
-        $conversation = serialize($conversation);
+        $conversation = base64_encode(serialize($conversation));
 
         if (queryDB("UPDATE tickets SET conversation = '$conversation', replied = TRUE WHERE ticketnum = '$target'")){
           setLog('admin', $ticket['userid'], "replied to ticket #".$ticket['ticketnum'], "ticket");
