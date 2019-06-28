@@ -200,12 +200,12 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 	$ticket = $result->fetch_array(MYSQLI_ASSOC);
 	$conversation = unserialize(base64_decode($ticket['conversation']));
 	$message = end($conversation)['message'];
-	$message = str_replace("\\n", '<br>', $message );
+	$message = str_replace("\\n", ' ', $message );
 	$message = str_replace("\\r", '', $message );
 	$message = stripslashes($message);
 
 echo <<< _END
-									<div class="m-widget3__item" id='$ticket[ticketnum]'>
+									<div class="m-widget3__item" id='m_quick_sidebar_toggle' data-target="$ticket[ticketnum]">
 										<div class="m-widget3__header">
 											<div class="m-widget3__user-img">
 _END;
