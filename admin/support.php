@@ -259,13 +259,13 @@ _END;
 																				<i class="m-nav__link-icon flaticon-chat-1 m--font-primary"></i>
 																				<span class="m-nav__link-text m--font-primary ml-3">Reply</span>
 																		</li>
-																		<li class="m-nav__item" class="close_ticket" data-target="$ticket[ticketnum]" data-user="$ticket[userid]">
+																		<li class="m-nav__item close_ticket" data-target="$ticket[ticketnum]" data-user="$ticket[userid]">
 																			<a href="#" class="m-nav__link">
 																				<i class="m-nav__link-icon flaticon-cancel"></i>
 																				<span class="m-nav__link-text">Close</span>
 																			</a>
 																		</li>
-																		<li class="m-nav__item"  class="delete_ticket" data-target="$ticket[ticketnum]" data-user="$ticket[userid]">
+																		<li class="m-nav__item delete_ticket" data-target="$ticket[ticketnum]" data-user="$ticket[userid]">
 																			<a href="#" class="m-nav__link">
 																				<i class="m-nav__link-icon fa fa-trash-alt text-danger"></i>
 																				<span class="m-nav__link-text text-danger">Delete</span>
