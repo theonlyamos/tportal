@@ -535,9 +535,9 @@ $(() =>{
     })
   })
 
-  $("#close_ticket").on('click', (e) => {
+  $(".close_ticket").on('click', (e) => {
     e.preventDefault();
-    var target = $(e.target).data("target");
+    var target = $(e.currentTarget).data("target");
     var user = $(e.currentTarget).data("user");
     mApp.block(".m-content", {})
     $.get("/adminActions.php", {field: 'tickets', action: 'close', target: target, user: user})
@@ -555,11 +555,10 @@ $(() =>{
      })
   })
 
-  $("#delete_ticket").on('click', (e) => {
+  $(".delete_ticket").on('click', (e) => {
     e.preventDefault();
-    var target = $(e.target).data("target");
+    var target = $(e.currentTarget).data("target");
     var user = $(e.currentTarget).data("user");
-    console.log(target, user);
     mApp.block(".m-content", {})
     $.get("/adminActions.php", {field: 'tickets', action: 'delete', target: target, user: user})
      .done((d) => {
