@@ -1,8 +1,11 @@
 <?php
 session_start();
 
-if (!$_SESSION['loggedIn'] && $_SESSION['user']['role'] != "admin") {
+if (!$_SESSION['loggedIn']) {
 	header("Location: /admin/login.php");
+}
+else if ($_SESSION['user']['role'] != "admin"){
+	header("Location: /home");
 }
 
 ?>
