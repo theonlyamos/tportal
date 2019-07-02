@@ -1,9 +1,13 @@
 <?php
 session_start();
 
-if (!$_SESSION['loggedIn'] && $_SESSION['user']['profession'] != "state") {
+if (!$_SESSION['loggedIn']) {
 	header("Location: /login.html");
 }
+else if ($_SESSION['user']['role'] != "state"){
+	header("Location: /home");
+}
+
 ?>
 <!DOCTYPE html>
 
