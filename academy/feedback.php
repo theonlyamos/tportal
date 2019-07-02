@@ -1,21 +1,31 @@
 <?php
 session_start();
-$PAGE_ICON = 'flaticon-user-settings';
-$PAGE_TITLE = 'Account Settings';
-if (!$_SESSION["loggedIn"]){
-	header("Location: /");
+
+if (!$_SESSION['loggedIn'] && $_SESSION['user']['profession'] != "state") {
+	header("Location: /login.html");
 }
 ?>
-
-
 <!DOCTYPE html>
+
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
 <html lang="en">
 
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>Account Settings | Tournament</title>
-		<meta name="description" content="User profile view and edit">
+		<title>Feedback | Tournament Portal</title>
+		<meta name="description" content="Latest updates and statistic charts">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
 		<!--begin::Web font -->
@@ -36,16 +46,18 @@ if (!$_SESSION["loggedIn"]){
 
 		<!--RTL version:<link href="../assets/vendors/base/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 		<link href="../assets/demo/demo3/base/style.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="../assets/demo/demo3/base/style.css" rel="stylesheet" type="text/css" />
-
 
 		<!--RTL version:<link href="../assets/demo/demo3/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
 		<!--end::Global Theme Styles -->
-		<link rel="shortcut icon" href="/../assets/app/media/img/icons/favicon.ico" />
 
-		<script src="../assets/demo/demo3/base/jquery.min.js"></script>
-		<script src="../assets/demo/demo3/base/scripts.js"></script>
+		<!--begin::Page Vendors Styles -->
+		<link href="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+
+		<!--RTL version:<link href="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
+
+		<!--end::Page Vendors Styles -->
+		<link rel="shortcut icon" href="../assets/app/media/img/icons/favicon.ico" />
 	</head>
 
 	<!-- end::Head -->
@@ -57,9 +69,9 @@ if (!$_SESSION["loggedIn"]){
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 
 			<!-- BEGIN: Header -->
-			<?php
-          require_once 'header.php';
-      ?>
+<?php
+require_once 'header.php';
+?>
 			<!-- END: Header -->
 
 			<!-- begin::Body -->
@@ -67,130 +79,64 @@ if (!$_SESSION["loggedIn"]){
 
 				<!-- BEGIN: Left Aside -->
 				<button class="m-aside-left-close m-aside-left-close--skin-dark" id="m_aside_left_close_btn"><i class="la la-close"></i></button>
+				<div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
+
+					<!-- BEGIN: Aside Menu -->
+					<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark m-aside-menu--dropdown " data-menu-vertical="true" m-menu-dropdown="1" m-menu-scrollable="0" m-menu-dropdown-timeout="500">
+						<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="index.php" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-line-graph"></i><span class="m-menu__link-text">Dashboard</span></a></li>
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="tournaments.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-trophy"></i><span
+									 class="m-menu__link-text">Tournaments</span></a>
+							</li>
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="users.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-users"></i><span
+									 class="m-menu__link-text">Users</span></a>
+							</li>
+							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="feedback.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
+									 class="m-menu__link-text">Feedbacks</span></a>
+							</li>
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="support.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-info"></i><span
+									 class="m-menu__link-text">Support</span></a>
+							</li>
+							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="settings.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-settings"></i><span
+								class="m-menu__link-text">Settings</span></a>
+					 		</li>	
+						</ul>
+					</div>
+
+					<!-- END: Aside Menu -->
+				</div>
 
 				<!-- END: Left Aside -->
 				<div class="m-grid__item m-grid__item--fluid m-wrapper">
-					<div class="m-content">
-						<div class="row">
-							<div class="col-xl-3 col-lg-4 d-none d-lg-block">
-								<?php
-									require_once 'leftbar.php';
-								?>
-							</div>
-							
-							<!--Pages Section-->
-							<div class="col-xl-6 col-lg-8">
-                <div class="m-portlet m-portlet--tabs  ">
-                  <div class="m-portlet__head">
-                    <div class="m-portlet__head-tools">
-                      <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-                        <li class="nav-item m-tabs__item">
-                          <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
-                            <i class="flaticon-share m--hide"></i>
-                            Account Settings
-                          </a>
-                        </li>
-												<li class="nav-item m-tabs__item">
-                          <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
-                            <i class="flaticon-share m--hide"></i>
-                            Security Settings
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="tab-content">
-                    <div class="tab-pane active" id="m_user_profile_tab_1">
-                      <form class="m-form m-form--fit m-form--label-align-right">
-                        <div class="m-portlet__body">
-                          <div class="form-group m-form__group row">
-                              <div class="col-10 ml-auto">
-                                  <h3 class="m-form__section">Account Settings</h3>
-                              </div>
-                          </div>
-                          <div class="form-group m-form__group row">
-                              <label for="example-text-input" class="col-md-3 col-form-label">Email</label>
-                              <div class="col-md-9">
-<?php
-                                echo '<input class="form-control m-input" type="text" value="'.$_SESSION['user']['email'].'" name="email" required>';
-?>
-                              </div>
-                          </div>
-                          <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-md-3 col-form-label">Recovery Email</label>
-                            <div class="col-md-9">
-                                <input class="form-control m-input" type="text" name="recovery" placeholder="example@email.com" required>
-                            </div>
-                          </div>
-                          <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-md-3 col-form-label">Phone No.</label>
-                            <div class="col-md-9">
-<?php
-													echo '<input class="form-control m-input" name="phone" type="text" value="'.$_SESSION['user']['phone'].'">';
-?>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="m-portlet__foot m-portlet__foot--fit">
-                          <div class="m-form__actions">
-                            <div class="d-flex justify-content-end">
-																<button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">Cancel</button>
-																<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">Save changes</button>&nbsp;&nbsp;
-														</div>
-                          </div>
-                        </div>
-                      </form>
-										</div>
-										<div class="tab-pane" id="m_user_profile_tab_2">
-                      <form class="m-form m-form--fit m-form--label-align-right">
-                        <div class="m-portlet__body">
-                          <div class="form-group m-form__group row">
-                              <div class="col-10 ml-auto">
-                                  <h3 class="m-form__section">Security Settings</h3>
-                              </div>
-                          </div>
-                          <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-md-3 col-form-label">Current Password</label>
-                            <div class="col-md-9">
-                                <input class="form-control m-input" type="password" name="password"  required>
-                            </div>
-													</div>
-													<div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-md-3 col-form-label">New Password</label>
-                            <div class="col-md-9">
-                                <input class="form-control m-input" type="password" name="npassword"  required>
-                            </div>
-													</div>
-													<div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-md-3 col-form-label">Repeat New Password</label>
-                            <div class="col-md-9">
-                                <input class="form-control m-input" type="password" name="rpassword"  required>
-                            </div>
-													</div>
-                        </div>
-                        <div class="m-portlet__foot m-portlet__foot--fit">
-                          <div class="m-form__actions">
-                            <div class="d-flex justify-content-end">
-																<button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">Cancel</button>
-																<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">Change Password</button>
-														</div>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-							
-							</div>
 
-							<!--Right Aside-->
-							<div class="col-xl-3 col-lg-4 d-none d-xl-block">
-								<?php
-									require_once 'rightbar.php';
-								?>
+					<!-- BEGIN: Subheader -->
+					<div class="m-subheader ">
+						<div class="d-flex align-items-center">
+							<div class="mr-auto">
+								<h3 class="m-subheader__title ">Feedback</h3>
+							</div>
+							<div>
+								<span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+									<span class="m-subheader__daterange-label">
+										<span class="m-subheader__daterange-title"></span>
+										<span class="m-subheader__daterange-date m--font-brand"></span>
+									</span>
+									<a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
+										<i class="la la-angle-down"></i>
+									</a>
+								</span>
 							</div>
 						</div>
 					</div>
+
+					<!-- END: Subheader -->
+					<div class="m-content">
+
+            <!--Begin::Section-->
+						<div class="row">
+
+            </div>
+          </div>
 				</div>
 			</div>
 
@@ -202,7 +148,7 @@ if (!$_SESSION["loggedIn"]){
 					<div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
 						<div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
 							<span class="m-footer__copyright">
-								2017 &copy; Tournament Portal by <a href="https://keenthemes.com" class="m-link">@amosamissah</a>
+								2019 &copy; Tournament Portal by <a href="mailto:amosamissah@outlook.com" class="m-link">@amosamissah</a>
 							</span>
 						</div>
 						<div class="m-stack__item m-stack__item--right m-stack__item--middle m-stack__item--first">
@@ -220,6 +166,11 @@ if (!$_SESSION["loggedIn"]){
 								<li class="m-nav__item">
 									<a href="#" class="m-nav__link">
 										<span class="m-nav__link-text">T&C</span>
+									</a>
+								</li>
+								<li class="m-nav__item">
+									<a href="#" class="m-nav__link">
+										<span class="m-nav__link-text">Purchase</span>
 									</a>
 								</li>
 								<li class="m-nav__item m-nav__item">
@@ -701,7 +652,12 @@ if (!$_SESSION["loggedIn"]){
 
 		<!-- end::Scroll Top -->
 
- 
+		<!-- begin::Quick Nav -->
+		<ul class="m-nav-sticky" style="margin-top: 30px;">
+			<li class="m-nav-sticky__item" data-toggle="m-tooltip" title="Create Tournament" data-placement="left">
+				<a href=""><i class='flaticon-add-circular-button text-primary'></i></a>
+			</li>
+		</ul>
 
 		<!-- begin::Quick Nav -->
 
@@ -710,7 +666,16 @@ if (!$_SESSION["loggedIn"]){
 		<script src="../assets/demo/demo3/base/scripts.bundle.js" type="text/javascript"></script>
 
 		<!--end::Global Theme Bundle -->
-		<script src="../assets/demo/default/custom/crud/forms/widgets/bootstrap-markdown.js" type="text/javascript"></script>
+
+		<!--begin::Page Vendors -->
+		<script src="../assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
+
+		<!--end::Page Vendors -->
+
+		<!--begin::Page Scripts -->
+		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
+
+		<!--end::Page Scripts -->
 	</body>
 
 	<!-- end::Body -->
