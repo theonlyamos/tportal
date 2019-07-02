@@ -250,6 +250,7 @@ $message = stripslashes($message);
 $type = $conversation[0]['type'];
 echo <<< _END
 														<div class="m-widget3__item px-2 py-1" data-target="$ticket[id]">
+														<a href="?id=$target">
 															<div class="m-widget3__header">
 																<div class="m-widget3__user-img">
 _END;
@@ -300,6 +301,7 @@ _END;
 																	$message
 																</p>
 															</div>
+															</a>
 														</div>
 _END;
 
