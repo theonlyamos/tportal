@@ -34,7 +34,7 @@ var DatatablesExtensionButtons = {
               class: " m-badge--danger"
             },
             7: {
-              title: "Warning",
+              title: "Pending",
               class: " m-badge--warning"
             }
           };
@@ -45,19 +45,35 @@ var DatatablesExtensionButtons = {
         render: function (t, e, a, n) {
           var s = {
             1: {
-              title: "Online",
-              state: "danger"
+              title: "Not Started",
+              class: "m-badge--dark"
             },
             2: {
-              title: "Retail",
-              state: "primary"
+              title: "Pending",
+              class: " m-badge--metal"
             },
             3: {
-              title: "Direct",
-              state: "accent"
+              title: "Canceled",
+              class: " m-badge--primary"
+            },
+            4: {
+              title: "Completed",
+              class: " m-badge--success"
+            },
+            5: {
+              title: "Approved",
+              class: " m-badge--info"
+            },
+            6: {
+              title: "Rejected",
+              class: " m-badge--danger"
+            },
+            7: {
+              title: "In Progress",
+              class: " m-badge--warning"
             }
           };
-          return void 0 === s[t] ? t : '<span class="m-badge m-badge--' + s[t].state + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + s[t].state + '">' + s[t].title + "</span>"
+          return void 0 === s[t] ? t : '<span class="m-badge ' + s[t].class + ' m-badge--wide">' + s[t].title + "</span>"
         }
       }]
     }), t = $("#m_table_2").DataTable({

@@ -1,7 +1,7 @@
 <?php
 /**
  * Description
- * @authors Amos Amissah (amosamissah@outlook.com)
+ * @author Amos Amissah (amosamissah@outlook.com)
  * @date    2019-03-24 22:19:13
  * @version 1.0.0
  */
@@ -156,7 +156,8 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
   }
 }
 else {
-  $action = $_GET['name'];
+  $action = sanitizeString($_GET['name']);
+
   if ($action == 'logout') {
     $user = $_SESSION['user'];
     destroySession();
@@ -322,6 +323,42 @@ else {
         }
         echo json_encode(array("success" => TRUE, "tournament" => $tournament));
       }
+    }
+  }
+  else if ($action == "register"){
+    $field = sanitizeString($_GET['field']);
+    $target = sanitizeString($_GET['target']);
+
+    $uid = $_SESSION['user']['id'];
+
+    if ($field == "tournaments"){
+      $result = queryDB("SELECT registrants, title FROM posts WHERE id='$target'");
+      if ($result->num_rows){
+        
+        $tournament = $result->fetch_array(MYSQLI_ASSOC);
+        
+        if ($tournament['registrants']){
+          $registrants = unserialize($tournament['registrants']);
+        }
+        else {
+          $registrants = array();
+        }
+        array_push($registrants, $uid);
+        $registrants = serialize($registrants);
+        if (queryDB("UPDATE posts SET registrants='$registrants' WHERE id='$target'")){
+          setLog("user", $uid, $_SESSION['user']['fullname']." registered for tournament: ".$tournament['title'], $_SESSION['user']['country']);
+          http_response_code(203);
+          echo json_encode(array("success" => TRUE));
+        }
+        else {
+          http_response_code(400);
+          echo json_encode(array("success" => FALSE));
+        }
+      }
+    }
+    else {
+      http_response_code(400);
+      echo json_encode(array("success" => FALSE));
     }
   }
 }

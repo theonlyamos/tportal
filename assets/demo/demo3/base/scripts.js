@@ -1,3 +1,33 @@
+function Notify(title,message,state,icon) {
+  var e = {
+    message: message
+  };
+  title && (e.title = title), "" != icon && (e.icon = "icon " + icon);
+  var t = $.notify(e, {
+    type: state,
+    allow_dismiss: true,
+    newest_on_top: true,
+    mouse_over: true,
+    showProgressbar: false,
+    spacing: 10,
+    timer: 2000,
+    placement: {
+      from: "top",
+      align: "right"
+    },
+    offset: {
+      x: 30,
+      y: 30
+    },
+    delay: 1000,
+    z_index: 10000,
+    animate: {
+      enter: "animated " + "bounce",
+      exit: "animated " + "bounce"
+    }
+  });
+}
+
 $(() => {
 
 
@@ -29,4 +59,24 @@ $(() => {
     $(".tickets-portlet").addClass("d-none");
     $(".new-ticket-portlet").show();
   });
+
+  $("#registerTournament").on("click", (e) => {
+    var target = $(e.target).data("target")
+    mApp.block(".m-tournament", {})
+    $.get("/actions.php", {name: "register", target: target, field: "tournaments"})
+     .done((d) => {
+       var s = JSON.parse(d);
+       if (s.success){
+         $(e.target).attr("disabled", !0);
+         $(e.target).html("<i class='fa fa-check'> Registered");
+         var registrants = parseInt($(".m-widget19__number").text());
+         $(".m-widget19__number").text(registrants += 1);
+         Notify("Success", "Successfully registered for tournament!", "success", "fa fa-check")
+       }
+       else {
+          Notify("Error", "Registration for tournament failed!", "danger", "la la-close")
+       }
+       mApp.unblock(".m-tournament");
+     })
+  })
 })

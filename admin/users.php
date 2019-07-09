@@ -53,7 +53,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<link href="../assets/demo/demo3/base/style.bundle.css" rel="stylesheet" type="text/css" />
 
 		<!--RTL version:<link href="../assets/demo/demo3/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
-
+		<link href="../assets/vendors/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 
 		<!--end::Page Vendors Styles -->
 		<link rel="shortcut icon" href="../assets/app/media/img/icons/favicon.ico" />
@@ -77,10 +77,10 @@ License: You must have a valid license purchased only from themeforest(the above
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<div class="modal-body">
+						<div class="modal-body px-2">
 							<div class="m-scrollable m-scroller ps ps--active-y" data-scrollbar-shown="true" data-scrollable="true" data-height="200" style="min-height: 70vh; overflow: hidden;">
 								<div class="m-portlet">
-									<div class="m-portlet__body">
+									<div class="m-portlet__body px-3">
 										<div class="form-group m-form__group row">
 											<div class="col-lg-12 m-form__group-sub">
 													<label class="form-control-label">Fullname</label>
@@ -649,15 +649,6 @@ require_once 'header.php';
 								</ul>
 							</div>
 							<div>
-								<select class="form-control m_selectpicker" tabindex="-98">
-									<option selected>All</option>
-									<option value="players">Players</option>
-									<option value="arbiters">Arbiters</option>
-									<option value="coaches">Coaches</option>
-									<option value="states">Organizations</option>
-								</select>
-							</div>
-							<div>
 								<span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
 									<span class="m-subheader__daterange-label">
 										<span class="m-subheader__daterange-title"></span>
@@ -703,8 +694,9 @@ require_once 'header.php';
 <?php
 
 require_once '../functions.php';
+require_once '../countries.php';
 
-$country = $_SESSION['user']['country'];
+$countries = $countries;
 
 $result = queryDB("SELECT id, fullname, profession, country, email, phone, medcert, verified, approved, rejected FROM users ORDER BY createdAt DESC");
 
@@ -712,17 +704,18 @@ for ($j = 0; $j < $result->num_rows; ++$j){
 $result->data_seek($j);
 $user = $result->fetch_array(MYSQLI_ASSOC);
 $userid = $user['id'];
+$country = $countries[$user['country']];
 echo <<< _END
 									<tr class="$user[id]"><td class="fullname">$user[fullname]</td><td class="profession">$user[profession]</td>
-									<td class="country">$user[country]</td><td class="email">$user[email]</td><td class="phone">$user[phone]</td>
+									<td class="country">$country</td><td class="email">$user[email]</td><td class="phone">$user[phone]</td>
 _END;
 if ($user['medcert']) echo '<td class="medcert"><a href="../assets/data/medical/'.$user['medcert'].'" class="nav-link" target="_blank"><i class="fa fa-link fa-fw"></li>View</a></td>';
 else echo '<td class="medcert"></td>';
-if ($user['verified']) echo '<td class="verified"><div class="m-badge m-badge--wide m-badge--primary">verified</div></td>';
-else echo '<td class="verified"><div class="m-badge m-badge--wide verified">pending</div></td>';
-if ($user['approved']) echo '<td class="approved"><div class="m-badge m-badge--wide m-badge--success approved-'.$userid.'">approved</div></td>';
-else if ($user['rejected']) echo '<td class="approved"><div class="m-badge m-badge--wide m-badge--danger approved-'.$userid.'">rejected</div></td>';
-else echo '<td class="approved><div class="m-badge m-badge--wide approved-'.$userid.'">pending</div></td>';
+if ($user['verified']) echo '<td class="verified">4</td>';
+else echo '<td class="verified">7</td>';
+if ($user['approved']) echo '<td class="approved approved-'.$userid.'">5</td>';
+else if ($user['rejected']) echo '<td class="approved approved-'.$userid.'">6</td>';
+else echo '<td class="approved approved-'.$userid.'">2</td>';
 echo <<< _END
 							<td class="d-flex align-items-center justify-content-center">
 								<a href="#" class="btn btn-lg btn-secondary m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill user_details" data-toggle="modal" data-target="#m_modal_user" data-id="$user[id]">
@@ -807,12 +800,13 @@ _END;
 		<!--end::Global Theme Bundle -->
 
 		<!--begin::Page Vendors -->
-
+		<script src="../assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
 		<!--end::Page Vendors -->
 
 		<!--begin::Page Scripts -->
 		<script src="../assets/app/js/dashboard.js" type="text/javascript"></script>
 		<script src="../assets/demo/demo3/base/admin.js" type="text/javascript"></script>
+		<script src="../assets/demo/demo3/base/datatables.js" type="text/javascript"></script>
 		<!--end::Page Scripts -->
 	</body>
 

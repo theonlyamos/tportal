@@ -29,6 +29,20 @@ function Notify(title,message,state,icon) {
 }
 
 $(() =>{
+
+  var sse = new EventSource("/notifications.php");
+  sse.onmessage = function(e) {
+    console.log(e.data)
+  }
+
+  sse.addEventListener("log", (e) => {
+    var log = JSON.parse(e.data);
+    console.log(log)
+    //sse.close()
+  }, false)
+
+  
+
   String.prototype.stripSlashes = function(){
     return this.replace(/\\(.)/mg, "$1");
   }
@@ -703,14 +717,14 @@ $(() =>{
     $.get('/actions.php', {name: action, target: target, field: "tournaments"})
      .done((d) => {
        if (action == 'approve'){
-        $(".approved-"+t.data("target")).removeClass("m-badge--danger").addClass("m-badge--primary").text("approved");
+        $(".approved-"+t.data("target")).html('<span class="m-badge  m-badge--info m-badge--wide">Approved</span>');
         $("#m_tournament_dismiss").click();
         Notify("Success", "Tournament approved successfully!", "success", "fa fa-check")
        }
        else if (action == 'reject'){
-        $(".approved-"+t.data("target")).removeClass("m-badge--primary").addClass("m-badge--danger").text("rejected");
+        $(".approved-"+t.data("target")).html('<span class="m-badge  m-badge--danger m-badge--wide">Rejected</span>');
         $("#m_tournament_dismiss").click();
-        Notify("Success", "Tournament rejected!", "success", "fa fa-times-circle");
+        Notify("Success", "Tournament rejected!", "warning", "fa fa-times-circle");
        }
        else if (action == 'delete'){
         $("tr."+t.data("target")).remove();
@@ -800,14 +814,14 @@ $(() =>{
     $.get('/adminActions.php', {action: action, target: target, field: "users"})
      .done((d) => {
        if (action == 'approve'){
-        $(".approved-"+t.data("target")).removeClass("m-badge--danger").addClass("m-badge--success").text("approved");
+        $(".approved-"+t.data("target")).html('<span class="m-badge  m-badge--info m-badge--wide">Approved</span>');
         $("#m_tournament_dismiss").click();
         Notify("Success", "User approved successfully!", "success", "fa fa-check")
        }
        else if (action == 'reject'){
-        $(".approved-"+t.data("target")).removeClass("m-badge--primary").addClass("m-badge--danger").text("rejected");
+        $(".approved-"+t.data("target")).html('<span class="m-badge  m-badge--danger m-badge--wide">Rejected</span>');
         $("#m_tournament_dismiss").click();
-        Notify("Success", "User rejected!", "success", "fa fa-times-circle");
+        Notify("Success", "User rejected!", "warning", "fa fa-times-circle");
        }
        else if (action == 'delete'){
         $("tr."+t.data("target")).remove();
@@ -889,12 +903,12 @@ $(() =>{
     $.get('/adminActions.php', {action: action, target: target, field: "organizations"})
      .done((d) => {
        if (action == 'approve'){
-        $(".approved-"+t.data("target")).removeClass("m-badge--danger").addClass("m-badge--success").text("approved");
+        $(".approved-"+t.data("target")).html('<span class="m-badge  m-badge--info m-badge--wide">Approved</span>');
         $("#m_tournament_dismiss").click();
         Notify("Success", "Organization approved!", "success", "fa fa-check")
        }
        else if (action == 'reject'){
-        $(".approved-"+t.data("target")).removeClass("m-badge--primary").addClass("m-badge--danger").text("rejected");
+        $(".approved-"+t.data("target")).html('<span class="m-badge  m-badge--danger m-badge--wide">Rejected</span>');
         $("#m_tournament_dismiss").click();
         Notify("Success", "Organization rejected!", "warning", "fa fa-times-circle");
        }

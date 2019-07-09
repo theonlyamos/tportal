@@ -84,10 +84,10 @@ require_once 'header.php';
 									 class="m-menu__link-text">Organizations</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="uploaders.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon fa fa-cloud-upload-alt"></i><span
-									 class="m-menu__link-text">Bulk Uploaders</a>
+									 class="m-menu__link-text">Bulk Uploaders</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="reports.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-pie-chart"></i><span
-									 class="m-menu__link-text">Reports</a>
+									 class="m-menu__link-text">Reports</span></a>
 							</li>
 							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="feedback.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
 									 class="m-menu__link-text">Feedbacks</span></a>

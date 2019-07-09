@@ -2,6 +2,7 @@
 session_start();
 $PAGE_ICON = 'flaticon-questions-circular-button';
 $PAGE_TITLE = 'Support';
+$DOCUMENT_TITLE = 'Support | Tournament Portal';
 
 if (!$_SESSION["loggedIn"]){
 	header("Location: /login.html");
@@ -11,51 +12,67 @@ if ($_POST){
 	require_once '../functions.php';
 
 	$userid = $_SESSION['user']['id'];
-	$title = sanitizeString($_POST['title']);
 	$rawMessage = $_POST['message'];
 	$msg = sanitizeString($_POST['message']);
 	$email = $_SESSION['user']['email'];
+	$country = $_SESSION['user']['country'];
 
 	$attachment = "";
 
-	if ($_FILES){
-		$filename = $_FILES['attachment']['name'];
-		$fullpath = date(DATE_ISO8601)."_".$filename;
-		// $ext = pathinfo($_FILES["bulkFile"]["name"])['extension'];
+	if ($_POST['reply']){
+		$ticketnum = sanitizeString($_POST['ticketnum']);
+		$result = queryDB("SELECT conversation FROM tickets WHERE ticketnum = '$ticketnum'");
+		$ticket = $result->fetch_array(MYSQLI_ASSOC);
+		$conversation = unserialize(base64_decode($ticket['conversation']));
+		$message = array("type" => "in", "userId" => $userid, "userRole" => "user", "message" => $msg, 
+										"date" => date(DATE_RFC2822), "attachment" => $attachment);
+		array_push($conversation, $message);
+		$conversation = base64_encode(serialize($conversation));
 
-		move_uploaded_file($_FILES['attachment']['tmp_name'], '../assets/data/tickets/'.$fullpath);
-		$attachment = $fullpath;
-	}
+		if (queryDB("UPDATE tickets SET conversation = '$conversation' WHERE ticketnum='$ticketnum'")){
 
-	$conversation = array();
-	$message = array("type" => "in", "userId" => $userid, "userRole" => "user", "message" => $msg, 
-									 "date" => date(DATE_RFC2822), "attachment" => $attachment);
-	array_push($conversation, $message);
-	$conversation = base64_encode(serialize($conversation));
-
-	$country = $_SESSION['user']['country'];
-
-	$query = "INSERT INTO tickets (id, userid, title, conversation, country) VALUES
-					(UUID(), '$userid', '$title', '$conversation', '$country')";
-
-	if (queryDB($query)){
-		$result = queryDB("SELECT ticketnum FROM tickets WHERE (title = '$title' AND userid = '$userid') ORDER BY createdAt DESC LIMIT 1");
-		$result = $result->fetch_array(MYSQLI_ASSOC);
-		$body = "<h4>Hi, <strong>".$_SESSION['user']['fullname']."</strong></h4>
-							<p>Your support ticket has been created successfully</p>
-							<p>We will reply as soon as possible</p>
-							<p>Ticket Details</p><br>
-							<h5><strong>Ticket #</strong>".$result['ticketnum']."</h5>
-							<h5><strong>Ticket subject: </strong>".$title."</h5>
-							<h5><strong>Message </strong>".$result['ticketnum']."</h5>
-							<p>".$rawMessage."</p>";
-		$subject = $title." - ticket #".$result['ticketnum'];
-		sendPHPMail($email, $_SESSION['user']['fullname'], $subject, $body, "Tportal Support");
-		setLog("user", $_SESSION['user']['id'], "New support ticket: #".$result['ticketnum'], $_SESSION['user']['country']);
-		$successMsg = "Support ticket #".$result['ticketnum']." created successfully!";
+		}
 	}
 	else {
-		$errMsg = "Error created support ticket!";
+		$title = sanitizeString($_POST['title']);
+
+		if ($_FILES){
+			$filename = $_FILES['attachment']['name'];
+			$fullpath = date(DATE_ISO8601)."_".$filename;
+			// $ext = pathinfo($_FILES["bulkFile"]["name"])['extension'];
+	
+			move_uploaded_file($_FILES['attachment']['tmp_name'], '../assets/data/tickets/'.$fullpath);
+			$attachment = $fullpath;
+		}
+
+		$conversation = array();
+		$message = array("type" => "in", "userId" => $userid, "userRole" => "user", "message" => $msg, 
+										"date" => date(DATE_RFC2822), "attachment" => $attachment);
+		array_push($conversation, $message);
+		$conversation = base64_encode(serialize($conversation));
+
+		$query = "INSERT INTO tickets (id, userid, title, conversation, country) VALUES
+						(UUID(), '$userid', '$title', '$conversation', '$country')";
+
+		if (queryDB($query)){
+			$result = queryDB("SELECT ticketnum FROM tickets WHERE (title = '$title' AND userid = '$userid') ORDER BY createdAt DESC LIMIT 1");
+			$result = $result->fetch_array(MYSQLI_ASSOC);
+			$body = "<h4>Hi, <strong>".$_SESSION['user']['fullname']."</strong></h4>
+								<p>Your support ticket has been created successfully</p>
+								<p>We will reply as soon as possible</p>
+								<p>Ticket Details</p><br>
+								<h5><strong>Ticket #</strong>".$result['ticketnum']."</h5>
+								<h5><strong>Ticket subject: </strong>".$title."</h5>
+								<h5><strong>Message </strong>".$result['ticketnum']."</h5>
+								<p>".$rawMessage."</p>";
+			$subject = $title." - ticket #".$result['ticketnum'];
+			sendPHPMail($email, $_SESSION['user']['fullname'], $subject, $body, "Tportal Support");
+			setLog("user", $_SESSION['user']['id'], "New support ticket: #".$result['ticketnum'], $_SESSION['user']['country']);
+			$successMsg = "Support ticket #".$result['ticketnum']." created successfully!";
+		}
+		else {
+			$errMsg = "Error created support ticket!";
+		}
 	}
 }
 
@@ -67,7 +84,7 @@ if ($_POST){
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>Support | Tournament Portal</title>
+		<title><?PHP echo $DOCUMENT_TITLE; ?></title>
 		<meta name="description" content="User profile view and edit">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -133,7 +150,141 @@ if ($_POST){
 							
 							<!--Pages Section-->
 							<div class="col-xl-6 col-lg-8">
+<?php
 
+if ($_GET['id']){
+	require_once '../functions.php';
+
+	$tid = sanitizeString($_GET['id']);
+
+	$result = queryDB("SELECT * FROM tickets WHERE id='$tid'");
+
+	if ($result->num_rows){
+		$ticket = $result->fetch_array(MYSQLI_ASSOC);
+	
+		echo <<< _END
+								<div class="m-portlet ticket-portlet">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h2 class="m-portlet__head-text" style="font-size: 1.5em; font-weight: bold;">
+													ticket #$ticket[ticketnum]
+												</h2>
+											</div>
+										</div>
+										<div class="m-portlet__head-tools">
+											<a href="/home/support.php" type="button" class="m-btn btn btn-dark btn-sm"	>
+												<i class="fa fa-arrow-left"></i> 
+												<span>Back</span>
+											</a>
+										</div>
+									</div>
+									<div class="m-portlet__body">
+										<div class="alert alert-secondary text-center bg-secondary">
+											<strong class="m-messenger__title"><h4>$ticket[title]</h4></strong>
+										</div>
+										<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
+											<div class="m-messenger__messages m-scrollable" style="max-height: 350px; overflow: auto;">
+_END;
+
+$conversation = unserialize(base64_decode($ticket['conversation']));
+$name = $_SESSION['user']['fullname'];
+for ($c = 0; $c < sizeof($conversation); ++$c){
+	$message = $conversation[$c]['message'];
+	$message = str_replace("\\n", '<br>', $message );
+	$message = str_replace("\\r", '', $message );
+	$message = stripslashes($message);
+	$type = $conversation[$c]['type'];
+	$attachment = $conversation[$c]['attachment'];
+	$time = $conversation[$c]['date'];
+
+	if ($type == 'in'){
+			echo <<< _END
+												<div class="m-messenger__wrapper">
+													<div class="m-messenger__message m-messenger__message--in">
+														<div class="m-messenger__message-pic">
+_END;
+		if ($_SESSION['user']['picture']) {
+			echo 										'<img src="/assets/data/profiles/'.$_SESSION['user']['picture'].'" alt="user picture" />';
+		}
+		else															{
+			//echo 										'<img src="/assets/app/media/img/users/neutral.png" alt="user picture" />';
+			$firstLetter = substr($_SESSION['user']['fullname'], 0, 1);
+			echo <<< _END
+															<div class="m-messenger__message-no-pic m--bg-fill-danger">
+																<span>$firstLetter</span>
+															</div>
+_END;
+		}
+			echo <<< _END
+														</div>
+													<div class="m-messenger__message-body">
+														<div class="m-messenger__message-arrow"></div>
+														<div class="m-messenger__message-content">
+															<div class="m-messenger__message-username">$name</div>
+															<div class="m-messenger__message-text">$message
+_END;
+		if ($attachment){
+			echo 											'<hr><a href="/assets/data/tickets/'.$attachment.'" target="_blank" style="font-size: 12px">';
+			echo												'<i class="fa flaticon-attachment"></i> <span>'.substr($attachment, 0, 43).'</span></a>';
+		} 
+
+			echo <<< _END
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="m-messenger__datetime">$time</div>
+_END;
+	}
+	else {
+			echo <<< _END
+											<div class="m-messenger__wrapper">
+            						<div class="m-messenger__message m-messenger__message--out">
+            							<div class="m-messenger__message-body">
+            								<div class="m-messenger__message-arrow"></div>
+            								<div class="m-messenger__message-content">
+            									<div class="m-messenger__message-text">$message</div>
+														</div>
+													</div>
+												</div>
+											</div>
+_END;
+	}
+
+}
+			echo <<< _END
+											</div>
+											<div class="m-messenger__seperator"></div>
+											<form class="m-messenger__form" method="post" enctype="multipart/form-data">
+												<input type="hidden" name="reply" value="true"/>
+												<input type="hidden" name="ticketnum" value="$ticket[ticketnum]"/>
+												<input type="file" name="attachment" value="" hidden/>
+												<div class="m-messenger__form-tools">
+													<a href="" class="m-messenger__form-attachment">
+														<i class="la la-paperclip"></i>
+													</a>
+												</div>
+												<div class="m-messenger__form-controls">
+													<input type="text" name="message" placeholder="Type here..." class="m-messenger__form-input" required>
+												</div>
+												<div class="m-messenger__form-tools">
+													<button type="submit" class="m-messenger__form-attachment">
+														<i class="fa fa-paper-plane"></i>
+													</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+_END;
+	}
+}
+else {
+	require_once '../functions.php';
+
+		echo <<<_END
 								<div class="m-portlet tickets-portlet d-none">
 									<div class="m-portlet__head">
 										<div class="m-portlet__head-caption">
@@ -156,33 +307,37 @@ if ($_POST){
                             <div class="col-md-10 ml-auto">
                               <h3 class="m-form__section">Get Help</h3>
                             </div>
-                          </div>
-													<?php
-														if ($errMsg){
-															echo <<< _END
-																						<div class='form-group m-form__group row justify-content-center align-items-center'>
-																							<div class="col-md-10 ml-auto">
-																								<div class='alert alert-danger'>$errMsg</div>
-																							</div>
-																						</div>
+													</div>
+							
 _END;
-														}
-														else if ($successMsg){
-															echo <<< _END
-																						<div class='form-group m-form__group row justify-content-center align-items-center'>
-																							<div class="col-md-10 ml-auto">
-																								<div class='alert alert-success'>$successMsg</div>
-																							</div>
-																						</div>
+
+if ($errMsg){
+		echo <<< _END
+													<div class='form-group m-form__group row justify-content-center align-items-center'>
+														<div class="col-md-10 ml-auto">
+															<div class='alert alert-danger'>$errMsg</div>
+														</div>
+													</div>
 _END;
-														}
-													?>
-                          <div class="form-group m-form__group row">
+}
+else if ($successMsg){
+		echo <<< _END
+													<div class='form-group m-form__group row justify-content-center align-items-center'>
+														<div class="col-md-10 ml-auto">
+															<div class='alert alert-success'>$successMsg</div>
+														</div>
+													</div>
+_END;
+}
+		
+											echo '<div class="form-group m-form__group row">';
+		echo <<< _END
                             <label for="example-text-input" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-															<?php
-																echo '<input class="form-control m-input" type="email" name="email" value="'.$_SESSION['user']['email'].'" required readonly>';
-															?>
+														<div class="col-sm-10">
+_END;
+															
+													echo '<input class="form-control m-input" type="email" name="email" value="'.$_SESSION['user']['email'].'" required readonly>';
+		echo <<< _END
                             </div>
                           </div>
 													<div class="form-group m-form__group row">
@@ -231,8 +386,8 @@ _END;
 										<div class="form-group m-form__group row">
 											<div class="col-12 ml-auto">
 												<div class="m-widget3">
-<?php
-require_once '../functions.php';
+_END;
+
 $uid = $_SESSION['user']['id'];
 $picture = $_SESSION['user']['picture'];
 
@@ -240,17 +395,18 @@ $result = queryDB("SELECT id, ticketnum, title, userid, conversation, status, cr
 
 if ($result->num_rows){
 for ($j = 0; $j < $result->num_rows; ++$j){
-$result->data_seek($j);
-$ticket = $result->fetch_array(MYSQLI_ASSOC);
-$conversation = unserialize(base64_decode($ticket['conversation']));
-$message = $conversation[0]['message'];
-$message = str_replace("\\n", '<br>', $message );
-$message = str_replace("\\r", '', $message );
-$message = stripslashes($message);
-$type = $conversation[0]['type'];
-echo <<< _END
+	$result->data_seek($j);
+	$ticket = $result->fetch_array(MYSQLI_ASSOC);
+	$conversation = unserialize(base64_decode($ticket['conversation']));
+	$message = $conversation[0]['message'];
+	$message = str_replace("\\n", '<br>', $message );
+	$message = str_replace("\\r", '', $message );
+	$message = stripslashes($message);
+	$type = $conversation[0]['type'];
+
+	echo <<< _END
 														<div class="m-widget3__item px-2 py-1" data-target="$ticket[id]">
-														<a href="?id=$target">
+														<a href="?id=$ticket[id]">
 															<div class="m-widget3__header">
 																<div class="m-widget3__user-img">
 _END;
@@ -265,9 +421,22 @@ else {
 																<div class="m-widget3__info">
 																	<span class="m-widget3__username">
 																		$ticket[title] - 
+_END;
+if ($ticket['status'] == 'open') {
+		echo <<< _END
 																		<span class="m-badge m-badge-sm m-badge--info">
 																			$ticket[status]
 																		</span>
+_END;
+}
+else {
+		echo <<< _END
+																		<span class="m-badge m-badge-sm m-badge--metal">
+																			$ticket[status]
+																		</span>
+_END;
+}
+		echo <<< _END
 																	</span><br>
 																	<span class="m-widget3__time">
 																		$ticket[createdAt]
@@ -307,12 +476,15 @@ _END;
 
 }
 }
-?>
+		echo <<< _END
 													</div>
 											</div>
 										</div>
 									</div>
 								</div>
+_END;
+}
+?>
 							</div>
 
 							<!--Right Aside-->
@@ -370,461 +542,12 @@ _END;
 
 		<!-- end:: Page -->
 
-		<!-- begin::Quick Sidebar -->
-		<div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light">
-			<div class="m-quick-sidebar__content m--hide">
-				<span id="m_quick_sidebar_close" class="m-quick-sidebar__close"><i class="la la-close"></i></span>
-				<ul id="m_quick_sidebar_tabs" class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
-					<li class="nav-item m-tabs__item">
-						<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_quick_sidebar_tabs_messenger" role="tab">Messages</a>
-					</li>
-					<li class="nav-item m-tabs__item">
-						<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_settings" role="tab">Settings</a>
-					</li>
-					<li class="nav-item m-tabs__item">
-						<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab">Logs</a>
-					</li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
-						<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
-							<div class="m-messenger__messages m-scrollable">
-								<div class="m-messenger__wrapper">
-									<div class="m-messenger__message m-messenger__message--in">
-										<div class="m-messenger__message-pic">
-											<img src="../assets/app/media/img//users/profile_pic.jpg" alt="" />
-										</div>
-										<div class="m-messenger__message-body">
-											<div class="m-messenger__message-arrow"></div>
-											<div class="m-messenger__message-content">
-												<div class="m-messenger__message-username">
-													Megan wrote
-												</div>
-												<div class="m-messenger__message-text">
-													Hi Bob. What time will be the meeting ?
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="m-messenger__wrapper">
-									<div class="m-messenger__message m-messenger__message--out">
-										<div class="m-messenger__message-body">
-											<div class="m-messenger__message-arrow"></div>
-											<div class="m-messenger__message-content">
-												<div class="m-messenger__message-text">
-													Hi Megan. It's at 2.30PM
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="m-messenger__wrapper">
-									<div class="m-messenger__message m-messenger__message--in">
-										<div class="m-messenger__message-pic">
-											<img src="../assets/app/media/img//users/profile_pic.jpg" alt="" />
-										</div>
-										<div class="m-messenger__message-body">
-											<div class="m-messenger__message-arrow"></div>
-											<div class="m-messenger__message-content">
-												<div class="m-messenger__message-username">
-													Megan wrote
-												</div>
-												<div class="m-messenger__message-text">
-													Will the development team be joining ?
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="m-messenger__wrapper">
-									<div class="m-messenger__message m-messenger__message--out">
-										<div class="m-messenger__message-body">
-											<div class="m-messenger__message-arrow"></div>
-											<div class="m-messenger__message-content">
-												<div class="m-messenger__message-text">
-													Yes sure. I invited them as well
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="m-messenger__datetime">2:30PM</div>
-								<div class="m-messenger__wrapper">
-									<div class="m-messenger__message m-messenger__message--in">
-										<div class="m-messenger__message-pic">
-											<img src="../assets/app/media/img//users/profile_pic.jpg" alt="" />
-										</div>
-										<div class="m-messenger__message-body">
-											<div class="m-messenger__message-arrow"></div>
-											<div class="m-messenger__message-content">
-												<div class="m-messenger__message-username">
-													Megan wrote
-												</div>
-												<div class="m-messenger__message-text">
-													Noted. For the Coca-Cola Mobile App project as well ?
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="m-messenger__wrapper">
-									<div class="m-messenger__message m-messenger__message--out">
-										<div class="m-messenger__message-body">
-											<div class="m-messenger__message-arrow"></div>
-											<div class="m-messenger__message-content">
-												<div class="m-messenger__message-text">
-													Yes, sure.
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="m-messenger__wrapper">
-									<div class="m-messenger__message m-messenger__message--out">
-										<div class="m-messenger__message-body">
-											<div class="m-messenger__message-arrow"></div>
-											<div class="m-messenger__message-content">
-												<div class="m-messenger__message-text">
-													Please also prepare the quotation for the Loop CRM project as well.
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="m-messenger__datetime">3:15PM</div>
-								<div class="m-messenger__wrapper">
-									<div class="m-messenger__message m-messenger__message--in">
-										<div class="m-messenger__message-no-pic m--bg-fill-danger">
-											<span>M</span>
-										</div>
-										<div class="m-messenger__message-body">
-											<div class="m-messenger__message-arrow"></div>
-											<div class="m-messenger__message-content">
-												<div class="m-messenger__message-username">
-													Megan wrote
-												</div>
-												<div class="m-messenger__message-text">
-													Noted. I will prepare it.
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="m-messenger__wrapper">
-									<div class="m-messenger__message m-messenger__message--out">
-										<div class="m-messenger__message-body">
-											<div class="m-messenger__message-arrow"></div>
-											<div class="m-messenger__message-content">
-												<div class="m-messenger__message-text">
-													Thanks Megan. I will see you later.
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="m-messenger__wrapper">
-									<div class="m-messenger__message m-messenger__message--in">
-										<div class="m-messenger__message-pic">
-											<img src="../assets/app/media/img//users/profile_pic.jpg" alt="" />
-										</div>
-										<div class="m-messenger__message-body">
-											<div class="m-messenger__message-arrow"></div>
-											<div class="m-messenger__message-content">
-												<div class="m-messenger__message-username">
-													Megan wrote
-												</div>
-												<div class="m-messenger__message-text">
-													Sure. See you in the meeting soon.
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__seperator"></div>
-							<div class="m-messenger__form">
-								<div class="m-messenger__form-controls">
-									<input type="text" name="" placeholder="Type here..." class="m-messenger__form-input">
-								</div>
-								<div class="m-messenger__form-tools">
-									<a href="" class="m-messenger__form-attachment">
-										<i class="la la-paperclip"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane" id="m_quick_sidebar_tabs_settings" role="tabpanel">
-						<div class="m-list-settings m-scrollable">
-							<div class="m-list-settings__group">
-								<div class="m-list-settings__heading">General Settings</div>
-								<div class="m-list-settings__item">
-									<span class="m-list-settings__item-label">Email Notifications</span>
-									<span class="m-list-settings__item-control">
-										<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-											<label>
-												<input type="checkbox" checked="checked" name="">
-												<span></span>
-											</label>
-										</span>
-									</span>
-								</div>
-								<div class="m-list-settings__item">
-									<span class="m-list-settings__item-label">Site Tracking</span>
-									<span class="m-list-settings__item-control">
-										<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-											<label>
-												<input type="checkbox" name="">
-												<span></span>
-											</label>
-										</span>
-									</span>
-								</div>
-								<div class="m-list-settings__item">
-									<span class="m-list-settings__item-label">SMS Alerts</span>
-									<span class="m-list-settings__item-control">
-										<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-											<label>
-												<input type="checkbox" name="">
-												<span></span>
-											</label>
-										</span>
-									</span>
-								</div>
-								<div class="m-list-settings__item">
-									<span class="m-list-settings__item-label">Backup Storage</span>
-									<span class="m-list-settings__item-control">
-										<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-											<label>
-												<input type="checkbox" name="">
-												<span></span>
-											</label>
-										</span>
-									</span>
-								</div>
-								<div class="m-list-settings__item">
-									<span class="m-list-settings__item-label">Audit Logs</span>
-									<span class="m-list-settings__item-control">
-										<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-											<label>
-												<input type="checkbox" checked="checked" name="">
-												<span></span>
-											</label>
-										</span>
-									</span>
-								</div>
-							</div>
-							<div class="m-list-settings__group">
-								<div class="m-list-settings__heading">System Settings</div>
-								<div class="m-list-settings__item">
-									<span class="m-list-settings__item-label">System Logs</span>
-									<span class="m-list-settings__item-control">
-										<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-											<label>
-												<input type="checkbox" name="">
-												<span></span>
-											</label>
-										</span>
-									</span>
-								</div>
-								<div class="m-list-settings__item">
-									<span class="m-list-settings__item-label">Error Reporting</span>
-									<span class="m-list-settings__item-control">
-										<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-											<label>
-												<input type="checkbox" name="">
-												<span></span>
-											</label>
-										</span>
-									</span>
-								</div>
-								<div class="m-list-settings__item">
-									<span class="m-list-settings__item-label">Applications Logs</span>
-									<span class="m-list-settings__item-control">
-										<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-											<label>
-												<input type="checkbox" name="">
-												<span></span>
-											</label>
-										</span>
-									</span>
-								</div>
-								<div class="m-list-settings__item">
-									<span class="m-list-settings__item-label">Backup Servers</span>
-									<span class="m-list-settings__item-control">
-										<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-											<label>
-												<input type="checkbox" checked="checked" name="">
-												<span></span>
-											</label>
-										</span>
-									</span>
-								</div>
-								<div class="m-list-settings__item">
-									<span class="m-list-settings__item-label">Audit Logs</span>
-									<span class="m-list-settings__item-control">
-										<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-											<label>
-												<input type="checkbox" name="">
-												<span></span>
-											</label>
-										</span>
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane" id="m_quick_sidebar_tabs_logs" role="tabpanel">
-						<div class="m-list-timeline m-scrollable">
-							<div class="m-list-timeline__group">
-								<div class="m-list-timeline__heading">
-									System Logs
-								</div>
-								<div class="m-list-timeline__items">
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-										<a href="" class="m-list-timeline__text">12 new users registered <span class="m-badge m-badge--warning m-badge--wide">important</span></a>
-										<span class="m-list-timeline__time">Just now</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-										<a href="" class="m-list-timeline__text">System shutdown</a>
-										<span class="m-list-timeline__time">11 mins</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
-										<a href="" class="m-list-timeline__text">New invoice received</a>
-										<span class="m-list-timeline__time">20 mins</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
-										<a href="" class="m-list-timeline__text">Database overloaded 89% <span class="m-badge m-badge--success m-badge--wide">resolved</span></a>
-										<span class="m-list-timeline__time">1 hr</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-										<a href="" class="m-list-timeline__text">System error</a>
-										<span class="m-list-timeline__time">2 hrs</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-										<a href="" class="m-list-timeline__text">Production server down <span class="m-badge m-badge--danger m-badge--wide">pending</span></a>
-										<span class="m-list-timeline__time">3 hrs</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-										<a href="" class="m-list-timeline__text">Production server up</a>
-										<span class="m-list-timeline__time">5 hrs</span>
-									</div>
-								</div>
-							</div>
-							<div class="m-list-timeline__group">
-								<div class="m-list-timeline__heading">
-									Applications Logs
-								</div>
-								<div class="m-list-timeline__items">
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-										<a href="" class="m-list-timeline__text">New order received <span class="m-badge m-badge--info m-badge--wide">urgent</span></a>
-										<span class="m-list-timeline__time">7 hrs</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-										<a href="" class="m-list-timeline__text">12 new users registered</a>
-										<span class="m-list-timeline__time">Just now</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-										<a href="" class="m-list-timeline__text">System shutdown</a>
-										<span class="m-list-timeline__time">11 mins</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
-										<a href="" class="m-list-timeline__text">New invoices received</a>
-										<span class="m-list-timeline__time">20 mins</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
-										<a href="" class="m-list-timeline__text">Database overloaded 89%</a>
-										<span class="m-list-timeline__time">1 hr</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-										<a href="" class="m-list-timeline__text">System error <span class="m-badge m-badge--info m-badge--wide">pending</span></a>
-										<span class="m-list-timeline__time">2 hrs</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-										<a href="" class="m-list-timeline__text">Production server down</a>
-										<span class="m-list-timeline__time">3 hrs</span>
-									</div>
-								</div>
-							</div>
-							<div class="m-list-timeline__group">
-								<div class="m-list-timeline__heading">
-									Server Logs
-								</div>
-								<div class="m-list-timeline__items">
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-										<a href="" class="m-list-timeline__text">Production server up</a>
-										<span class="m-list-timeline__time">5 hrs</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-										<a href="" class="m-list-timeline__text">New order received</a>
-										<span class="m-list-timeline__time">7 hrs</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-										<a href="" class="m-list-timeline__text">12 new users registered</a>
-										<span class="m-list-timeline__time">Just now</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-										<a href="" class="m-list-timeline__text">System shutdown</a>
-										<span class="m-list-timeline__time">11 mins</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
-										<a href="" class="m-list-timeline__text">New invoice received</a>
-										<span class="m-list-timeline__time">20 mins</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
-										<a href="" class="m-list-timeline__text">Database overloaded 89%</a>
-										<span class="m-list-timeline__time">1 hr</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-										<a href="" class="m-list-timeline__text">System error</a>
-										<span class="m-list-timeline__time">2 hrs</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-										<a href="" class="m-list-timeline__text">Production server down</a>
-										<span class="m-list-timeline__time">3 hrs</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-										<a href="" class="m-list-timeline__text">Production server up</a>
-										<span class="m-list-timeline__time">5 hrs</span>
-									</div>
-									<div class="m-list-timeline__item">
-										<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-										<a href="" class="m-list-timeline__text">New order received</a>
-										<span class="m-list-timeline__time">1117 hrs</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- end::Quick Sidebar -->
+		<!-- begin::Messages autoscroll to down -->
+		<script type="text/javascript">
+			var d = $(".m-scrollable");
+      d.scrollTop(d[1].scrollHeight - d.height());
+		</script>
+		<!-- end::Messages autoscroll to down -->
 
 		<!-- begin::Scroll Top -->
 		<div id="m_scroll_top" class="m-scroll-top">
