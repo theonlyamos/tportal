@@ -8,7 +8,7 @@ else if ($_SESSION['user']['role'] != "admin"){
 	header("Location: /home");
 }
 
-$PAGE_TITLE = "Reports"
+$PAGE_TITLE = "Reports";
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ $PAGE_TITLE = "Reports"
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title><?php $PAGE_TITLE ?> | Tournament Portal</title>
+		<title><?php echo $PAGE_TITLE; ?> | Tournament Portal</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
