@@ -11,8 +11,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   }
   else {
     $pass = createHash($pass, $email);
-    
-    if (sanitizeString($_POST['profession']) == "user"){
+    $profession = sanitizeString($_POST['profession']);
+    if ($profession == "user"){
       $result = queryDB("SELECT * FROM users WHERE email='$email'");
      
       if ($result->num_rows == 0) {
@@ -50,7 +50,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         }
       }
     }
-    else {
+    else if ($profession == "state"){
       $result = queryDB("SELECT email FROM states WHERE email='$email'");
       
       if ($result->num_rows == 0) {
@@ -60,6 +60,44 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       }
       else {
         $result = queryDB("SELECT * FROM states WHERE email='$email' AND  password='$pass'");
+        if ($result->num_rows == 0) {
+          setLog('organization', "", $email." invalid authentication", "org");
+          http_response_code(402);
+          echo "Wrong email/password. Try again!";
+        }else{
+          $user = $result->fetch_array(MYSQLI_ASSOC);
+          if (!$user['verified']){
+            setLog('organization', $user['id'], $user['email']." logged in", $user['country']);
+            http_response_code(403);
+            echo "Click on the link in the email we sent you to verify your account!";
+          }
+          else if (!$user['completed']){
+            setLog('organization', $user['id'], $user['email']." logged in", $user['country']);
+            session_start();
+            $_SESSION["loggedIn"] = "true";
+            $_SESSION["user"] = $user;
+            echo json_encode(array('profession'=>'state','completed'=>false));
+          }
+          else{
+            setLog('organization', $user['id'], $user['email']." logged in", $user['country']);
+            session_start();
+            $_SESSION["loggedIn"] = "true";
+            $_SESSION["user"] = $user;
+            echo json_encode(array('profession'=>'state','completed'=>true));
+          }
+        }
+      }
+    }
+    else if ($profession == "academy"){
+      $result = queryDB("SELECT email FROM academies WHERE email='$email'");
+      
+      if ($result->num_rows == 0) {
+        setLog('organization', "", $email." invalid authentication", "user");
+        http_response_code(402);
+        echo "User with email: $email does not exists";
+      }
+      else {
+        $result = queryDB("SELECT * FROM academies WHERE email='$email' AND  password='$pass'");
         if ($result->num_rows == 0) {
           setLog('organization', "", $email." invalid authentication", "org");
           http_response_code(402);

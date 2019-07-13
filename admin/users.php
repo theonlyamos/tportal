@@ -8,28 +8,17 @@ else if ($_SESSION['user']['role'] != "admin"){
 	header("Location: /home");
 }
 
+$PAGE_TITLE = "Users";
+
 ?>
 
 <!DOCTYPE html>
-
-<!-- 
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <html lang="en">
 
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>Users | Tournament Portal</title>
+		<title><?php $PAGE_TITLE ?> | Tournament Portal</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -553,9 +542,10 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 
-<?php
-require_once 'header.php';
-?>
+			<!-- BEGIN: Header -->
+			<?php require_once 'header.php' ?>
+			<!-- END: Header -->
+
 			<!-- begin::Body -->
 			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
 
@@ -566,54 +556,7 @@ require_once 'header.php';
 					<!-- BEGIN: Aside Menu -->
 					<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark m-aside-menu--dropdown " data-menu-vertical="true" m-menu-dropdown="1" m-menu-scrollable="0" m-menu-dropdown-timeout="500">
 						<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="/admin" class="m-menu__link "><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-line-graph"></i><span class="m-menu__link-text">Dashboard</span></a></li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="tournaments.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-trophy"></i><span
-									 class="m-menu__link-text">Tournaments</span></a>
-							</li>
-							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="users.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-users"></i><span
-									 class="m-menu__link-text">Users</span></a>
-							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="organizations.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-map"></i><span
-									 class="m-menu__link-text">Organizations</span></a>
-							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="uploaders.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon fa fa-cloud-upload-alt"></i><span
-									 class="m-menu__link-text">Bulk Uploaders</a>
-							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="reports.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-pie-chart"></i><span
-									 class="m-menu__link-text">Reports</a>
-							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="feedback.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-share"></i><span
-									 class="m-menu__link-text">Feedbacks</span></a>
-							</li>
-							<li class="m-menu__item  m-menu__item" aria-haspopup="true"><a href="support.php" class="m-menu__link"><span class="m-menu__item-here"></span><i class="m-menu__link-icon flaticon-info"></i><span
-									 class="m-menu__link-text">Support</span></a>
-							</li>
-							<li class="m-menu__item  m-menu__item--submenu m-menu__item--bottom-2" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-settings"></i><span
-									 class="m-menu__link-text">Settings</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
-								<div class="m-menu__submenu m-menu__submenu--up"><span class="m-menu__arrow"></span>
-									<ul class="m-menu__subnav">
-										<li class="m-menu__item  m-menu__item--parent m-menu__item--bottom-2" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Settings</span></span></li>
-										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover" m-menu-link-redirect="1"><a href="inner.html" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--line"><span></span></i><span
-												 class="m-menu__link-text">Profile</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
-											<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
-												<ul class="m-menu__subnav">
-													<li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="inner.html" class="m-menu__link "><i class="m-menu__link-icon flaticon-computer"></i><span class="m-menu__link-title"> <span class="m-menu__link-wrap">
-																	<span class="m-menu__link-text">Pending</span> <span class="m-menu__link-badge"><span class="m-badge m-badge--warning">10</span></span> </span></span></a></li>
-													<li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="inner.html" class="m-menu__link "><i class="m-menu__link-icon flaticon-signs-2"></i><span class="m-menu__link-title"> <span class="m-menu__link-wrap">
-																	<span class="m-menu__link-text">Urgent</span> <span class="m-menu__link-badge"><span class="m-badge m-badge--danger">6</span></span> </span></span></a></li>
-													<li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="inner.html" class="m-menu__link "><i class="m-menu__link-icon flaticon-clipboard"></i><span class="m-menu__link-title"> <span class="m-menu__link-wrap">
-																	<span class="m-menu__link-text">Done</span> <span class="m-menu__link-badge"><span class="m-badge m-badge--success">2</span></span> </span></span></a></li>
-													<li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="inner.html" class="m-menu__link "><i class="m-menu__link-icon flaticon-multimedia-2"></i><span class="m-menu__link-title"> <span class="m-menu__link-wrap">
-																	<span class="m-menu__link-text">Archive</span> <span class="m-menu__link-badge"><span class="m-badge m-badge--info m-badge--wide">245</span></span> </span></span></a></li>
-												</ul>
-											</div>
-										</li>
-										<li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="inner.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--line"><span></span></i><span class="m-menu__link-text">Accounts</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="inner.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--line"><span></span></i><span class="m-menu__link-text">Help</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1"><a href="inner.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--line"><span></span></i><span class="m-menu__link-text">Notifications</span></a></li>
-									</ul>
-								</div>
-							</li>
+							<?php require_once 'leftmenu.php' ?>
 						</ul>
 					</div>
 
@@ -740,47 +683,7 @@ _END;
 			<!-- end:: Body -->
 
 			<!-- begin::Footer -->
-			<footer class="m-grid__item		m-footer ">
-				<div class="m-container m-container--fluid m-container--full-height m-page__container">
-					<div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
-						<div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
-							<span class="m-footer__copyright">
-								2019 &copy; Tournament Portal by <a href="mailto:amosamissah@outlook.com" class="m-link">@amosamissah</a>
-							</span>
-						</div>
-						<div class="m-stack__item m-stack__item--right m-stack__item--middle m-stack__item--first">
-							<ul class="m-footer__nav m-nav m-nav--inline m--pull-right">
-								<li class="m-nav__item">
-									<a href="#" class="m-nav__link">
-										<span class="m-nav__link-text">About</span>
-									</a>
-								</li>
-								<li class="m-nav__item">
-									<a href="#" class="m-nav__link">
-										<span class="m-nav__link-text">Privacy</span>
-									</a>
-								</li>
-								<li class="m-nav__item">
-									<a href="#" class="m-nav__link">
-										<span class="m-nav__link-text">T&C</span>
-									</a>
-								</li>
-								<li class="m-nav__item">
-									<a href="#" class="m-nav__link">
-										<span class="m-nav__link-text">Purchase</span>
-									</a>
-								</li>
-								<li class="m-nav__item m-nav__item">
-									<a href="#" class="m-nav__link" data-toggle="m-tooltip" title="Support Center" data-placement="left">
-										<i class="m-nav__link-icon flaticon-info m--icon-font-size-lg3"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
-
+			<?php require_once 'footer.php' ?>
 			<!-- end::Footer -->
 		</div>
 

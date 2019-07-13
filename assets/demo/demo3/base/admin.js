@@ -32,13 +32,12 @@ $(() =>{
 
   var sse = new EventSource("/notifications.php");
   sse.onmessage = function(e) {
-    console.log(e.data)
+    // console.log(e.data)
   }
 
   sse.addEventListener("log", (e) => {
     var log = JSON.parse(e.data);
     console.log(log)
-    //sse.close()
   }, false)
 
   

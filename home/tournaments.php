@@ -222,7 +222,7 @@ for ($k = 0; $k < sizeof($startDates); ++$k){
 														</div>
 														<div class="m-widget19__action d-flex justify-content-end">
 _END;
-if (in_array($uid, $registrants)){
+if (is_array($registrants) && in_array($uid, $registrants)){
 	echo <<< _END
 															<button class="btn m-btn--pill btn-info m-btn" id="registerTournament" data-target="$tournament[id]" disabled>
 																<i class="fa fa-check"></i>

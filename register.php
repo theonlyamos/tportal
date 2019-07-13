@@ -68,6 +68,31 @@ if ($_POST){
         }
       }
     }
+    else if ($profession == 'academy'){
+      $result = queryDB("SELECT email FROM academies WHERE email = '$email'");
+      if ($result->num_rows){
+        http_response_code(401);
+        echo "Academy already exists!";
+      }
+      else {
+        if (queryDB("INSERT INTO academies (id, email, password, name, country) VALUES (UUID(), '$email', '$password', '$name', '$country')")){
+          $result = queryDB("SELECT id FROM states WHERE email = '$email'");
+          $user = $result->fetch_array(MYSQLI_ASSOC);
+
+          $subject = "Account Verification";
+          $body = "<div><h3>$name</h3><br>Click on the link below to complete your registration.<br><a href='http://tportal.epizy.com/account/verify.php?token=".$user["id"]."&pro=".$profession."s'>http://tportal.epizy.com/account/verify.php?token=".$user["id"]."&pro=".$profession."s</a></div>";
+
+          setLog('academy', $user['id'], 'new academy registration', $country);
+
+          http_response_code(201);
+          echo 'Registration Successful.';
+        }
+        else {
+          http_response_code(500);
+          echo "Registration failed! Try again later";
+        }
+      }
+    }
     else echo 'Who are you?';
   }
 }
